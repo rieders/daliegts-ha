@@ -1,0 +1,6 @@
+configuration:
+  base_url:
+    name: Address for QR codes
+    description: >-
+      Printed into label QR codes, e.g. http://homeassistant.local:8000 (open port 8000 under "Network").
+      Leave empty if you only scan with the DaLiegt’s scanner.

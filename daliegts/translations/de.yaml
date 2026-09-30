@@ -1,0 +1,6 @@
+configuration:
+  base_url:
+    name: Adresse für QR-Codes
+    description: >-
+      Wird in die QR-Codes der Etiketten gedruckt, z. B. http://homeassistant.local:8000 (dafür unter „Netzwerk“
+      den Port 8000 freigeben). Leer lassen, wenn nur der DaLiegt’s-Scanner benutzt wird.
