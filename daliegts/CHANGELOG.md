@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.26.0 – 2026-10-03
+
+- **Vorlagen für Lagermöbel mit Vorschau**: Ein Klick auf eine Vorlage (Lagerorte › rechts) zeigt das Fachraster maßstäblich mit Anzahl Fächer, Maßen und Hinweis. Die Vorschau lässt sich **auf einen Ort im Baum ziehen** – dort wird das Möbel nach einer kurzen Namensabfrage angelegt. Am Handy (kein Ziehen) gibt es „＋ In Ort anlegen …“ mit Ortsauswahl, „Anpassen …“ öffnet den Möbel-Assistenten mit der Vorlage.
+- Die Liste wurde ruhiger: kein „JSON“ mehr hinter jeder Zeile, der Export steht jetzt in der Vorschau.
+
+## v0.25.1 – 2026-10-03
+
+- Behoben: In der Liste „Vorlagen für Lagermöbel“ rutschte der JSON-Link bei langen Namen in die nächste Zeile und stand scheinbar vor dem nächsten Eintrag. Er bleibt jetzt immer rechts in der Zeile seiner Vorlage.
+
 ## v0.25.0 – 2026-10-02
 
 - **Fremde Barcodes weiterverwenden** – vorhandene Etiketten müssen nicht neu gedruckt werden. Neu: Fremdcodes auch für **einzelne Bestände** (z. B. Herstellercode einer Filamentspule, Charge): Scanner › Bestand wählen › fremdes Etikett scannen › „Code nur für diesen Bestand“, oder Artikelseite › Bestand › ⋯. Der Scan findet dann genau diese Spule mit Restmenge.
