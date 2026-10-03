@@ -1,5 +1,34 @@
 # Changelog
 
+## v0.25.0 – 2026-10-02
+
+- **Fremde Barcodes weiterverwenden** – vorhandene Etiketten müssen nicht neu gedruckt werden. Neu: Fremdcodes auch für **einzelne Bestände** (z. B. Herstellercode einer Filamentspule, Charge): Scanner › Bestand wählen › fremdes Etikett scannen › „Code nur für diesen Bestand“, oder Artikelseite › Bestand › ⋯. Der Scan findet dann genau diese Spule mit Restmenge.
+- **Mehrere Codes nacheinander am Artikel**: Das Feld „Fremden Barcode“ bleibt nach jedem Scan bereit (Handscanner: Code, Enter, nächster Code); mehrere Zeilen auf einmal sind möglich. Fremdcodes lassen sich einzeln entfernen (✕).
+- **Schutz vor Doppelzuordnung**: Gehört ein Code schon zu etwas anderem, kommt eine Meldung („gehört schon zu dem Artikel …“) statt stillem Umhängen. Eigene Codes (L-/A-/S-) können nicht als Fremdcode dienen.
+- **Neue Seite „Fremde Barcodes“** (`/codes`): alle zugeordneten Fremdcodes mit Ziel, Herkunft, Suche und Entfernen, dazu die Anleitung, wie man zuordnet (auch von der Etikettenseite verlinkt).
+- Beim Zusammenführen von Beständen wandern deren Fremdcodes mit. Migration 0016 (additiv).
+
+## v0.24.0 – 2026-10-02
+
+- **Fertige Vorlagen für verbreitete Möbel und Magazine** mit Maßen, gruppiert nach Hersteller beim Anlegen eines Moduls in der Lageransicht:
+  - IKEA KALLAX (1×3, 1×4, 2×2, 2×3, 2×4, 3×4, 4×4, 5×5), BILLY (40×202, 80×202, 80×106), IVAR (1 Element 89×179), OMAR, TROFAST, ALEX (5 Schubladen), HELMER (6 Schubladen)
+  - raaco 945-00, 936-01, 918-02, 906-03, 1260-00, 250/24-1; Allit VarioPlus Pro 53/100
+- Maße laut Hersteller/Händler. Wo das Schubladen-Raster nur aus den Maßen abgeleitet ist, steht ein Hinweis in der Vorlage – im Raster-Dialog anpassbar.
+
+## v0.23.1 – 2026-10-02
+
+- **Einrichtungshilfe je Druckerfamilie** direkt im Formular (und bei nicht erreichbaren Druckern auf der Karte): bei Bambu Lab Schritt für Schritt Firmware-Stand, LAN-Modus, Entwicklermodus, Zugangscode, IP und Seriennummer je Modellreihe (X1/H2D, P1, A1), ebenso für Prusa, Klipper, OctoPrint und Creality.
+- **Druckmodelle bleiben dauerhaft gespeichert**: Ist eine Datei nicht mehr auf dem Drucker, wandert das Modell ins Archiv („📦 Archiv · zuletzt 02.10.26“) – Verbrauch und Zähler bleiben. Filter alle / auf dem Drucker / Archiv. Gelöscht wird nur von Hand.
+- Modelle von Hand anlegen und bearbeiten (geplanter Verbrauch in g, Notiz) – z. B. für Bambu-Drucke aus Bambu Studio. Kennt der Drucker nur den Fortschritt, rechnet DaLiegt’s mit diesen Gramm.
+- Behoben: Bei Klipper/OctoPrint/Prusa/Bambu wurde durch die Meldung der laufenden Datei die übrige Bibliothek fälschlich als „nicht mehr auf dem Drucker“ markiert.
+
+## v0.23.0 – 2026-10-02
+
+- **Weitere 3D-Drucker**: Modellliste nach Familien – Creality (K1, K1C, K1 SE, K1 Max, K2, K2 Plus, Hi, Ender-3 V3 KE), **Bambu Lab** (A1 mini, A1, P1P, P1S, X1 Carbon, X1E, H2D; LAN-/Entwicklermodus, MQTT), **Prusa** (MINI+, MK4, MK4S, Core One, XL über PrusaLink), **Klipper** (Voron, Sovol, Elegoo Neptune 4, Qidi, Creality mit Root – über Moonraker) und **OctoPrint** (Ender-3, Prusa MK3S+, Anycubic, Artillery …).
+- Klipper meldet den tatsächlichen Verbrauch (wie der K1). Prusa, OctoPrint und Bambu melden den Fortschritt – abgebucht wird Fortschritt × geplanter Verbrauch der Datei, bei Abbruch anteilig. Bambu: geplanter Verbrauch wird aus der .3mf gelesen; ist er nicht zu ermitteln, erscheint ein Hinweis zum Abbuchen von Hand.
+- Formular zeigt je Familie die nötigen Felder (Seriennummer/Zugangscode, PrusaLink-Benutzer/Passwort, API-Schlüssel) und den Standard-Port. Gespeicherte Codes werden nicht angezeigt. Mehrfach-Spulensysteme heißen je Familie CFS/AMS/MMU.
+- Die neuen Anbindungen sind ohne echte Geräte entwickelt (gegen die dokumentierten Schnittstellen) – Rückmeldungen mit Mitschnitt helfen.
+
 ## v0.22.2 – 2026-09-30
 
 - Home Assistant kann DaLiegt’s jetzt direkt aus `github.com/rieders/Lagerverwaltung` installieren: `repository.yaml` im Hauptordner, App-Beschreibung in `daliegts/` mit fertigen Images von ghcr.io. Das separate Repository `daliegts-ha` und der Token entfallen.
