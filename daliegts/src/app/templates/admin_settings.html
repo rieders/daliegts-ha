@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Einstellungen{% endblock %}
+{% block content %}
+<h1>Einstellungen</h1>
+<form method="post" action="/admin/einstellungen" class="card">
+  <label class="inline"><input type="checkbox" name="guest" value="true" {{ 'checked' if guest }}> Gastzugang ohne Anmeldung (Rechte der Gruppe „Gast“)</label><br>
+  <label class="inline"><input type="checkbox" name="pin" value="true" {{ 'checked' if pin }}> Schnellanmeldung per PIN auf freigegebenen Geräten</label>
+  <label>Scan-Regeln (JSON) – erkennt Fremd-Etiketten per regulärem Ausdruck</label>
+  <textarea name="regex" rows="5" class="mono">{{ regex }}</textarea>
+  <p class="small muted">Beispiel: <code>[{"pattern": "pid=(\\d+)", "prefix": "partdb:part:"}]</code> – Gruppe 1 wird mit Präfix als Code gesucht.</p>
+  <label>„Im Web suchen“-Links (JSON, Platzhalter {query})</label>
+  <textarea name="web" rows="8" class="mono">{{ web }}</textarea>
+  {% if me.can('system', 2) %}<button class="btn primary" style="margin-top:8px">Speichern</button>{% else %}<p class="note">Zum Ändern bitte Admin-Modus einschalten.</p>{% endif %}
+</form>
+<div class="card small">
+  <h2 class="mt0">Server</h2>
+  <dl class="kv"><dt>BASE_URL (für QR-Codes)</dt><dd class="mono">{{ base_url }}</dd><dt>Datenordner</dt><dd class="mono">{{ data_dir }}</dd></dl>
+  <p class="muted">Diese Werte stehen in der Datei <code>.env</code> (LAGERWERK_BASE_URL, LAGERWERK_DATA_DIR). Tipp: einen festen Hostnamen verwenden – dann bleiben gedruckte Etiketten nach einem Umzug gültig.</p>
+</div>
+{% endblock %}

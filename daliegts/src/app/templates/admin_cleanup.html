@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Aufräumen nach dem Import{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/admin">Verwaltung</a> / <a href="/admin/import">Import</a></div>
+<h1>Aufräumen nach dem Import</h1>
+<p class="muted">Vor dem Löschen legt {{ APP_NAME }} automatisch eine Sicherung der Datenbank an (Verwaltung › Backup).</p>
+<form method="post" action="/admin/aufraeumen">
+<div class="cols">
+  <div class="card">
+    <label class="inline" style="font-size:1rem;color:var(--text)"><input type="checkbox" name="platzhalter" value="true" {{ 'checked' if ph }} {{ 'disabled' if not ph }}>
+      <b>{{ ph|length }} Platzhalter „Unbenannter Lagerartikel …“</b> löschen</label>
+    {% if ph %}
+    <p class="small muted">Sie stammen aus der InvenTree-Bestandshistorie – dort waren Mengen und Fächer bekannt, aber keine Artikelnamen. Mit ihnen verschwinden {{ ph_lots }} Bestände; die Fächer gelten danach als frei.</p>
+    <table class="small">{% for path, n in where %}<tr><td>{{ path }}</td><td class="num">{{ n }}</td></tr>{% endfor %}</table>
+    {% else %}<p class="small muted">Keine vorhanden.</p>{% endif %}
+  </div>
+  <div class="card">
+    <label class="inline" style="font-size:1rem;color:var(--text)"><input type="checkbox" name="leere_orte" value="true" {{ 'disabled' if not locs }}>
+      <b>{{ locs|length }} leere Import-Lagerorte</b> löschen</label>
+    {% if locs %}
+    <p class="small muted">Hilfsorte wie „InvenTree-Lagerort 568“, die (nach dem Löschen der Platzhalter) nichts mehr enthalten. Alte Etiketten, die auf diese Orte zeigen, werden dann als unbekannt gemeldet.</p>
+    <div class="small">{% for l in locs[:40] %}{{ l.name }}{% if not loop.last %} · {% endif %}{% endfor %}{% if locs|length > 40 %} …{% endif %}</div>
+    {% else %}<p class="small muted">Keine vorhanden.</p>{% endif %}
+  </div>
+</div>
+<div class="card">
+  <h2 class="mt0">Alte Lagerorte zuordnen</h2>
+  <p class="small muted">Diese Orte stammen aus Part-DB/InvenTree und passen nicht zu deinen neu angelegten Räumen und Magazinen. „Übertragen“ legt sie mit dem neuen Ort zusammen – Inhalt und alte Etiketten wandern mit, der alte Ort verschwindet. Fachreihen wie „Wandregal oben101…133“ lassen sich 1:1 auf ein Magazin übertragen.</p>
+  {% if old %}
+  <div class="table-wrap"><table>
+    <tr><th>Alter Ort</th><th class="num">Fächer</th><th class="num">Bestände</th><th></th></tr>
+    {% for g in old %}<tr><td><span class="small muted">{{ g.root }} /</span> {{ g.name }}</td><td class="num">{{ g.kids or '' }}</td><td class="num">{{ g.lots or '' }}</td>
+      <td><a class="btn sm" href="/orte/{{ g.id }}/zusammenfuehren{% if g.prefix %}?modus=faecher&praefix={{ g.prefix|urlencode }}{% endif %}">🔀 Übertragen</a></td></tr>{% endfor %}
+  </table></div>
+  {% else %}<p class="muted">Keine alten Import-Orte mehr vorhanden. 🎉</p>{% endif %}
+</div>
+{% if me.can('items', 4) %}
+<button class="btn warn" {{ 'disabled' if not (ph or locs) }} data-confirm="Ausgewähltes endgültig löschen? (Eine Sicherung wird vorher angelegt.)">Ausgewähltes löschen</button>
+{% else %}<p class="note">Zum Löschen den Admin-Modus einschalten (Recht „Artikel: löschen“).</p>{% endif %}
+</form>
+{% endblock %}

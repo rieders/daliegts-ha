@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Pickliste {{ o.code }}{% endblock %}
+{% block content %}
+<div class="row spread noprint"><a href="/auftraege/{{ o.id }}">← zurück zum Auftrag</a><button class="btn primary" onclick="print()">🖨 Drucken</button></div>
+<h1 class="mb0">Pickliste {{ o.code }}</h1>
+<p><b>{{ o.title }}</b>{% if o.requester %} · für {{ o.requester }}{% endif %}{% if o.due %} · fällig {{ o.due.strftime('%d.%m.%Y') }}{% endif %} · Stand {{ today.strftime('%d.%m.%Y') }}</p>
+<p class="small muted">Offene Positionen, sortiert nach Lagerort – ein Gang durchs Lager.</p>
+<table>
+  <tr><th style="width:28px">✓</th><th>Lagerort</th><th>Bauteil</th><th class="num">Menge</th><th>Bemerkung</th></tr>
+  {% for p in picks %}{% set ln = p.line %}{% set s = st.lines[ln.id] %}
+  <tr><td style="font-size:1.2rem">☐</td>
+    <td>{% for path, lt in p.where[:3] %}<div>{{ path.split(' / ')[-3:]|join(' › ') }}{% if ln.item.stock_mode == 'exact' %} <span class="muted small">({{ lt.quantity|qty }})</span>{% endif %}</div>{% else %}<span class="muted">nicht auf Lager</span>{% endfor %}</td>
+    <td><b>{{ ln.item.name }}</b> <span class="small muted">{{ ln.item.code }}</span>{% if ln.note %}<div class="small">{{ ln.note }}</div>{% endif %}</td>
+    <td class="num"><b>{{ ln.remaining|qty(ln.item.unit) }}</b></td>
+    <td class="small">{% if o.active and s.short > 0 %}fehlt {{ s.short|qty }}{% endif %}</td></tr>
+  {% else %}<tr><td colspan="5" class="muted">Nichts mehr offen – alle Teile entnommen.</td></tr>{% endfor %}
+</table>
+{% endblock %}

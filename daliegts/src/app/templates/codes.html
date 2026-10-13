@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Fremdcodes{% endblock %}
+{% block content %}
+<h1>Fremde Barcodes</h1>
+<p class="muted">Barcodes, die schon auf Packungen, Kästen oder alten Etiketten kleben, kannst du einfach verwenden – es muss nicht alles neu gedruckt werden.
+Wer sie einmal zugeordnet hat, wird beim Scannen sofort erkannt (Artikel, Lagerort oder genau dieser Bestand).</p>
+<div class="card">
+  <h3>So ordnest du zu</h3>
+  <ul class="small">
+    <li><b>Im Scanner:</b> erst Lagerort, Artikel oder Bestand (z. B. die Spule) wählen, dann das fremde Etikett scannen – „Code zuordnen“.</li>
+    <li><b>Viele Fächer auf einmal:</b> Scanner → Modus <i>Etiketten</i> – Möbel wählen und die Etiketten der Reihe nach scannen.</li>
+    <li><b>Mehrere Artikel:</b> Artikelseite öffnen, Code ins Feld „Fremden Barcode“ scannen – das Feld bleibt für den nächsten Code bereit.</li>
+    <li><b>Einzelne Spule/Charge:</b> Artikelseite › Bestand › ⋯ › „Fremden Barcode nur für diesen Bestand“.</li>
+  </ul>
+</div>
+<form method="get" class="row" style="margin:10px 0"><input name="q" value="{{ q }}" placeholder="Code oder Name suchen" class="grow"><button class="btn">Suchen</button></form>
+<div class="card table-wrap"><table>
+  <tr><th>Code</th><th>Gehört zu</th><th>Art</th><th>Herkunft</th><th></th></tr>
+  {% for r in rows %}<tr>
+    <td><span class="badge code">{{ r.code }}</span></td>
+    <td><a href="{{ r.url }}">{{ r.label }}</a></td>
+    <td>{{ {'location': 'Lagerort', 'item': 'Artikel', 'lot': 'Bestand'}[r.kind] }}</td>
+    <td class="small muted">{{ r.source }}</td>
+    <td>{% if (r.kind == 'location' and me.can('locations', 2)) or (r.kind == 'item' and me.can('items', 2)) or (r.kind == 'lot' and me.can('stock', 2)) %}
+      <form method="post" action="{{ {'location': '/alias/', 'item': '/artikel/code/', 'lot': '/lot/code/'}[r.kind] }}{{ r.id }}/loeschen" class="inline" onsubmit="return confirm('Code entfernen?')"><button class="btn sm ghost">✕</button></form>{% endif %}</td></tr>
+  {% else %}<tr><td colspan="5" class="muted">{% if q %}Nichts gefunden.{% else %}Noch keine Fremdcodes zugeordnet.{% endif %}</td></tr>{% endfor %}
+</table></div>
+{% endblock %}

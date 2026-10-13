@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block title %}Import-Assistent{% endblock %}
+{% block content %}
+<style>.rule select,.rule input:not([type=checkbox]){width:auto;min-width:0}.rule{flex-wrap:wrap}</style>
+<div class="row spread"><h1>Import-Assistent</h1><a class="btn sm" href="/admin/import">← Import</a></div>
+<p class="muted"><b>{{ filename }}</b> – {{ table.kind }}, {{ table.rows|length }} Zeilen, {{ table.columns|length }} Spalten.
+Lege fest, welche Spalte wohin kommt, benenne Werte um, ergänze Regeln – und prüfe alles im <b>Probelauf</b>, bevor etwas gespeichert wird.</p>
+{% for n in table.notes %}<div class="note">{{ n }}</div>{% endfor %}
+{% if saved %}<div class="note">✓ {{ saved }}</div>{% endif %}
+{% if profiles %}<form method="get" class="row small" style="margin-bottom:8px"><label>Profil laden</label>
+  <select name="profil">{% for pn in profiles %}<option>{{ pn }}</option>{% endfor %}</select><button class="btn sm">Laden</button></form>{% endif %}
+
+<form method="post" action="/admin/import/assistent/{{ job }}" x-data='importer({{ {"cols": cfg.columns, "maps": cfg.get("maps", {}), "rules": cfg.get("rules", []), "dup": cfg.get("dup", {}), "options": cfg.get("options", {})}|tojson|forceescape }})' @submit="serialize($event)">
+  <input type="hidden" name="config" :value="json">
+
+  <div class="card"><h2 class="mt0">1 · Spalten zuordnen</h2>
+    <div class="table-wrap"><table>
+      <tr><th>Spalte in der Datei</th><th>Beispiele</th><th>Wird zu</th></tr>
+      {% for c in table.columns %}<tr>
+        <td><b>{{ c }}</b></td><td class="small muted">{{ samples[c]|join(' · ') }}</td>
+        <td><select x-model="cols[{{ c|tojson|forceescape }}].t">
+              {% for k, label in targets %}<option value="{{ k }}">{{ label }}</option>{% endfor %}</select>
+            <input x-show="cols[{{ c|tojson|forceescape }}].t === 'param:'" x-model="cols[{{ c|tojson|forceescape }}].p" placeholder="Parametername (leer = Spaltenname)" style="max-width:220px"></td></tr>{% endfor %}
+    </table></div>
+    <p class="small muted">Mehrere Spalten dürfen auf dasselbe Feld zeigen: Beschreibung, Notizen, Schlagwörter und Codes werden zusammengesetzt, bei den übrigen Feldern gilt der erste gefüllte Wert.
+    Kategorie und Lagerort dürfen Pfade sein („Regal 1 / Schublade 3“, auch mit „&gt;“ getrennt).</p>
+  </div>
+
+  <div class="card"><h2 class="mt0">2 · Werte umbenennen</h2>
+    {% if values %}<p class="small muted">Hier siehst du, welche Werte in der Datei vorkommen. Trage rechts ein, was daraus werden soll (z. B. „Resistors“ → „Passive/Widerstände“); leer lassen = unverändert.
+      Die Liste richtet sich nach der Zuordnung oben – nach Änderungen auf „Vorschau“ klicken.</p>
+    {% for field, vals in values.items() %}
+      <details style="margin-bottom:6px"><summary><b>{{ {'category':'Kategorien','location':'Lagerorte','footprint':'Gehäuse','manufacturer':'Hersteller','unit':'Einheiten','tags':'Schlagwörter'}[field] }}</b> <span class="muted small">({{ vals|length }} verschiedene)</span></summary>
+        <div class="table-wrap"><table>
+          {% for v, n in vals %}<tr><td>{{ v }}</td><td class="small muted">{{ n }}×</td>
+            <td><input :value="(maps[{{ field|tojson|forceescape }}] || {})[{{ v|tojson|forceescape }}] || ''" @input="setMap({{ field|tojson|forceescape }}, {{ v|tojson|forceescape }}, $event.target.value)" placeholder="unverändert" style="min-width:220px"></td></tr>{% endfor %}
+        </table></div></details>
+    {% endfor %}
+    {% else %}<p class="small muted">Sobald Kategorie, Lagerort, Gehäuse, Hersteller oder Einheit zugeordnet sind, erscheinen hier ihre Werte (nach „Vorschau“).</p>{% endif %}
+  </div>
+
+  <div class="card"><h2 class="mt0">3 · Regeln <span class="muted small">(von oben nach unten)</span></h2>
+    <template x-for="(r, i) in rules" :key="i">
+      <div class="row rule" style="gap:6px;margin-bottom:6px;align-items:center">
+        <b>Wenn</b>
+        <select x-model="r.field">{% for k, label in fields %}<option value="{{ k }}">{{ label }}</option>{% endfor %}</select>
+        <select x-model="r.op">{% for k, label in ops.items() %}<option value="{{ k }}">{{ label }}</option>{% endfor %}</select>
+        <input x-model="r.value" x-show="!['empty','notempty'].includes(r.op)" placeholder="Wert" style="max-width:160px">
+        <b>dann</b>
+        <select x-model="r.action">{% for k, label in actions.items() %}<option value="{{ k }}">{{ label }}</option>{% endfor %}</select>
+        <select x-model="r.target" x-show="!['skip','tag'].includes(r.action)">{% for k, label in fields %}<option value="{{ k }}">{{ label }}</option>{% endfor %}</select>
+        <input x-model="r.find" x-show="r.action === 'replace'" placeholder="suchen" style="max-width:140px">
+        <label class="inline small" x-show="r.action === 'replace'"><input type="checkbox" x-model="r.regex"> Regex</label>
+        <input x-model="r.text" x-show="r.action !== 'skip'" placeholder="Text (mit {name}, {category} … möglich)" style="max-width:240px">
+        <button type="button" class="btn sm ghost" @click="rules.splice(i, 1)" title="Regel entfernen">✕</button>
+      </div>
+    </template>
+    <button type="button" class="btn sm" @click="rules.push({field: 'category', op: 'contains', value: '', action: 'set', target: 'tags', find: '', text: ''})">＋ Regel</button>
+    <p class="small muted">Beispiele: Wenn Kategorie enthält „LED“ → füge Schlagwort „leuchtet“ hinzu · Wenn Menge ist gleich 0 → Zeile überspringen · Wenn Name beginnt mit „Res“ → setze Kategorie auf „Passive/Widerstände“.</p>
+  </div>
+
+  <div class="card"><h2 class="mt0">4 · Abgleich mit vorhandenen Artikeln</h2>
+    <div class="grid2">
+      <label>Gleicher Artikel, wenn gleich
+        <select x-model="dup.by"><option value="name_or_mpn">Typnummer oder Name</option><option value="name">Name</option><option value="mpn">Typnummer</option>
+          <option value="code">Fremdcode</option><option value="any">Code, Typnummer oder Name</option><option value="never">nie (immer neu anlegen)</option></select></label>
+      <label>Angaben bei vorhandenem Artikel
+        <select x-model="dup.fields"><option value="fill">nur leere Felder ergänzen</option><option value="overwrite">mit Dateiwerten überschreiben</option><option value="skip">nichts ändern</option></select></label>
+      <label>Menge bei vorhandenem Artikel
+        <select x-model="dup.stock"><option value="add">dazubuchen</option><option value="set">auf Dateiwert setzen (Inventur)</option><option value="ignore">nicht anfassen</option></select></label>
+      <div><label class="inline"><input type="checkbox" x-model="options.create_locations"> fehlende Lagerorte anlegen</label><br>
+        <label class="inline"><input type="checkbox" x-model="options.review"> Bestände zur Inventur markieren</label>
+        <label>Neue Lagerorte unter <input x-model="options.location_root" placeholder="z. B. Import (leer = ganz oben)"></label></div>
+    </div>
+  </div>
+
+  <div class="card row" style="flex-wrap:wrap;gap:8px">
+    <button class="btn primary" name="mode" value="preview">Vorschau / Probelauf</button>
+    <button class="btn warn" name="mode" value="run" data-confirm="Jetzt wirklich importieren? Vorher wird automatisch eine Datensicherung angelegt." {{ 'disabled' if not me.can('import_export', 3) }}>Importieren</button>
+    <span class="grow"></span>
+    <input name="profile_name" placeholder="Profilname" style="max-width:180px"><button class="btn sm" name="mode" value="save">Einstellungen als Profil speichern</button>
+  </div>
+</form>
+
+{% if report %}<div class="card"><h2 class="mt0">{{ 'Probelauf – nichts gespeichert' if dry else 'Ergebnis' }}</h2>
+  <pre class="small" style="white-space:pre-wrap">{{ report }}</pre>
+  {% if results %}<div class="table-wrap" style="max-height:420px;overflow:auto"><table><tr><th>Zeile</th><th>Artikel</th><th>Ergebnis</th><th>Details</th></tr>
+    {% for r in results %}<tr><td>{{ r.no }}</td><td>{{ r.name }}</td><td>{{ r.action }}</td><td class="small muted">{{ r.note }}</td></tr>{% endfor %}</table></div>{% endif %}
+</div>{% endif %}
+{% if profiles %}<details class="card"><summary class="small"><b>Gespeicherte Profile</b></summary>
+  {% for pn in profiles %}<form method="post" action="/admin/import/assistent/profil/{{ pn|urlencode }}/loeschen" class="row small"><span class="grow">{{ pn }}</span><button class="btn sm ghost" data-confirm="Profil löschen?">✕</button></form>{% endfor %}</details>{% endif %}
+
+<script>
+function importer(init) {
+  return {
+    cols: (() => { const o = {}; const names = {{ table.columns|tojson }};
+      names.forEach(c => { const v = (init.cols || {})[c] || ""; o[c] = v.startsWith("param:") ? {t: "param:", p: v.slice(6)} : {t: v, p: ""}; }); return o; })(),
+    maps: init.maps || {}, rules: init.rules || [],
+    dup: Object.assign({by: "name_or_mpn", fields: "fill", stock: "add"}, init.dup || {}),
+    options: Object.assign({create_locations: true, review: false, location_root: ""}, init.options || {}),
+    json: "",
+    setMap(field, val, to) { (this.maps[field] = this.maps[field] || {})[val] = to; },
+    serialize() {
+      const columns = {};
+      for (const [c, o] of Object.entries(this.cols)) if (o.t) columns[c] = o.t === "param:" ? "param:" + (o.p || "") : o.t;
+      const maps = {};
+      for (const [f, m] of Object.entries(this.maps)) { const mm = {}; for (const [k, v] of Object.entries(m)) if (v) mm[k] = v; if (Object.keys(mm).length) maps[f] = mm; }
+      this.json = JSON.stringify({columns, maps, rules: this.rules, dup: this.dup, options: this.options});
+    },
+  };
+}
+</script>
+{% endblock %}

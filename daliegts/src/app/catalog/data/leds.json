@@ -1,0 +1,1076 @@
+{
+ "group": "LEDs",
+ "parts": [
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/Adressierbar",
+   "datasheet_hint": "APA102",
+   "description": "Adressierbare RGB-LED 5050 mit Takt- und Datenleitung (SPI-artig), 5 V, hohe PWM-Frequenz",
+   "equivalents": [
+    "SK9822 (ähnlich)"
+   ],
+   "footprint": "LED 5050",
+   "image": "led-5050.svg",
+   "key": "apa102",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "APA102",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "SPI (Daten + Takt)"
+    },
+    {
+     "name": "Farbe",
+     "value": "RGB"
+    }
+   ],
+   "tags": [
+    "5050",
+    "adressierbar",
+    "apa102",
+    "dotstar",
+    "led",
+    "rgb"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/Adressierbar",
+   "datasheet_hint": "SK6812",
+   "description": "Adressierbare RGB-LED 5050, 5 V, WS2812B-kompatibles Protokoll",
+   "equivalents": [
+    "WS2812B"
+   ],
+   "footprint": "LED 5050",
+   "image": "led-5050.svg",
+   "key": "sk6812-rgb",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "SK6812 RGB",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "Eindraht (800 kHz)"
+    },
+    {
+     "name": "Farbe",
+     "value": "RGB"
+    }
+   ],
+   "tags": [
+    "5050",
+    "adressierbar",
+    "led",
+    "neopixel",
+    "rgb",
+    "sk6812"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/Adressierbar",
+   "datasheet_hint": "SK6812",
+   "description": "Adressierbare RGBW-LED 5050 (zusätzlicher Weiß-Chip), 5 V, WS2812-ähnliches Protokoll (32 Bit je LED)",
+   "footprint": "LED 5050",
+   "image": "led-5050.svg",
+   "key": "sk6812-rgbw",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "SK6812 RGBW",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "Eindraht (800 kHz)"
+    },
+    {
+     "name": "Farbe",
+     "value": "RGBW"
+    }
+   ],
+   "tags": [
+    "5050",
+    "adressierbar",
+    "led",
+    "neopixel",
+    "rgbw",
+    "sk6812"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/Adressierbar",
+   "datasheet_hint": "WS2812B",
+   "description": "Adressierbare RGB-LED 5050 mit integriertem Controller, 5 V, Eindraht-Datenbus 800 kHz, bis ca. 60 mA bei Vollweiß",
+   "equivalents": [
+    "SK6812 (kompatibel)"
+   ],
+   "footprint": "LED 5050",
+   "image": "led-5050.svg",
+   "key": "ws2812b",
+   "manufacturer": "Worldsemi",
+   "mpn": "",
+   "name": "WS2812B",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "Eindraht (800 kHz)"
+    },
+    {
+     "name": "Farbe",
+     "value": "RGB"
+    }
+   ],
+   "tags": [
+    "5050",
+    "adressierbar",
+    "led",
+    "neopixel",
+    "rgb",
+    "ws2812b"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/Adressierbar",
+   "description": "Adressierbarer LED-Streifen mit WS2812B, 144 LEDs pro Meter, 5 V (Einspeisung alle 1–2 m empfohlen)",
+   "footprint": "LED-Streifen",
+   "image": "led-5050.svg",
+   "key": "ws2812b-strip-144",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "WS2812B-Streifen 144 LED/m",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    },
+    {
+     "name": "Farbe",
+     "value": "RGB"
+    }
+   ],
+   "tags": [
+    "adressierbar",
+    "led",
+    "neopixel",
+    "streifen",
+    "strip",
+    "ws2812b"
+   ],
+   "unit": "m"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/Adressierbar",
+   "description": "Adressierbarer LED-Streifen mit WS2812B, 30 LEDs pro Meter, 5 V (Einspeisung alle 1–2 m empfohlen)",
+   "footprint": "LED-Streifen",
+   "image": "led-5050.svg",
+   "key": "ws2812b-strip-30",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "WS2812B-Streifen 30 LED/m",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    },
+    {
+     "name": "Farbe",
+     "value": "RGB"
+    }
+   ],
+   "tags": [
+    "adressierbar",
+    "led",
+    "neopixel",
+    "streifen",
+    "strip",
+    "ws2812b"
+   ],
+   "unit": "m"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/Adressierbar",
+   "description": "Adressierbarer LED-Streifen mit WS2812B, 60 LEDs pro Meter, 5 V (Einspeisung alle 1–2 m empfohlen)",
+   "footprint": "LED-Streifen",
+   "image": "led-5050.svg",
+   "key": "ws2812b-strip-60",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "WS2812B-Streifen 60 LED/m",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    },
+    {
+     "name": "Farbe",
+     "value": "RGB"
+    }
+   ],
+   "tags": [
+    "adressierbar",
+    "led",
+    "neopixel",
+    "streifen",
+    "strip",
+    "ws2812b"
+   ],
+   "unit": "m"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/RGB",
+   "description": "RGB-LED 5 mm, 4 Beine, gemeinsame Anode, je Farbe eigener Vorwiderstand nötig",
+   "footprint": "LED 5mm",
+   "image": "led-5mm-rgb.svg",
+   "key": "led-5mm-rgb-anode",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "RGB-LED 5 mm (CA)",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "RGB"
+    },
+    {
+     "name": "Durchmesser",
+     "unit": "mm",
+     "value": "5"
+    },
+    {
+     "name": "Typ",
+     "value": "gemeinsame Anode"
+    }
+   ],
+   "tags": [
+    "5mm",
+    "anode",
+    "led",
+    "rgb",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/RGB",
+   "description": "RGB-LED 5 mm, 4 Beine, gemeinsame Kathode, je Farbe eigener Vorwiderstand nötig",
+   "footprint": "LED 5mm",
+   "image": "led-5mm-rgb.svg",
+   "key": "led-5mm-rgb-kathode",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "RGB-LED 5 mm (CC)",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "RGB"
+    },
+    {
+     "name": "Durchmesser",
+     "unit": "mm",
+     "value": "5"
+    },
+    {
+     "name": "Typ",
+     "value": "gemeinsame Kathode"
+    }
+   ],
+   "tags": [
+    "5mm",
+    "kathode",
+    "led",
+    "rgb",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/SMD",
+   "description": "SMD-LED blau, Bauform 0603 (Kathodenmarkierung beachten)",
+   "footprint": "0603",
+   "image": "led-smd.svg",
+   "key": "led-0603-blau",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 0603 blau",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "blau"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    },
+    {
+     "name": "U_F typ",
+     "unit": "V",
+     "value": "3.2"
+    }
+   ],
+   "tags": [
+    "0603",
+    "blau",
+    "led",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/SMD",
+   "description": "SMD-LED gelb, Bauform 0603 (Kathodenmarkierung beachten)",
+   "footprint": "0603",
+   "image": "led-smd.svg",
+   "key": "led-0603-gelb",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 0603 gelb",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "gelb"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    },
+    {
+     "name": "U_F typ",
+     "unit": "V",
+     "value": "2.0"
+    }
+   ],
+   "tags": [
+    "0603",
+    "gelb",
+    "led",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/SMD",
+   "description": "SMD-LED grün, Bauform 0603 (Kathodenmarkierung beachten)",
+   "footprint": "0603",
+   "image": "led-smd.svg",
+   "key": "led-0603-gruen",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 0603 grün",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "grün"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    }
+   ],
+   "tags": [
+    "0603",
+    "grün",
+    "led",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/SMD",
+   "description": "SMD-LED rot, Bauform 0603 (Kathodenmarkierung beachten)",
+   "footprint": "0603",
+   "image": "led-smd.svg",
+   "key": "led-0603-rot",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 0603 rot",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "rot"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    },
+    {
+     "name": "U_F typ",
+     "unit": "V",
+     "value": "2.0"
+    }
+   ],
+   "tags": [
+    "0603",
+    "led",
+    "rot",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/SMD",
+   "description": "SMD-LED weiß, Bauform 0603 (Kathodenmarkierung beachten)",
+   "footprint": "0603",
+   "image": "led-smd.svg",
+   "key": "led-0603-weiss",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 0603 weiß",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "weiß"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    },
+    {
+     "name": "U_F typ",
+     "unit": "V",
+     "value": "3.2"
+    }
+   ],
+   "tags": [
+    "0603",
+    "led",
+    "smd",
+    "weiß"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/SMD",
+   "description": "SMD-LED blau, Bauform 0805 (Kathodenmarkierung beachten)",
+   "footprint": "0805",
+   "image": "led-smd.svg",
+   "key": "led-0805-blau",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 0805 blau",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "blau"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    },
+    {
+     "name": "U_F typ",
+     "unit": "V",
+     "value": "3.2"
+    }
+   ],
+   "tags": [
+    "0805",
+    "blau",
+    "led",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/SMD",
+   "description": "SMD-LED gelb, Bauform 0805 (Kathodenmarkierung beachten)",
+   "footprint": "0805",
+   "image": "led-smd.svg",
+   "key": "led-0805-gelb",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 0805 gelb",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "gelb"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    },
+    {
+     "name": "U_F typ",
+     "unit": "V",
+     "value": "2.0"
+    }
+   ],
+   "tags": [
+    "0805",
+    "gelb",
+    "led",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/SMD",
+   "description": "SMD-LED grün, Bauform 0805 (Kathodenmarkierung beachten)",
+   "footprint": "0805",
+   "image": "led-smd.svg",
+   "key": "led-0805-gruen",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 0805 grün",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "grün"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    }
+   ],
+   "tags": [
+    "0805",
+    "grün",
+    "led",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/SMD",
+   "description": "SMD-LED rot, Bauform 0805 (Kathodenmarkierung beachten)",
+   "footprint": "0805",
+   "image": "led-smd.svg",
+   "key": "led-0805-rot",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 0805 rot",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "rot"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    },
+    {
+     "name": "U_F typ",
+     "unit": "V",
+     "value": "2.0"
+    }
+   ],
+   "tags": [
+    "0805",
+    "led",
+    "rot",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/SMD",
+   "description": "SMD-LED weiß, Bauform 0805 (Kathodenmarkierung beachten)",
+   "footprint": "0805",
+   "image": "led-smd.svg",
+   "key": "led-0805-weiss",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 0805 weiß",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "weiß"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    },
+    {
+     "name": "U_F typ",
+     "unit": "V",
+     "value": "3.2"
+    }
+   ],
+   "tags": [
+    "0805",
+    "led",
+    "smd",
+    "weiß"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/THT",
+   "description": "Standard-LED 3 mm blau, bedrahtet, 20 mA (Vorwiderstand nötig; langes Bein = Anode)",
+   "footprint": "LED 3mm",
+   "image": "led-3mm-blau.svg",
+   "key": "led-3mm-blau",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 3 mm blau",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "blau"
+    },
+    {
+     "name": "Durchmesser",
+     "unit": "mm",
+     "value": "3"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    },
+    {
+     "name": "U_F typ",
+     "unit": "V",
+     "value": "3.2"
+    }
+   ],
+   "tags": [
+    "3mm",
+    "blau",
+    "led",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/THT",
+   "description": "Standard-LED 3 mm gelb, bedrahtet, 20 mA (Vorwiderstand nötig; langes Bein = Anode)",
+   "footprint": "LED 3mm",
+   "image": "led-3mm-gelb.svg",
+   "key": "led-3mm-gelb",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 3 mm gelb",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "gelb"
+    },
+    {
+     "name": "Durchmesser",
+     "unit": "mm",
+     "value": "3"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    },
+    {
+     "name": "U_F typ",
+     "unit": "V",
+     "value": "2.0"
+    }
+   ],
+   "tags": [
+    "3mm",
+    "gelb",
+    "led",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/THT",
+   "description": "Standard-LED 3 mm grün, bedrahtet, 20 mA (Vorwiderstand nötig; langes Bein = Anode)",
+   "footprint": "LED 3mm",
+   "image": "led-3mm-gruen.svg",
+   "key": "led-3mm-gruen",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 3 mm grün",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "grün"
+    },
+    {
+     "name": "Durchmesser",
+     "unit": "mm",
+     "value": "3"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    }
+   ],
+   "tags": [
+    "3mm",
+    "grün",
+    "led",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/THT",
+   "description": "Standard-LED 3 mm orange, bedrahtet, 20 mA (Vorwiderstand nötig; langes Bein = Anode)",
+   "footprint": "LED 3mm",
+   "image": "led-3mm-orange.svg",
+   "key": "led-3mm-orange",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 3 mm orange",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "orange"
+    },
+    {
+     "name": "Durchmesser",
+     "unit": "mm",
+     "value": "3"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    },
+    {
+     "name": "U_F typ",
+     "unit": "V",
+     "value": "2.0"
+    }
+   ],
+   "tags": [
+    "3mm",
+    "led",
+    "orange",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/THT",
+   "description": "Standard-LED 3 mm rot, bedrahtet, 20 mA (Vorwiderstand nötig; langes Bein = Anode)",
+   "footprint": "LED 3mm",
+   "image": "led-3mm-rot.svg",
+   "key": "led-3mm-rot",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 3 mm rot",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "rot"
+    },
+    {
+     "name": "Durchmesser",
+     "unit": "mm",
+     "value": "3"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    },
+    {
+     "name": "U_F typ",
+     "unit": "V",
+     "value": "2.0"
+    }
+   ],
+   "tags": [
+    "3mm",
+    "led",
+    "rot",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/THT",
+   "description": "Standard-LED 3 mm weiß, bedrahtet, 20 mA (Vorwiderstand nötig; langes Bein = Anode)",
+   "footprint": "LED 3mm",
+   "image": "led-3mm-weiss.svg",
+   "key": "led-3mm-weiss",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 3 mm weiß",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "weiß"
+    },
+    {
+     "name": "Durchmesser",
+     "unit": "mm",
+     "value": "3"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    },
+    {
+     "name": "U_F typ",
+     "unit": "V",
+     "value": "3.2"
+    }
+   ],
+   "tags": [
+    "3mm",
+    "led",
+    "tht",
+    "weiß"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/THT",
+   "description": "Standard-LED 5 mm blau, bedrahtet, 20 mA (Vorwiderstand nötig; langes Bein = Anode)",
+   "footprint": "LED 5mm",
+   "image": "led-5mm-blau.svg",
+   "key": "led-5mm-blau",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 5 mm blau",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "blau"
+    },
+    {
+     "name": "Durchmesser",
+     "unit": "mm",
+     "value": "5"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    },
+    {
+     "name": "U_F typ",
+     "unit": "V",
+     "value": "3.2"
+    }
+   ],
+   "tags": [
+    "5mm",
+    "blau",
+    "led",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/THT",
+   "description": "Standard-LED 5 mm gelb, bedrahtet, 20 mA (Vorwiderstand nötig; langes Bein = Anode)",
+   "footprint": "LED 5mm",
+   "image": "led-5mm-gelb.svg",
+   "key": "led-5mm-gelb",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 5 mm gelb",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "gelb"
+    },
+    {
+     "name": "Durchmesser",
+     "unit": "mm",
+     "value": "5"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    },
+    {
+     "name": "U_F typ",
+     "unit": "V",
+     "value": "2.0"
+    }
+   ],
+   "tags": [
+    "5mm",
+    "gelb",
+    "led",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/THT",
+   "description": "Standard-LED 5 mm grün, bedrahtet, 20 mA (Vorwiderstand nötig; langes Bein = Anode)",
+   "footprint": "LED 5mm",
+   "image": "led-5mm-gruen.svg",
+   "key": "led-5mm-gruen",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 5 mm grün",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "grün"
+    },
+    {
+     "name": "Durchmesser",
+     "unit": "mm",
+     "value": "5"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    }
+   ],
+   "tags": [
+    "5mm",
+    "grün",
+    "led",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/THT",
+   "description": "Standard-LED 5 mm orange, bedrahtet, 20 mA (Vorwiderstand nötig; langes Bein = Anode)",
+   "footprint": "LED 5mm",
+   "image": "led-5mm-orange.svg",
+   "key": "led-5mm-orange",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 5 mm orange",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "orange"
+    },
+    {
+     "name": "Durchmesser",
+     "unit": "mm",
+     "value": "5"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    },
+    {
+     "name": "U_F typ",
+     "unit": "V",
+     "value": "2.0"
+    }
+   ],
+   "tags": [
+    "5mm",
+    "led",
+    "orange",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/THT",
+   "description": "Standard-LED 5 mm rot, bedrahtet, 20 mA (Vorwiderstand nötig; langes Bein = Anode)",
+   "footprint": "LED 5mm",
+   "image": "led-5mm-rot.svg",
+   "key": "led-5mm-rot",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 5 mm rot",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "rot"
+    },
+    {
+     "name": "Durchmesser",
+     "unit": "mm",
+     "value": "5"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    },
+    {
+     "name": "U_F typ",
+     "unit": "V",
+     "value": "2.0"
+    }
+   ],
+   "tags": [
+    "5mm",
+    "led",
+    "rot",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/LEDs/THT",
+   "description": "Standard-LED 5 mm weiß, bedrahtet, 20 mA (Vorwiderstand nötig; langes Bein = Anode)",
+   "footprint": "LED 5mm",
+   "image": "led-5mm-weiss.svg",
+   "key": "led-5mm-weiss",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LED 5 mm weiß",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "weiß"
+    },
+    {
+     "name": "Durchmesser",
+     "unit": "mm",
+     "value": "5"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "20"
+    },
+    {
+     "name": "U_F typ",
+     "unit": "V",
+     "value": "3.2"
+    }
+   ],
+   "tags": [
+    "5mm",
+    "led",
+    "tht",
+    "weiß"
+   ],
+   "unit": "Stk"
+  }
+ ]
+}

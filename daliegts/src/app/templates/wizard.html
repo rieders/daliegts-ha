@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Lagermöbel-Assistent{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/orte">Lagerorte</a>{% if parent %} / <a href="/orte/{{ parent.id }}">{{ parent.name }}</a>{% endif %}</div>
+<h1>Lagermöbel anlegen</h1>
+<div class="row" style="margin-bottom:10px">
+  <span class="small muted">Vorlage:</span>
+  {% for t in templates %}<a class="btn sm {{ 'primary' if tpl and tpl.id == t.id }}" href="?vorlage={{ t.id }}">{{ t.name }}</a>{% endfor %}
+</div>
+<form method="post" action="/orte/{{ parent.id if parent else 0 }}/moebel-neu" id="wiz"
+      hx-post="/orte/moebel/vorschau" hx-trigger="load, change, input delay:300ms" hx-target="#preview" hx-swap="innerHTML">
+<div class="cols-2">
+<div>
+  <div class="card">
+    <h2 class="mt0">1. Möbel</h2>
+    <div class="fields">
+      <div><label>Name</label><input name="name" value="{{ spec.name }}" required></div>
+      <div><label>Typ</label><select name="type">{% for k in ['magazin','regal','schrank','sortierbox','lagerwand'] %}<option value="{{ k }}" {{ 'selected' if spec.type == k }}>{{ LOCATION_TYPES[k] }}</option>{% endfor %}</select></div>
+      <div><label>Reihen</label><input type="number" name="rows" value="{{ spec.rows }}" min="1" max="60"></div>
+      <div><label>Fächer pro Reihe</label><input type="number" name="cols" value="{{ spec.cols }}" min="1" max="60"></div>
+      <div><label>Breite außen (cm, für die Wandansicht)</label><input name="width_cm" inputmode="decimal" value="{{ tpl.definition.get('width_cm', '') if tpl else '' }}" placeholder="z. B. 30"></div>
+      <div><label>Höhe außen (cm)</label><input name="height_cm" inputmode="decimal" value="{{ tpl.definition.get('height_cm', '') if tpl else '' }}" placeholder="z. B. 40"></div>
+    </div>
+    <label>Abweichende Schubladenzahl je Reihe (optional, z. B. „4,4,4,3“ – eine breite Schublade zählt als eine)</label><input name="row_counts" value="{{ spec.row_counts|join(',') if spec.row_counts else '' }}">
+    <label>Zusammengefasste Zellen – breite/hohe Schubladen (Reihe Spalte Höhe Breite, je Zeile)</label>
+    <textarea name="merges" rows="2" placeholder="9 1 1 2&#10;9 3 1 2">{% for m in spec.merges %}{{ m|join(' ') }}
+{% endfor %}</textarea>
+    <label>Leere Plätze – Lücken ohne Fach (Reihe Spalte, je Zeile; „* 3“ = Spalte 3 in allen Reihen)</label>
+    <textarea name="gaps" rows="2" placeholder="* 3">{% for g in spec.gaps %}{{ '*' if g[0] == 0 else g[0] }} {{ g[1] }}
+{% endfor %}</textarea>
+  </div>
+  <div class="card">
+    <h2 class="mt0">2. Benennung</h2>
+    <div class="fields">
+      <div><label>Schema</label><select name="naming">
+        <option value="letter_number" {{ 'selected' if spec.naming == 'letter_number' }}>A1, A2 … (Reihe = Buchstabe)</option>
+        <option value="number" {{ 'selected' if spec.naming == 'number' }}>Präfix + 1 … n</option>
+        <option value="row_col" {{ 'selected' if spec.naming == 'row_col' }}>R1-F1 (Reihe/Fach)</option>
+        <option value="prefix" {{ 'selected' if spec.naming == 'prefix' }}>Präfix + 01 … n</option></select></div>
+      <div><label>Präfix</label><input name="prefix" value="{{ spec.prefix }}"></div>
+      <div><label>Zählrichtung</label><select name="count_direction"><option value="rows" {{ 'selected' if spec.count_direction == 'rows' }}>zeilenweise</option><option value="cols" {{ 'selected' if spec.count_direction == 'cols' }}>spaltenweise</option><option value="bands" {{ 'selected' if spec.count_direction == 'bands' }}>blockweise (je Block: links, Mitte oben/unten, rechts)</option></select></div>
+    </div>
+    <label class="inline"><input type="checkbox" name="bottom_up" value="1" {{ 'checked' if spec.bottom_up }}> Reihen von unten zählen</label>
+  </div>
+  <div class="card">
+    <h2 class="mt0">3. Abteile je Fach (optional)</h2>
+    <div class="fields">
+      <div><label>Anzahl (0 = keine)</label><input type="number" name="subdivision" value="{{ spec.subdivision }}" min="0" max="12"></div>
+      <div><label>Anordnung</label><select name="subdivision_layout"><option value="row" {{ 'selected' if spec.subdivision_layout == 'row' }}>nebeneinander</option><option value="column" {{ 'selected' if spec.subdivision_layout == 'column' }}>hintereinander</option><option value="grid" {{ 'selected' if spec.subdivision_layout == 'grid' }}>Raster</option></select></div>
+      <div><label>Benennung</label><select name="subdivision_naming"><option value="dot">A1.1, A1.2 …</option><option value="words">links/mitte/rechts</option></select></div>
+      <div><label>LED-Anzeige</label><select name="light_mode"><option value="both" {{ 'selected' if spec.light_mode == 'both' }}>Abschnitt + Blinkcode</option><option value="segment" {{ 'selected' if spec.light_mode == 'segment' }}>nur Abschnitt</option><option value="blink" {{ 'selected' if spec.light_mode == 'blink' }}>nur Blinkcode</option></select></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2 class="mt0">4. LEDs (optional)</h2>
+    {% if controllers %}
+    <div class="fields">
+      <div><label>WLED-Controller</label><select name="controller_id"><option value="">– keine LEDs –</option>{% for c in controllers %}<option value="{{ c.id }}">{{ c.name }}</option>{% endfor %}</select></div>
+      <div><label>Start-LED</label><input type="number" name="led_start" value="0" min="0"></div>
+      <div><label>LEDs pro Fach</label><input type="number" name="leds_per_cell" value="{{ spec.leds_per_cell }}" min="1"></div>
+      <div><label>Lücke zw. Fächern</label><input type="number" name="led_gap" value="{{ spec.led_gap }}" min="0"></div>
+      <div><label>Lücke am Reihenende</label><input type="number" name="led_row_gap" value="{{ spec.led_row_gap }}" min="0"></div>
+      <div><label>Verlauf</label><select name="led_direction"><option value="rows">Reihe für Reihe</option><option value="cols">Spalte für Spalte</option></select></div>
+      <div><label>Start-Ecke</label><select name="led_start_corner"><option value="top_left">oben links</option><option value="top_right">oben rechts</option><option value="bottom_left">unten links</option><option value="bottom_right">unten rechts</option></select></div>
+    </div>
+    <label class="inline"><input type="checkbox" name="serpentine" value="1" {{ 'checked' if spec.serpentine }}> Schlangenlinie</label>
+    {% else %}<p class="small muted">Noch kein WLED-Controller angelegt – geht auch später über „LED-Zuordnung“ am Möbel.</p>{% endif %}
+  </div>
+</div>
+<div>
+  <div class="card" style="position:sticky;top:110px">
+    <h2 class="mt0">Vorschau</h2>
+    <div id="preview"></div>
+    <label class="inline" style="margin-top:10px"><input type="checkbox" name="save_template" value="1"> zusätzlich als Vorlage speichern:</label>
+    <input name="template_name" placeholder="z. B. Mein Raaco-Magazin">
+    <button class="btn primary big" style="width:100%;margin-top:10px" type="submit">Anlegen</button>
+  </div>
+</div>
+</div>
+</form>
+{% endblock %}

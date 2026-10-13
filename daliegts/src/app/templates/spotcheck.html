@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Stichproben-Inventur{% endblock %}
+{% block content %}
+<div class="row spread">
+  <h1 class="mb0">🎲 Stichproben-Inventur</h1>
+  {% if wall and sample %}<a class="btn" href="/orte/{{ wall.id }}/wand?orte={{ orte }}">🧱 Fächer an der Wand zeigen</a>{% endif %}
+</div>
+<p class="muted">{{ APP_NAME }} wählt zufällig Fächer aus dem Raum. Wer schon geprüft wurde, kommt erst wieder dran, wenn alle anderen Fächer auch einmal dran waren.</p>
+
+<form method="post" action="/inventur/ziehen" class="card">
+  <div class="fields">
+    <div style="grid-column:span 2"><label>Raum oder Lagermöbel</label>
+      <select name="raum" onchange="lwGo('/inventur?raum=' + this.value)">
+        {% for r in roots %}<option value="{{ r.id }}" {{ 'selected' if root and root.id == r.id }}>{{ r.path }}</option>{% endfor %}
+      </select></div>
+    <div><label>Anzahl Fächer</label><input type="number" name="n" min="1" max="100" value="{{ n }}"></div>
+    <div><label>&nbsp;</label><label class="inline"><input type="checkbox" name="leer" value="1" {{ 'checked' if leer }}> auch leere Fächer prüfen</label></div>
+  </div>
+  {% if cov %}
+  <div style="margin:10px 0 4px" class="small">
+    {% if cov.total %}
+      <b>{{ cov.checked }} von {{ cov.total }}</b> Fächern mindestens einmal geprüft ({{ cov.percent }} %).
+      {% if cov.oldest %}Alle waren dran – jetzt kommen die am längsten ungeprüften (seit {{ cov.oldest|dt }}).{% endif %}
+      <div class="ht" style="margin-top:6px;max-width:420px"><span class="hf" style="width:{{ cov.percent }}%"></span></div>
+    {% else %}<span class="muted">Keine Fächer mit Inhalt in diesem Bereich.</span>{% endif %}
+  </div>{% endif %}
+  <button class="btn primary" style="margin-top:8px" {{ 'disabled' if not roots }}>{{ 'Neue Stichprobe ziehen' if sample else 'Stichprobe ziehen' }}</button>
+</form>
+
+{% if sample %}
+<div class="row spread" style="margin:16px 0 8px">
+  <h2 class="mt0 mb0">{{ done }} von {{ sample|length }} Fächern geprüft</h2>
+  {% if done == sample|length %}<span class="badge ok">✔ Stichprobe erledigt</span>{% endif %}
+</div>
+{% for s in sample %}{% set loc = s.loc %}
+<div class="card spot {{ 'done' if s.done }}" id="fach-{{ loc.id }}">
+  <div class="row spread">
+    <div>
+      <b style="font-size:1.1rem">{{ s.path.split(' / ')[-2:]|join(' › ') }}</b> <span class="badge code">{{ loc.code }}</span>
+      {% if s.done %}<span class="badge ok">✔ geprüft</span>{% endif %}
+      <div class="small muted">{{ s.path }} · zuletzt geprüft: {{ loc.last_checked_at|dt if loc.last_checked_at else 'noch nie' }}</div>
+    </div>
+    <div class="row">
+      {% if has_wled() and me.can('wled_show') %}<button class="btn sm btn-led" data-locate='{"location_id": {{ loc.id }}}'>💡</button>{% endif %}
+      <a class="btn sm" href="/orte/{{ loc.id }}?ansicht=liste">Öffnen</a>
+    </div>
+  </div>
+  <form method="post" action="/inventur/fach/{{ loc.id }}">
+    <input type="hidden" name="back" value="{{ back }}">
+    {% if s.lots %}
+    <div class="table-wrap"><table>
+      <tr><th>Artikel</th><th class="num">Erwartet</th><th>Gezählt</th></tr>
+      {% for lot in s.lots %}{% set it = lot.item %}
+      <tr>
+        <td><a href="/artikel/{{ it.id }}">{{ it.name }}</a>{% if lot.location_id != loc.id %} <span class="small muted">({{ lot.location.name }})</span>{% endif %}
+          {% if lot.needs_review %} <span class="badge">prüfen</span>{% endif %}<div class="small muted">{{ (it.description or '')[:70] }}</div></td>
+        <td class="num">{% if it.stock_mode == 'exact' %}{{ lot.quantity|qty(it.unit) }}{% elif it.stock_mode == 'coarse' %}<span class="amp {{ lot.coarse or 'empty' }}"></span> {{ COARSE_LEVELS.get(lot.coarse or '', '–') }}{% else %}vorhanden{% endif %}</td>
+        <td>{% if it.stock_mode == 'exact' %}<input type="number" name="lot_{{ lot.id }}" step="any" min="0" value="{{ lot.quantity|qty }}" style="width:100px" {{ 'disabled' if not me.can('inventory', 2) }}>
+          {% elif it.stock_mode == 'coarse' %}<select name="lot_{{ lot.id }}" style="width:auto">{% for k, v in COARSE_LEVELS.items() %}<option value="{{ k }}" {{ 'selected' if lot.coarse == k }}>{{ v }}</option>{% endfor %}</select>
+          {% else %}<span class="small muted">nur Sichtprüfung</span>{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </table></div>
+    {% else %}<p class="muted">Laut {{ APP_NAME }} ist dieses Fach <b>leer</b>. Liegt doch etwas darin? <a href="/artikel/neu?ort={{ loc.code }}">＋ Artikel hier einlagern</a></p>{% endif %}
+    {% if me.can('inventory', 2) %}<button class="btn {{ '' if s.done else 'primary' }}" style="margin-top:8px">{{ '↻ nochmal buchen' if s.done else '✔ Fach geprüft' }}</button>
+    <span class="small muted">Geänderte Mengen werden als Inventur gebucht, alles andere gilt als bestätigt.</span>{% endif %}
+  </form>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}

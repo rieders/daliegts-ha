@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Info-Provider{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/admin">Verwaltung</a></div>
+<h1>Info-Provider</h1>
+<p class="muted">{{ APP_NAME }} holt hier Bestellnummern, Preisstaffeln, Lagerbestand, Datenblätter und Hersteller-Nr. direkt bei den Shops. Eindeutige Treffer werden selbst eingetragen, bei mehreren oder unsicheren Treffern fragt {{ APP_NAME }} unter <a href="/entscheidungen">Entscheidungen</a> nach.</p>
+{% set can_edit = me.can('system', 2) %}
+<form method="post" action="/admin/info-provider">
+  <div class="card">
+    <div class="table-wrap"><table>
+      <tr><th>Aktiv</th><th>Shop</th><th>Zugang</th><th>Status</th><th></th></tr>
+      {% for r in rows %}
+      <tr>
+        <td><input type="checkbox" name="{{ r.key }}.enabled" value="1" {{ 'checked' if r.enabled }} {{ 'disabled' if not can_edit }}></td>
+        <td><b>{{ r.cls.name }}</b><div class="small muted">{{ 'Shopseite auslesen' if r.cls.kind == 'webshop' else 'Schnittstelle' }}{% if r.cls.note %} – {{ r.cls.note }}{% endif %}</div></td>
+        <td>{% if r.cls.fields %}
+          {% for f, label in r.cls.fields %}<input type="password" name="{{ r.key }}.{{ f }}" autocomplete="off" placeholder="{{ label }}{{ ' (gespeichert)' if r.have[f] }}" style="margin-bottom:4px" {{ 'disabled' if not can_edit }}>{% endfor %}
+          <div class="small">{% if r.cls.signup_url %}<a href="{{ r.cls.signup_url }}" target="_blank" rel="noopener noreferrer">kostenlos registrieren ↗</a>{% endif %}
+            {% if r.have.values()|select|list and can_edit %} · <label class="inline small"><input type="checkbox" name="{{ r.key }}.clear" value="1"> Schlüssel löschen</label>{% endif %}</div>
+          {% else %}<span class="small muted">kein Schlüssel nötig</span>{% endif %}</td>
+        <td>{% if r.enabled and r.configured %}<span class="badge ok">bereit</span>{% elif r.enabled %}<span class="badge warn">Schlüssel fehlt</span>{% else %}<span class="badge">aus</span>{% endif %}</td>
+        <td><button class="btn sm" formaction="/admin/info-provider/{{ r.key }}/test" title="Sucht testweise nach NE555">Testen</button></td>
+      </tr>
+      {% endfor %}
+    </table></div>
+    <p class="small muted">Schlüssel werden nur hier gespeichert und <b>nicht</b> in Backups/Exporte übernommen. Alternativ in <code>/etc/lagerwerk/lagerwerk.env</code>, z. B. <code>LAGERWERK_PROVIDER_MOUSER_API_KEY=…</code>.
+      Reichelt und Pollin haben keine offizielle Schnittstelle: {{ APP_NAME }} liest dort die normalen Produktseiten langsam aus. Baut ein Shop seine Seite um, erscheint beim Test eine Fehlermeldung.</p>
+  </div>
+
+  <div class="card" id="vision"><h2 class="mt0">🤖 Bilderkennung (Foto → Bauteil)</h2>
+    <p class="small muted">Erkennt auf Fotos Aufdruck, Farbringe, Wert und Gehäuse. Nutzt Claude über deinen eigenen API-Schlüssel
+      (<a href="https://console.anthropic.com/" target="_blank" rel="noopener noreferrer">console.anthropic.com</a>); abgerechnet wird pro Foto, meist im Cent-Bereich. Fotos werden nur für die Analyse übertragen.</p>
+    <label class="inline"><input type="checkbox" name="vision.enabled" value="1" {{ 'checked' if vision.enabled }} {{ 'disabled' if not can_edit }}> Bilderkennung einschalten</label>
+    <div class="fields">
+      <div><label>API-Schlüssel</label><input type="password" name="vision.api_key" autocomplete="off" placeholder="{{ 'gespeichert' if vision.api_key else 'sk-ant-…' }}" {{ 'disabled' if not can_edit }}></div>
+      <div><label>Modell</label><input name="vision.model" value="{{ vision.model }}" {{ 'disabled' if not can_edit }}></div>
+    </div>
+    {% if vision.api_key and can_edit %}<label class="inline small"><input type="checkbox" name="vision.clear" value="1"> Schlüssel löschen</label>{% endif %}
+    <div><button class="btn sm" formaction="/admin/info-provider/vision/test" style="margin-top:6px">Testen</button></div>
+  </div>
+
+  <div class="card"><h2 class="mt0">Automatik</h2>
+    <label class="inline"><input type="checkbox" name="auto_on_create" value="1" {{ 'checked' if opts.auto_on_create }} {{ 'disabled' if not can_edit }}> Beim Anlegen/Ändern eines Artikels mit Hersteller-Nr. sofort Bestellnummern und Preise suchen</label><br>
+    <label class="inline"><input type="checkbox" name="cross_check" value="1" {{ 'checked' if opts.cross_check }} {{ 'disabled' if not can_edit }}> Bei anderen Shops nachsehen, ob es günstiger geht</label><br>
+    <label class="inline"><input type="checkbox" name="nightly" value="1" {{ 'checked' if opts.nightly }} {{ 'disabled' if not can_edit }}> Jede Nacht um 03:47 Uhr Preise aktualisieren</label>
+    <div class="fields" style="margin-top:8px">
+      <div><label>Artikel pro Nacht (Einkaufsliste und Mindestbestand zuerst)</label><input type="number" name="budget" value="{{ opts.budget }}" min="10" max="2000" {{ 'disabled' if not can_edit }}></div>
+      <div><label>Andere Shops erneut vergleichen nach (Tagen)</label><input type="number" name="cross_check_days" value="{{ opts.cross_check_days }}" min="1" max="365" {{ 'disabled' if not can_edit }}></div>
+      <div><label>Umrechnung USD → EUR (falls ein Shop in US$ antwortet)</label><input name="usd_eur" value="{{ opts.usd_eur }}" inputmode="decimal" {{ 'disabled' if not can_edit }}></div>
+    </div>
+    {% if last_run %}<p class="small muted">Letzter Nachtlauf: {{ last_run.started|dt }} – {{ last_run['items'] }} Artikel geprüft, {{ last_run.linked }} neue Bezugsquellen, {{ last_run.asked }} Rückfragen, {{ last_run.errors }} Fehler.</p>{% endif %}
+    {% if can_edit %}<button class="btn primary" style="margin-top:8px">Speichern</button>{% else %}<p class="small muted">Zum Ändern den Admin-Modus einschalten.</p>{% endif %}
+  </div>
+</form>
+
+<div class="card" id="datenblaetter"><h2 class="mt0">📄 Datenblätter offline</h2>
+  <p class="small muted">Verlinkte Datenblätter (von den Shops oder von Hand eingetragen) werden als PDF heruntergeladen und beim Artikel gespeichert – sie bleiben erhalten, auch wenn der Hersteller die Seite löscht. Nachts laufen jeweils bis zu 40 neue.</p>
+  {% if ds.job %}
+  <div x-data="{st: null}" x-init="const tick = async () => { const r = await fetch('/jobs/{{ ds.job }}', {credentials: 'same-origin'}); if (!r.ok) return; st = await r.json(); if (!st.finished) setTimeout(tick, 1500) }; tick()">
+    <div class="small" x-text="st && (st.done + ' von ' + st.total + ' · ' + st.linked + ' gespeichert' + (st.finished ? ' – fertig' : ' …'))"></div>
+    <progress style="width:100%" :max="st ? st.total : 1" :value="st ? st.done : 0"></progress>
+    <template x-if="st && st.messages.length"><ul class="small muted"><template x-for="m in st.messages.slice(-8)"><li x-text="m"></li></template></ul></template>
+  </div>{% endif %}
+  <form method="post" action="/admin/datenblaetter" class="row">
+    <span class="small">{{ ds.todo }} verlinkte Datenblätter noch nicht offline.</span>
+    {% if can_edit %}<button class="btn sm primary" {{ 'disabled' if not ds.todo }}>Jetzt alle herunterladen</button>{% endif %}
+  </form>
+  {% if can_edit %}<form method="post" action="/admin/datenblaetter" class="row" style="margin-top:6px">
+    <input type="hidden" name="offline" value="{{ '0' if ds.offline else '1' }}">
+    <span class="small">Nachts automatisch: <b>{{ 'an' if ds.offline else 'aus' }}</b></span><button class="btn sm">{{ 'ausschalten' if ds.offline else 'einschalten' }}</button>
+  </form>{% endif %}
+</div>
+{% endblock %}

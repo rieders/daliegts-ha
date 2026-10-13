@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Benutzer{% endblock %}
+{% block content %}
+<h1>Benutzer</h1>
+{% macro form(u) %}
+<form method="post" action="/admin/benutzer/speichern">
+  <input type="hidden" name="id" value="{{ u.id if u else '' }}">
+  <div class="fields">
+    <div><label>Benutzername</label><input name="username" value="{{ u.username if u else '' }}" {{ 'readonly' if u else 'required' }}></div>
+    <div><label>Anzeigename</label><input name="display_name" value="{{ u.display_name if u else '' }}"></div>
+    <div><label>Gruppe</label><select name="group_id">{% for g in groups %}<option value="{{ g.id }}" {{ 'selected' if u and u.group_id == g.id or (not u and g.name == 'Familie') }}>{{ g.name }}</option>{% endfor %}</select></div>
+    <div><label>{{ 'Neues Passwort' if u else 'Passwort' }}</label><input type="password" name="password" autocomplete="new-password" {{ '' if u else 'required' }}></div>
+    <div><label>PIN (4–6 Ziffern, optional)</label><input name="pin" inputmode="numeric" pattern="[0-9]{4,6}"></div>
+  </div>
+  <label class="inline"><input type="checkbox" name="active" value="1" {{ 'checked' if not u or u.active }}> aktiv</label>
+  <details class="more"><summary>Rechte abweichend von der Gruppe</summary>
+    <div class="fields matrix">{% for area, (label, _) in AREAS.items() %}{% set ov = (u.overrides|selectattr('area','equalto',area)|first) if u else None %}
+      <div><label>{{ label }}</label><select name="ov_{{ area }}"><option value="">wie Gruppe</option>{% for lv, ln in LEVELS.items() %}<option value="{{ lv }}" {{ 'selected' if ov and ov.level == lv }}>{{ ln }}</option>{% endfor %}</select></div>{% endfor %}</div>
+  </details>
+  {% if me.can('users', 2) %}<button class="btn primary sm" style="margin-top:8px">Speichern</button>{% endif %}
+</form>
+{% endmacro %}
+{% for u in users %}
+<details class="card"><summary class="row spread"><b>{{ u.label }}</b><span class="small muted">{{ u.username }} · {{ u.group.name if u.group else '–' }}{% if u.pin_hash %} · PIN{% endif %}{% if not u.active %} · <span class="badge err">inaktiv</span>{% endif %} · zuletzt {{ u.last_login|dt or 'nie' }}</span></summary>
+  {{ form(u) }}
+</details>
+{% endfor %}
+{% if me.can('users', 2) %}<details class="card" open><summary><b>＋ Neues Konto</b></summary>{{ form(None) }}</details>
+{% else %}<p class="note">Zum Anlegen/Ändern von Konten den Admin-Modus einschalten.</p>{% endif %}
+{% endblock %}

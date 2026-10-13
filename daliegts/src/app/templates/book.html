@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Buchen{% endblock %}
+{% block head %}<script src="/static/js/scan.js?v={{ APP_VERSION }}" defer></script><script src="/static/js/book.js?v={{ APP_VERSION }}" defer></script>{% endblock %}
+{% block content %}
+<div x-data='bookApp({{ {"mode": modus, "canLed": me.can("wled_show")}|tojson }})' class="book">
+  <div class="row spread"><h1 class="mb0">Buchen</h1>
+    <span class="small muted">Handscanner: einfach scannen · Handy: 📷 Kamera</span></div>
+
+  <div class="modes" style="margin-top:10px">
+    <template x-for="m in modes" :key="m.id">
+      <button class="btn" :class="{primary: mode === m.id}" @click="setMode(m.id)"><span x-text="m.icon" style="font-size:1.3rem"></span> <span x-text="m.label"></span></button>
+    </template>
+  </div>
+  <p class="small muted" style="margin:6px 0 0" x-text="modes.find(m => m.id === mode).hint"></p>
+
+  <div class="card book-main" style="margin-top:10px">
+    <div class="row spread"><b class="book-prompt" x-text="prompt()"></b>
+      <div class="row"><button class="btn sm" @click="toggleCamera()" x-text="camOn ? '⏹ Kamera' : '📷 Kamera'"></button>
+        <button class="btn sm" x-show="camOn && torchAvailable" @click="toggleTorch()">🔦</button></div></div>
+    <div class="scanner" x-show="camOn" style="margin-top:8px"><video x-ref="video" playsinline muted></video><div class="frame"></div>
+      <div class="hint" x-text="engine ? 'Scanner: ' + engine : 'Starte Kamera …'"></div></div>
+    <p class="small" x-show="camError" x-text="camError" style="color:var(--err)"></p>
+    <form class="row" style="margin-top:8px" @submit.prevent="submitScan()">
+      <input x-ref="scan" x-model="code" class="grow book-input" placeholder="Barcode scannen – oder Name/Code tippen" autocomplete="off" autofocus>
+      <button class="btn">OK</button>
+    </form>
+
+    <div class="itemlist" x-show="results.length" style="margin-top:8px">
+      <template x-for="it in results" :key="it.id"><button type="button" class="itemrow" style="text-align:left" @click="useResult(it)">
+        <div><div class="t" x-text="it.name"></div><div class="s" x-text="(it.lots || []).map(l => l.location || 'ohne Ort').join('; ')"></div></div></button></template>
+    </div>
+
+    <!-- Ziel (Einräumen) / Quelle -->
+    <div class="book-slot" x-show="target && mode === 'ein'" x-cloak><span class="small muted">Ziel-Fach</span><b x-text="target && target.path"></b>
+      <button class="btn sm ghost" @click="target = null; focusScan()">✕</button></div>
+    <div class="book-slot" x-show="source && mode !== 'ein'" x-cloak><span class="small muted">aus Fach</span><b x-text="source && source.path"></b>
+      <button class="btn sm ghost" @click="source = null; choices = []; focusScan()">✕</button></div>
+
+    <!-- Artikel -->
+    <div class="book-slot" x-show="item" x-cloak><span class="small muted">Artikel</span><b x-text="item && item.name"></b>
+      <span class="small" x-show="lot" x-text="lot && lotLabel(lot)"></span>
+      <button class="btn sm ghost" @click="reset(); focusScan()">✕</button></div>
+
+    <!-- Bestand wählen -->
+    <div x-show="choices.length" x-cloak style="margin-top:8px">
+      <template x-for="(l, i) in choices" :key="l.id">
+        <button type="button" class="btn book-choice" @click="chooseLot(l)"><span class="badge" x-text="i + 1"></span> <b x-text="l.item"></b> <span x-text="lotLabel(l)"></span></button>
+      </template>
+    </div>
+
+    <!-- Menge -->
+    <form class="row book-qty" x-show="(mode === 'aus' && lot && lot.stock_mode === 'exact') || needQty" x-cloak @submit.prevent="submitQty()">
+      <label class="inline" style="margin:0" x-text="needQty ? 'Menge (neu anlegen)' : 'Menge ausbuchen'"></label>
+      <div class="stepper"><button type="button" class="btn" @click="qty = String(Math.max(0, num(qty) - 1)); focusQty()">−</button>
+        <input x-ref="qty" x-model="qty" inputmode="decimal" autocomplete="off"><button type="button" class="btn" @click="qty = String((num(qty) || 0) + 1); focusQty()">＋</button></div>
+      <button class="btn primary big" x-text="needQty ? '✓ Zuordnen (Enter)' : '📤 Ausbuchen (Enter)'"></button>
+      <span class="small muted" x-show="lot && !needQty" x-text="lot && ('vorhanden: ' + fmt(lot.quantity) + ' ' + lot.unit)"></span>
+    </form>
+    <div class="row" x-show="mode === 'aus' && lot && lot.stock_mode !== 'exact'" x-cloak style="margin-top:8px">
+      <span>Füllstand danach:</span>
+      <button class="btn" @click="coarse('ok')"><span class="amp ok"></span> genug</button>
+      <button class="btn" @click="coarse('low')"><span class="amp low"></span> wenig</button>
+      <button class="btn" @click="coarse('empty')"><span class="amp empty"></span> leer</button>
+    </div>
+    <div class="row" x-show="mode === 'um' && lot" x-cloak style="margin-top:8px">
+      <label class="inline" style="margin:0">Teilmenge</label><input x-model="part" placeholder="leer = alles" inputmode="decimal" style="width:120px">
+      <span class="small muted">dann Ziel-Fach scannen</span>
+    </div>
+  </div>
+
+  <div class="card" x-show="log.length" x-cloak>
+    <h2 class="mt0">Zuletzt gebucht</h2>
+    <template x-for="e in log" :key="e.id">
+      <div class="book-log" :style="e.done ? 'opacity:.5;text-decoration:line-through' : ''">
+        <span><span class="small muted" x-text="e.t"></span> <span x-text="e.text"></span></span>
+        <button class="btn sm ghost" x-show="e.undo && !e.done" @click="undo(e)">↶ rückgängig</button>
+      </div>
+    </template>
+  </div>
+  <p class="small muted">InvenTree-Etiketten, {{ APP_NAME }}-Codes (A-/S-/L-…), Part-DB-Etiketten und Hersteller-Barcodes werden erkannt. Ein InvenTree-Bestandsetikett wählt genau diesen Bestand. Alles steht mit Benutzer in der <a href="/historie">Historie</a>.</p>
+</div>
+{% endblock %}

@@ -1,0 +1,3621 @@
+{
+ "group": "Kondensatoren",
+ "parts": [
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 1000 µF, 16 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-1000u-16v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 1000 µF 16 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "1000u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "16"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "1000u",
+    "16v",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 1000 µF, 25 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-1000u-25v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 1000 µF 25 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "1000u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "25"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "1000u",
+    "25v",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 1000 µF, 35 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-1000u-35v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 1000 µF 35 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "1000u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "35"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "1000u",
+    "35v",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 100 µF, 16 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-100u-16v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 100 µF 16 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "100u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "16"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "100u",
+    "16v",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 100 µF, 25 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-100u-25v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 100 µF 25 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "100u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "25"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "100u",
+    "25v",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 100 µF, 35 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-100u-35v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 100 µF 35 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "100u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "35"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "100u",
+    "35v",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 100 µF, 63 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-100u-63v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 100 µF 63 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "100u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "63"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "100u",
+    "63v",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 10 µF, 25 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-10u-25v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 10 µF 25 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "10u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "25"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "10u",
+    "25v",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 10 µF, 50 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-10u-50v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 10 µF 50 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "10u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "10u",
+    "50v",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 1 µF, 50 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-1u-50v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 1 µF 50 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "1u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "1u",
+    "50v",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 2200 µF, 16 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-2200u-16v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 2200 µF 16 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "2200u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "16"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "16v",
+    "2200u",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 2200 µF, 25 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-2200u-25v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 2200 µF 25 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "2200u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "25"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "2200u",
+    "25v",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 220 µF, 16 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-220u-16v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 220 µF 16 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "220u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "16"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "16v",
+    "220u",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 220 µF, 25 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-220u-25v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 220 µF 25 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "220u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "25"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "220u",
+    "25v",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 220 µF, 35 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-220u-35v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 220 µF 35 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "220u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "35"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "220u",
+    "35v",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 22 µF, 25 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-22u-25v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 22 µF 25 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "22u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "25"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "22u",
+    "25v",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 22 µF, 50 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-22u-50v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 22 µF 50 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "22u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "22u",
+    "50v",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 2,2 µF, 50 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-2u2-50v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 2,2 µF 50 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "2.2u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "2.2u",
+    "50v",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 4700 µF, 16 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-4700u-16v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 4700 µF 16 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "4700u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "16"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "16v",
+    "4700u",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 4700 µF, 25 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-4700u-25v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 4700 µF 25 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "4700u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "25"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "25v",
+    "4700u",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 470 µF, 16 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-470u-16v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 470 µF 16 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "470u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "16"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "16v",
+    "470u",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 470 µF, 25 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-470u-25v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 470 µF 25 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "470u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "25"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "25v",
+    "470u",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 470 µF, 35 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-470u-35v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 470 µF 35 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "470u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "35"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "35v",
+    "470u",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 47 µF, 16 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-47u-16v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 47 µF 16 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "47u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "16"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "16v",
+    "47u",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 47 µF, 25 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-47u-25v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 47 µF 25 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "47u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "25"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "25v",
+    "47u",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 47 µF, 50 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-47u-50v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 47 µF 50 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "47u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "47u",
+    "50v",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Elektrolyt",
+   "description": "Aluminium-Elektrolytkondensator 4,7 µF, 50 V, radial (gepolt!)",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "elko-4u7-50v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Elko 4,7 µF 50 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "4.7u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Typ",
+     "value": "Aluminium-Elko"
+    }
+   ],
+   "tags": [
+    "4.7u",
+    "50v",
+    "elektrolyt",
+    "elko",
+    "kondensator",
+    "radial"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Folie",
+   "description": "Folienkondensator (Polyester, MKS/MKT) 100 nF, 63 V, Rastermaß 5 mm",
+   "footprint": "THT radial",
+   "image": "film-cap.svg",
+   "key": "film-mks-100n-63v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MKS 100 nF 63 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "100n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "63"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "PET"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "100n",
+    "folie",
+    "kondensator",
+    "mks",
+    "mkt"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Folie",
+   "description": "Folienkondensator (Polyester, MKS/MKT) 10 nF, 63 V, Rastermaß 5 mm",
+   "footprint": "THT radial",
+   "image": "film-cap.svg",
+   "key": "film-mks-10n-63v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MKS 10 nF 63 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "10n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "63"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "PET"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "10n",
+    "folie",
+    "kondensator",
+    "mks",
+    "mkt"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Folie",
+   "description": "Folienkondensator (Polyester, MKS/MKT) 1 µF, 63 V, Rastermaß 5 mm",
+   "footprint": "THT radial",
+   "image": "film-cap.svg",
+   "key": "film-mks-1u-63v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MKS 1 µF 63 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "1u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "63"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "PET"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "1u",
+    "folie",
+    "kondensator",
+    "mks",
+    "mkt"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Folie",
+   "description": "Folienkondensator (Polyester, MKS/MKT) 220 nF, 63 V, Rastermaß 5 mm",
+   "footprint": "THT radial",
+   "image": "film-cap.svg",
+   "key": "film-mks-220n-63v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MKS 220 nF 63 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "220n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "63"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "PET"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "220n",
+    "folie",
+    "kondensator",
+    "mks",
+    "mkt"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Folie",
+   "description": "Folienkondensator (Polyester, MKS/MKT) 22 nF, 63 V, Rastermaß 5 mm",
+   "footprint": "THT radial",
+   "image": "film-cap.svg",
+   "key": "film-mks-22n-63v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MKS 22 nF 63 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "22n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "63"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "PET"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "22n",
+    "folie",
+    "kondensator",
+    "mks",
+    "mkt"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Folie",
+   "description": "Folienkondensator (Polyester, MKS/MKT) 470 nF, 63 V, Rastermaß 5 mm",
+   "footprint": "THT radial",
+   "image": "film-cap.svg",
+   "key": "film-mks-470n-63v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MKS 470 nF 63 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "470n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "63"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "PET"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "470n",
+    "folie",
+    "kondensator",
+    "mks",
+    "mkt"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Folie",
+   "description": "Folienkondensator (Polyester, MKS/MKT) 47 nF, 63 V, Rastermaß 5 mm",
+   "footprint": "THT radial",
+   "image": "film-cap.svg",
+   "key": "film-mks-47n-63v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MKS 47 nF 63 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "47n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "63"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "PET"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "47n",
+    "folie",
+    "kondensator",
+    "mks",
+    "mkt"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 100 nF, 50 V, X7R, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-100n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "100 nF 50 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "100n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "0603",
+    "100n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 100 pF, 50 V, C0G, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-100p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "100 pF 50 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "100p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    }
+   ],
+   "tags": [
+    "0603",
+    "100p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 10 nF, 50 V, X7R, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-10n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "10 nF 50 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "10n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "0603",
+    "10n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 10 pF, 50 V, C0G, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-10p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "10 pF 50 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "10p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    }
+   ],
+   "tags": [
+    "0603",
+    "10p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 10 µF, 6,3 V, X5R, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-10u",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "10 µF 6.3 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "10u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "6.3"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X5R"
+    }
+   ],
+   "tags": [
+    "0603",
+    "10u",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x5r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 15 pF, 50 V, C0G, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-15p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "15 pF 50 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "15p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    }
+   ],
+   "tags": [
+    "0603",
+    "15p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 18 pF, 50 V, C0G, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-18p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "18 pF 50 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "18p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    }
+   ],
+   "tags": [
+    "0603",
+    "18p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 1 nF, 50 V, X7R, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-1n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1 nF 50 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "1n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "0603",
+    "1n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 1 µF, 25 V, X5R, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-1u",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1 µF 25 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "1u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "25"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X5R"
+    }
+   ],
+   "tags": [
+    "0603",
+    "1u",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x5r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 220 nF, 25 V, X7R, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-220n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "220 nF 25 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "220n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "25"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "0603",
+    "220n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 220 pF, 50 V, C0G, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-220p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "220 pF 50 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "220p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    }
+   ],
+   "tags": [
+    "0603",
+    "220p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 22 nF, 50 V, X7R, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-22n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "22 nF 50 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "22n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "0603",
+    "22n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 22 pF, 50 V, C0G, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-22p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "22 pF 50 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "22p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    }
+   ],
+   "tags": [
+    "0603",
+    "22p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 2,2 nF, 50 V, X7R, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-2n2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2,2 nF 50 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "2.2n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "0603",
+    "2.2n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 2,2 µF, 10 V, X5R, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-2u2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2,2 µF 10 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "2.2u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "10"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X5R"
+    }
+   ],
+   "tags": [
+    "0603",
+    "2.2u",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x5r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 33 pF, 50 V, C0G, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-33p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "33 pF 50 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "33p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    }
+   ],
+   "tags": [
+    "0603",
+    "33p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 470 nF, 16 V, X7R, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-470n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "470 nF 16 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "470n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "16"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "0603",
+    "470n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 470 pF, 50 V, C0G, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-470p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "470 pF 50 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "470p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    }
+   ],
+   "tags": [
+    "0603",
+    "470p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 47 nF, 50 V, X7R, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-47n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "47 nF 50 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "47n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "0603",
+    "47n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 47 pF, 50 V, C0G, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-47p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "47 pF 50 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "47p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    }
+   ],
+   "tags": [
+    "0603",
+    "47p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 4,7 nF, 50 V, X7R, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-4n7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "4,7 nF 50 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "4.7n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "0603",
+    "4.7n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 4,7 µF, 10 V, X5R, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0603-4u7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "4,7 µF 10 V (0603)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "4.7u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "10"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X5R"
+    }
+   ],
+   "tags": [
+    "0603",
+    "4.7u",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x5r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 100 nF, 50 V, X7R, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-100n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "100 nF 50 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "100n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "0805",
+    "100n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 100 pF, 50 V, C0G, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-100p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "100 pF 50 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "100p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    }
+   ],
+   "tags": [
+    "0805",
+    "100p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 10 nF, 50 V, X7R, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-10n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "10 nF 50 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "10n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "0805",
+    "10n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 10 pF, 50 V, C0G, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-10p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "10 pF 50 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "10p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    }
+   ],
+   "tags": [
+    "0805",
+    "10p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 10 µF, 16 V, X5R, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-10u",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "10 µF 16 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "10u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "16"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X5R"
+    }
+   ],
+   "tags": [
+    "0805",
+    "10u",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x5r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 1 nF, 50 V, X7R, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-1n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1 nF 50 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "1n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "0805",
+    "1n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 1 µF, 25 V, X7R, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-1u",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1 µF 25 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "1u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "25"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "0805",
+    "1u",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 220 nF, 50 V, X7R, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-220n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "220 nF 50 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "220n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "0805",
+    "220n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 220 pF, 50 V, C0G, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-220p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "220 pF 50 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "220p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    }
+   ],
+   "tags": [
+    "0805",
+    "220p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 22 nF, 50 V, X7R, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-22n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "22 nF 50 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "22n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "0805",
+    "22n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 22 pF, 50 V, C0G, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-22p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "22 pF 50 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "22p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    }
+   ],
+   "tags": [
+    "0805",
+    "22p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 22 µF, 6,3 V, X5R, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-22u",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "22 µF 6.3 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "22u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "6.3"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X5R"
+    }
+   ],
+   "tags": [
+    "0805",
+    "22u",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x5r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 2,2 nF, 50 V, X7R, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-2n2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2,2 nF 50 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "2.2n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "0805",
+    "2.2n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 2,2 µF, 25 V, X5R, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-2u2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2,2 µF 25 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "2.2u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "25"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X5R"
+    }
+   ],
+   "tags": [
+    "0805",
+    "2.2u",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x5r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 33 pF, 50 V, C0G, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-33p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "33 pF 50 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "33p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    }
+   ],
+   "tags": [
+    "0805",
+    "33p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 470 nF, 25 V, X7R, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-470n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "470 nF 25 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "470n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "25"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "0805",
+    "470n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 470 pF, 50 V, C0G, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-470p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "470 pF 50 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "470p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    }
+   ],
+   "tags": [
+    "0805",
+    "470p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 47 nF, 50 V, X7R, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-47n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "47 nF 50 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "47n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "0805",
+    "47n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 47 pF, 50 V, C0G, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-47p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "47 pF 50 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "47p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    }
+   ],
+   "tags": [
+    "0805",
+    "47p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 4,7 nF, 50 V, X7R, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-4n7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "4,7 nF 50 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "4.7n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "0805",
+    "4.7n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 4,7 µF, 25 V, X5R, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-0805-4u7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "4,7 µF 25 V (0805)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "4.7u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "25"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X5R"
+    }
+   ],
+   "tags": [
+    "0805",
+    "4.7u",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x5r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 100 nF, 50 V, X7R, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-1206-100n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "100 nF 50 V (1206)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "100n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "100n",
+    "1206",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 10 µF, 25 V, X5R, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-1206-10u",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "10 µF 25 V (1206)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "10u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "25"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X5R"
+    }
+   ],
+   "tags": [
+    "10u",
+    "1206",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x5r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 1 µF, 50 V, X7R, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-1206-1u",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1 µF 50 V (1206)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "1u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    }
+   ],
+   "tags": [
+    "1206",
+    "1u",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik SMD",
+   "description": "Keramik-Vielschichtkondensator (MLCC) 22 µF, 16 V, X5R, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-capacitor.svg",
+   "key": "cap-1206-22u",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "22 µF 16 V (1206)",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "22u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "16"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X5R"
+    }
+   ],
+   "tags": [
+    "1206",
+    "22u",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "smd",
+    "x5r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik THT",
+   "description": "Keramik-Vielschichtkondensator 100 nF, 50 V, X7R, bedrahtet, Rastermaß 2,54 mm",
+   "footprint": "MLCC THT",
+   "image": "mlcc-tht.svg",
+   "key": "cap-tht-100n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "100 nF 50 V MLCC RM2,54",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "100n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "100n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "tht",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik THT",
+   "description": "Keramik-Vielschichtkondensator 100 pF, 50 V, C0G, bedrahtet, Rastermaß 2,54 mm",
+   "footprint": "MLCC THT",
+   "image": "mlcc-tht.svg",
+   "key": "cap-tht-100p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "100 pF 50 V MLCC RM2,54",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "100p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "100p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik THT",
+   "description": "Keramik-Vielschichtkondensator 10 nF, 50 V, X7R, bedrahtet, Rastermaß 2,54 mm",
+   "footprint": "MLCC THT",
+   "image": "mlcc-tht.svg",
+   "key": "cap-tht-10n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "10 nF 50 V MLCC RM2,54",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "10n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "10n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "tht",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik THT",
+   "description": "Keramik-Vielschichtkondensator 10 pF, 50 V, C0G, bedrahtet, Rastermaß 2,54 mm",
+   "footprint": "MLCC THT",
+   "image": "mlcc-tht.svg",
+   "key": "cap-tht-10p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "10 pF 50 V MLCC RM2,54",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "10p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "10p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik THT",
+   "description": "Keramik-Vielschichtkondensator 15 pF, 50 V, C0G, bedrahtet, Rastermaß 2,54 mm",
+   "footprint": "MLCC THT",
+   "image": "mlcc-tht.svg",
+   "key": "cap-tht-15p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "15 pF 50 V MLCC RM2,54",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "15p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "15p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik THT",
+   "description": "Keramik-Vielschichtkondensator 1 nF, 50 V, X7R, bedrahtet, Rastermaß 2,54 mm",
+   "footprint": "MLCC THT",
+   "image": "mlcc-tht.svg",
+   "key": "cap-tht-1n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1 nF 50 V MLCC RM2,54",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "1n"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "1n",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "tht",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik THT",
+   "description": "Keramik-Vielschichtkondensator 1 µF, 50 V, X7R, bedrahtet, Rastermaß 2,54 mm",
+   "footprint": "MLCC THT",
+   "image": "mlcc-tht.svg",
+   "key": "cap-tht-1u",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1 µF 50 V MLCC RM2,54",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "1u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "X7R"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "1u",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "tht",
+    "x7r"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik THT",
+   "description": "Keramik-Vielschichtkondensator 22 pF, 50 V, C0G, bedrahtet, Rastermaß 2,54 mm",
+   "footprint": "MLCC THT",
+   "image": "mlcc-tht.svg",
+   "key": "cap-tht-22p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "22 pF 50 V MLCC RM2,54",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "22p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "22p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik THT",
+   "description": "Keramik-Vielschichtkondensator 27 pF, 50 V, C0G, bedrahtet, Rastermaß 2,54 mm",
+   "footprint": "MLCC THT",
+   "image": "mlcc-tht.svg",
+   "key": "cap-tht-27p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "27 pF 50 V MLCC RM2,54",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "27p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "27p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Keramik THT",
+   "description": "Keramik-Vielschichtkondensator 33 pF, 50 V, C0G, bedrahtet, Rastermaß 2,54 mm",
+   "footprint": "MLCC THT",
+   "image": "mlcc-tht.svg",
+   "key": "cap-tht-33p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "33 pF 50 V MLCC RM2,54",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "33p"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "Dielektrikum",
+     "value": "C0G"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "33p",
+    "c0g",
+    "keramik",
+    "kondensator",
+    "mlcc",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Tantal",
+   "description": "SMD-Tantalkondensator 10 µF, 16 V, Case A (3216), gepolt",
+   "footprint": "Tantal Case A",
+   "image": "tantal-smd.svg",
+   "key": "tant-smd-a-10u-16v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Tantal 10 µF 16 V Case A",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "10u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "16"
+    },
+    {
+     "name": "Typ",
+     "value": "Tantal"
+    }
+   ],
+   "tags": [
+    "10u",
+    "case-a",
+    "kondensator",
+    "smd",
+    "tantal"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Tantal",
+   "description": "SMD-Tantalkondensator 22 µF, 16 V, Case B (3528), gepolt",
+   "footprint": "Tantal Case B",
+   "image": "tantal-smd.svg",
+   "key": "tant-smd-b-22u-16v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Tantal 22 µF 16 V Case B",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "22u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "16"
+    },
+    {
+     "name": "Typ",
+     "value": "Tantal"
+    }
+   ],
+   "tags": [
+    "22u",
+    "case-b",
+    "kondensator",
+    "smd",
+    "tantal"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Tantal",
+   "description": "SMD-Tantalkondensator 47 µF, 10 V, Case B (3528), gepolt",
+   "footprint": "Tantal Case B",
+   "image": "tantal-smd.svg",
+   "key": "tant-smd-b-47u-10v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Tantal 47 µF 10 V Case B",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "47u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "10"
+    },
+    {
+     "name": "Typ",
+     "value": "Tantal"
+    }
+   ],
+   "tags": [
+    "47u",
+    "case-b",
+    "kondensator",
+    "smd",
+    "tantal"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Tantal",
+   "description": "Tantal-Perlkondensator 10 µF, 16 V, radial bedrahtet (gepolt!)",
+   "footprint": "THT radial",
+   "image": "tantal.svg",
+   "key": "tant-tht-10u-16v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Tantal 10 µF 16 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "10u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "16"
+    },
+    {
+     "name": "Typ",
+     "value": "Tantal"
+    }
+   ],
+   "tags": [
+    "10u",
+    "16v",
+    "kondensator",
+    "tantal",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Tantal",
+   "description": "Tantal-Perlkondensator 10 µF, 25 V, radial bedrahtet (gepolt!)",
+   "footprint": "THT radial",
+   "image": "tantal.svg",
+   "key": "tant-tht-10u-25v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Tantal 10 µF 25 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "10u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "25"
+    },
+    {
+     "name": "Typ",
+     "value": "Tantal"
+    }
+   ],
+   "tags": [
+    "10u",
+    "25v",
+    "kondensator",
+    "tantal",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Tantal",
+   "description": "Tantal-Perlkondensator 1 µF, 35 V, radial bedrahtet (gepolt!)",
+   "footprint": "THT radial",
+   "image": "tantal.svg",
+   "key": "tant-tht-1u-35v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Tantal 1 µF 35 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "1u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "35"
+    },
+    {
+     "name": "Typ",
+     "value": "Tantal"
+    }
+   ],
+   "tags": [
+    "1u",
+    "35v",
+    "kondensator",
+    "tantal",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Tantal",
+   "description": "Tantal-Perlkondensator 22 µF, 16 V, radial bedrahtet (gepolt!)",
+   "footprint": "THT radial",
+   "image": "tantal.svg",
+   "key": "tant-tht-22u-16v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Tantal 22 µF 16 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "22u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "16"
+    },
+    {
+     "name": "Typ",
+     "value": "Tantal"
+    }
+   ],
+   "tags": [
+    "16v",
+    "22u",
+    "kondensator",
+    "tantal",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Tantal",
+   "description": "Tantal-Perlkondensator 47 µF, 10 V, radial bedrahtet (gepolt!)",
+   "footprint": "THT radial",
+   "image": "tantal.svg",
+   "key": "tant-tht-47u-10v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Tantal 47 µF 10 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "47u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "10"
+    },
+    {
+     "name": "Typ",
+     "value": "Tantal"
+    }
+   ],
+   "tags": [
+    "10v",
+    "47u",
+    "kondensator",
+    "tantal",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Kondensatoren/Tantal",
+   "description": "Tantal-Perlkondensator 4,7 µF, 25 V, radial bedrahtet (gepolt!)",
+   "footprint": "THT radial",
+   "image": "tantal.svg",
+   "key": "tant-tht-4u7-25v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Tantal 4,7 µF 25 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "4.7u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "25"
+    },
+    {
+     "name": "Typ",
+     "value": "Tantal"
+    }
+   ],
+   "tags": [
+    "25v",
+    "4.7u",
+    "kondensator",
+    "tantal",
+    "tht"
+   ],
+   "unit": "Stk"
+  }
+ ]
+}

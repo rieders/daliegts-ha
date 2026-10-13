@@ -1,0 +1,1897 @@
+{
+ "group": "Steckverbinder & Sockel",
+ "parts": [
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Buchsenleisten",
+   "description": "Buchsenleiste 1×40-polig, Raster 2,54 mm, gerade, kürzbar",
+   "footprint": "Buchsenleiste 2.54",
+   "image": "female-header.svg",
+   "key": "femaleheader-1x40",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Buchsenleiste 1×40 gerade",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "40"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "2.54mm",
+    "buchsenleiste",
+    "femaleheader"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Buchsenleisten",
+   "description": "Buchsenleiste 2×40-polig, Raster 2,54 mm, gerade, kürzbar",
+   "footprint": "Buchsenleiste 2.54",
+   "image": "female-header.svg",
+   "key": "femaleheader-2x40",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Buchsenleiste 2×40 gerade",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "80"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "2.54mm",
+    "buchsenleiste",
+    "femaleheader"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Dupont",
+   "description": "Crimpkontakt weiblich für Dupont-Gehäuse, Raster 2,54 mm",
+   "footprint": "Dupont",
+   "image": "dupont.svg",
+   "key": "dupont-contact-f",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Dupont-Crimpkontakt Buchse",
+   "params": [
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "buchse",
+    "crimp",
+    "dupont",
+    "kontakt"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Dupont",
+   "description": "Crimpkontakt männlich (Stift) für Dupont-Gehäuse, Raster 2,54 mm",
+   "footprint": "Dupont",
+   "image": "dupont.svg",
+   "key": "dupont-contact-m",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Dupont-Crimpkontakt Stecker",
+   "params": [
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "crimp",
+    "dupont",
+    "kontakt",
+    "stecker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Dupont",
+   "description": "Dupont-Kunststoffgehäuse 1×1-polig, Raster 2,54 mm",
+   "footprint": "Dupont",
+   "image": "female-header.svg",
+   "key": "dupont-housing-1x1",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Dupont-Gehäuse 1×1",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "1"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "dupont",
+    "gehäuse"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Dupont",
+   "description": "Dupont-Kunststoffgehäuse 1×2-polig, Raster 2,54 mm",
+   "footprint": "Dupont",
+   "image": "female-header.svg",
+   "key": "dupont-housing-1x2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Dupont-Gehäuse 1×2",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "2"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "dupont",
+    "gehäuse"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Dupont",
+   "description": "Dupont-Kunststoffgehäuse 1×3-polig, Raster 2,54 mm",
+   "footprint": "Dupont",
+   "image": "female-header.svg",
+   "key": "dupont-housing-1x3",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Dupont-Gehäuse 1×3",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "3"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "dupont",
+    "gehäuse"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Dupont",
+   "description": "Dupont-Kunststoffgehäuse 1×4-polig, Raster 2,54 mm",
+   "footprint": "Dupont",
+   "image": "female-header.svg",
+   "key": "dupont-housing-1x4",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Dupont-Gehäuse 1×4",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "4"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "dupont",
+    "gehäuse"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Dupont",
+   "description": "Dupont-Kunststoffgehäuse 1×6-polig, Raster 2,54 mm",
+   "footprint": "Dupont",
+   "image": "female-header.svg",
+   "key": "dupont-housing-1x6",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Dupont-Gehäuse 1×6",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "6"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "dupont",
+    "gehäuse"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Dupont",
+   "description": "Steckbrücken/Jumper-Kabel Buchse–Buchse, 20 cm, Dupont 2,54 mm (Bündel)",
+   "footprint": "Dupont",
+   "image": "dupont.svg",
+   "key": "jumperwire-ff-20cm",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Jumper-Kabel Buchse–Buchse 20 cm",
+   "params": [
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "breadboard",
+    "dupont",
+    "jumper",
+    "kabel",
+    "steckbrett"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Dupont",
+   "description": "Steckbrücken/Jumper-Kabel Stecker–Buchse, 20 cm, Dupont 2,54 mm (Bündel)",
+   "footprint": "Dupont",
+   "image": "dupont.svg",
+   "key": "jumperwire-mf-20cm",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Jumper-Kabel Stecker–Buchse 20 cm",
+   "params": [
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "breadboard",
+    "dupont",
+    "jumper",
+    "kabel",
+    "steckbrett"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Dupont",
+   "description": "Steckbrücken/Jumper-Kabel Stecker–Stecker, 20 cm, Dupont 2,54 mm (Bündel)",
+   "footprint": "Dupont",
+   "image": "dupont.svg",
+   "key": "jumperwire-mm-20cm",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Jumper-Kabel Stecker–Stecker 20 cm",
+   "params": [
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "breadboard",
+    "dupont",
+    "jumper",
+    "kabel",
+    "steckbrett"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/IC-Sockel",
+   "description": "IC-Fassung DIP-14, schmal (7,62 mm), Federkontakte",
+   "footprint": "DIP-14",
+   "image": "ic-socket.svg",
+   "key": "socket-dip14",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "IC-Sockel DIP-14",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "14"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "dip-14",
+    "fassung",
+    "ic-sockel"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/IC-Sockel",
+   "description": "IC-Fassung DIP-16, schmal (7,62 mm), Federkontakte",
+   "footprint": "DIP-16",
+   "image": "ic-socket.svg",
+   "key": "socket-dip16",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "IC-Sockel DIP-16",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "16"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "dip-16",
+    "fassung",
+    "ic-sockel"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/IC-Sockel",
+   "description": "IC-Fassung DIP-18, schmal (7,62 mm), Federkontakte",
+   "footprint": "DIP-18",
+   "image": "ic-socket.svg",
+   "key": "socket-dip18",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "IC-Sockel DIP-18",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "18"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "dip-18",
+    "fassung",
+    "ic-sockel"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/IC-Sockel",
+   "description": "IC-Fassung DIP-20, schmal (7,62 mm), Federkontakte",
+   "footprint": "DIP-20",
+   "image": "ic-socket.svg",
+   "key": "socket-dip20",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "IC-Sockel DIP-20",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "20"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "dip-20",
+    "fassung",
+    "ic-sockel"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/IC-Sockel",
+   "description": "IC-Fassung DIP-24, schmal (7,62 mm), Federkontakte",
+   "footprint": "DIP-24",
+   "image": "ic-socket.svg",
+   "key": "socket-dip24",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "IC-Sockel DIP-24",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "24"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "dip-24",
+    "fassung",
+    "ic-sockel"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/IC-Sockel",
+   "description": "IC-Fassung DIP-24, breit (15,24 mm)",
+   "footprint": "DIP-24",
+   "image": "ic-socket.svg",
+   "key": "socket-dip24-wide",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "IC-Sockel DIP-24 breit",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "24"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "breit",
+    "dip-24",
+    "fassung",
+    "ic-sockel"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/IC-Sockel",
+   "description": "IC-Fassung DIP-28, schmal (7,62 mm), Federkontakte",
+   "footprint": "DIP-28",
+   "image": "ic-socket.svg",
+   "key": "socket-dip28",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "IC-Sockel DIP-28",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "28"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "dip-28",
+    "fassung",
+    "ic-sockel"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/IC-Sockel",
+   "description": "IC-Fassung DIP-28, breit (15,24 mm), z. B. für EPROMs/RAMs",
+   "footprint": "DIP-28",
+   "image": "ic-socket.svg",
+   "key": "socket-dip28-wide",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "IC-Sockel DIP-28 breit",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "28"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "breit",
+    "dip-28",
+    "fassung",
+    "ic-sockel"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/IC-Sockel",
+   "description": "IC-Fassung DIP-40, breit (15,24 mm), Federkontakte",
+   "footprint": "DIP-40",
+   "image": "ic-socket.svg",
+   "key": "socket-dip40",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "IC-Sockel DIP-40",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "40"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "dip-40",
+    "fassung",
+    "ic-sockel"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/IC-Sockel",
+   "description": "IC-Fassung DIP-8, schmal (7,62 mm), Federkontakte",
+   "footprint": "DIP-8",
+   "image": "ic-socket.svg",
+   "key": "socket-dip8",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "IC-Sockel DIP-8",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "8"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "dip-8",
+    "fassung",
+    "ic-sockel"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/JST-PH",
+   "description": "JST-PH Stiftleiste 2-polig, Raster 2,0 mm (typisch für LiPo-Akkus)",
+   "footprint": "JST-PH",
+   "image": "jst-xh.svg",
+   "key": "jst-ph-2-header",
+   "manufacturer": "JST",
+   "mpn": "B2B-PH-K-S",
+   "name": "JST-PH 2-pol Platinenstecker",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "2"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2"
+    }
+   ],
+   "tags": [
+    "2mm",
+    "jst",
+    "jst-ph",
+    "lipo",
+    "stecker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/JST-PH",
+   "description": "JST-PH Buchsengehäuse 2-polig für Kabel, Raster 2,0 mm",
+   "footprint": "JST-PH",
+   "image": "jst-xh.svg",
+   "key": "jst-ph-2-housing",
+   "manufacturer": "JST",
+   "mpn": "PHR-2",
+   "name": "JST-PH 2-pol Crimpgehäuse",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "2"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2"
+    }
+   ],
+   "tags": [
+    "buchse",
+    "crimp",
+    "jst",
+    "jst-ph",
+    "kabel"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/JST-PH",
+   "description": "Crimpkontakt (Buchse) für JST-PH-Gehäuse",
+   "footprint": "JST-PH",
+   "image": "dupont.svg",
+   "key": "jst-ph-contact",
+   "manufacturer": "JST",
+   "mpn": "SPH-002T-P0.5S",
+   "name": "JST-PH Crimpkontakt",
+   "params": [
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2"
+    }
+   ],
+   "tags": [
+    "crimp",
+    "jst",
+    "jst-ph",
+    "kontakt"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/JST-XH",
+   "datasheet_hint": "JST XH",
+   "description": "JST-XH Stiftleiste 2-polig, gerade, Raster 2,5 mm (Platinenseite)",
+   "footprint": "JST-XH",
+   "image": "jst-xh.svg",
+   "key": "jst-xh-2-header",
+   "manufacturer": "JST",
+   "mpn": "B2B-XH-A",
+   "name": "JST-XH 2-pol Platinenstecker",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "2"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.5"
+    }
+   ],
+   "tags": [
+    "2.5mm",
+    "jst",
+    "jst-xh",
+    "platine",
+    "stecker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/JST-XH",
+   "datasheet_hint": "JST XH",
+   "description": "JST-XH Buchsengehäuse 2-polig für Kabel (Crimpkontakte SXH-001T-P0.6 separat)",
+   "footprint": "JST-XH",
+   "image": "jst-xh.svg",
+   "key": "jst-xh-2-housing",
+   "manufacturer": "JST",
+   "mpn": "XHP-2",
+   "name": "JST-XH 2-pol Crimpgehäuse",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "2"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.5"
+    }
+   ],
+   "tags": [
+    "2.5mm",
+    "buchse",
+    "crimp",
+    "jst",
+    "jst-xh",
+    "kabel"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/JST-XH",
+   "datasheet_hint": "JST XH",
+   "description": "JST-XH Stiftleiste 3-polig, gerade, Raster 2,5 mm (Platinenseite)",
+   "footprint": "JST-XH",
+   "image": "jst-xh.svg",
+   "key": "jst-xh-3-header",
+   "manufacturer": "JST",
+   "mpn": "B3B-XH-A",
+   "name": "JST-XH 3-pol Platinenstecker",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "3"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.5"
+    }
+   ],
+   "tags": [
+    "2.5mm",
+    "jst",
+    "jst-xh",
+    "platine",
+    "stecker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/JST-XH",
+   "datasheet_hint": "JST XH",
+   "description": "JST-XH Buchsengehäuse 3-polig für Kabel (Crimpkontakte SXH-001T-P0.6 separat)",
+   "footprint": "JST-XH",
+   "image": "jst-xh.svg",
+   "key": "jst-xh-3-housing",
+   "manufacturer": "JST",
+   "mpn": "XHP-3",
+   "name": "JST-XH 3-pol Crimpgehäuse",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "3"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.5"
+    }
+   ],
+   "tags": [
+    "2.5mm",
+    "buchse",
+    "crimp",
+    "jst",
+    "jst-xh",
+    "kabel"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/JST-XH",
+   "datasheet_hint": "JST XH",
+   "description": "JST-XH Stiftleiste 4-polig, gerade, Raster 2,5 mm (Platinenseite)",
+   "footprint": "JST-XH",
+   "image": "jst-xh.svg",
+   "key": "jst-xh-4-header",
+   "manufacturer": "JST",
+   "mpn": "B4B-XH-A",
+   "name": "JST-XH 4-pol Platinenstecker",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "4"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.5"
+    }
+   ],
+   "tags": [
+    "2.5mm",
+    "jst",
+    "jst-xh",
+    "platine",
+    "stecker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/JST-XH",
+   "datasheet_hint": "JST XH",
+   "description": "JST-XH Buchsengehäuse 4-polig für Kabel (Crimpkontakte SXH-001T-P0.6 separat)",
+   "footprint": "JST-XH",
+   "image": "jst-xh.svg",
+   "key": "jst-xh-4-housing",
+   "manufacturer": "JST",
+   "mpn": "XHP-4",
+   "name": "JST-XH 4-pol Crimpgehäuse",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "4"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.5"
+    }
+   ],
+   "tags": [
+    "2.5mm",
+    "buchse",
+    "crimp",
+    "jst",
+    "jst-xh",
+    "kabel"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/JST-XH",
+   "datasheet_hint": "JST XH",
+   "description": "JST-XH Stiftleiste 5-polig, gerade, Raster 2,5 mm (Platinenseite)",
+   "footprint": "JST-XH",
+   "image": "jst-xh.svg",
+   "key": "jst-xh-5-header",
+   "manufacturer": "JST",
+   "mpn": "B5B-XH-A",
+   "name": "JST-XH 5-pol Platinenstecker",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "5"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.5"
+    }
+   ],
+   "tags": [
+    "2.5mm",
+    "jst",
+    "jst-xh",
+    "platine",
+    "stecker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/JST-XH",
+   "datasheet_hint": "JST XH",
+   "description": "JST-XH Buchsengehäuse 5-polig für Kabel (Crimpkontakte SXH-001T-P0.6 separat)",
+   "footprint": "JST-XH",
+   "image": "jst-xh.svg",
+   "key": "jst-xh-5-housing",
+   "manufacturer": "JST",
+   "mpn": "XHP-5",
+   "name": "JST-XH 5-pol Crimpgehäuse",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "5"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.5"
+    }
+   ],
+   "tags": [
+    "2.5mm",
+    "buchse",
+    "crimp",
+    "jst",
+    "jst-xh",
+    "kabel"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/JST-XH",
+   "datasheet_hint": "JST XH",
+   "description": "JST-XH Stiftleiste 6-polig, gerade, Raster 2,5 mm (Platinenseite)",
+   "footprint": "JST-XH",
+   "image": "jst-xh.svg",
+   "key": "jst-xh-6-header",
+   "manufacturer": "JST",
+   "mpn": "B6B-XH-A",
+   "name": "JST-XH 6-pol Platinenstecker",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "6"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.5"
+    }
+   ],
+   "tags": [
+    "2.5mm",
+    "jst",
+    "jst-xh",
+    "platine",
+    "stecker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/JST-XH",
+   "datasheet_hint": "JST XH",
+   "description": "JST-XH Buchsengehäuse 6-polig für Kabel (Crimpkontakte SXH-001T-P0.6 separat)",
+   "footprint": "JST-XH",
+   "image": "jst-xh.svg",
+   "key": "jst-xh-6-housing",
+   "manufacturer": "JST",
+   "mpn": "XHP-6",
+   "name": "JST-XH 6-pol Crimpgehäuse",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "6"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.5"
+    }
+   ],
+   "tags": [
+    "2.5mm",
+    "buchse",
+    "crimp",
+    "jst",
+    "jst-xh",
+    "kabel"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/JST-XH",
+   "description": "Crimpkontakt (Buchse) für JST-XH-Gehäuse, AWG 28–22",
+   "footprint": "JST-XH",
+   "image": "dupont.svg",
+   "key": "jst-xh-contact",
+   "manufacturer": "JST",
+   "mpn": "SXH-001T-P0.6",
+   "name": "JST-XH Crimpkontakt",
+   "params": [
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.5"
+    }
+   ],
+   "tags": [
+    "crimp",
+    "jst",
+    "jst-xh",
+    "kontakt"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Molex KK",
+   "description": "Molex-KK-254-Platinenstecker 2-polig mit Verriegelung, Raster 2,54 mm",
+   "footprint": "Molex KK",
+   "image": "jst-xh.svg",
+   "key": "molex-kk254-2",
+   "manufacturer": "Molex",
+   "mpn": "",
+   "name": "Molex KK 254 2-pol Stiftleiste",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "2"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "2.54mm",
+    "kk",
+    "molex",
+    "stecker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Molex KK",
+   "description": "Molex-KK-254-Platinenstecker 3-polig mit Verriegelung, Raster 2,54 mm",
+   "footprint": "Molex KK",
+   "image": "jst-xh.svg",
+   "key": "molex-kk254-3",
+   "manufacturer": "Molex",
+   "mpn": "",
+   "name": "Molex KK 254 3-pol Stiftleiste",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "3"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "2.54mm",
+    "kk",
+    "molex",
+    "stecker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Molex KK",
+   "description": "Molex-KK-254-Platinenstecker 4-polig mit Verriegelung, Raster 2,54 mm",
+   "footprint": "Molex KK",
+   "image": "jst-xh.svg",
+   "key": "molex-kk254-4",
+   "manufacturer": "Molex",
+   "mpn": "",
+   "name": "Molex KK 254 4-pol Stiftleiste",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "4"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "2.54mm",
+    "kk",
+    "molex",
+    "stecker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Netzwerk",
+   "description": "RJ45-Netzwerkbuchse 8P8C für Platinenmontage, ohne Übertrager",
+   "footprint": "RJ45",
+   "image": "rj45.svg",
+   "key": "rj45-8p8c",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "RJ45-Buchse 8P8C",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "8"
+    }
+   ],
+   "tags": [
+    "ethernet",
+    "lan",
+    "netzwerk",
+    "rj45"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Netzwerk",
+   "description": "RJ45-Buchse mit integriertem Übertrager und LEDs (z. B. für ENC28J60)",
+   "footprint": "RJ45",
+   "image": "rj45.svg",
+   "key": "rj45-hr911105a",
+   "manufacturer": "HanRun",
+   "mpn": "HR911105A",
+   "name": "RJ45 MagJack HR911105A",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "8"
+    }
+   ],
+   "tags": [
+    "ethernet",
+    "magjack",
+    "rj45",
+    "übertrager"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Schraubklemmen",
+   "description": "Leiterplatten-Schraubklemme 2-polig, Rastermaß 3,5 mm, anreihbar",
+   "footprint": "Schraubklemme",
+   "image": "screw-terminal.svg",
+   "key": "screwterm-35-2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Schraubklemme 2-pol RM 3,5",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "2"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "3.5"
+    }
+   ],
+   "tags": [
+    "klemme",
+    "rm3.5",
+    "schraubklemme",
+    "terminal"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Schraubklemmen",
+   "description": "Leiterplatten-Schraubklemme 3-polig, Rastermaß 3,5 mm, anreihbar",
+   "footprint": "Schraubklemme",
+   "image": "screw-terminal.svg",
+   "key": "screwterm-35-3",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Schraubklemme 3-pol RM 3,5",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "3"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "3.5"
+    }
+   ],
+   "tags": [
+    "klemme",
+    "rm3.5",
+    "schraubklemme",
+    "terminal"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Schraubklemmen",
+   "description": "Leiterplatten-Schraubklemme 2-polig, Rastermaß 5,08 mm, anreihbar",
+   "footprint": "Schraubklemme",
+   "image": "screw-terminal.svg",
+   "key": "screwterm-508-2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Schraubklemme 2-pol RM 5,08",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "2"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "5.08"
+    }
+   ],
+   "tags": [
+    "klemme",
+    "rm5.08",
+    "schraubklemme",
+    "terminal"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Schraubklemmen",
+   "description": "Leiterplatten-Schraubklemme 3-polig, Rastermaß 5,08 mm, anreihbar",
+   "footprint": "Schraubklemme",
+   "image": "screw-terminal.svg",
+   "key": "screwterm-508-3",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Schraubklemme 3-pol RM 5,08",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "3"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "5.08"
+    }
+   ],
+   "tags": [
+    "klemme",
+    "rm5.08",
+    "schraubklemme",
+    "terminal"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Stiftleisten",
+   "description": "Kurzschlussbrücke (Jumper) für Stiftleisten 2,54 mm",
+   "footprint": "Stiftleiste 2.54",
+   "image": "female-header.svg",
+   "key": "jumper-254",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Jumper 2,54 mm",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "2"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "2.54mm",
+    "brücke",
+    "jumper"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Stiftleisten",
+   "description": "Stiftleiste 1×40-polig, Raster 2,54 mm, gewinkelt, abbrechbar",
+   "footprint": "Stiftleiste 2.54",
+   "image": "pin-header.svg",
+   "key": "pinheader-1x40-angled",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Stiftleiste 1×40 gewinkelt",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "40"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    },
+    {
+     "name": "Typ",
+     "value": "gewinkelt"
+    }
+   ],
+   "tags": [
+    "2.54mm",
+    "gewinkelt",
+    "pinheader",
+    "stiftleiste"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Stiftleisten",
+   "description": "Stiftleiste 1×40-polig, Raster 2,54 mm, gerade, abbrechbar",
+   "footprint": "Stiftleiste 2.54",
+   "image": "pin-header.svg",
+   "key": "pinheader-1x40-straight",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Stiftleiste 1×40 gerade",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "40"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    },
+    {
+     "name": "Typ",
+     "value": "gerade"
+    }
+   ],
+   "tags": [
+    "2.54mm",
+    "gerade",
+    "pinheader",
+    "stiftleiste"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Stiftleisten",
+   "description": "Stiftleiste 2×40-polig, Raster 2,54 mm, gewinkelt, abbrechbar",
+   "footprint": "Stiftleiste 2.54",
+   "image": "pin-header.svg",
+   "key": "pinheader-2x40-angled",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Stiftleiste 2×40 gewinkelt",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "80"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    },
+    {
+     "name": "Typ",
+     "value": "gewinkelt"
+    }
+   ],
+   "tags": [
+    "2.54mm",
+    "gewinkelt",
+    "pinheader",
+    "stiftleiste"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Stiftleisten",
+   "description": "Stiftleiste 2×40-polig, Raster 2,54 mm, gerade, abbrechbar",
+   "footprint": "Stiftleiste 2.54",
+   "image": "pin-header.svg",
+   "key": "pinheader-2x40-straight",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Stiftleiste 2×40 gerade",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "80"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    },
+    {
+     "name": "Typ",
+     "value": "gerade"
+    }
+   ],
+   "tags": [
+    "2.54mm",
+    "gerade",
+    "pinheader",
+    "stiftleiste"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Strom & Audio",
+   "description": "Einbau-Bananenbuchse 4 mm, rot (Laborbuchse)",
+   "footprint": "Sonstiges",
+   "image": "generic.svg",
+   "key": "banana-4mm-rot",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Bananenbuchse 4 mm rot",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "rot"
+    },
+    {
+     "name": "Durchmesser",
+     "unit": "mm",
+     "value": "4"
+    }
+   ],
+   "tags": [
+    "4mm",
+    "bananenbuchse",
+    "labor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Strom & Audio",
+   "description": "Einbau-Bananenbuchse 4 mm, schwarz (Laborbuchse)",
+   "footprint": "Sonstiges",
+   "image": "generic.svg",
+   "key": "banana-4mm-schwarz",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Bananenbuchse 4 mm schwarz",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "schwarz"
+    },
+    {
+     "name": "Durchmesser",
+     "unit": "mm",
+     "value": "4"
+    }
+   ],
+   "tags": [
+    "4mm",
+    "bananenbuchse",
+    "labor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Strom & Audio",
+   "description": "Hohlbuchse für Platinenmontage, 5,5 mm außen / 2,1 mm Stift (z. B. DC-005)",
+   "footprint": "DC-Buchse",
+   "image": "dc-jack.svg",
+   "key": "dc-jack-55-21",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "DC-Hohlbuchse 5,5×2,1 mm",
+   "params": [
+    {
+     "name": "Durchmesser",
+     "unit": "mm",
+     "value": "5.5"
+    }
+   ],
+   "tags": [
+    "5.5x2.1",
+    "dc",
+    "hohlbuchse",
+    "netzteil"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Strom & Audio",
+   "description": "Hohlbuchse für Platinenmontage, 5,5 mm außen / 2,5 mm Stift",
+   "footprint": "DC-Buchse",
+   "image": "dc-jack.svg",
+   "key": "dc-jack-55-25",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "DC-Hohlbuchse 5,5×2,5 mm",
+   "params": [
+    {
+     "name": "Durchmesser",
+     "unit": "mm",
+     "value": "5.5"
+    }
+   ],
+   "tags": [
+    "5.5x2.5",
+    "dc",
+    "hohlbuchse",
+    "netzteil"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Strom & Audio",
+   "description": "3,5-mm-Klinkenbuchse stereo (TRS) für Platinenmontage",
+   "footprint": "Klinke 3.5",
+   "image": "audio-jack.svg",
+   "key": "jack-35-stereo",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Klinkenbuchse 3,5 mm stereo",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "3"
+    }
+   ],
+   "tags": [
+    "3.5mm",
+    "audio",
+    "buchse",
+    "klinke"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Strom & Audio",
+   "description": "XT60-Hochstrombuchse (weiblich), 30 A Dauerstrom, verpolsicher (Akkus/RC)",
+   "footprint": "XT60",
+   "image": "xt60.svg",
+   "key": "xt60-f",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "XT60 Buchse",
+   "params": [
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "30"
+    },
+    {
+     "name": "Polzahl",
+     "value": "2"
+    }
+   ],
+   "tags": [
+    "akku",
+    "buchse",
+    "hochstrom",
+    "lipo",
+    "xt60"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Strom & Audio",
+   "description": "XT60-Hochstromstecker (männlich), 30 A Dauerstrom, verpolsicher (Akkus/RC)",
+   "footprint": "XT60",
+   "image": "xt60.svg",
+   "key": "xt60-m",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "XT60 Stecker",
+   "params": [
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "30"
+    },
+    {
+     "name": "Polzahl",
+     "value": "2"
+    }
+   ],
+   "tags": [
+    "akku",
+    "hochstrom",
+    "lipo",
+    "stecker",
+    "xt60"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/USB",
+   "description": "Micro-USB-B-Buchse SMD, 5-polig",
+   "footprint": "Micro-USB",
+   "image": "micro-usb.svg",
+   "key": "micro-usb-b",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Micro-USB-B-Buchse",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "buchse",
+    "micro-usb",
+    "smd",
+    "usb"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/USB",
+   "description": "Mini-USB-B-Buchse SMD, 5-polig",
+   "footprint": "Mini-USB",
+   "image": "micro-usb.svg",
+   "key": "mini-usb-b",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Mini-USB-B-Buchse",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "buchse",
+    "mini-usb",
+    "smd",
+    "usb"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/USB",
+   "description": "USB-A-Buchse für Platinenmontage (THT), 4-polig",
+   "footprint": "USB-A",
+   "image": "usb-a.svg",
+   "key": "usb-a-f",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "USB-A-Buchse",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "4"
+    }
+   ],
+   "tags": [
+    "buchse",
+    "tht",
+    "usb",
+    "usb-a"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/USB",
+   "description": "USB-C-Buchse SMD, 16 Kontakte (USB 2.0 + CC), für Platinenmontage",
+   "footprint": "USB-C",
+   "image": "usb-c.svg",
+   "key": "usb-c-16p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "USB-C-Buchse 16-pol (USB 2.0)",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "16"
+    }
+   ],
+   "tags": [
+    "buchse",
+    "smd",
+    "usb",
+    "usb-c"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/USB",
+   "description": "USB-C-Buchse, 6 Kontakte (VBUS, GND, CC1, CC2), nur zur Stromversorgung",
+   "footprint": "USB-C",
+   "image": "usb-c.svg",
+   "key": "usb-c-6p",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "USB-C-Buchse 6-pol (nur Strom)",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "6"
+    }
+   ],
+   "tags": [
+    "buchse",
+    "strom",
+    "usb",
+    "usb-c"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Verbindungsklemmen",
+   "datasheet_hint": "WAGO 221",
+   "description": "Verbindungsklemme mit Hebeln, 2-Leiter, 0,2–4 mm², 32 A / 450 V",
+   "footprint": "Wago",
+   "image": "wago.svg",
+   "key": "wago-221-412",
+   "manufacturer": "WAGO",
+   "mpn": "221-412",
+   "name": "WAGO 221-412",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "2"
+    },
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "32"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "450"
+    }
+   ],
+   "tags": [
+    "hebelklemme",
+    "verbindungsklemme",
+    "wago"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Verbindungsklemmen",
+   "datasheet_hint": "WAGO 221",
+   "description": "Verbindungsklemme mit Hebeln, 3-Leiter, 0,2–4 mm², 32 A / 450 V",
+   "footprint": "Wago",
+   "image": "wago.svg",
+   "key": "wago-221-413",
+   "manufacturer": "WAGO",
+   "mpn": "221-413",
+   "name": "WAGO 221-413",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "3"
+    },
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "32"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "450"
+    }
+   ],
+   "tags": [
+    "hebelklemme",
+    "verbindungsklemme",
+    "wago"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Verbindungsklemmen",
+   "datasheet_hint": "WAGO 221",
+   "description": "Verbindungsklemme mit Hebeln, 5-Leiter, 0,2–4 mm², 32 A / 450 V",
+   "footprint": "Wago",
+   "image": "wago.svg",
+   "key": "wago-221-415",
+   "manufacturer": "WAGO",
+   "mpn": "221-415",
+   "name": "WAGO 221-415",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "5"
+    },
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "32"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "450"
+    }
+   ],
+   "tags": [
+    "hebelklemme",
+    "verbindungsklemme",
+    "wago"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Wannen- & Pfostenstecker",
+   "description": "Wannenstecker 2×10-polig, Raster 2,54 mm, gerade, mit Kodiernase",
+   "footprint": "IDC",
+   "image": "idc.svg",
+   "key": "boxheader-2x10",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Wannenstecker 20-pol",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "20"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "flachband",
+    "idc",
+    "wannenstecker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Wannen- & Pfostenstecker",
+   "description": "Wannenstecker 2×5-polig, Raster 2,54 mm, gerade, mit Kodiernase",
+   "footprint": "IDC",
+   "image": "idc.svg",
+   "key": "boxheader-2x5",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Wannenstecker 10-pol",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "10"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "flachband",
+    "idc",
+    "wannenstecker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Wannen- & Pfostenstecker",
+   "description": "Pfostenbuchse 2×5-polig zum Aufquetschen auf Flachbandkabel (1,27 mm)",
+   "footprint": "IDC",
+   "image": "idc.svg",
+   "key": "idc-socket-10",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Pfostenbuchse 10-pol (IDC)",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "10"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "flachband",
+    "idc",
+    "pfostenbuchse"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Steckverbinder/Wannen- & Pfostenstecker",
+   "description": "Pfostenbuchse 2×10-polig zum Aufquetschen auf Flachbandkabel (1,27 mm)",
+   "footprint": "IDC",
+   "image": "idc.svg",
+   "key": "idc-socket-20",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Pfostenbuchse 20-pol (IDC)",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "20"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "flachband",
+    "idc",
+    "pfostenbuchse"
+   ],
+   "unit": "Stk"
+  }
+ ]
+}

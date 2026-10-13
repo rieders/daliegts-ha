@@ -1,0 +1,5 @@
+{# Etikett nachdrucken (v0.20): gleicher Code, Standardvorlage bzw. gewählte Vorlage, Standard-Etikettendrucker.
+   Ohne Etikettendrucker öffnet sich die Etikettenseite zum Drucken im Browser. Import: {% from "partials/reprint.html" import reprint with context %} #}
+{% macro reprint(art, id, text='🖨 Nachdrucken', vorlage='', cls='btn sm', title='Etikett mit demselben Code neu drucken (z. B. wenn es beschädigt oder unleserlich ist)') -%}
+<form method="post" action="/etiketten/nachdruck" class="inline"><input type="hidden" name="art" value="{{ art }}"><input type="hidden" name="id" value="{{ id }}">{% if vorlage %}<input type="hidden" name="vorlage" value="{{ vorlage }}">{% endif %}<input type="hidden" name="zurueck" value="{{ request.url.path }}{{ ('?' ~ request.url.query) if request.url.query }}"><button class="{{ cls }}" title="{{ title }}">{{ text }}</button></form>
+{%- endmacro %}

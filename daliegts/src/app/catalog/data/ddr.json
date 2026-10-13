@@ -1,0 +1,1331 @@
+{
+ "group": "DDR-/RGW-Bauelemente",
+ "parts": [
+  {
+   "category": "Elektronik/DDR-Bauelemente/Dioden",
+   "description": "DDR-Z-Diode 12 V (Reihe SZX 21); Belastbarkeit/Gehäuse prüfen",
+   "equivalents": [
+    "BZX55C12 (ähnlich, Leistung prüfen)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "ddr-szx21-12",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "SZX21/12",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "12"
+    }
+   ],
+   "tags": [
+    "ddr",
+    "rft",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/Dioden",
+   "description": "DDR-Z-Diode 5,1 V (Reihe SZX 21); Belastbarkeit/Gehäuse prüfen",
+   "equivalents": [
+    "BZX55C5V1 (ähnlich, Leistung prüfen)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "ddr-szx21-5v1",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "SZX21/5,1",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "5.1"
+    }
+   ],
+   "tags": [
+    "ddr",
+    "rft",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/Dioden",
+   "description": "DDR-Z-Diode 6,2 V (Reihe SZX 21); Belastbarkeit/Gehäuse prüfen",
+   "equivalents": [
+    "BZX55C6V2 (ähnlich, Leistung prüfen)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "ddr-szx21-6v2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "SZX21/6,2",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "6.2"
+    }
+   ],
+   "tags": [
+    "ddr",
+    "rft",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/Dioden",
+   "description": "DDR-Z-Diode 9,1 V (Reihe SZX 21); Belastbarkeit/Gehäuse prüfen",
+   "equivalents": [
+    "BZX55C9V1 (ähnlich, Leistung prüfen)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "ddr-szx21-9v1",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "SZX21/9,1",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "9.1"
+    }
+   ],
+   "tags": [
+    "ddr",
+    "rft",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/Analog",
+   "datasheet_hint": "A109D",
+   "description": "DDR-Operationsverstärker, Äquivalent zum µA709 (externe Frequenzkompensation nötig); Gehäuse prüfen",
+   "equivalents": [
+    "µA709",
+    "LM709"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "ddr-a109d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "A109D",
+   "params": [],
+   "tags": [
+    "analog",
+    "ddr",
+    "ostblock",
+    "rft"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/Analog",
+   "datasheet_hint": "A2030",
+   "description": "DDR-NF-Leistungsverstärker, Äquivalent zum TDA2030; Gehäuse (H/V-Ausführung) prüfen",
+   "equivalents": [
+    "TDA2030"
+   ],
+   "footprint": "TO-220-5",
+   "image": "to-220-5.svg",
+   "key": "ddr-a2030",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "A2030",
+   "params": [],
+   "tags": [
+    "analog",
+    "ddr",
+    "ostblock",
+    "rft"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/Analog",
+   "datasheet_hint": "A277D",
+   "description": "DDR-Treiber für LED-Punkt-/Bandanzeigen (12 LEDs); funktional ähnlich LM3914, NICHT pinkompatibel; DIP-18",
+   "equivalents": [
+    "LM3914 (ähnlich, NICHT pinkompatibel!)"
+   ],
+   "footprint": "DIP-18",
+   "image": "dip-18.svg",
+   "key": "ddr-a277d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "A277D",
+   "params": [],
+   "tags": [
+    "analog",
+    "ddr",
+    "ostblock",
+    "rft"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/Analog",
+   "datasheet_hint": "B081D",
+   "description": "DDR-JFET-Operationsverstärker, Äquivalent zum TL081, DIP-8",
+   "equivalents": [
+    "TL081",
+    "TL071 (rauschärmer)"
+   ],
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "ddr-b081d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "B081D",
+   "params": [],
+   "tags": [
+    "analog",
+    "ddr",
+    "ostblock",
+    "rft"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/Analog",
+   "datasheet_hint": "B082D",
+   "description": "DDR-Doppel-JFET-Operationsverstärker, Äquivalent zum TL082, DIP-8",
+   "equivalents": [
+    "TL082",
+    "TL072 (rauschärmer)"
+   ],
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "ddr-b082d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "B082D",
+   "params": [],
+   "tags": [
+    "analog",
+    "ddr",
+    "ostblock",
+    "rft"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/Analog",
+   "datasheet_hint": "B084D",
+   "description": "DDR-Vierfach-JFET-Operationsverstärker, Äquivalent zum TL084, DIP-14",
+   "equivalents": [
+    "TL084",
+    "TL074 (rauschärmer)"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "ddr-b084d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "B084D",
+   "params": [],
+   "tags": [
+    "analog",
+    "ddr",
+    "ostblock",
+    "rft"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/Analog",
+   "datasheet_hint": "MAA723",
+   "description": "Tesla (ČSSR) Präzisions-Spannungsregler, Äquivalent zum µA723; Gehäuse prüfen",
+   "equivalents": [
+    "µA723",
+    "LM723"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "ddr-maa723",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MAA723",
+   "params": [],
+   "tags": [
+    "analog",
+    "ddr",
+    "ostblock",
+    "rft"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/Analog",
+   "datasheet_hint": "MAA741",
+   "description": "Tesla (ČSSR) Operationsverstärker, Äquivalent zum µA741; Gehäuse prüfen",
+   "equivalents": [
+    "µA741",
+    "LM741"
+   ],
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "ddr-maa741",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MAA741",
+   "params": [],
+   "tags": [
+    "analog",
+    "ddr",
+    "ostblock",
+    "rft"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/Mikroprozessoren",
+   "datasheet_hint": "U8272D",
+   "description": "DDR-Diskettencontroller, Äquivalent zum Intel 8272 (µPD765), DIP-40",
+   "equivalents": [
+    "i8272",
+    "µPD765"
+   ],
+   "footprint": "DIP-40",
+   "image": "dip-40.svg",
+   "key": "ddr-u8272d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "U8272D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "mikroprozessoren",
+    "ostblock",
+    "rft"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/Mikroprozessoren",
+   "datasheet_hint": "U855D",
+   "description": "DDR-Parallel-I/O-Baustein, Äquivalent zum Z80 PIO, DIP-40",
+   "equivalents": [
+    "Z80 PIO (Z8420)"
+   ],
+   "footprint": "DIP-40",
+   "image": "dip-40.svg",
+   "key": "ddr-u855d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "U855D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "mikroprozessoren",
+    "ostblock",
+    "rft"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/Mikroprozessoren",
+   "datasheet_hint": "U856D",
+   "description": "DDR-Serieller I/O-Baustein, Äquivalent zum Z80 SIO, DIP-40",
+   "equivalents": [
+    "Z80 SIO (Z8440)"
+   ],
+   "footprint": "DIP-40",
+   "image": "dip-40.svg",
+   "key": "ddr-u856d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "U856D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "mikroprozessoren",
+    "ostblock",
+    "rft"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/Mikroprozessoren",
+   "datasheet_hint": "U857D",
+   "description": "DDR-Zähler/Zeitgeber-Baustein, Äquivalent zum Z80 CTC, DIP-28",
+   "equivalents": [
+    "Z80 CTC (Z8430)"
+   ],
+   "footprint": "DIP-28",
+   "image": "dip-28.svg",
+   "key": "ddr-u857d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "U857D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "mikroprozessoren",
+    "ostblock",
+    "rft"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/Mikroprozessoren",
+   "datasheet_hint": "U880D",
+   "description": "DDR-8-Bit-CPU, Äquivalent zum Zilog Z80 (Z80-CPU), DIP-40",
+   "equivalents": [
+    "Z80 CPU (Z8400)"
+   ],
+   "footprint": "DIP-40",
+   "image": "dip-40.svg",
+   "key": "ddr-u880d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "U880D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "mikroprozessoren",
+    "ostblock",
+    "rft"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/Spannungsregler",
+   "datasheet_hint": "B3170V",
+   "description": "DDR-Einstellregler 1,2–37 V, Äquivalent zum LM317, TO-220",
+   "equivalents": [
+    "LM317T"
+   ],
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "ddr-b3170v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "B3170V",
+   "params": [],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "rft",
+    "spannungsregler"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/Spannungsregler",
+   "datasheet_hint": "MA7805",
+   "description": "Tesla (ČSSR) Festspannungsregler +5 V, Äquivalent zum 7805, TO-220",
+   "equivalents": [
+    "7805",
+    "L7805CV"
+   ],
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "ddr-ma7805",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MA7805",
+   "params": [],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "rft",
+    "spannungsregler"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/Speicher",
+   "datasheet_hint": "U2164D",
+   "description": "DDR-DRAM 64 k × 1 Bit, entspricht dem 4164, DIP-16",
+   "equivalents": [
+    "4164 (ähnlich)"
+   ],
+   "footprint": "DIP-16",
+   "image": "dip-16.svg",
+   "key": "ddr-u2164d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "U2164D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "rft",
+    "speicher"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/TTL",
+   "datasheet_hint": "D100D",
+   "description": "DDR-TTL: 4× NAND mit 2 Eingängen, Äquivalent zu SN7400, DIP-14",
+   "equivalents": [
+    "SN7400",
+    "MH7400 (Tesla)"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "ddr-d100d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "D100D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "rft",
+    "ttl"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/TTL",
+   "datasheet_hint": "D103D",
+   "description": "DDR-TTL: 4× NAND mit 2 Eingängen, Open-Collector, Äquivalent zu SN7403, DIP-14",
+   "equivalents": [
+    "SN7403"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "ddr-d103d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "D103D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "rft",
+    "ttl"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/TTL",
+   "datasheet_hint": "D104D",
+   "description": "DDR-TTL: 6× Inverter, Äquivalent zu SN7404, DIP-14",
+   "equivalents": [
+    "SN7404"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "ddr-d104d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "D104D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "rft",
+    "ttl"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/TTL",
+   "datasheet_hint": "D110D",
+   "description": "DDR-TTL: 3× NAND mit 3 Eingängen, Äquivalent zu SN7410, DIP-14",
+   "equivalents": [
+    "SN7410"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "ddr-d110d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "D110D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "rft",
+    "ttl"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/TTL",
+   "datasheet_hint": "D120D",
+   "description": "DDR-TTL: 2× NAND mit 4 Eingängen, Äquivalent zu SN7420, DIP-14",
+   "equivalents": [
+    "SN7420"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "ddr-d120d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "D120D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "rft",
+    "ttl"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/TTL",
+   "datasheet_hint": "D130D",
+   "description": "DDR-TTL: NAND mit 8 Eingängen, Äquivalent zu SN7430, DIP-14",
+   "equivalents": [
+    "SN7430"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "ddr-d130d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "D130D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "rft",
+    "ttl"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/TTL",
+   "datasheet_hint": "D140D",
+   "description": "DDR-TTL: 2× NAND-Leistungsgatter mit 4 Eingängen, Äquivalent zu SN7440, DIP-14",
+   "equivalents": [
+    "SN7440"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "ddr-d140d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "D140D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "rft",
+    "ttl"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/TTL",
+   "datasheet_hint": "D174D",
+   "description": "DDR-TTL: 2× D-Flipflop, Äquivalent zu SN7474, DIP-14",
+   "equivalents": [
+    "SN7474"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "ddr-d174d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "D174D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "rft",
+    "ttl"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/TTL",
+   "datasheet_hint": "D190D",
+   "description": "DDR-TTL: Dezimalzähler, Äquivalent zu SN7490, DIP-14",
+   "equivalents": [
+    "SN7490"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "ddr-d190d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "D190D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "rft",
+    "ttl"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/TTL",
+   "datasheet_hint": "D192D",
+   "description": "DDR-TTL: synchroner BCD-Vor-/Rückwärtszähler, Äquivalent zu SN74192, DIP-16",
+   "equivalents": [
+    "SN74192"
+   ],
+   "footprint": "DIP-16",
+   "image": "dip-16.svg",
+   "key": "ddr-d192d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "D192D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "rft",
+    "ttl"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/TTL",
+   "datasheet_hint": "D193D",
+   "description": "DDR-TTL: synchroner 4-Bit-Binär-Vor-/Rückwärtszähler, Äquivalent zu SN74193, DIP-16",
+   "equivalents": [
+    "SN74193"
+   ],
+   "footprint": "DIP-16",
+   "image": "dip-16.svg",
+   "key": "ddr-d193d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "D193D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "rft",
+    "ttl"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/TTL",
+   "datasheet_hint": "D195D",
+   "description": "DDR-TTL: 4-Bit-Schieberegister, Äquivalent zu SN7495, DIP-14",
+   "equivalents": [
+    "SN7495"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "ddr-d195d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "D195D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "rft",
+    "ttl"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/TTL",
+   "datasheet_hint": "DL000D",
+   "description": "DDR-Low-Power-Schottky-TTL: 4× NAND, Äquivalent zu 74LS00, DIP-14",
+   "equivalents": [
+    "74LS00"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "ddr-dl000d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "DL000D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "rft",
+    "ttl"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/TTL",
+   "datasheet_hint": "DL004D",
+   "description": "DDR-Low-Power-Schottky-TTL: 6× Inverter, Äquivalent zu 74LS04, DIP-14",
+   "equivalents": [
+    "74LS04"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "ddr-dl004d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "DL004D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "rft",
+    "ttl"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/TTL",
+   "datasheet_hint": "DL074D",
+   "description": "DDR-Low-Power-Schottky-TTL: 2× D-Flipflop, Äquivalent zu 74LS74, DIP-14",
+   "equivalents": [
+    "74LS74"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "ddr-dl074d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "DL074D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "rft",
+    "ttl"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/TTL",
+   "datasheet_hint": "MH7400",
+   "description": "Tesla (ČSSR) TTL: 4× NAND mit 2 Eingängen, Äquivalent zu SN7400, DIP-14",
+   "equivalents": [
+    "SN7400",
+    "D100D (DDR)"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "ddr-mh7400",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MH7400",
+   "params": [],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "rft",
+    "ttl"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/ICs/Timer",
+   "datasheet_hint": "B555D",
+   "description": "DDR-Timer-IC (HFO), Äquivalent zum NE555, DIP-8",
+   "equivalents": [
+    "NE555",
+    "LM555"
+   ],
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "ddr-b555d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "B555D",
+   "params": [],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "rft",
+    "timer"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/Optoelektronik",
+   "description": "DDR-Leuchtdiode rot (RFT); Bauform/Durchmesser prüfen",
+   "equivalents": [
+    "Standard-LED rot (ähnlich)"
+   ],
+   "footprint": "LED 5mm",
+   "image": "led-5mm-rot.svg",
+   "key": "ddr-vqa13",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "VQA13",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "rot"
+    }
+   ],
+   "tags": [
+    "ddr",
+    "led",
+    "rft",
+    "rot"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/Optoelektronik",
+   "description": "DDR-Leuchtdiode grün (RFT); Bauform/Durchmesser prüfen",
+   "equivalents": [
+    "Standard-LED grün (ähnlich)"
+   ],
+   "footprint": "LED 5mm",
+   "image": "led-5mm-gruen.svg",
+   "key": "ddr-vqa23",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "VQA23",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "grün"
+    }
+   ],
+   "tags": [
+    "ddr",
+    "grün",
+    "led",
+    "rft"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/Optoelektronik",
+   "description": "DDR-7-Segment-LED-Anzeige (RFT); Polarität und Pinbelegung vor Einsatz prüfen",
+   "footprint": "7-Segment",
+   "image": "seven-segment.svg",
+   "key": "ddr-vqe24",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "VQE24",
+   "params": [],
+   "tags": [
+    "7-segment",
+    "anzeige",
+    "ddr",
+    "rft"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/Passiv",
+   "description": "DDR-Aluminium-Elektrolytkondensator (RFT/Frolyt) 100 µF 25 V; alte Elkos vor Einsatz prüfen/formieren, Bauform (axial/radial) prüfen",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "ddr-frolyt-100u-25v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Frolyt-Elko 100 µF 25 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "100u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "25"
+    }
+   ],
+   "tags": [
+    "ddr",
+    "elko",
+    "frolyt",
+    "kondensator",
+    "rft"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/Passiv",
+   "description": "DDR-Aluminium-Elektrolytkondensator (RFT/Frolyt) 10 µF 40 V; alte Elkos vor Einsatz prüfen/formieren, Bauform (axial/radial) prüfen",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "ddr-frolyt-10u-40v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Frolyt-Elko 10 µF 40 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "10u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "40"
+    }
+   ],
+   "tags": [
+    "ddr",
+    "elko",
+    "frolyt",
+    "kondensator",
+    "rft"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/Passiv",
+   "description": "DDR-Aluminium-Elektrolytkondensator (RFT/Frolyt) 470 µF 25 V; alte Elkos vor Einsatz prüfen/formieren, Bauform (axial/radial) prüfen",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "ddr-frolyt-470u-25v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Frolyt-Elko 470 µF 25 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "470u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "25"
+    }
+   ],
+   "tags": [
+    "ddr",
+    "elko",
+    "frolyt",
+    "kondensator",
+    "rft"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/Passiv",
+   "description": "DDR-Aluminium-Elektrolytkondensator (RFT/Frolyt) 47 µF 40 V; alte Elkos vor Einsatz prüfen/formieren, Bauform (axial/radial) prüfen",
+   "footprint": "Elko radial",
+   "image": "elko.svg",
+   "key": "ddr-frolyt-47u-40v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Frolyt-Elko 47 µF 40 V",
+   "params": [
+    {
+     "name": "Kapazität",
+     "unit": "F",
+     "value": "47u"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "40"
+    }
+   ],
+   "tags": [
+    "ddr",
+    "elko",
+    "frolyt",
+    "kondensator",
+    "rft"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/Relais",
+   "description": "DDR-Kleinrelais nach TGL-Norm (RFT), generischer Eintrag; Spulenspannung und Kontaktbestückung am Typenschild prüfen",
+   "footprint": "Relais",
+   "image": "relay.svg",
+   "key": "ddr-rft-relais-tgl",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "RFT-Relais (TGL)",
+   "params": [],
+   "tags": [
+    "ddr",
+    "relais",
+    "rft",
+    "tgl"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/Transistoren/NPN",
+   "datasheet_hint": "KC507",
+   "description": "Tesla (ČSSR) Si-NPN-Kleinsignaltransistor, Äquivalent zum BC107, Metallgehäuse TO-18",
+   "equivalents": [
+    "BC107"
+   ],
+   "footprint": "TO-18",
+   "image": "to-18.svg",
+   "key": "ddr-kc507",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "KC507",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    }
+   ],
+   "tags": [
+    "ddr",
+    "npn",
+    "ostblock",
+    "tesla",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/Transistoren/NPN",
+   "datasheet_hint": "KC508",
+   "description": "Tesla (ČSSR) Si-NPN-Kleinsignaltransistor, Äquivalent zum BC108, Metallgehäuse TO-18",
+   "equivalents": [
+    "BC108"
+   ],
+   "footprint": "TO-18",
+   "image": "to-18.svg",
+   "key": "ddr-kc508",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "KC508",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    }
+   ],
+   "tags": [
+    "ddr",
+    "npn",
+    "ostblock",
+    "tesla",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/Transistoren/NPN",
+   "datasheet_hint": "KC509",
+   "description": "Tesla (ČSSR) Si-NPN-Kleinsignaltransistor, Äquivalent zum BC109 (rauscharm), Metallgehäuse TO-18",
+   "equivalents": [
+    "BC109"
+   ],
+   "footprint": "TO-18",
+   "image": "to-18.svg",
+   "key": "ddr-kc509",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "KC509",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    }
+   ],
+   "tags": [
+    "ddr",
+    "npn",
+    "ostblock",
+    "tesla",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/Transistoren/NPN",
+   "datasheet_hint": "KD503",
+   "description": "Tesla (ČSSR) Si-NPN-Leistungstransistor der 2N3055-Klasse, TO-3",
+   "equivalents": [
+    "2N3055 (ähnlich)"
+   ],
+   "footprint": "TO-3",
+   "image": "to-3.svg",
+   "key": "ddr-kd503",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "KD503",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    }
+   ],
+   "tags": [
+    "ddr",
+    "npn",
+    "ostblock",
+    "tesla",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/Transistoren/NPN",
+   "datasheet_hint": "SC237",
+   "description": "DDR-Si-NPN-Kleinsignaltransistor der BC237-Klasse; Gehäuse und Pinbelegung prüfen",
+   "equivalents": [
+    "BC237 (ähnlich)",
+    "BC547 (ähnlich, Pinbelegung prüfen)"
+   ],
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "ddr-sc237",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "SC237",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    }
+   ],
+   "tags": [
+    "ddr",
+    "npn",
+    "ostblock",
+    "rft",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/Transistoren/NPN",
+   "datasheet_hint": "SC238",
+   "description": "DDR-Si-NPN-Kleinsignaltransistor der BC238-Klasse; Gehäuse und Pinbelegung prüfen",
+   "equivalents": [
+    "BC238 (ähnlich)",
+    "BC548 (ähnlich, Pinbelegung prüfen)"
+   ],
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "ddr-sc238",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "SC238",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    }
+   ],
+   "tags": [
+    "ddr",
+    "npn",
+    "ostblock",
+    "rft",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/Transistoren/NPN",
+   "datasheet_hint": "SC239",
+   "description": "DDR-Si-NPN-Kleinsignaltransistor der BC239-Klasse (rauscharm); Gehäuse und Pinbelegung prüfen",
+   "equivalents": [
+    "BC239 (ähnlich)",
+    "BC549 (ähnlich, Pinbelegung prüfen)"
+   ],
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "ddr-sc239",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "SC239",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    }
+   ],
+   "tags": [
+    "ddr",
+    "npn",
+    "ostblock",
+    "rft",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/Transistoren/PNP",
+   "datasheet_hint": "SC307",
+   "description": "DDR-Si-PNP-Kleinsignaltransistor der BC307-Klasse; Gehäuse und Pinbelegung prüfen",
+   "equivalents": [
+    "BC307 (ähnlich)",
+    "BC557 (ähnlich, Pinbelegung prüfen)"
+   ],
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "ddr-sc307",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "SC307",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "PNP"
+    }
+   ],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "pnp",
+    "rft",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/DDR-Bauelemente/Transistoren/PNP",
+   "datasheet_hint": "SC308",
+   "description": "DDR-Si-PNP-Kleinsignaltransistor der BC308-Klasse; Gehäuse und Pinbelegung prüfen",
+   "equivalents": [
+    "BC308 (ähnlich)",
+    "BC558 (ähnlich, Pinbelegung prüfen)"
+   ],
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "ddr-sc308",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "SC308",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "PNP"
+    }
+   ],
+   "tags": [
+    "ddr",
+    "ostblock",
+    "pnp",
+    "rft",
+    "transistor"
+   ],
+   "unit": "Stk"
+  }
+ ]
+}

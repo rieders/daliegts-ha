@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Entscheidungen{% endblock %}
+{% block content %}
+<h1>Entscheidungen <span class="badge">{{ rows|length }}</span></h1>
+<p class="muted">Hier fragt {{ APP_NAME }} nach, wenn ein Online-Treffer nicht eindeutig ist oder Angaben fehlen. Eindeutige Treffer (gleiche Hersteller-Nr.) wurden bereits selbst eingetragen.</p>
+{% for c in rows %}{% set item = c.item %}
+<div class="card">
+  <div class="row spread">
+    <div><a href="/artikel/{{ item.id }}"><b>{{ item.name }}</b></a> {% if item.mpn %}<span class="badge code">{{ item.mpn }}</span>{% endif %}
+      <div class="small muted">{{ names.get(c.provider, 'alle Shops') if c.provider != '*' else 'alle Shops' }} · {{ REASONS.get(c.reason, c.reason) }} · {{ c.created_at|dt }}</div></div>
+    {% if me.can('items', 2) %}<form method="post" action="/entscheidungen/{{ c.id }}/verwerfen" class="inline"><button class="btn sm ghost" title="Nicht mehr fragen">Keiner passt</button></form>{% endif %}
+  </div>
+  {% if c.reason == 'zu_wenig' %}
+  <p class="small">Für eine sichere Zuordnung fehlt die <b>Hersteller-Nr.</b> Trag sie ein, dann sucht {{ APP_NAME }} sofort bei allen Shops.</p>
+  {% if me.can('items', 2) %}
+  <form method="post" action="/entscheidungen/{{ c.id }}/angaben" class="row">
+    <input name="mpn" class="grow" placeholder="Hersteller-Nr., z. B. BC547C, NE555P, CRCW080510K0FKEA" required>
+    <button class="btn primary sm">Speichern & suchen</button>
+    <a class="btn sm" href="/artikel/{{ item.id }}/online">selbst suchen</a>
+  </form>{% endif %}
+  {% else %}
+  <div class="table-wrap"><table>
+    <tr><th>Bestellnr.</th><th>Hersteller-Nr. / Hersteller</th><th>Beschreibung</th><th class="num">Lager</th><th class="num">Kosten für {{ need[c.id]|qty }}</th><th></th></tr>
+    {% for h in hits[c.id] %}
+    <tr><td class="mono small">{% if h.url|safe_url %}<a href="{{ h.url|safe_url }}" target="_blank" rel="noopener noreferrer">{{ h.sku }}</a>{% else %}{{ h.sku }}{% endif %}</td>
+      <td class="small"><b>{{ h.mpn or h.name }}</b><div class="muted">{{ h.manufacturer }}</div></td>
+      <td class="small">{{ h.description[:120] }}</td>
+      <td class="num small">{{ h.stock if h.stock is not none else '–' }}</td>
+      <td class="num">{% set tot = h.total_for(need[c.id]) %}{{ tot|euro if tot is not none else '–' }}</td>
+      <td>{% if me.can('items', 2) %}<form method="post" action="/entscheidungen/{{ c.id }}/uebernehmen/{{ loop.index0 }}" class="inline"><button class="btn sm primary">Das ist es</button></form>{% endif %}</td></tr>
+    {% endfor %}
+  </table></div>
+  {% endif %}
+</div>
+{% else %}<p class="muted">Keine offenen Fragen.</p>{% endfor %}
+{% endblock %}

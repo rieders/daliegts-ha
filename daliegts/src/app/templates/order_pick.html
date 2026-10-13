@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import buy_badge %}
+{% block title %}Auslagern {{ o.code }}{% endblock %}
+{% block content %}
+<div class="pick" x-data='pickStep({{ {"loc": step.lot.location_id if step else None, "item": step.line.item_id if step else None, "led": (has_wled() and me.can("wled_show")) and step is not none, "name": (step.line.item.name if step else "")}|tojson }})'>
+  <div class="row spread">
+    <a href="/auftraege/{{ o.id }}">← {{ o.code }} {{ o.title }}</a>
+    <span class="small muted">{{ done_lines }} von {{ o.lines|length }} Positionen vollständig</span>
+  </div>
+  <div class="progress" style="height:10px;margin:8px 0 14px"><span style="width:{{ (done_lines * 100 / (o.lines|length)) if o.lines else 0 }}%"></span></div>
+
+  {% if step %}{% set ln = step.line %}{% set it = ln.item %}
+  <div class="scanmsg" x-show="msg" x-cloak :class="ok ? 'good' : 'bad'" x-text="msg"></div>
+  <div class="card pick-card">
+    <div class="small muted">Nächstes Fach · noch {{ left }} {{ 'Fach' if left == 1 else 'Fächer' }}</div>
+    <div class="pick-where">📍 {{ step.path.split(' / ')[-2:]|join(' › ') }}</div>
+    <div class="small muted">{{ step.path }}</div>
+
+    {% if map %}
+    <div class="pick-map" title="{{ map.module.name }}">
+      <div class="small muted" style="margin-bottom:4px">{{ map.module.name }}</div>
+      <div class="pm-grid" style="grid-template-rows:repeat({{ map.rows }},minmax(18px,1fr));grid-template-columns:repeat({{ map.cols }},1fr)">
+        {% for c in map.cells %}<div class="pm-cell {{ 'target' if c.id == map.target }}" style="grid-row:{{ c.r }} / span {{ c.rs }};grid-column:{{ c.c }} / span {{ c.cs }}">{{ c.name if c.id == map.target else '' }}</div>{% endfor %}
+      </div>
+    </div>{% endif %}
+
+    <div class="pick-item">
+      <div><a href="/artikel/{{ it.id }}" class="pick-name">{{ it.name }}</a>
+        {% if it.description %}<div class="small muted">{{ it.description[:100] }}</div>{% endif %}
+        {% if ln.note %}<div class="small">Bestückung: <b>{{ ln.note }}</b></div>{% endif %}</div>
+      <div class="pick-qty"><b>{{ step.qty|qty }}</b> <span>{{ it.unit }}</span>
+        {% if step.have is not none %}<div class="small muted">im Fach: {{ step.have|qty }}</div>{% endif %}</div>
+    </div>
+
+    {% if me.can('stock', 2) %}
+    <form method="post" action="/auftraege/{{ o.id }}/entnahme" x-data="{less: false}">
+      <input type="hidden" name="action" value="take"><input type="hidden" name="line_id" value="{{ ln.id }}"><input type="hidden" name="lot_id" value="{{ step.lot.id }}">
+      <input type="hidden" name="qty" value="{{ step.qty|qty }}" x-ref="q" :disabled="less">
+      <div x-show="less" x-cloak class="row" style="margin-bottom:8px">
+        <label class="inline" style="margin:0">Tatsächlich entnommen:</label>
+        <input type="number" name="qty" step="any" min="0" value="{{ step.have|qty if step.have is not none and step.have < step.qty else step.qty|qty }}" style="width:110px" :disabled="!less">
+        <input type="hidden" name="rest_skip" value="1" :disabled="!less">
+        <span class="small muted">Der Rest wird bei einem anderen Fach gesucht oder bleibt offen.</span>
+      </div>
+      <button class="btn primary pick-go" x-ref="go" autofocus>✔ {{ step.qty|qty }} {{ it.unit }} entnommen – weiter</button>
+      <div class="row pick-more">
+        <button type="button" class="btn" @click="less = !less" x-text="less ? 'doch alles' : 'Fach hat weniger'"></button>
+        {% if has_wled() and me.can('wled_show') %}<button type="button" class="btn btn-led" data-locate='{"location_id": {{ step.lot.location_id }}}'>💡 Leuchten</button>{% endif %}
+        {% if wall %}<a class="btn" href="/orte/{{ wall.id }}/wand?orte={{ step.lot.location_id }}">📍 Lageransicht</a>{% endif %}
+        <button class="btn ghost" formaction="/auftraege/{{ o.id }}/entnahme" name="action" value="skip" formnovalidate onclick="this.form.querySelector('[name=key]').disabled=false">Überspringen</button>
+        <input type="hidden" name="key" value="{{ step.key }}" disabled>
+      </div>
+    </form>
+    {% endif %}
+    {% if next %}<div class="small muted" style="margin-top:10px">Danach: {{ next.line.item.name }} ({{ next.qty|qty }}) aus {{ next.path.split(' / ')[-2:]|join(' › ') }}</div>{% endif %}
+    <p class="small muted" style="margin:8px 0 0">Tipp: Fach- oder Artikeletikett mit dem Handscanner scannen – {{ APP_NAME }} bestätigt, ob es das richtige ist. Enter = entnommen.</p>
+  </div>
+
+  {% else %}
+  <div class="card pick-card" style="text-align:center">
+    {% if missing %}
+      <div class="pick-where">Alles Vorhandene ist entnommen</div>
+      <p>Diese Teile fehlen noch:</p>
+      <table style="max-width:560px;margin:0 auto">{% for ln in missing %}<tr><td style="text-align:left"><a href="/artikel/{{ ln.item_id }}">{{ ln.item.name }}</a></td><td class="num">{{ ln.remaining|qty(ln.item.unit) }}</td><td>{{ buy_badge(ln.item_id) }}{% if not buy_state(ln.item_id) %}<span class="small" style="color:var(--err)">nicht bestellt</span>{% endif %}</td></tr>{% endfor %}</table>
+      <p class="small muted">Wenn die Ware da ist (Einkaufsliste › „Erhalten“), geht es hier weiter.</p>
+    {% else %}
+      <div class="pick-where">✔ Fertig – alle Teile entnommen</div>
+    {% endif %}
+    {% if skipped %}<p><a class="btn" href="?neu=1">{{ skipped }} übersprungene Fächer nochmal zeigen</a></p>{% endif %}
+    <div class="row" style="justify-content:center;margin-top:10px">
+      {% if o.active and me.can('orders', 2) %}<form method="post" action="/auftraege/{{ o.id }}/entnahme"><input type="hidden" name="action" value="finish">
+        <button class="btn {{ 'primary' if not missing }}" {% if missing %}data-confirm="Es fehlen noch Teile – Auftrag trotzdem abschließen?"{% endif %}>✔ Auftrag abschließen</button></form>{% endif %}
+      <a class="btn" href="/auftraege/{{ o.id }}">Zum Auftrag</a>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if last and me.can('stock', 2) %}
+  <form method="post" action="/auftraege/{{ o.id }}/entnahme" class="small" style="margin-top:8px">
+    <input type="hidden" name="action" value="undo">
+    <button class="btn sm ghost">↶ Letzte Entnahme rückgängig ({{ last[2]|qty }} × {{ last[3] }})</button>
+  </form>{% endif %}
+</div>
+<script>
+function pickStep(cfg) {
+  return {
+    ...cfg, msg: "", ok: true,
+    init() {
+      if (this.led && this.loc) locate({ location_id: this.loc });
+      window.addEventListener("lw:scan", async (e) => {
+        e.preventDefault();
+        const r = await scanResolve(e.detail.code);
+        if (!r || r.kind === "unknown") { this.flash(false, "Unbekannter Code: " + e.detail.code); return; }
+        if (r.kind === "location") {
+          const hit = r.location.id === this.loc || (r.location.lots || []).some((l) => l.location_id === this.loc);
+          this.flash(hit, hit ? "✔ Richtiges Fach" : "✗ Falsches Fach: " + r.location.path);
+        } else if (r.kind === "item" || r.kind === "lot") {
+          const hit = r.item.id === this.item;
+          this.flash(hit, hit ? "✔ Richtiges Bauteil – Enter zum Bestätigen" : "✗ Das ist " + r.item.name + " – gesucht: " + this.name);
+          if (hit) this.$root.querySelector(".pick-go")?.focus();
+        }
+      });
+    },
+    flash(ok, msg) { this.ok = ok; this.msg = msg; if (typeof beep === "function" && ok) beep(); clearTimeout(this.t); this.t = setTimeout(() => { this.msg = ""; }, 5000); },
+  };
+}
+</script>
+{% endblock %}

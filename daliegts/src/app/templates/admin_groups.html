@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Gruppen & Rechte{% endblock %}
+{% block content %}
+<h1>Gruppen & Rechte</h1>
+<p class="muted small">Stufen bauen aufeinander auf: lesen &lt; bearbeiten &lt; anlegen &lt; löschen. Mit ⚠ markierte Stufen erfordern zusätzlich den Admin-Modus.</p>
+<form method="post" action="/admin/gruppen/speichern" class="card table-wrap matrix">
+  <table>
+    <tr><th>Bereich</th>{% for g in groups %}<th>{{ g.name }}</th>{% endfor %}</tr>
+    {% for area, (label, adm) in AREAS.items() %}
+    <tr><td>{{ label }}{% if adm is not none %} <span class="small muted" title="Admin-Modus ab Stufe {{ LEVELS[adm] }}">⚠ ab {{ LEVELS[adm] }}</span>{% endif %}</td>
+      {% for g in groups %}<td><select name="g{{ g.id }}_{{ area }}" {{ 'disabled' if not me.can('users', 2) }}>{% for lv, ln in LEVELS.items() %}<option value="{{ lv }}" {{ 'selected' if matrix[g.id].get(area, 0) == lv }}>{{ ln }}</option>{% endfor %}</select></td>{% endfor %}</tr>
+    {% endfor %}
+  </table>
+  {% if me.can('users', 2) %}
+  <div class="row" style="margin-top:10px"><input name="new_group" placeholder="Neue Gruppe (optional)" style="max-width:260px"><button class="btn primary">Speichern</button></div>
+  {% endif %}
+</form>
+{% endblock %}

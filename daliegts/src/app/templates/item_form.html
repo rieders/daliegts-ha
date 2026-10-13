@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import locpicker %}
+{% block title %}{{ 'Bearbeiten' if item else 'Neuer Artikel' }}{% endblock %}
+{% block content %}
+<h1>{{ item.name if item else 'Neuer Artikel' }}</h1>
+{% if not item %}<div class="note" style="margin-bottom:12px">Gängiges Bauteil? Im <a href="/katalog">Bauteil-Katalog</a> geht es schneller – Beschreibung, Parameter und Bild werden übernommen.</div>{% endif %}
+<form method="post" enctype="multipart/form-data" action="{{ '/artikel/%d/bearbeiten'|format(item.id) if item else '/artikel/neu' }}">
+<div class="cols-2">
+<div>
+  <div class="card">
+    <div class="fields">
+      <div style="grid-column:1/-1"><label>Name *</label><input name="name" value="{{ item.name if item else '' }}" required autofocus></div>
+      <div style="grid-column:1/-1"><label>Beschreibung</label><input name="description" value="{{ item.description if item else '' }}"></div>
+      <div><label>Art</label><select name="kind">{% for k, v in ITEM_KINDS.items() %}<option value="{{ k }}" {{ 'selected' if item and item.kind == k }}>{{ v }}</option>{% endfor %}</select></div>
+      <div><label>Kategorie</label><select name="category_id"><option value="">–</option>{% for id, p in cats %}<option value="{{ id }}" {{ 'selected' if (item and item.category_id == id) or (not item and preset_category == id) }}>{{ p }}</option>{% endfor %}</select></div>
+      <div><label>Gehäuse / Footprint</label><input name="footprint" list="fps" value="{{ item.footprint.name if item and item.footprint else '' }}">
+        <datalist id="fps">{% for f in footprints %}<option value="{{ f.name }}">{% endfor %}</datalist></div>
+      <div><label>Hersteller</label><input name="manufacturer" list="mans" value="{{ item.manufacturer.name if item and item.manufacturer else '' }}">
+        <datalist id="mans">{% for m in manufacturers %}<option value="{{ m.name }}">{% endfor %}</datalist></div>
+      <div><label>MPN / Typ</label><input name="mpn" value="{{ item.mpn if item else '' }}"></div>
+      <div><label>Tags (Komma)</label><input name="tags" value="{{ item.tags if item else '' }}"></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Parameter</h2>
+    <datalist id="ptpl">{% for t in param_templates %}<option value="{{ t.name }}">{{ t.unit }}</option>{% endfor %}</datalist>
+    <table><thead><tr><th>Name</th><th>Wert</th><th>Einheit</th><th></th></tr></thead>
+      <tbody id="param-rows">
+      {% for p in (item.parameters if item else []) %}<tr><td><input name="pname" value="{{ p.name }}" list="ptpl"></td><td><input name="pvalue" value="{{ p.value_text }}"></td><td><input name="punit" value="{{ p.unit }}" style="width:80px"></td><td><button type="button" class="btn sm ghost" onclick="this.closest('tr').remove()">✕</button></td></tr>{% endfor %}
+      </tbody></table>
+    <template id="param-row-tpl"><tr><td><input name="pname" list="ptpl"></td><td><input name="pvalue" placeholder="z. B. 4k7, 100n, 2–6"></td><td><input name="punit" style="width:80px"></td><td><button type="button" class="btn sm ghost" onclick="this.closest('tr').remove()">✕</button></td></tr></template>
+    <button type="button" class="btn sm" onclick="addParamRow(this)" style="margin-top:6px">＋ Parameter</button>
+    <p class="small muted">Werte wie „4k7“, „100n“, „2,2µF“ werden als Zahl erkannt und sind in der Suche als Bereich filterbar.</p>
+  </div>
+  <div class="card"><h2>Notizen</h2><textarea name="notes">{{ item.notes if item else '' }}</textarea></div>
+</div>
+<div>
+  <div class="card">
+    <h2>Bestand</h2>
+    <label>Bestandsführung</label><select name="stock_mode">{% for k, v in STOCK_MODES.items() %}<option value="{{ k }}" {{ 'selected' if item and item.stock_mode == k }}>{{ v }}</option>{% endfor %}</select>
+    <div class="fields">
+      <div><label>Einheit</label><input name="unit" value="{{ item.unit if item else 'Stk' }}" list="units"><datalist id="units"><option>Stk</option><option>m</option><option>g</option><option>kg</option><option>ml</option><option>Rolle</option><option>Pck</option></datalist></div>
+      <div><label>Mindestbestand</label><input name="min_stock" value="{{ item.min_stock|qty if item else '0' }}"></div>
+      <div><label>Nachbestellmenge</label><input name="reorder_qty" value="{{ item.reorder_qty|qty if item else '0' }}"></div>
+    </div>
+    {% if not item %}
+    <label>Lagerort</label>{{ locpicker(value=preset_location) }}
+    <label>Menge</label><input name="quantity" type="number" step="any" min="0" value="0">
+    <label>Barcode / EAN (optional)</label><input name="barcode">
+    {% endif %}
+  </div>
+  <div class="card">
+    <h2>Bild</h2>
+    {% if item and item.image %}<div class="thumb lg"><img src="{{ item.image|img }}" alt=""></div>{% endif %}
+    <label>Foto hochladen</label><input type="file" name="image_file" accept="image/*" capture="environment">
+    <label>oder Bild-URL</label><input name="image_url" type="url" placeholder="https://…">
+  </div>
+  <details class="card more" {{ 'open' if item and (item.origin or item.historic_manufacturer) }}><summary>Alt-/DDR-Bauteil</summary>
+    <label>Herkunft</label><select name="origin"><option value="">–</option>{% for o in ['DDR','UdSSR','CSSR','West','unbekannt'] %}<option {{ 'selected' if item and item.origin == o }}>{{ o }}</option>{% endfor %}</select>
+    <label>Hist. Hersteller</label><input name="historic_manufacturer" list="histm" value="{{ item.historic_manufacturer if item else '' }}">
+    <datalist id="histm"><option>HFO</option><option>Mikroelektronik Erfurt</option><option>ZMD</option><option>RFT</option><option>WF Berlin</option><option>KWH</option><option>Robotron</option><option>Tesla</option><option>Frolyt</option></datalist>
+    <div class="fields"><div><label>Datumscode</label><input name="date_code" value="{{ item.date_code if item else '' }}"></div>
+      <div><label>Zustand</label><input name="condition" list="cond" value="{{ item.condition if item else '' }}"><datalist id="cond"><option>neu/OVP</option><option>gebraucht</option><option>ausgebaut</option><option>defekt</option></datalist></div>
+      <div><label>Sammlerwert €</label><input name="collector_value" value="{{ item.collector_value or '' if item else '' }}"></div></div>
+  </details>
+  <details class="card more" {{ 'open' if item and item.kind in ('werkzeug','geraet') }}><summary>Werkzeug / Gerät: Kauf & Garantie</summary>
+    <div class="fields">
+      <div><label>Kaufdatum</label><input type="date" name="purchase_date" value="{{ item.purchase_date or '' if item else '' }}"></div>
+      <div><label>Händler</label><input name="purchase_vendor" value="{{ item.purchase_vendor if item else '' }}"></div>
+      <div><label>Preis €</label><input name="purchase_price" value="{{ item.purchase_price or '' if item else '' }}"></div>
+      <div><label>Garantie bis</label><input type="date" name="warranty_until" value="{{ item.warranty_until or '' if item else '' }}"></div>
+    </div>
+    <p class="small muted">Rechnung als Anhang (Art „Rechnung“) auf der Artikelseite hinzufügen.</p>
+  </details>
+  <details class="card more" {{ 'open' if item and (item.is_template or item.variant_of_id) }}><summary>Varianten</summary>
+    <label class="inline"><input type="checkbox" name="is_template" value="1" {{ 'checked' if item and item.is_template }}> Dieser Artikel ist eine Vorlage (hat Varianten)</label>
+    <label>Variante von</label><select name="variant_of_id"><option value="">–</option>{% for t in templates %}{% if not item or t.id != item.id %}<option value="{{ t.id }}" {{ 'selected' if item and item.variant_of_id == t.id }}>{{ t.name }}</option>{% endif %}{% endfor %}</select>
+  </details>
+</div>
+</div>
+<div class="row"><button class="btn primary big">Speichern</button><a class="btn" href="{{ '/artikel/%d'|format(item.id) if item else '/suche' }}">Abbrechen</a></div>
+</form>
+{% endblock %}

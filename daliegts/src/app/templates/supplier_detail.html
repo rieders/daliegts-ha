@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}{{ s.name }}{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/lieferanten">Lieferanten</a></div>
+<div class="row spread top">
+  <div><h1 class="mb0">{{ s.name }}</h1>
+    <div class="row small" style="margin-top:4px">
+      {% if not s.active %}<span class="badge">inaktiv</span>{% endif %}
+      {% if s.shipping_cost is not none %}<span class="badge">Versand {{ s.shipping_cost|euro }}</span>{% endif %}
+      {% if s.free_shipping_from %}<span class="badge ok">frei ab {{ s.free_shipping_from|euro }}</span>{% endif %}
+      {% if s.min_order_value %}<span class="badge warn">Mindestbestellwert {{ s.min_order_value|euro }}</span>{% endif %}
+      {% if s.customer_no %}<span class="badge code">Kd.-Nr. {{ s.customer_no }}</span>{% endif %}
+    </div>
+    {% if s.notes %}<p>{{ s.notes|nl2br }}</p>{% endif %}
+  </div>
+  {% if s.website|safe_url %}<a class="btn" href="{{ s.website|safe_url }}" target="_blank" rel="noopener noreferrer">Shop öffnen ↗</a>{% endif %}
+</div>
+
+<div class="cols-2">
+<div class="card"><h2>Bezugsquellen ({{ parts|length }})</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Artikel</th><th>Bestellnr.</th><th class="num">VPE</th><th>Preise (ab Menge: € je Einheit)</th><th></th></tr>
+    {% for sp in parts %}{% set it = items.get(sp.item_id) %}
+    <tr><td>{% if it %}<a href="/artikel/{{ it.id }}">{{ it.name }}</a>{% endif %}{% if sp.preferred %} <span class="badge ok">bevorzugt</span>{% endif %}{% if sp.obsolete %} <span class="badge">veraltet</span>{% endif %}</td>
+      <td class="mono">{{ sp.sku }}</td><td class="num">{{ sp.pack_qty|qty }}</td>
+      <td class="small">{{ format_tiers(sp.prices) or '–' }}</td>
+      <td>{% set link = shop_link(sp) %}{% if link %}<a class="btn sm" href="{{ link }}" target="_blank" rel="noopener noreferrer">↗</a>{% endif %}</td></tr>
+    {% else %}<tr><td colspan="5" class="muted">Noch keinem Artikel zugeordnet. Das geht am Artikel unter „Bezugsquellen & Nachbestellen“.</td></tr>{% endfor %}
+  </table></div>
+</div>
+<div>
+  {% if me.can('suppliers', 2) %}
+  <div class="card"><h2>Bearbeiten</h2>{% include "partials/supplier_form.html" %}</div>
+  {% endif %}
+  {% if me.can('suppliers', 4) %}
+  <details class="card more"><summary>Zusammenführen / Löschen</summary>
+    <p class="small muted">Doppelte Einträge (z. B. „reichelt“ aus dem Part-DB-Import und „Reichelt“) zusammenführen: alle Bezugsquellen wandern zum Ziel, dieser Eintrag wird gelöscht.</p>
+    <form method="post" action="/lieferanten/{{ s.id }}/zusammenfuehren" class="row">
+      <select name="target_id" class="grow" required>{% for o in others %}<option value="{{ o.id }}">{{ o.name }}</option>{% endfor %}</select>
+      <button class="btn sm warn" data-confirm="„{{ s.name }}“ in den gewählten Lieferanten übernehmen und löschen?">Zusammenführen</button>
+    </form>
+    <form method="post" action="/lieferanten/{{ s.id }}/loeschen" style="margin-top:8px"><button class="btn sm danger" data-confirm="Lieferant löschen?">Löschen (nur ohne Bezugsquellen)</button></form>
+  </details>{% endif %}
+</div>
+</div>
+{% endblock %}

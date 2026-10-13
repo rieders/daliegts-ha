@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">
+<rect x="46" y="22" width="108" height="106" rx="5" fill="#2e2e33" stroke="#121214" stroke-width="2"/><path d="M60 36 H140 V114 H60 Z" fill="#3a3a40" stroke="#121214" stroke-width="2"/><path d="M62 38 L138 50 V112 H62 Z" fill="#48484f"/><text x="100" y="70" font-family="monospace" font-size="16" fill="#ddd" text-anchor="middle">I</text><text x="100" y="104" font-family="monospace" font-size="14" fill="#ddd" text-anchor="middle">O</text>
+</svg>

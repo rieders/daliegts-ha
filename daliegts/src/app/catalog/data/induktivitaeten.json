@@ -1,0 +1,309 @@
+{
+ "group": "Induktivitäten & Ferrite",
+ "parts": [
+  {
+   "category": "Elektronik/Passiv/Induktivitäten/Drosseln THT",
+   "description": "Festinduktivität 100 µH, axial bedrahtet (Bauform wie Widerstand, Farbcode)",
+   "footprint": "THT axial",
+   "image": "inductor-axial.svg",
+   "key": "ind-axial-100u",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Drossel 100 µH axial",
+   "params": [
+    {
+     "name": "Induktivität",
+     "unit": "H",
+     "value": "100u"
+    }
+   ],
+   "tags": [
+    "100u",
+    "axial",
+    "drossel",
+    "induktivität",
+    "spule"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Induktivitäten/Drosseln THT",
+   "description": "Festinduktivität 10 µH, axial bedrahtet (Bauform wie Widerstand, Farbcode)",
+   "footprint": "THT axial",
+   "image": "inductor-axial.svg",
+   "key": "ind-axial-10u",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Drossel 10 µH axial",
+   "params": [
+    {
+     "name": "Induktivität",
+     "unit": "H",
+     "value": "10u"
+    }
+   ],
+   "tags": [
+    "10u",
+    "axial",
+    "drossel",
+    "induktivität",
+    "spule"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Induktivitäten/Drosseln THT",
+   "description": "Festinduktivität 1 mH, axial bedrahtet (Bauform wie Widerstand, Farbcode)",
+   "footprint": "THT axial",
+   "image": "inductor-axial.svg",
+   "key": "ind-axial-1m",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Drossel 1 mH axial",
+   "params": [
+    {
+     "name": "Induktivität",
+     "unit": "H",
+     "value": "1m"
+    }
+   ],
+   "tags": [
+    "1m",
+    "axial",
+    "drossel",
+    "induktivität",
+    "spule"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Induktivitäten/Drosseln THT",
+   "description": "Festinduktivität 220 µH, axial bedrahtet (Bauform wie Widerstand, Farbcode)",
+   "footprint": "THT axial",
+   "image": "inductor-axial.svg",
+   "key": "ind-axial-220u",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Drossel 220 µH axial",
+   "params": [
+    {
+     "name": "Induktivität",
+     "unit": "H",
+     "value": "220u"
+    }
+   ],
+   "tags": [
+    "220u",
+    "axial",
+    "drossel",
+    "induktivität",
+    "spule"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Induktivitäten/Drosseln THT",
+   "description": "Festinduktivität 22 µH, axial bedrahtet (Bauform wie Widerstand, Farbcode)",
+   "footprint": "THT axial",
+   "image": "inductor-axial.svg",
+   "key": "ind-axial-22u",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Drossel 22 µH axial",
+   "params": [
+    {
+     "name": "Induktivität",
+     "unit": "H",
+     "value": "22u"
+    }
+   ],
+   "tags": [
+    "22u",
+    "axial",
+    "drossel",
+    "induktivität",
+    "spule"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Induktivitäten/Drosseln THT",
+   "description": "Festinduktivität 470 µH, axial bedrahtet (Bauform wie Widerstand, Farbcode)",
+   "footprint": "THT axial",
+   "image": "inductor-axial.svg",
+   "key": "ind-axial-470u",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Drossel 470 µH axial",
+   "params": [
+    {
+     "name": "Induktivität",
+     "unit": "H",
+     "value": "470u"
+    }
+   ],
+   "tags": [
+    "470u",
+    "axial",
+    "drossel",
+    "induktivität",
+    "spule"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Induktivitäten/Drosseln THT",
+   "description": "Festinduktivität 47 µH, axial bedrahtet (Bauform wie Widerstand, Farbcode)",
+   "footprint": "THT axial",
+   "image": "inductor-axial.svg",
+   "key": "ind-axial-47u",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Drossel 47 µH axial",
+   "params": [
+    {
+     "name": "Induktivität",
+     "unit": "H",
+     "value": "47u"
+    }
+   ],
+   "tags": [
+    "47u",
+    "axial",
+    "drossel",
+    "induktivität",
+    "spule"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Induktivitäten/Ferrite",
+   "description": "SMD-Ferritperle 600 Ω @ 100 MHz, Bauform 0805, zur HF-Entstörung",
+   "footprint": "0805",
+   "image": "smd-chip-generic.svg",
+   "key": "ferrite-0805-600r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Ferritperle 600 Ω (0805)",
+   "params": [
+    {
+     "name": "Impedanz",
+     "unit": "Ω",
+     "value": "600"
+    },
+    {
+     "name": "Frequenz",
+     "unit": "Hz",
+     "value": "100M"
+    }
+   ],
+   "tags": [
+    "0805",
+    "emv",
+    "ferrit",
+    "ferritperle"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Induktivitäten/Speicherdrosseln SMD",
+   "description": "SMD-Speicherdrossel 100 µH, Bauform CD54 (ca. 5,8 × 5,2 mm), für Schaltregler",
+   "footprint": "CD54",
+   "image": "inductor-smd.svg",
+   "key": "ind-cd54-100u",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "CD54 100 µH",
+   "params": [
+    {
+     "name": "Induktivität",
+     "unit": "H",
+     "value": "100u"
+    }
+   ],
+   "tags": [
+    "100u",
+    "cd54",
+    "induktivität",
+    "smd",
+    "speicherdrossel"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Induktivitäten/Speicherdrosseln SMD",
+   "description": "SMD-Speicherdrossel 10 µH, Bauform CD54 (ca. 5,8 × 5,2 mm), für Schaltregler",
+   "footprint": "CD54",
+   "image": "inductor-smd.svg",
+   "key": "ind-cd54-10u",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "CD54 10 µH",
+   "params": [
+    {
+     "name": "Induktivität",
+     "unit": "H",
+     "value": "10u"
+    }
+   ],
+   "tags": [
+    "10u",
+    "cd54",
+    "induktivität",
+    "smd",
+    "speicherdrossel"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Induktivitäten/Speicherdrosseln SMD",
+   "description": "SMD-Speicherdrossel 22 µH, Bauform CD54 (ca. 5,8 × 5,2 mm), für Schaltregler",
+   "footprint": "CD54",
+   "image": "inductor-smd.svg",
+   "key": "ind-cd54-22u",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "CD54 22 µH",
+   "params": [
+    {
+     "name": "Induktivität",
+     "unit": "H",
+     "value": "22u"
+    }
+   ],
+   "tags": [
+    "22u",
+    "cd54",
+    "induktivität",
+    "smd",
+    "speicherdrossel"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Induktivitäten/Speicherdrosseln SMD",
+   "description": "SMD-Speicherdrossel 47 µH, Bauform CD54 (ca. 5,8 × 5,2 mm), für Schaltregler",
+   "footprint": "CD54",
+   "image": "inductor-smd.svg",
+   "key": "ind-cd54-47u",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "CD54 47 µH",
+   "params": [
+    {
+     "name": "Induktivität",
+     "unit": "H",
+     "value": "47u"
+    }
+   ],
+   "tags": [
+    "47u",
+    "cd54",
+    "induktivität",
+    "smd",
+    "speicherdrossel"
+   ],
+   "unit": "Stk"
+  }
+ ]
+}

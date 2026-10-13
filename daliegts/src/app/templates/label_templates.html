@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}Etiketten-Vorlagen{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/etiketten?art={{ art }}">Etiketten drucken</a></div>
+<h1>Etiketten-Vorlagen</h1>
+<p class="muted">Für jede Etikettenart eigene Vorlagen: Größe, QR-Code oder Strichcode und genau die Informationen, die draufstehen sollen – Zeile für Zeile, in der Reihenfolge und Schriftgröße, die du willst. Die Vorschau zeigt echte Daten aus deinem Lager.</p>
+
+<div class="cols-2" x-data='labelDesigner({{ {"edit": edit, "fields": fields, "mediaSizes": media_sizes}|tojson }})'>
+  <div class="card">
+    <div class="row spread"><h2 class="mt0 mb0" x-text="t.id ? 'Vorlage bearbeiten' : 'Neue Vorlage'"></h2>
+      <span class="small muted" x-show="dirty" x-cloak>ungespeichert</span></div>
+    <div class="fields" style="margin-top:8px">
+      <div style="grid-column:span 2"><label>Name</label><input x-model="t.name" @input="changed()"></div>
+      <div><label>Etikettenart</label><select x-model="t.kind" @change="kindChanged()">{% for k, v in kinds.items() %}<option value="{{ k }}">{{ v }}</option>{% endfor %}</select></div>
+      <div><label>Format</label><select x-model="t.media" @change="mediaChanged()">{% for k, v in media.items() %}<option value="{{ k }}">{{ v }}</option>{% endfor %}</select></div>
+      <template x-if="t.media === 'eigen'"><div><label>Breite × Höhe (mm)</label>
+        <div class="row" style="flex-wrap:nowrap;gap:6px"><input type="number" step="0.5" min="10" max="200" x-model="t.width_mm" @input="changed()"><span>×</span><input type="number" step="0.5" min="6" max="150" x-model="t.height_mm" @input="changed()"></div></div></template>
+      <div><label>Code</label><select x-model="t.symbology" @change="changed()">
+        <option value="qr">QR-Code</option><option value="code128">Strichcode (Code128)</option><option value="qr+code128">QR + Strichcode</option><option value="none">kein Code</option></select></div>
+      <div x-show="t.symbology.includes('qr')"><label>QR-Code</label><select x-model="t.code_pos" @change="changed()"><option value="left">links</option><option value="right">rechts</option></select></div>
+    </div>
+
+    <h3 style="margin-bottom:6px">Zeilen</h3>
+    <template x-for="(ln, i) in t.lines" :key="i">
+      <div class="line-ed">
+        <div class="row" style="gap:4px;flex-wrap:nowrap">
+          <select x-model="ln.f" @change="changed()" style="flex:1"><template x-for="[k, v] in Object.entries(fields[t.kind])" :key="k"><option :value="k" x-text="v" :selected="k === ln.f"></option></template></select>
+          <input x-show="ln.f === 'text'" x-model="ln.text" @input="changed()" placeholder="Text" style="flex:1">
+        </div>
+        <select x-model="ln.size" @change="changed()" title="Schriftgröße">{% for k, v in sizes.items() %}<option value="{{ k }}">{{ v }}</option>{% endfor %}</select>
+        <select x-model.number="ln.wrap" @change="changed()" title="Zeilenumbruch: langer Text darf auf 2 oder 3 Zeilen umbrechen"><option :value="1" :selected="(ln.wrap || 1) == 1">↵ nein</option><option :value="2" :selected="ln.wrap == 2">↵ 2 Zeilen</option><option :value="3" :selected="ln.wrap == 3">↵ 3 Zeilen</option></select>
+        <label class="inline" style="margin:0" title="fett"><input type="checkbox" x-model="ln.bold" @change="changed()"> <b>F</b></label>
+        <span class="row" style="gap:2px;flex-wrap:nowrap"><button type="button" class="btn sm ghost" @click="move(i, -1)" :disabled="i === 0">↑</button><button type="button" class="btn sm ghost" @click="move(i, 1)" :disabled="i === t.lines.length - 1">↓</button></span>
+        <button type="button" class="btn sm ghost" @click="t.lines.splice(i, 1); changed()" title="Zeile entfernen">✕</button>
+      </div>
+    </template>
+    <button type="button" class="btn sm" @click="t.lines.push({f: 'name', size: 'm', bold: false, text: '', wrap: 1}); changed()" :disabled="t.lines.length >= 12">＋ Zeile</button>
+    <p class="small muted">Leere Felder (z. B. Artikel ohne Hersteller-Nr.) werden beim Drucken einfach weggelassen. Passt eine Zeile nicht, wird sie mit „…“ gekürzt – oder mit „↵ 2 Zeilen“ / „↵ 3 Zeilen“ umgebrochen.</p>
+
+    <label class="inline"><input type="checkbox" x-model="t.is_default" @change="changed()"> Standardvorlage für diese Etikettenart</label>
+    {% if me.can('labels', 2) %}
+    <div class="row" style="margin-top:10px">
+      <button type="button" class="btn primary" @click="save()">Speichern</button>
+      <button type="button" class="btn" x-show="t.id" @click="t.id = null; t.name = t.name + ' (Kopie)'; t.is_default = false; changed()">Als neue Vorlage kopieren</button>
+      <a class="btn" :href="'/etiketten?art=' + t.kind + (t.id ? '&vorlage=' + t.id : '')">🖨 Damit drucken</a>
+      <template x-if="t.id"><form method="post" :action="'/etiketten/vorlagen/' + t.id + '/loeschen'"><button class="btn ghost" data-confirm="Vorlage löschen?">Löschen</button></form></template>
+    </div>
+    {% else %}<p class="note">Zum Ändern von Vorlagen fehlt das Recht „Etiketten: bearbeiten“.</p>{% endif %}
+  </div>
+
+  <div>
+    <div class="card" style="position:sticky;top:70px">
+      <div class="row spread"><b>Vorschau</b><span class="small muted" x-text="sizeText()"></span></div>
+      <div class="lbl-preview zoomed" style="margin-top:8px" x-ref="pv"></div>
+      <p class="small muted" style="margin-bottom:0">Vergrößert dargestellt; gedruckt wird in Originalgröße.</p>
+      {% if printers %}
+      <div class="row" style="margin-top:8px" x-show="!(mediaSizes[t.media] && t.media.startsWith('a4'))">
+        <select x-ref="drucker" style="width:auto">{% for p in printers %}<option value="{{ p.id }}">{{ p.name }}</option>{% endfor %}</select>
+        <button type="button" class="btn sm" @click="testPrint()">🖨 Testdruck (auch ungespeichert)</button>
+      </div>
+      {% else %}<p class="small" style="margin-bottom:0"><a href="/etiketten/drucker">Etikettendrucker einrichten</a> für Direkt- und Testdruck.</p>{% endif %}
+    </div>
+    <div class="card">
+      <h2 class="mt0">Alle Vorlagen</h2>
+      {% for k, v in kinds.items() %}
+      <div style="margin-bottom:8px"><div class="small muted">{{ v }}</div>
+        {% for x in all[k] %}<a class="btn sm {{ 'primary' if edit.id == x.id }}" style="margin:2px" href="/etiketten/vorlagen?id={{ x.id }}">{{ x.name }}{{ ' ★' if x.is_default }}</a>{% endfor %}
+        <a class="btn sm ghost" style="margin:2px" href="/etiketten/vorlagen?art={{ k }}&neu=1">＋ neu</a>
+      </div>{% endfor %}
+    </div>
+  </div>
+</div>
+<script>
+function labelDesigner(cfg) {
+  return {
+    t: JSON.parse(JSON.stringify(cfg.edit)), fields: cfg.fields, mediaSizes: cfg.mediaSizes, dirty: false, timer: null,
+    init() { this.preview(); },
+    changed() { this.dirty = true; clearTimeout(this.timer); this.timer = setTimeout(() => this.preview(), 250); },
+    kindChanged() { const f = this.fields[this.t.kind]; this.t.lines.forEach((ln) => { if (!(ln.f in f)) ln.f = "name"; }); this.changed(); },
+    mediaChanged() { const s = this.mediaSizes[this.t.media]; if (s) { this.t.width_mm = s[0]; this.t.height_mm = s[1]; } this.changed(); },
+    move(i, d) { const j = i + d; const a = this.t.lines; [a[i], a[j]] = [a[j], a[i]]; this.t.lines = [...a]; this.changed(); },
+    sizeText() { return `${(+this.t.width_mm).toLocaleString("de-DE")} × ${(+this.t.height_mm).toLocaleString("de-DE")} mm`; },
+    async testPrint() {
+      try { const r = await api("/etiketten/vorlagen/testdruck", { ...this.t, drucker: this.$refs.drucker.value }); toast(r.message); }
+      catch (e) { toast("Testdruck fehlgeschlagen: " + e.message); }
+    },
+    async preview() {
+      const r = await fetch("/etiketten/vorlagen/vorschau", { method: "POST", headers: { "Content-Type": "application/json", "X-Lagerwerk": "1" },
+        credentials: "same-origin", body: JSON.stringify(this.t) });
+      if (r.ok) this.$refs.pv.innerHTML = await r.text();
+    },
+    async save() {
+      try {
+        const r = await api("/etiketten/vorlagen/speichern", this.t);
+        this.dirty = false; toast(r.message);
+        if (!this.t.id || String(this.t.id) !== String(r.id)) lwGo("/etiketten/vorlagen?id=" + r.id);
+      } catch (e) { toast("Fehler: " + e.message); }
+    },
+  };
+}
+</script>
+{% endblock %}

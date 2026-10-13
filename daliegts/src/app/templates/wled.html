@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}WLED{% endblock %}
+{% block content %}
+<div class="row spread"><h1>WLED-Controller</h1>
+  <div class="row">
+    <form method="post" action="/wled/aus" class="inline"><button class="btn">Alle LEDs aus</button></form>
+    <form method="post" action="/wled/ruhemodus" class="inline"><input type="hidden" name="paused" value="{{ 0 if paused else 1 }}"><button class="btn">{{ 'Ruhemodus fortsetzen' if paused else 'Ruhemodus pausieren' }}</button></form>
+  </div>
+</div>
+{% if paused %}<p class="small"><b>Ruhemodus pausiert</b> – die Effektwand startet nicht von selbst (auch nicht nach einem Neustart).</p>{% endif %}
+{% if presence is not none %}<p class="small muted">Anwesenheit (Home Assistant): {{ 'ja' if presence else 'nein' }}</p>{% endif %}
+{% for c in ctrls %}{% set st = status.get(c.id, {}) %}
+<details class="card" {{ 'open' if ctrls|length == 1 }}>
+  <summary class="row spread"><b>{{ c.name }}</b>
+    <span class="row small"><span class="mono">{{ c.host }}</span> · {{ c.led_count }} LEDs · {{ counts.get(c.id, 0) }} Zuordnungen
+      {% if not c.enabled %}<span class="badge">deaktiviert</span>{% elif st.get('error') %}<span class="badge err" title="{{ st.error }}">Fehler</span>{% elif st.get('last_ok') %}<span class="badge ok">OK</span>{% endif %}</span></summary>
+  {% if st.get('error') %}<p class="flash err small">{{ st.error }}</p>{% endif %}
+  <div class="row" style="margin:8px 0">
+    <form method="post" action="/wled/{{ c.id }}/test" class="inline"><button class="btn sm">Verbindung testen</button></form>
+    {% if me.can('wled_config', 2) %}<button class="btn sm" hx-post="/wled/{{ c.id }}/durchzaehlen" hx-swap="none" onclick="toast('Jede 10. LED leuchtet weiß (0, 10, 20 …)')">LEDs durchzählen</button>{% endif %}
+  </div>
+  {% if me.can('wled_config', 2) %}{% with c=c %}{% include "partials/wled_form.html" %}{% endwith %}
+  {% if me.can('wled_config', 4) %}<form method="post" action="/wled/{{ c.id }}/loeschen" style="margin-top:8px"><button class="btn sm danger" data-confirm="Controller und alle LED-Zuordnungen löschen?">Löschen</button></form>{% endif %}{% endif %}
+</details>
+{% else %}<p class="muted">Noch kein Controller. Lege unten deinen ESP32/ESP8266 mit WLED an.</p>{% endfor %}
+{% if me.can('wled_config', 2) %}
+<details class="card" {{ 'open' if not ctrls }}><summary><b>＋ Controller hinzufügen</b></summary>{% with c=None %}{% include "partials/wled_form.html" %}{% endwith %}</details>
+{% else %}<p class="note">Zum Einrichten von Controllern bitte den Admin-Modus einschalten.</p>{% endif %}
+<div class="card small">
+  <h2 class="mt0">So funktioniert's</h2>
+  <ol>
+    <li>Controller anlegen (IP/Hostname des WLED-Geräts, Anzahl LEDs). „Verbindung testen“.</li>
+    <li>Lagermöbel öffnen → „LED-Zuordnung für das ganze Möbel“: Start-LED, LEDs pro Fach, Schlangenlinie → berechnen.</li>
+    <li>Im Raster ein Fach antippen und die Start-LED mit −/＋ justieren, bis das richtige Fach leuchtet.</li>
+    <li>Abteile: Die Fach-LED blinkt so oft wie die Abteilnummer; bei mehreren LEDs leuchtet zusätzlich nur der passende Abschnitt.</li>
+  </ol>
+  <p>Stromversorgung: In WLED unter „LED Preferences“ die automatische Strombegrenzung (ABL) passend zum Netzteil einstellen und bei langen Strips an jedem Magazin einspeisen.</p>
+</div>
+{% endblock %}

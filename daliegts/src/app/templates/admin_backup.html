@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Backup{% endblock %}
+{% block content %}
+<h1>Backup & Export</h1>
+<div class="card">
+  <p>Jede Nacht um 03:17 wird automatisch gesichert: SQLite-Kopie, offener Export (ohne Medien) und Medien-Archiv. Vor jedem Update und jedem Import wird zusätzlich eine Sicherung „vor-…“ angelegt, die nicht automatisch gelöscht wird.</p>
+  <div class="row">
+    <form method="post" action="/admin/backup/jetzt" class="inline"><input type="hidden" name="art" value="db"><button class="btn primary">Datenbank jetzt sichern</button></form>
+    <form method="post" action="/admin/backup/jetzt" class="inline"><input type="hidden" name="art" value="export"><button class="btn">Kompletten Export (inkl. Bilder)</button></form>
+  </div>
+  <p class="small muted">Das Exportformat „Export v1“ ist in <code>docs/EXPORT_FORMAT.md</code> beschrieben und unabhängig von der internen Datenbankstruktur – damit kommst du immer an deine Daten.</p>
+</div>
+<div class="card table-wrap"><table>
+  <tr><th>Datei</th><th class="num">Größe</th><th>Datum</th></tr>
+  {% for f in files %}<tr><td><a href="/admin/backup/datei/{{ f.name }}">{{ f.name }}</a></td><td class="num">{{ '%.1f'|format(f.stat().st_size / 1048576) }} MB</td><td class="small">{{ f.stat().st_mtime|ts }}</td></tr>
+  {% else %}<tr><td colspan="3" class="muted">Noch keine Sicherungen.</td></tr>{% endfor %}
+</table></div>
+{% endblock %}

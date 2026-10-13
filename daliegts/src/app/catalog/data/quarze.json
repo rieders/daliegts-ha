@@ -1,0 +1,243 @@
+{
+ "group": "Quarze & Resonatoren",
+ "parts": [
+  {
+   "category": "Elektronik/Passiv/Quarze & Resonatoren/Quarze",
+   "description": "Uhrenquarz 32,768 kHz, zylindrisch 2×6 mm, für RTC (z. B. DS1307)",
+   "footprint": "Uhrenquarz",
+   "image": "crystal-watch.svg",
+   "key": "xtal-32768",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Uhrenquarz 32,768 kHz",
+   "params": [
+    {
+     "name": "Frequenz",
+     "unit": "Hz",
+     "value": "32.768k"
+    }
+   ],
+   "tags": [
+    "32khz",
+    "quarz",
+    "rtc",
+    "uhrenquarz"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Quarze & Resonatoren/Quarze",
+   "description": "Quarz 11,0592 MHz, Bauform HC-49/S (flach), 2 Pins",
+   "footprint": "HC-49/S",
+   "image": "crystal-hc49.svg",
+   "key": "xtal-hc49s-110592m",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Quarz 11,0592 MHz HC-49/S",
+   "params": [
+    {
+     "name": "Frequenz",
+     "unit": "Hz",
+     "value": "11.0592M"
+    }
+   ],
+   "tags": [
+    "11.0592mhz",
+    "crystal",
+    "hc-49",
+    "quarz"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Quarze & Resonatoren/Quarze",
+   "description": "Quarz 12 MHz, Bauform HC-49/S (flach), 2 Pins",
+   "footprint": "HC-49/S",
+   "image": "crystal-hc49.svg",
+   "key": "xtal-hc49s-12m",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Quarz 12 MHz HC-49/S",
+   "params": [
+    {
+     "name": "Frequenz",
+     "unit": "Hz",
+     "value": "12M"
+    }
+   ],
+   "tags": [
+    "12mhz",
+    "crystal",
+    "hc-49",
+    "quarz"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Quarze & Resonatoren/Quarze",
+   "description": "Quarz 16 MHz, Bauform HC-49/S (flach), 2 Pins",
+   "footprint": "HC-49/S",
+   "image": "crystal-hc49.svg",
+   "key": "xtal-hc49s-16m",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Quarz 16 MHz HC-49/S",
+   "params": [
+    {
+     "name": "Frequenz",
+     "unit": "Hz",
+     "value": "16M"
+    }
+   ],
+   "tags": [
+    "16mhz",
+    "crystal",
+    "hc-49",
+    "quarz"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Quarze & Resonatoren/Quarze",
+   "description": "Quarz 20 MHz, Bauform HC-49/S (flach), 2 Pins",
+   "footprint": "HC-49/S",
+   "image": "crystal-hc49.svg",
+   "key": "xtal-hc49s-20m",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Quarz 20 MHz HC-49/S",
+   "params": [
+    {
+     "name": "Frequenz",
+     "unit": "Hz",
+     "value": "20M"
+    }
+   ],
+   "tags": [
+    "20mhz",
+    "crystal",
+    "hc-49",
+    "quarz"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Quarze & Resonatoren/Quarze",
+   "description": "Quarz 25 MHz, Bauform HC-49/S (flach), 2 Pins",
+   "footprint": "HC-49/S",
+   "image": "crystal-hc49.svg",
+   "key": "xtal-hc49s-25m",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Quarz 25 MHz HC-49/S",
+   "params": [
+    {
+     "name": "Frequenz",
+     "unit": "Hz",
+     "value": "25M"
+    }
+   ],
+   "tags": [
+    "25mhz",
+    "crystal",
+    "hc-49",
+    "quarz"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Quarze & Resonatoren/Quarze",
+   "description": "Quarz 4 MHz, Bauform HC-49/S (flach), 2 Pins",
+   "footprint": "HC-49/S",
+   "image": "crystal-hc49.svg",
+   "key": "xtal-hc49s-4m",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Quarz 4 MHz HC-49/S",
+   "params": [
+    {
+     "name": "Frequenz",
+     "unit": "Hz",
+     "value": "4M"
+    }
+   ],
+   "tags": [
+    "4mhz",
+    "crystal",
+    "hc-49",
+    "quarz"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Quarze & Resonatoren/Quarze",
+   "description": "Quarz 8 MHz, Bauform HC-49/S (flach), 2 Pins",
+   "footprint": "HC-49/S",
+   "image": "crystal-hc49.svg",
+   "key": "xtal-hc49s-8m",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Quarz 8 MHz HC-49/S",
+   "params": [
+    {
+     "name": "Frequenz",
+     "unit": "Hz",
+     "value": "8M"
+    }
+   ],
+   "tags": [
+    "8mhz",
+    "crystal",
+    "hc-49",
+    "quarz"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Quarze & Resonatoren/Resonatoren",
+   "description": "Keramikresonator 16 MHz mit integrierten Lastkondensatoren, 3 Pins (Mitte = GND)",
+   "footprint": "THT radial",
+   "image": "resonator.svg",
+   "key": "resonator-16m",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Keramikresonator 16 MHz",
+   "params": [
+    {
+     "name": "Frequenz",
+     "unit": "Hz",
+     "value": "16M"
+    }
+   ],
+   "tags": [
+    "16mhz",
+    "keramik",
+    "resonator"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Quarze & Resonatoren/Resonatoren",
+   "description": "Keramikresonator 8 MHz mit integrierten Lastkondensatoren, 3 Pins (Mitte = GND)",
+   "footprint": "THT radial",
+   "image": "resonator.svg",
+   "key": "resonator-8m",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Keramikresonator 8 MHz",
+   "params": [
+    {
+     "name": "Frequenz",
+     "unit": "Hz",
+     "value": "8M"
+    }
+   ],
+   "tags": [
+    "8mhz",
+    "keramik",
+    "resonator"
+   ],
+   "unit": "Stk"
+  }
+ ]
+}

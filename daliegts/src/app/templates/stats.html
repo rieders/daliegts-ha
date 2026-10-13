@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block title %}Statistik{% endblock %}
+
+{# Säulendiagramm (eine Reihe): dünne Säulen, runde Enden, Tooltip per <title>, Achse zurückhaltend #}
+{% macro columns(values, labels, unit="", money=False, aria="", empty="Keine Daten im Zeitraum.") -%}
+{% set n = values|length %}{% set mx = (values|max) if n else 0 %}
+{% if not mx %}<p class="small muted" style="margin:40px 0">{{ empty }}</p>{% else %}
+{% set W = 600 %}{% set h = 150 %}{% set left = 56 %}{% set slot = (W - left) / n %}{% set bw = [24, slot * 0.72]|min %}
+{% set step = ((n / 8)|round(0, 'ceil'))|int if n > 8 else 1 %}
+<svg class="colchart" viewBox="0 0 {{ W }} {{ h + 24 }}" role="img" aria-label="{{ aria }}">
+  <line x1="{{ left }}" y1="{{ h }}" x2="{{ W }}" y2="{{ h }}" class="axis"/>
+  <line x1="{{ left }}" y1="8" x2="{{ W }}" y2="8" class="grid"/>
+  <text x="{{ left - 6 }}" y="12" class="tick" text-anchor="end">{{ (mx|euro) if money else (mx|qty) }}</text>
+  <text x="{{ left - 6 }}" y="{{ h }}" class="tick" text-anchor="end">0</text>
+  {% for v in values %}{% set bh = v / mx * (h - 8) %}{% set cx = left + slot * loop.index0 + slot / 2 %}{% set x = cx - bw / 2 %}
+  <g class="bar"><title>{{ labels[loop.index0] }}: {{ (v|euro) if money else (v|qty(unit)) }}</title>
+    <rect x="{{ left + slot * loop.index0 }}" y="0" width="{{ slot }}" height="{{ h }}" class="hit"/>
+    {% if bh >= 1 %}{% set r = [4, bh, bw / 2]|min %}<path d="M{{ x }} {{ h }} V{{ h - bh + r }} Q{{ x }} {{ h - bh }} {{ x + r }} {{ h - bh }} H{{ x + bw - r }} Q{{ x + bw }} {{ h - bh }} {{ x + bw }} {{ h - bh + r }} V{{ h }} Z" class="fill"/>
+    {% elif v > 0 %}<rect x="{{ x }}" y="{{ h - 1 }}" width="{{ bw }}" height="1" class="fill"/>{% endif %}
+  </g>
+  {% if loop.index0 % step == 0 %}<text x="{{ cx }}" y="{{ h + 16 }}" class="tick" text-anchor="middle">{{ labels[loop.index0] }}</text>{% endif %}
+  {% endfor %}
+</svg>{% endif %}
+{%- endmacro %}
+
+{# Waagerechte Balken für Aufteilungen #}
+{% macro hbars(buckets, money=True, limit=10) -%}
+{% set mx = (buckets|map(attribute='value' if money else 'qty')|max) if buckets else 0 %}
+<div class="hbars">
+{% for b in buckets[:limit] %}{% set v = b.value if money else b.qty %}
+  <div class="hbar" title="{{ b.label }}: {{ (b.value|euro) if money else (b.qty|qty) }} · {{ b.count }} Artikel">
+    <span class="hl">{{ b.label.split(' / ')[-1] }}</span>
+    <span class="ht"><span class="hf" style="width:{{ (v / mx * 100) if mx else 0 }}%"></span></span>
+    <span class="hv">{{ (b.value|euro) if money else (b.qty|qty) }}</span>
+  </div>
+{% endfor %}
+{% if buckets|length > limit %}<div class="small muted">… und {{ buckets|length - limit }} weitere</div>{% endif %}
+</div>
+{%- endmacro %}
+
+{% block content %}
+<div class="row spread">
+  <h1 class="mb0">Statistik</h1>
+  <div class="row">
+    <div class="pill-group">{% for d, label in PERIODS.items() %}<a class="btn sm {{ 'primary' if act.days == d }}" href="?tage={{ d }}">{{ label }}</a>{% endfor %}</div>
+    {% if show_value %}<a class="btn sm" href="/statistik/bestand.csv" title="Wertliste für Inventur oder Versicherung">⤓ Bestandsliste mit Werten (CSV)</a>{% endif %}
+  </div>
+</div>
+
+<div class="stats" style="margin-top:12px">
+  {% if show_value %}<div class="card stat hero"><span class="muted small">Lagerwert</span><b>{{ inv.value|euro }}</b>
+    <span class="small muted">{{ inv.valued_items }} von {{ inv.items }} Artikeln bewertet</span></div>{% endif %}
+  <div class="card stat"><span class="muted small">Artikel</span><b>{{ inv.items }}</b><span class="small muted">{{ inv.lots }} Bestände</span></div>
+  <div class="card stat"><span class="muted small">Stückzahl gesamt</span><b>{{ inv.qty|qty }}</b><span class="small muted">{{ inv.coarse_items }} Artikel grob (Ampel)</span></div>
+  <div class="card stat"><span class="muted small">Buchungen ({{ PERIODS[act.days] }})</span><b>{{ act.totals.bookings }}</b>
+    <span class="small muted">+{{ act.totals.qty_in|qty }} / −{{ act.totals.qty_out|qty }} Stk</span></div>
+  {% if show_value %}<div class="card stat"><span class="muted small">Verbraucht ({{ PERIODS[act.days] }})</span><b>{{ act.totals.value_out|euro }}</b>
+    <span class="small muted">Wert der Entnahmen</span></div>
+  <div class="card stat"><span class="muted small">Eingekauft ({{ PERIODS[act.days] }})</span><b>{{ act.purchase_total|euro }}</b>
+    <span class="small muted">Wareneingänge aus der Einkaufsliste</span></div>{% endif %}
+</div>
+
+<div class="cols charts">
+  <div class="card"><h2 class="mt0">Buchungen</h2><div class="small muted">Anzahl je {{ 'Tag' if act.days <= 31 else ('Woche' if act.days <= 120 else 'Monat') }}</div>
+    {{ columns(act.bookings, act.labels, aria="Buchungen je Zeitraum") }}</div>
+  <div class="card"><h2 class="mt0">Eingelagert</h2><div class="small muted">Stück</div>{{ columns(act.qty_in, act.labels, "Stk", aria="Eingelagerte Stückzahl") }}</div>
+  <div class="card"><h2 class="mt0">Entnommen</h2><div class="small muted">Stück</div>{{ columns(act.qty_out, act.labels, "Stk", aria="Entnommene Stückzahl") }}</div>
+  {% if show_value %}<div class="card"><h2 class="mt0">Einkäufe</h2><div class="small muted">€ je Zeitraum</div>{{ columns(act.purchases, act.labels, money=True, aria="Einkäufe in Euro", empty="Noch keine Wareneingänge über die Einkaufsliste.") }}</div>{% endif %}
+</div>
+
+{% if show_value %}
+<div class="cols">
+  <div class="card"><h2 class="mt0">Lagerwert nach Kategorie</h2>{{ hbars(inv.by_category) }}</div>
+  <div class="card"><h2 class="mt0">Lagerwert nach Lagerort</h2>{{ hbars(inv.by_location) }}</div>
+  <div class="card"><h2 class="mt0">Lagerwert nach Art</h2>{{ hbars(inv.by_kind) }}
+    {% if inv.collector_value %}<p class="small muted">Sammlerwert (separat erfasst): {{ inv.collector_value|euro }}</p>{% endif %}</div>
+</div>
+{% else %}
+<div class="cols">
+  <div class="card"><h2 class="mt0">Stück nach Kategorie</h2>{{ hbars(inv.by_category, money=False) }}</div>
+  <div class="card"><h2 class="mt0">Stück nach Lagerort</h2>{{ hbars(inv.by_location, money=False) }}</div>
+</div>
+{% endif %}
+
+<div class="cols-2">
+<div>
+  {% if show_value %}
+  <div class="card"><h2 class="mt0">Wertvollste Bestände</h2>
+    <div class="table-wrap"><table>
+      <tr><th>Artikel</th><th class="num">Menge</th><th class="num">Wert</th><th>Quelle</th></tr>
+      {% for it, qty, value, src in inv.top_items %}<tr><td><a href="/artikel/{{ it.id }}">{{ it.name }}</a></td><td class="num">{{ qty|qty(it.unit) }}</td>
+        <td class="num">{{ value|euro }}</td><td class="small muted">{{ SOURCES.get(src, '–') }}</td></tr>
+      {% else %}<tr><td colspan="4" class="muted">Noch keine Preise hinterlegt.</td></tr>{% endfor %}
+    </table></div>
+  </div>{% endif %}
+  <div class="card"><h2 class="mt0">Meist entnommen ({{ PERIODS[act.days] }})</h2>
+    <div class="table-wrap"><table>
+      <tr><th>Artikel</th><th class="num">Menge</th>{% if show_value %}<th class="num">Wert</th>{% endif %}</tr>
+      {% for it, qty, value in act.top_out %}<tr><td><a href="/artikel/{{ it.id }}">{{ it.name }}</a></td><td class="num">{{ qty|qty(it.unit) }}</td>
+        {% if show_value %}<td class="num">{{ value|euro if value else '–' }}</td>{% endif %}</tr>
+      {% else %}<tr><td colspan="3" class="muted">Keine Entnahmen im Zeitraum.</td></tr>{% endfor %}
+    </table></div>
+  </div>
+</div>
+<div>
+  <div class="card"><h2 class="mt0">Buchungsarten</h2>
+    <table>{% for k, v in act.totals.kinds.items()|sort(attribute='1', reverse=True) %}<tr><td>{{ MOVEMENT_KINDS.get(k, k) }}</td><td class="num">{{ v }}</td></tr>
+      {% else %}<tr><td class="muted">Keine Buchungen.</td></tr>{% endfor %}</table>
+  </div>
+  <div class="card"><h2 class="mt0">Wer bucht?</h2>
+    <table>{% for name, n in act.by_user %}<tr><td>{{ name }}</td><td class="num">{{ n }}</td></tr>{% else %}<tr><td class="muted">–</td></tr>{% endfor %}</table>
+  </div>
+  {% if show_value and act.by_supplier %}
+  <div class="card"><h2 class="mt0">Einkäufe nach Lieferant</h2>
+    <table>{% for name, amount in act.by_supplier %}<tr><td>{{ name }}</td><td class="num">{{ amount|euro }}</td></tr>{% endfor %}</table>
+  </div>{% endif %}
+  {% if show_value %}
+  <details class="card more" {{ 'open' if inv.unpriced and not inv.valued_items }}><summary>{{ inv.unpriced|length }} Artikel mit Bestand, aber ohne Preis</summary>
+    <p class="small muted">Diese fehlen im Lagerwert. Preis am Artikel eintragen, „🔎 Online suchen“ oder bei Werkzeug den Kaufpreis.</p>
+    {% for it in inv.unpriced[:60] %}<div class="small"><a href="/artikel/{{ it.id }}#bezug">{{ it.name }}</a></div>{% endfor %}
+    {% if inv.unpriced|length > 60 %}<div class="small muted">… und {{ inv.unpriced|length - 60 }} weitere</div>{% endif %}
+  </details>
+  <p class="small muted">Wert je Einheit: Kaufpreis am Artikel, sonst zuletzt bezahlter Preis (Wareneingang), sonst günstigster Shop-Preis der kleinsten Staffel.
+    {% for k, n in inv.sources.items() %}{{ SOURCES[k] }}: {{ n }}{% if not loop.last %} · {% endif %}{% endfor %}</p>
+  {% endif %}
+</div>
+</div>
+{% endblock %}

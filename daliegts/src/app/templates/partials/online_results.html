@@ -1,0 +1,50 @@
+{% if problems %}
+<div class="card" style="border-color:var(--warn)">
+  <b>Die Angaben reichen noch nicht für eine sinnvolle Suche.</b>
+  <ul>{% for p in problems %}<li>{{ p }}</li>{% endfor %}</ul>
+  <p class="small">Am besten die <b>Hersteller-Nr.</b> eintragen (steht auf dem Bauteil, der Verpackung oder dem Datenblatt). Sonst Wert und Gehäuse ergänzen, z. B. „Widerstand 10k 0805“ oder „Elko 100µF 25V radial“.</p>
+</div>
+{% else %}
+<form method="post" action="/artikel/{{ item.id }}/online/uebernehmen">
+  {% set total_hits = found.values()|reject('string')|map('length')|sum %}
+  {% for key, rows in found.items() %}
+  <div class="card">
+    <h2 class="mt0">{{ names[key] }}</h2>
+    {% if rows is string %}<p class="small" style="color:var(--err)">{{ rows }}</p>
+    {% elif not rows %}<p class="small muted">Keine Treffer.</p>
+    {% else %}
+    <div class="table-wrap"><table>
+      <tr><th></th><th>Bestellnr.</th><th>Hersteller-Nr. / Hersteller</th><th>Beschreibung</th><th class="num">Lager</th><th class="num">Kosten für {{ need|qty }}<div class="small muted">inkl. Mindestmenge</div></th></tr>
+      {% for r in rows %}{% set h = r.hit %}
+      <tr>
+        <td>{% if r.linked %}<span class="badge ok" title="schon verknüpft">✓</span>{% else %}<input type="checkbox" name="hit" value="{{ r.json }}" {{ 'checked' if r.exact and loop.first }}>{% endif %}</td>
+        <td class="mono small">{% if h.url|safe_url %}<a href="{{ h.url|safe_url }}" target="_blank" rel="noopener noreferrer">{{ h.sku }}</a>{% else %}{{ h.sku }}{% endif %}
+          {% if r.exact %}<div><span class="badge ok">passt genau</span></div>{% endif %}</td>
+        <td class="small"><b>{{ h.mpn or h.name }}</b><div class="muted">{{ h.manufacturer }}</div></td>
+        <td class="small">{{ h.description[:120] }}{% if h.footprint %} · {{ h.footprint }}{% endif %}{% if h.pack_qty and h.pack_qty > 1 %} <span class="badge">VPE {{ h.pack_qty|qty }}</span>{% endif %}</td>
+        <td class="num small">{{ h.stock if h.stock is not none else '–' }}</td>
+        <td class="num">{% if r.total is not none %}<b>{{ r.total|euro }}</b>{% if h.currency != 'EUR' %} <span class="badge warn">{{ h.currency }}</span>{% endif %}
+          <div class="small muted">{% for q, p in h.prices[:4] %}ab {{ q|qty }}: {{ p|price }}{% if not loop.last %}<br>{% endif %}{% endfor %}</div>{% else %}<span class="muted">–</span>{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </table></div>
+    {% endif %}
+  </div>
+  {% endfor %}
+  {% if total_hits %}
+  <div class="card" style="position:sticky;bottom:8px">
+    <div class="row">
+      <b>Ausgewählte übernehmen</b>
+      <span class="small muted">und leere Felder am Artikel füllen:</span>
+      <label class="inline small"><input type="checkbox" name="fill_mpn" value="1" checked> Hersteller-Nr.</label>
+      <label class="inline small"><input type="checkbox" name="fill_manufacturer" value="1" checked> Hersteller</label>
+      <label class="inline small"><input type="checkbox" name="fill_description" value="1"> Beschreibung</label>
+      <label class="inline small"><input type="checkbox" name="fill_datasheet" value="1" checked> Datenblatt-Link</label>
+      <label class="inline small"><input type="checkbox" name="fill_image" value="1" {{ 'checked' if not item.image }}> Bild</label>
+      <button class="btn primary" style="margin-left:auto">Übernehmen</button>
+    </div>
+    <p class="small muted mb0">„passt genau“ = gleiche Hersteller-Nr. wie am Artikel. Mehrere Shops auswählen ist sinnvoll: Die Einkaufsliste nimmt dann jeweils den günstigsten.</p>
+  </div>
+  {% else %}<p class="muted">Nichts gefunden. Anders suchen: Hersteller-Nr. ohne Zusätze, oder Wert + Gehäuse.</p>{% endif %}
+</form>
+{% endif %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Verleih{% endblock %}
+{% block content %}
+<h1>Verleih</h1>
+<p class="muted">Verleihen geht auf der Artikelseite (Werkzeug/Gerät) oder im Scanner.</p>
+<div class="card table-wrap"><table>
+  <tr><th>Artikel</th><th>An</th><th>Seit</th><th>Bis</th><th>Status</th><th></th></tr>
+  {% for l in rows %}<tr>
+    <td><a href="/artikel/{{ l.item_id }}">{{ l.item.name }}</a></td><td>{{ l.borrower_name or users.get(l.borrower_user_id, '') }}</td><td>{{ l.since|dt }}</td><td>{{ l.due|dt }}</td>
+    <td>{% if l.returned_at %}<span class="badge ok">zurück {{ l.returned_at|dt }}</span>{% elif l.due and l.due < today %}<span class="badge err">überfällig</span>{% else %}<span class="badge warn">verliehen</span>{% endif %}</td>
+    <td>{% if not l.returned_at and me.can('loans', 2) %}<form method="post" action="/leihe/{{ l.id }}/zurueck" class="inline"><button class="btn sm primary">Zurück</button></form>{% endif %}</td></tr>
+  {% else %}<tr><td colspan="6" class="muted">Noch nichts verliehen.</td></tr>{% endfor %}
+</table></div>
+{% endblock %}

@@ -1,0 +1,2895 @@
+{
+ "group": "Dioden & Gleichrichter",
+ "parts": [
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Brückengleichrichter",
+   "datasheet_hint": "B40C1500",
+   "description": "Brückengleichrichter für 40 V~ Anschlussspannung, 1,5 A (mit C-Last), Bauform prüfen",
+   "footprint": "KBP",
+   "image": "bridge-rectifier.svg",
+   "key": "b40c1500",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "B40C1500",
+   "params": [
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "40"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "1.5"
+    }
+   ],
+   "tags": [
+    "b40",
+    "brückengleichrichter",
+    "gleichrichter"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Brückengleichrichter",
+   "datasheet_hint": "DB107",
+   "description": "Brückengleichrichter 1000 V / 1 A, DIP-4 (DB-1)",
+   "footprint": "DIP-4",
+   "image": "dip-4.svg",
+   "key": "db107",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "DB107",
+   "params": [
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "1000"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "brückengleichrichter",
+    "dip",
+    "gleichrichter"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Brückengleichrichter",
+   "datasheet_hint": "KBP307",
+   "description": "Brückengleichrichter 1000 V / 3 A, flach, Reihenanschluss (KBP)",
+   "footprint": "KBP",
+   "image": "bridge-rectifier.svg",
+   "key": "kbp307",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "KBP307",
+   "params": [
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "1000"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "3"
+    }
+   ],
+   "tags": [
+    "brückengleichrichter",
+    "gleichrichter",
+    "kbp"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Brückengleichrichter",
+   "datasheet_hint": "KBPC3510",
+   "description": "Hochstrom-Brückengleichrichter 1000 V / 35 A, Metallgehäuse mit Flachsteckern, auf Kühlkörper montieren",
+   "footprint": "KBPC",
+   "image": "bridge-rectifier.svg",
+   "key": "kbpc3510",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "KBPC3510",
+   "params": [
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "1000"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "35"
+    }
+   ],
+   "tags": [
+    "brückengleichrichter",
+    "gleichrichter",
+    "hochstrom"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Brückengleichrichter",
+   "datasheet_hint": "MB6S",
+   "description": "SMD-Brückengleichrichter 600 V / 0,5 A, Gehäuse MBS (SOIC-4)",
+   "footprint": "SO-4",
+   "image": "bridge-smd.svg",
+   "key": "mb6s",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MB6S",
+   "params": [
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "600"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "brückengleichrichter",
+    "gleichrichter",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Gleichrichter",
+   "datasheet_hint": "1N4001-1N4007",
+   "description": "Gleichrichterdiode 50 V / 1 A, DO-41",
+   "equivalents": [
+    "1N4002 (höhere Sperrspannung)",
+    "1N4003 (höhere Sperrspannung)",
+    "1N4004 (höhere Sperrspannung)",
+    "1N4005 (höhere Sperrspannung)",
+    "1N4006 (höhere Sperrspannung)",
+    "1N4007 (höhere Sperrspannung)",
+    "M7 (SMD, 1000 V)"
+   ],
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4001",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4001",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Si-Gleichrichter"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "1n400x",
+    "diode",
+    "do-41",
+    "gleichrichter"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Gleichrichter",
+   "datasheet_hint": "1N4001-1N4007",
+   "description": "Gleichrichterdiode 100 V / 1 A, DO-41",
+   "equivalents": [
+    "1N4003 (höhere Sperrspannung)",
+    "1N4004 (höhere Sperrspannung)",
+    "1N4005 (höhere Sperrspannung)",
+    "1N4006 (höhere Sperrspannung)",
+    "1N4007 (höhere Sperrspannung)",
+    "M7 (SMD, 1000 V)"
+   ],
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4002",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4002",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Si-Gleichrichter"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "100"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "1n400x",
+    "diode",
+    "do-41",
+    "gleichrichter"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Gleichrichter",
+   "datasheet_hint": "1N4001-1N4007",
+   "description": "Gleichrichterdiode 200 V / 1 A, DO-41",
+   "equivalents": [
+    "1N4004 (höhere Sperrspannung)",
+    "1N4005 (höhere Sperrspannung)",
+    "1N4006 (höhere Sperrspannung)",
+    "1N4007 (höhere Sperrspannung)",
+    "M7 (SMD, 1000 V)"
+   ],
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4003",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4003",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Si-Gleichrichter"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "200"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "1n400x",
+    "diode",
+    "do-41",
+    "gleichrichter"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Gleichrichter",
+   "datasheet_hint": "1N4001-1N4007",
+   "description": "Gleichrichterdiode 400 V / 1 A, DO-41",
+   "equivalents": [
+    "1N4005 (höhere Sperrspannung)",
+    "1N4006 (höhere Sperrspannung)",
+    "1N4007 (höhere Sperrspannung)",
+    "M7 (SMD, 1000 V)"
+   ],
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4004",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4004",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Si-Gleichrichter"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "400"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "1n400x",
+    "diode",
+    "do-41",
+    "gleichrichter"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Gleichrichter",
+   "datasheet_hint": "1N4001-1N4007",
+   "description": "Gleichrichterdiode 600 V / 1 A, DO-41",
+   "equivalents": [
+    "1N4006 (höhere Sperrspannung)",
+    "1N4007 (höhere Sperrspannung)",
+    "M7 (SMD, 1000 V)"
+   ],
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4005",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4005",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Si-Gleichrichter"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "600"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "1n400x",
+    "diode",
+    "do-41",
+    "gleichrichter"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Gleichrichter",
+   "datasheet_hint": "1N4001-1N4007",
+   "description": "Gleichrichterdiode 800 V / 1 A, DO-41",
+   "equivalents": [
+    "1N4007 (höhere Sperrspannung)",
+    "M7 (SMD, 1000 V)"
+   ],
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4006",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4006",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Si-Gleichrichter"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "800"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "1n400x",
+    "diode",
+    "do-41",
+    "gleichrichter"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Gleichrichter",
+   "datasheet_hint": "1N4001-1N4007",
+   "description": "Gleichrichterdiode 1000 V / 1 A, DO-41",
+   "equivalents": [
+    "M7 (SMD, 1000 V)"
+   ],
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4007",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4007",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Si-Gleichrichter"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "1000"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "1n400x",
+    "diode",
+    "do-41",
+    "gleichrichter"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Gleichrichter",
+   "datasheet_hint": "1N5400-1N5408",
+   "description": "Gleichrichterdiode 400 V / 3 A, DO-201AD",
+   "footprint": "DO-201",
+   "image": "do-201.svg",
+   "key": "1n5404",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N5404",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Si-Gleichrichter"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "400"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "3"
+    }
+   ],
+   "tags": [
+    "3a",
+    "diode",
+    "do-201",
+    "gleichrichter"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Gleichrichter",
+   "datasheet_hint": "1N5400-1N5408",
+   "description": "Gleichrichterdiode 1000 V / 3 A, DO-201AD",
+   "footprint": "DO-201",
+   "image": "do-201.svg",
+   "key": "1n5408",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N5408",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Si-Gleichrichter"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "1000"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "3"
+    }
+   ],
+   "tags": [
+    "3a",
+    "diode",
+    "do-201",
+    "gleichrichter"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Gleichrichter",
+   "datasheet_hint": "M7 SMA diode",
+   "description": "Gleichrichterdiode 1000 V / 1 A, SMD-Version der 1N4007, SMA",
+   "equivalents": [
+    "1N4007 (THT)"
+   ],
+   "footprint": "SMA (DO-214AC)",
+   "image": "sma.svg",
+   "key": "m7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "M7 (SMD 1N4007)",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Si-Gleichrichter"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "1000"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "diode",
+    "gleichrichter",
+    "sma",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Gleichrichter",
+   "datasheet_hint": "UF4007",
+   "description": "Ultraschnelle Gleichrichterdiode 1000 V / 1 A, t_rr 75 ns, DO-41",
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "uf4007",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "UF4007",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Ultrafast"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "1000"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "1"
+    },
+    {
+     "name": "t_rr",
+     "unit": "ns",
+     "value": "75"
+    }
+   ],
+   "tags": [
+    "diode",
+    "do-41",
+    "schnell",
+    "ultrafast"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Schottky",
+   "datasheet_hint": "1N5817-1N5819",
+   "description": "Schottky-Diode 20 V / 1 A, DO-41",
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n5817",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N5817",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Schottky"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "20"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "diode",
+    "do-41",
+    "schottky"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Schottky",
+   "datasheet_hint": "1N5817-1N5819",
+   "description": "Schottky-Diode 30 V / 1 A, DO-41",
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n5818",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N5818",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Schottky"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "30"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "diode",
+    "do-41",
+    "schottky"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Schottky",
+   "datasheet_hint": "1N5817-1N5819",
+   "description": "Schottky-Diode 40 V / 1 A, DO-41",
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n5819",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N5819",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Schottky"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "40"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "diode",
+    "do-41",
+    "schottky"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Schottky",
+   "datasheet_hint": "1N5822",
+   "description": "Schottky-Diode 40 V / 3 A, DO-201AD",
+   "footprint": "DO-201",
+   "image": "do-201.svg",
+   "key": "1n5822",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N5822",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Schottky"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "40"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "3"
+    }
+   ],
+   "tags": [
+    "3a",
+    "diode",
+    "do-201",
+    "schottky"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Schottky",
+   "datasheet_hint": "BAT43",
+   "description": "Kleinsignal-Schottky-Diode 30 V / 200 mA, DO-35 Glas",
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "bat43",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BAT43",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Schottky"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "30"
+    },
+    {
+     "name": "I_F max",
+     "unit": "mA",
+     "value": "200"
+    }
+   ],
+   "tags": [
+    "diode",
+    "do-35",
+    "kleinsignal",
+    "schottky"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Schottky",
+   "datasheet_hint": "BAT54",
+   "description": "Schottky-Kleinsignaldiode 30 V / 200 mA, Einzeldiode, SOT-23",
+   "footprint": "SOT-23",
+   "image": "sot-23.svg",
+   "key": "bat54",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BAT54",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Schottky"
+    },
+    {
+     "name": "Konfiguration",
+     "value": "Einzeldiode"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "30"
+    },
+    {
+     "name": "I_F max",
+     "unit": "mA",
+     "value": "200"
+    }
+   ],
+   "tags": [
+    "bat54",
+    "diode",
+    "schottky",
+    "smd",
+    "sot-23"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Schottky",
+   "datasheet_hint": "BAT54",
+   "description": "Schottky-Kleinsignaldiode 30 V / 200 mA, Doppeldiode, gemeinsame Anode, SOT-23",
+   "footprint": "SOT-23",
+   "image": "sot-23.svg",
+   "key": "bat54a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BAT54A",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Schottky"
+    },
+    {
+     "name": "Konfiguration",
+     "value": "Doppeldiode, gemeinsame Anode"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "30"
+    },
+    {
+     "name": "I_F max",
+     "unit": "mA",
+     "value": "200"
+    }
+   ],
+   "tags": [
+    "bat54",
+    "diode",
+    "schottky",
+    "smd",
+    "sot-23"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Schottky",
+   "datasheet_hint": "BAT54",
+   "description": "Schottky-Kleinsignaldiode 30 V / 200 mA, Doppeldiode, gemeinsame Kathode, SOT-23",
+   "footprint": "SOT-23",
+   "image": "sot-23.svg",
+   "key": "bat54c",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BAT54C",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Schottky"
+    },
+    {
+     "name": "Konfiguration",
+     "value": "Doppeldiode, gemeinsame Kathode"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "30"
+    },
+    {
+     "name": "I_F max",
+     "unit": "mA",
+     "value": "200"
+    }
+   ],
+   "tags": [
+    "bat54",
+    "diode",
+    "schottky",
+    "smd",
+    "sot-23"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Schottky",
+   "datasheet_hint": "BAT54",
+   "description": "Schottky-Kleinsignaldiode 30 V / 200 mA, Doppeldiode in Serie, SOT-23",
+   "footprint": "SOT-23",
+   "image": "sot-23.svg",
+   "key": "bat54s",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BAT54S",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Schottky"
+    },
+    {
+     "name": "Konfiguration",
+     "value": "Doppeldiode in Serie"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "30"
+    },
+    {
+     "name": "I_F max",
+     "unit": "mA",
+     "value": "200"
+    }
+   ],
+   "tags": [
+    "bat54",
+    "diode",
+    "schottky",
+    "smd",
+    "sot-23"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Schottky",
+   "datasheet_hint": "BAT85",
+   "description": "Kleinsignal-Schottky-Diode 30 V / 200 mA, DO-35 Glas",
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "bat85",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BAT85",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Schottky"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "30"
+    },
+    {
+     "name": "I_F max",
+     "unit": "mA",
+     "value": "200"
+    }
+   ],
+   "tags": [
+    "diode",
+    "do-35",
+    "kleinsignal",
+    "schottky"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Schottky",
+   "datasheet_hint": "SS14",
+   "description": "SMD-Schottky-Diode 40 V / 1 A, SMA",
+   "equivalents": [
+    "1N5819 (THT)"
+   ],
+   "footprint": "SMA (DO-214AC)",
+   "image": "sma.svg",
+   "key": "ss14",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "SS14",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Schottky"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "40"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "diode",
+    "schottky",
+    "sma",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Schottky",
+   "datasheet_hint": "SS34",
+   "description": "SMD-Schottky-Diode 40 V / 3 A; Gehäuse je nach Hersteller SMA oder SMC – prüfen",
+   "equivalents": [
+    "1N5822 (THT)"
+   ],
+   "footprint": "SMA (DO-214AC)",
+   "image": "sma.svg",
+   "key": "ss34",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "SS34",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Schottky"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "40"
+    },
+    {
+     "name": "I_F max",
+     "unit": "A",
+     "value": "3"
+    }
+   ],
+   "tags": [
+    "3a",
+    "diode",
+    "schottky",
+    "sma",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Universal",
+   "datasheet_hint": "1N4148",
+   "description": "Kleinsignal-Schaltdiode 100 V / 200 mA, schnell (4 ns), DO-35 Glas",
+   "equivalents": [
+    "1N914",
+    "LL4148 (SMD)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "1n4148",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4148",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Si-Schaltdiode"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "100"
+    },
+    {
+     "name": "I_F max",
+     "unit": "mA",
+     "value": "200"
+    },
+    {
+     "name": "t_rr",
+     "unit": "ns",
+     "value": "4"
+    }
+   ],
+   "tags": [
+    "diode",
+    "do-35",
+    "kleinsignal",
+    "schaltdiode"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Universal",
+   "datasheet_hint": "1N4148W",
+   "description": "Kleinsignal-Schaltdiode 100 V, SMD-Version der 1N4148, SOD-123",
+   "equivalents": [
+    "1N4148 (THT)"
+   ],
+   "footprint": "SOD-123",
+   "image": "sod-123.svg",
+   "key": "1n4148w",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4148W",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Si-Schaltdiode"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "100"
+    }
+   ],
+   "tags": [
+    "diode",
+    "schaltdiode",
+    "smd",
+    "sod-123"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Universal",
+   "datasheet_hint": "LL4148",
+   "description": "Kleinsignal-Schaltdiode 100 V / 200 mA, SMD-Version der 1N4148, MiniMELF",
+   "equivalents": [
+    "1N4148 (THT)"
+   ],
+   "footprint": "SOD-80 (MiniMELF)",
+   "image": "minimelf.svg",
+   "key": "ll4148",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LL4148",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Si-Schaltdiode"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "100"
+    },
+    {
+     "name": "I_F max",
+     "unit": "mA",
+     "value": "200"
+    },
+    {
+     "name": "t_rr",
+     "unit": "ns",
+     "value": "4"
+    }
+   ],
+   "tags": [
+    "diode",
+    "minimelf",
+    "schaltdiode",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "1N4728A-1N4764A",
+   "description": "Z-Diode 3,3 V, 1 W, DO-41",
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4728a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4728A",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "3.3"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "1w",
+    "3.3v",
+    "diode",
+    "do-41",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "1N4728A-1N4764A",
+   "description": "Z-Diode 3,9 V, 1 W, DO-41",
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4730a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4730A",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "3.9"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "1w",
+    "3.9v",
+    "diode",
+    "do-41",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "1N4728A-1N4764A",
+   "description": "Z-Diode 4,7 V, 1 W, DO-41",
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4732a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4732A",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "4.7"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "1w",
+    "4.7v",
+    "diode",
+    "do-41",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "1N4728A-1N4764A",
+   "description": "Z-Diode 5,1 V, 1 W, DO-41",
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4733a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4733A",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "5.1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "1w",
+    "5.1v",
+    "diode",
+    "do-41",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "1N4728A-1N4764A",
+   "description": "Z-Diode 5,6 V, 1 W, DO-41",
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4734a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4734A",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "5.6"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "1w",
+    "5.6v",
+    "diode",
+    "do-41",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "1N4728A-1N4764A",
+   "description": "Z-Diode 6,2 V, 1 W, DO-41",
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4735a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4735A",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "6.2"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "1w",
+    "6.2v",
+    "diode",
+    "do-41",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "1N4728A-1N4764A",
+   "description": "Z-Diode 6,8 V, 1 W, DO-41",
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4736a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4736A",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "6.8"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "1w",
+    "6.8v",
+    "diode",
+    "do-41",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "1N4728A-1N4764A",
+   "description": "Z-Diode 7,5 V, 1 W, DO-41",
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4737a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4737A",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "7.5"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "1w",
+    "7.5v",
+    "diode",
+    "do-41",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "1N4728A-1N4764A",
+   "description": "Z-Diode 8,2 V, 1 W, DO-41",
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4738a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4738A",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "8.2"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "1w",
+    "8.2v",
+    "diode",
+    "do-41",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "1N4728A-1N4764A",
+   "description": "Z-Diode 9,1 V, 1 W, DO-41",
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4739a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4739A",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "9.1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "1w",
+    "9.1v",
+    "diode",
+    "do-41",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "1N4728A-1N4764A",
+   "description": "Z-Diode 10 V, 1 W, DO-41",
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4740a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4740A",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "10"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "10v",
+    "1w",
+    "diode",
+    "do-41",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "1N4728A-1N4764A",
+   "description": "Z-Diode 12 V, 1 W, DO-41",
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4742a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4742A",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "12"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "12v",
+    "1w",
+    "diode",
+    "do-41",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "1N4728A-1N4764A",
+   "description": "Z-Diode 15 V, 1 W, DO-41",
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4744a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4744A",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "15"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "15v",
+    "1w",
+    "diode",
+    "do-41",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "1N4728A-1N4764A",
+   "description": "Z-Diode 18 V, 1 W, DO-41",
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4746a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4746A",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "18"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "18v",
+    "1w",
+    "diode",
+    "do-41",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "1N4728A-1N4764A",
+   "description": "Z-Diode 24 V, 1 W, DO-41",
+   "footprint": "DO-41",
+   "image": "do-41.svg",
+   "key": "1n4749a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1N4749A",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "24"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "1w",
+    "24v",
+    "diode",
+    "do-41",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "BZX55",
+   "description": "Z-Diode 10 V, 0,5 W, DO-35 Glas",
+   "equivalents": [
+    "ZMM10 (SMD MiniMELF)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "bzx55c10",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BZX55C10",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "10"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "10v",
+    "diode",
+    "do-35",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "BZX55",
+   "description": "Z-Diode 12 V, 0,5 W, DO-35 Glas",
+   "equivalents": [
+    "ZMM12 (SMD MiniMELF)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "bzx55c12",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BZX55C12",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "12"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "12v",
+    "diode",
+    "do-35",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "BZX55",
+   "description": "Z-Diode 15 V, 0,5 W, DO-35 Glas",
+   "equivalents": [
+    "ZMM15 (SMD MiniMELF)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "bzx55c15",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BZX55C15",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "15"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "15v",
+    "diode",
+    "do-35",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "BZX55",
+   "description": "Z-Diode 18 V, 0,5 W, DO-35 Glas",
+   "equivalents": [
+    "ZMM18 (SMD MiniMELF)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "bzx55c18",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BZX55C18",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "18"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "18v",
+    "diode",
+    "do-35",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "BZX55",
+   "description": "Z-Diode 24 V, 0,5 W, DO-35 Glas",
+   "equivalents": [
+    "ZMM24 (SMD MiniMELF)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "bzx55c24",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BZX55C24",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "24"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "24v",
+    "diode",
+    "do-35",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "BZX55",
+   "description": "Z-Diode 2,7 V, 0,5 W, DO-35 Glas",
+   "equivalents": [
+    "ZMM2V7 (SMD MiniMELF)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "bzx55c2v7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BZX55C2V7",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "2.7"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "2.7v",
+    "diode",
+    "do-35",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "BZX55",
+   "description": "Z-Diode 3,3 V, 0,5 W, DO-35 Glas",
+   "equivalents": [
+    "ZMM3V3 (SMD MiniMELF)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "bzx55c3v3",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BZX55C3V3",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "3.3"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "3.3v",
+    "diode",
+    "do-35",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "BZX55",
+   "description": "Z-Diode 3,9 V, 0,5 W, DO-35 Glas",
+   "equivalents": [
+    "ZMM3V9 (SMD MiniMELF)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "bzx55c3v9",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BZX55C3V9",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "3.9"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "3.9v",
+    "diode",
+    "do-35",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "BZX55",
+   "description": "Z-Diode 4,7 V, 0,5 W, DO-35 Glas",
+   "equivalents": [
+    "ZMM4V7 (SMD MiniMELF)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "bzx55c4v7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BZX55C4V7",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "4.7"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "4.7v",
+    "diode",
+    "do-35",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "BZX55",
+   "description": "Z-Diode 5,1 V, 0,5 W, DO-35 Glas",
+   "equivalents": [
+    "ZMM5V1 (SMD MiniMELF)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "bzx55c5v1",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BZX55C5V1",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "5.1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "5.1v",
+    "diode",
+    "do-35",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "BZX55",
+   "description": "Z-Diode 5,6 V, 0,5 W, DO-35 Glas",
+   "equivalents": [
+    "ZMM5V6 (SMD MiniMELF)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "bzx55c5v6",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BZX55C5V6",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "5.6"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "5.6v",
+    "diode",
+    "do-35",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "BZX55",
+   "description": "Z-Diode 6,2 V, 0,5 W, DO-35 Glas",
+   "equivalents": [
+    "ZMM6V2 (SMD MiniMELF)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "bzx55c6v2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BZX55C6V2",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "6.2"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "6.2v",
+    "diode",
+    "do-35",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "BZX55",
+   "description": "Z-Diode 6,8 V, 0,5 W, DO-35 Glas",
+   "equivalents": [
+    "ZMM6V8 (SMD MiniMELF)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "bzx55c6v8",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BZX55C6V8",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "6.8"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "6.8v",
+    "diode",
+    "do-35",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "BZX55",
+   "description": "Z-Diode 7,5 V, 0,5 W, DO-35 Glas",
+   "equivalents": [
+    "ZMM7V5 (SMD MiniMELF)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "bzx55c7v5",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BZX55C7V5",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "7.5"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "7.5v",
+    "diode",
+    "do-35",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "BZX55",
+   "description": "Z-Diode 8,2 V, 0,5 W, DO-35 Glas",
+   "equivalents": [
+    "ZMM8V2 (SMD MiniMELF)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "bzx55c8v2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BZX55C8V2",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "8.2"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "8.2v",
+    "diode",
+    "do-35",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "BZX55",
+   "description": "Z-Diode 9,1 V, 0,5 W, DO-35 Glas",
+   "equivalents": [
+    "ZMM9V1 (SMD MiniMELF)"
+   ],
+   "footprint": "DO-35",
+   "image": "do-35.svg",
+   "key": "bzx55c9v1",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BZX55C9V1",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "9.1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "9.1v",
+    "diode",
+    "do-35",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "ZMM55",
+   "description": "Z-Diode 10 V, 0,5 W, SMD MiniMELF",
+   "equivalents": [
+    "BZX55C10 (THT)"
+   ],
+   "footprint": "SOD-80 (MiniMELF)",
+   "image": "minimelf.svg",
+   "key": "zmm10",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ZMM10",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "10"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "10v",
+    "diode",
+    "minimelf",
+    "smd",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "ZMM55",
+   "description": "Z-Diode 12 V, 0,5 W, SMD MiniMELF",
+   "equivalents": [
+    "BZX55C12 (THT)"
+   ],
+   "footprint": "SOD-80 (MiniMELF)",
+   "image": "minimelf.svg",
+   "key": "zmm12",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ZMM12",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "12"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "12v",
+    "diode",
+    "minimelf",
+    "smd",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "ZMM55",
+   "description": "Z-Diode 15 V, 0,5 W, SMD MiniMELF",
+   "equivalents": [
+    "BZX55C15 (THT)"
+   ],
+   "footprint": "SOD-80 (MiniMELF)",
+   "image": "minimelf.svg",
+   "key": "zmm15",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ZMM15",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "15"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "15v",
+    "diode",
+    "minimelf",
+    "smd",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "ZMM55",
+   "description": "Z-Diode 18 V, 0,5 W, SMD MiniMELF",
+   "equivalents": [
+    "BZX55C18 (THT)"
+   ],
+   "footprint": "SOD-80 (MiniMELF)",
+   "image": "minimelf.svg",
+   "key": "zmm18",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ZMM18",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "18"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "18v",
+    "diode",
+    "minimelf",
+    "smd",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "ZMM55",
+   "description": "Z-Diode 24 V, 0,5 W, SMD MiniMELF",
+   "equivalents": [
+    "BZX55C24 (THT)"
+   ],
+   "footprint": "SOD-80 (MiniMELF)",
+   "image": "minimelf.svg",
+   "key": "zmm24",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ZMM24",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "24"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "24v",
+    "diode",
+    "minimelf",
+    "smd",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "ZMM55",
+   "description": "Z-Diode 2,7 V, 0,5 W, SMD MiniMELF",
+   "equivalents": [
+    "BZX55C2V7 (THT)"
+   ],
+   "footprint": "SOD-80 (MiniMELF)",
+   "image": "minimelf.svg",
+   "key": "zmm2v7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ZMM2V7",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "2.7"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "2.7v",
+    "diode",
+    "minimelf",
+    "smd",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "ZMM55",
+   "description": "Z-Diode 3,3 V, 0,5 W, SMD MiniMELF",
+   "equivalents": [
+    "BZX55C3V3 (THT)"
+   ],
+   "footprint": "SOD-80 (MiniMELF)",
+   "image": "minimelf.svg",
+   "key": "zmm3v3",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ZMM3V3",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "3.3"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "3.3v",
+    "diode",
+    "minimelf",
+    "smd",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "ZMM55",
+   "description": "Z-Diode 3,9 V, 0,5 W, SMD MiniMELF",
+   "equivalents": [
+    "BZX55C3V9 (THT)"
+   ],
+   "footprint": "SOD-80 (MiniMELF)",
+   "image": "minimelf.svg",
+   "key": "zmm3v9",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ZMM3V9",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "3.9"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "3.9v",
+    "diode",
+    "minimelf",
+    "smd",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "ZMM55",
+   "description": "Z-Diode 4,7 V, 0,5 W, SMD MiniMELF",
+   "equivalents": [
+    "BZX55C4V7 (THT)"
+   ],
+   "footprint": "SOD-80 (MiniMELF)",
+   "image": "minimelf.svg",
+   "key": "zmm4v7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ZMM4V7",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "4.7"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "4.7v",
+    "diode",
+    "minimelf",
+    "smd",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "ZMM55",
+   "description": "Z-Diode 5,1 V, 0,5 W, SMD MiniMELF",
+   "equivalents": [
+    "BZX55C5V1 (THT)"
+   ],
+   "footprint": "SOD-80 (MiniMELF)",
+   "image": "minimelf.svg",
+   "key": "zmm5v1",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ZMM5V1",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "5.1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "5.1v",
+    "diode",
+    "minimelf",
+    "smd",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "ZMM55",
+   "description": "Z-Diode 5,6 V, 0,5 W, SMD MiniMELF",
+   "equivalents": [
+    "BZX55C5V6 (THT)"
+   ],
+   "footprint": "SOD-80 (MiniMELF)",
+   "image": "minimelf.svg",
+   "key": "zmm5v6",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ZMM5V6",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "5.6"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "5.6v",
+    "diode",
+    "minimelf",
+    "smd",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "ZMM55",
+   "description": "Z-Diode 6,2 V, 0,5 W, SMD MiniMELF",
+   "equivalents": [
+    "BZX55C6V2 (THT)"
+   ],
+   "footprint": "SOD-80 (MiniMELF)",
+   "image": "minimelf.svg",
+   "key": "zmm6v2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ZMM6V2",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "6.2"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "6.2v",
+    "diode",
+    "minimelf",
+    "smd",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "ZMM55",
+   "description": "Z-Diode 6,8 V, 0,5 W, SMD MiniMELF",
+   "equivalents": [
+    "BZX55C6V8 (THT)"
+   ],
+   "footprint": "SOD-80 (MiniMELF)",
+   "image": "minimelf.svg",
+   "key": "zmm6v8",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ZMM6V8",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "6.8"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "6.8v",
+    "diode",
+    "minimelf",
+    "smd",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "ZMM55",
+   "description": "Z-Diode 7,5 V, 0,5 W, SMD MiniMELF",
+   "equivalents": [
+    "BZX55C7V5 (THT)"
+   ],
+   "footprint": "SOD-80 (MiniMELF)",
+   "image": "minimelf.svg",
+   "key": "zmm7v5",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ZMM7V5",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "7.5"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "7.5v",
+    "diode",
+    "minimelf",
+    "smd",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "ZMM55",
+   "description": "Z-Diode 8,2 V, 0,5 W, SMD MiniMELF",
+   "equivalents": [
+    "BZX55C8V2 (THT)"
+   ],
+   "footprint": "SOD-80 (MiniMELF)",
+   "image": "minimelf.svg",
+   "key": "zmm8v2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ZMM8V2",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "8.2"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "8.2v",
+    "diode",
+    "minimelf",
+    "smd",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Dioden/Z-Dioden",
+   "datasheet_hint": "ZMM55",
+   "description": "Z-Diode 9,1 V, 0,5 W, SMD MiniMELF",
+   "equivalents": [
+    "BZX55C9V1 (THT)"
+   ],
+   "footprint": "SOD-80 (MiniMELF)",
+   "image": "minimelf.svg",
+   "key": "zmm9v1",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ZMM9V1",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Z-Diode"
+    },
+    {
+     "name": "U_Z",
+     "unit": "V",
+     "value": "9.1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "9.1v",
+    "diode",
+    "minimelf",
+    "smd",
+    "z-diode",
+    "zener"
+   ],
+   "unit": "Stk"
+  }
+ ]
+}

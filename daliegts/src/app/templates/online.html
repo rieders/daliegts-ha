@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Online suchen – {{ item.name }}{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/artikel/{{ item.id }}">{{ item.name }}</a></div>
+<h1>Bestellnummern & Preise online suchen</h1>
+{% if not providers %}
+<div class="note">Noch kein Info-Provider aktiv. {% if me.can('system') %}<a href="/admin/info-provider">Jetzt einrichten</a>{% else %}Bitte einen Admin, unter Verwaltung › Info-Provider Shops einzuschalten.{% endif %}</div>
+{% else %}
+<form class="card" hx-get="/artikel/{{ item.id }}/online/ergebnisse" hx-target="#results" hx-indicator="#busy" hx-trigger="submit, load">
+  <div class="row">
+    <input name="q" value="{{ q }}" class="grow" style="min-width:220px" placeholder="Hersteller-Nr. (am besten) oder Wert + Gehäuse, z. B. „10k 0805 1%“">
+    <select name="nur" style="width:auto"><option value="">alle Shops ({{ providers|length }})</option>{% for p in providers %}<option value="{{ p.key }}" {{ 'selected' if nur == p.key }}>nur {{ p.name }}</option>{% endfor %}</select>
+    <button class="btn primary">🔎 Suchen</button>
+  </div>
+  <div class="small muted" style="margin-top:6px">{% if item.mpn %}Gesucht wird nach der Hersteller-Nr. – so findet {{ APP_NAME }} bei allen Shops dasselbe Teil.{% else %}Tipp: Mit Hersteller-Nr. werden die Treffer eindeutig und künftig automatisch eingetragen.{% endif %}</div>
+  <div id="busy" class="htmx-indicator small" style="margin-top:6px">⏳ Frage die Shops an … (bei Reichelt/Pollin einige Sekunden)</div>
+</form>
+<div id="results"></div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Haltbarkeit{% endblock %}
+{% block content %}
+<div class="row spread"><h1 class="mb0">⏳ Haltbarkeit</h1>
+  <form method="get" class="row"><label class="inline" style="margin:0">Vorschau</label>
+    <select name="monate" onchange="this.form.submit()" style="width:auto">{% for m in (1, 3, 6, 12, 24) %}<option value="{{ m }}" {{ 'selected' if monate == m }}>{{ m }} Monat{{ 'e' if m > 1 }}</option>{% endfor %}</select></form></div>
+<p class="muted">Lötpaste, Flussmittel, Kleber, Batterien, Akkus, Filament … – alles mit Ablaufdatum am Bestand. Das Datum trägst du beim Einlagern oder am Bestand („bearbeiten“) ein.</p>
+
+{% for g in groups %}{% if g.lots or g.key != '180' %}
+<div class="card table-wrap">
+  <h2 class="mt0">{{ g.title }} <span class="small muted">({{ g.lots|length }})</span></h2>
+  {% if g.lots %}
+  <table>
+    <tr><th>Artikel</th><th>Ablauf</th><th class="num">Menge</th><th>Lagerort</th><th>Charge</th></tr>
+    {% for lt in g.lots %}
+    <tr class="{{ 'short' if lt.expiry < today }}">
+      <td><a href="/artikel/{{ lt.item_id }}#lot-{{ lt.id }}">{{ lt.item.name }}</a></td>
+      <td>{{ lt.expiry|dt }} <span class="small muted">{% set d = (lt.expiry - today).days %}{% if d < 0 %}seit {{ -d }} Tagen{% elif d == 0 %}heute{% else %}in {{ d }} Tagen{% endif %}</span></td>
+      <td class="num">{% if lt.item.stock_mode == 'exact' %}{{ lt.quantity|qty(lt.item.unit) }}{% else %}<span class="amp {{ lt.coarse or 'empty' }}"></span>{% endif %}</td>
+      <td class="small">{{ tc.path(lt.location_id) if lt.location_id else '–' }}</td>
+      <td class="small">{{ lt.batch }}</td>
+    </tr>{% endfor %}
+  </table>
+  {% else %}<p class="muted mb0">Nichts.</p>{% endif %}
+</div>
+{% endif %}{% endfor %}
+
+{% if warranties %}
+<div class="card">
+  <h2 class="mt0">Garantie endet bald</h2>
+  {% for it in warranties %}<div class="row spread"><a href="/artikel/{{ it.id }}">{{ it.name }}</a><span class="small">bis {{ it.warranty_until|dt }}</span></div>{% endfor %}
+</div>
+{% endif %}
+{% endblock %}

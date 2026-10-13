@@ -1,0 +1,45 @@
+{% macro thumb(item, cls="") -%}
+<div class="thumb {{ cls }}">
+  {%- set src = item.image|img or (item.footprint.image|img if item.footprint and item.footprint.image else None) -%}
+  {%- if src %}<img src="{{ src }}" alt="" loading="lazy">{% else %}<span class="muted">📦</span>{% endif -%}
+</div>
+{%- endmacro %}
+
+{% macro stock_label(item) -%}
+{%- if item.stock_mode == 'coarse' -%}
+  {%- set lvl = item.coarse_level -%}<span class="amp {{ lvl or 'empty' }}"></span> {{ COARSE_LEVELS.get(lvl, '–') }}
+{%- elif item.stock_mode == 'unknown' -%}<span class="muted">?</span>
+{%- else -%}{{ item.total_quantity|qty(item.unit) }}{%- endif -%}
+{%- endmacro %}
+
+{% macro item_row(item, tc) -%}
+<a class="itemrow" href="/artikel/{{ item.id }}">
+  {{ thumb(item) }}
+  <div style="min-width:0">
+    <div class="t">{{ item.name }} {% if item.below_min and not buy_state(item.id) %}<span class="badge warn">nachkaufen</span>{% endif %}{{ buy_badge(item.id, link=False) }}{% if item.lots|selectattr('needs_review')|list %} <span class="badge">prüfen</span>{% endif %}</div>
+    <div class="s">{{ item.description or '' }}{% if item.footprint %} · {{ item.footprint.name }}{% endif %}</div>
+    <div class="s">📍 {% for lot in item.lots[:3] %}{{ tc.path(lot.location_id) if lot.location_id else 'ohne Ort' }}{% if not loop.last %}; {% endif %}{% else %}kein Bestand{% endfor %}{% if item.lots|length > 3 %} …{% endif %}</div>
+  </div>
+  <div class="qty">{{ stock_label(item) }}</div>
+</a>
+{%- endmacro %}
+
+{% macro loc_path(tc, loc_id, link=True) -%}
+{%- if loc_id -%}
+  {%- if link %}<a href="/orte/{{ loc_id }}">{{ tc.path(loc_id) }}</a>{% else %}{{ tc.path(loc_id) }}{% endif -%}
+{%- else %}<span class="muted">ohne Ort</span>{% endif -%}
+{%- endmacro %}
+
+{% macro locpicker(name="location", value="", placeholder="Lagerort: Code scannen oder Name tippen", required=False) -%}
+<input type="text" name="{{ name }}" value="{{ value }}" data-locpicker placeholder="{{ placeholder }}" {{ 'required' if required }}>
+{%- endmacro %}
+
+{# Bestellstatus eines Artikels: 📦 bestellt / 🛒 zu bestellen (aus der Einkaufsliste) #}
+{% macro buy_badge(item_id, detail=False, link=True) -%}
+{%- set tag = 'a' if link else 'span' -%}
+{%- set b = buy_state(item_id) -%}
+{%- if b -%}
+{%- if b.ordered %}<{{ tag }} class="badge buy-ordered" {% if link %}href="/einkauf"{% endif %} title="Bestellt{% if b.ordered_at %} am {{ b.ordered_at.strftime('%d.%m.%Y') }}{% endif %}{% if b.supplier %} bei {{ b.supplier }}{% endif %}{% if b.order_ref %} ({{ b.order_ref }}){% endif %} – noch nicht eingetroffen">📦 bestellt {{ b.ordered|qty }}{% if detail %}{% if b.supplier %} · {{ b.supplier }}{% endif %}{% if b.ordered_at %} · {{ b.ordered_at.strftime('%d.%m.') }}{% endif %}{% endif %}</{{ tag }}>{% endif -%}
+{%- if b.open %} <{{ tag }} class="badge buy-open" {% if link %}href="/einkauf"{% endif %} title="Steht auf der Einkaufsliste, ist aber noch nicht bestellt">🛒 zu bestellen {{ b.open|qty }}</{{ tag }}>{% endif -%}
+{%- endif -%}
+{%- endmacro %}

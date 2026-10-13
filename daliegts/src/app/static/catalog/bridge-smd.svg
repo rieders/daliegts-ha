@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">
+<rect x="70" y="34" width="10" height="16" rx="0" fill="#c9ccd1" stroke="#80868e" stroke-width="2"/><rect x="70" y="100" width="10" height="16" rx="0" fill="#c9ccd1" stroke="#80868e" stroke-width="2"/><rect x="120" y="34" width="10" height="16" rx="0" fill="#c9ccd1" stroke="#80868e" stroke-width="2"/><rect x="120" y="100" width="10" height="16" rx="0" fill="#c9ccd1" stroke="#80868e" stroke-width="2"/><rect x="55" y="48" width="90" height="54" rx="3" fill="#2e2e33" stroke="#121214" stroke-width="2"/><text x="100" y="80" font-family="monospace" font-size="11" fill="#bbb" text-anchor="middle">~ + −</text>
+</svg>

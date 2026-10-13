@@ -1,0 +1,1006 @@
+{
+ "group": "Spannungsregler & -wandler",
+ "parts": [
+  {
+   "category": "Elektronik/ICs/Spannungsregler/LDO",
+   "datasheet_hint": "AMS1117",
+   "description": "LDO-Festspannungsregler 3,3 V / 1 A, SOT-223",
+   "equivalents": [
+    "LM1117-3.3 (800 mA)"
+   ],
+   "footprint": "SOT-223",
+   "image": "sot-223.svg",
+   "key": "ams1117-33",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "AMS1117-3.3",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "3.3"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "1"
+    },
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "15"
+    }
+   ],
+   "tags": [
+    "ams1117",
+    "ldo",
+    "sot-223",
+    "spannungsregler"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/LDO",
+   "datasheet_hint": "AMS1117",
+   "description": "LDO-Festspannungsregler 5,0 V / 1 A, SOT-223",
+   "equivalents": [
+    "LM1117-5.0 (800 mA)"
+   ],
+   "footprint": "SOT-223",
+   "image": "sot-223.svg",
+   "key": "ams1117-50",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "AMS1117-5.0",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "5.0"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "1"
+    },
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "15"
+    }
+   ],
+   "tags": [
+    "ams1117",
+    "ldo",
+    "sot-223",
+    "spannungsregler"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/LDO",
+   "datasheet_hint": "AMS1117",
+   "description": "Einstellbarer LDO-Regler 1,25–13,8 V / 1 A, SOT-223",
+   "footprint": "SOT-223",
+   "image": "sot-223.svg",
+   "key": "ams1117-adj",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "AMS1117-ADJ",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "1.25–13.8"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "1"
+    },
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "15"
+    }
+   ],
+   "tags": [
+    "ams1117",
+    "einstellbar",
+    "ldo",
+    "sot-223",
+    "spannungsregler"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/LDO",
+   "datasheet_hint": "HT73xx",
+   "description": "LDO-Festspannungsregler 3,3 V / 250 mA, sehr geringer Ruhestrom, SOT-89 (auch TO-92)",
+   "footprint": "SOT-89",
+   "image": "sot-89.svg",
+   "key": "ht7333",
+   "manufacturer": "Holtek",
+   "mpn": "",
+   "name": "HT7333",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "3.3"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "mA",
+     "value": "250"
+    },
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "12"
+    }
+   ],
+   "tags": [
+    "ht7333",
+    "ldo",
+    "low-power",
+    "spannungsregler"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/LDO",
+   "datasheet_hint": "LD1117",
+   "description": "LDO-Festspannungsregler 3,3 V / 800 mA, TO-220",
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "ld1117v33",
+   "manufacturer": "STMicroelectronics",
+   "mpn": "LD1117V33",
+   "name": "LD1117V33",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "3.3"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "mA",
+     "value": "800"
+    },
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "15"
+    }
+   ],
+   "tags": [
+    "ld1117",
+    "ldo",
+    "spannungsregler",
+    "to-220"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/LDO",
+   "datasheet_hint": "LM1117",
+   "description": "LDO-Festspannungsregler 3,3 V / 800 mA, SOT-223",
+   "equivalents": [
+    "AMS1117-3.3 (ähnlich)"
+   ],
+   "footprint": "SOT-223",
+   "image": "sot-223.svg",
+   "key": "lm1117-33",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LM1117-3.3",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "3.3"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "mA",
+     "value": "800"
+    }
+   ],
+   "tags": [
+    "ldo",
+    "lm1117",
+    "sot-223",
+    "spannungsregler"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/LDO",
+   "datasheet_hint": "LM2940",
+   "description": "LDO-Festspannungsregler 5 V / 1 A, TO-220, verpolungs- und lastabwurffest (Kfz)",
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "lm2940-50",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LM2940-5.0",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "5"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "1"
+    },
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "26"
+    }
+   ],
+   "tags": [
+    "kfz",
+    "ldo",
+    "lm2940",
+    "spannungsregler",
+    "to-220"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/LDO",
+   "datasheet_hint": "MCP1700",
+   "description": "LDO-Festspannungsregler 3,3 V / 250 mA, Ruhestrom 1,6 µA, TO-92 (Pinbelegung beachten)",
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "mcp1700-3302",
+   "manufacturer": "Microchip",
+   "mpn": "MCP1700-3302E/TO",
+   "name": "MCP1700-3302E",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "3.3"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "mA",
+     "value": "250"
+    },
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "6"
+    }
+   ],
+   "tags": [
+    "ldo",
+    "low-power",
+    "mcp1700",
+    "spannungsregler",
+    "to-92"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/Ladungspumpen",
+   "datasheet_hint": "ICL7660",
+   "description": "Ladungspumpen-Spannungsinverter (erzeugt −U aus +U), 1,5–10 V, DIP-8",
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "icl7660",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ICL7660",
+   "params": [
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "10"
+    }
+   ],
+   "tags": [
+    "dip-8",
+    "inverter",
+    "ladungspumpe",
+    "negativ"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/Linear einstellbar",
+   "datasheet_hint": "LM317L",
+   "description": "Einstellbarer Spannungsregler 1,25–37 V / 100 mA, TO-92",
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "lm317lz",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LM317LZ",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "1.25–37"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "mA",
+     "value": "100"
+    }
+   ],
+   "tags": [
+    "einstellbar",
+    "linearregler",
+    "lm317",
+    "spannungsregler",
+    "to-92"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/Linear einstellbar",
+   "datasheet_hint": "LM317",
+   "description": "Einstellbarer Spannungsregler 1,25–37 V / 1,5 A, TO-220 (Pinbelegung ADJ-A-E)",
+   "equivalents": [
+    "B3170V (DDR)"
+   ],
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "lm317t",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LM317T",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "1.25–37"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "1.5"
+    }
+   ],
+   "tags": [
+    "einstellbar",
+    "linearregler",
+    "lm317",
+    "spannungsregler",
+    "to-220"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/Linear einstellbar",
+   "datasheet_hint": "LM337",
+   "description": "Einstellbarer negativer Spannungsregler −1,25 bis −37 V / 1,5 A, TO-220",
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "lm337t",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LM337T",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "-37–-1.25"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "1.5"
+    }
+   ],
+   "tags": [
+    "einstellbar",
+    "linearregler",
+    "negativ",
+    "spannungsregler",
+    "to-220"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/Linear fest",
+   "datasheet_hint": "L7805",
+   "description": "Festspannungsregler +5 V / 1 A, TO-220 (Pinbelegung E-M-A)",
+   "equivalents": [
+    "L7805CV",
+    "LM7805",
+    "MC7805"
+   ],
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "7805",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "7805",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "5"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "1"
+    },
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "35"
+    }
+   ],
+   "tags": [
+    "5v",
+    "78xx",
+    "linearregler",
+    "spannungsregler",
+    "to-220"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/Linear fest",
+   "datasheet_hint": "L7806",
+   "description": "Festspannungsregler +6 V / 1 A, TO-220 (Pinbelegung E-M-A)",
+   "equivalents": [
+    "L7806CV",
+    "LM7806",
+    "MC7806"
+   ],
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "7806",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "7806",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "6"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "1"
+    },
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "35"
+    }
+   ],
+   "tags": [
+    "6v",
+    "78xx",
+    "linearregler",
+    "spannungsregler",
+    "to-220"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/Linear fest",
+   "datasheet_hint": "L7808",
+   "description": "Festspannungsregler +8 V / 1 A, TO-220 (Pinbelegung E-M-A)",
+   "equivalents": [
+    "L7808CV",
+    "LM7808",
+    "MC7808"
+   ],
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "7808",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "7808",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "8"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "1"
+    },
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "35"
+    }
+   ],
+   "tags": [
+    "78xx",
+    "8v",
+    "linearregler",
+    "spannungsregler",
+    "to-220"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/Linear fest",
+   "datasheet_hint": "L7809",
+   "description": "Festspannungsregler +9 V / 1 A, TO-220 (Pinbelegung E-M-A)",
+   "equivalents": [
+    "L7809CV",
+    "LM7809",
+    "MC7809"
+   ],
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "7809",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "7809",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "9"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "1"
+    },
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "35"
+    }
+   ],
+   "tags": [
+    "78xx",
+    "9v",
+    "linearregler",
+    "spannungsregler",
+    "to-220"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/Linear fest",
+   "datasheet_hint": "L7812",
+   "description": "Festspannungsregler +12 V / 1 A, TO-220 (Pinbelegung E-M-A)",
+   "equivalents": [
+    "L7812CV",
+    "LM7812",
+    "MC7812"
+   ],
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "7812",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "7812",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "12"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "1"
+    },
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "35"
+    }
+   ],
+   "tags": [
+    "12v",
+    "78xx",
+    "linearregler",
+    "spannungsregler",
+    "to-220"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/Linear fest",
+   "datasheet_hint": "L7815",
+   "description": "Festspannungsregler +15 V / 1 A, TO-220 (Pinbelegung E-M-A)",
+   "equivalents": [
+    "L7815CV",
+    "LM7815",
+    "MC7815"
+   ],
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "7815",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "7815",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "15"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "1"
+    },
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "35"
+    }
+   ],
+   "tags": [
+    "15v",
+    "78xx",
+    "linearregler",
+    "spannungsregler",
+    "to-220"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/Linear fest",
+   "datasheet_hint": "L7824",
+   "description": "Festspannungsregler +24 V / 1 A, TO-220 (Pinbelegung E-M-A)",
+   "equivalents": [
+    "L7824CV",
+    "LM7824",
+    "MC7824"
+   ],
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "7824",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "7824",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "24"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "1"
+    },
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "40"
+    }
+   ],
+   "tags": [
+    "24v",
+    "78xx",
+    "linearregler",
+    "spannungsregler",
+    "to-220"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/Linear fest",
+   "datasheet_hint": "L78L05",
+   "description": "Festspannungsregler +5 V / 100 mA, TO-92",
+   "equivalents": [
+    "L78L05",
+    "MC78L05"
+   ],
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "78l05",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "78L05",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "5"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "mA",
+     "value": "100"
+    },
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "30"
+    }
+   ],
+   "tags": [
+    "5v",
+    "78lxx",
+    "linearregler",
+    "spannungsregler",
+    "to-92"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/Linear fest",
+   "datasheet_hint": "L7905",
+   "description": "Negativer Festspannungsregler −5 V / 1 A, TO-220 (Pinbelegung M-E-A, abweichend von 78xx!)",
+   "equivalents": [
+    "L7905CV",
+    "MC7905"
+   ],
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "7905",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "7905",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "-5"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "1"
+    },
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "-35"
+    }
+   ],
+   "tags": [
+    "79xx",
+    "linearregler",
+    "negativ",
+    "spannungsregler",
+    "to-220"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/Linear fest",
+   "datasheet_hint": "L7912",
+   "description": "Negativer Festspannungsregler −12 V / 1 A, TO-220 (Pinbelegung M-E-A, abweichend von 78xx!)",
+   "equivalents": [
+    "L7912CV",
+    "MC7912"
+   ],
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "7912",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "7912",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "-12"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "1"
+    },
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "-35"
+    }
+   ],
+   "tags": [
+    "79xx",
+    "linearregler",
+    "negativ",
+    "spannungsregler",
+    "to-220"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Spannungsregler/Referenzen",
+   "datasheet_hint": "TL431",
+   "description": "Einstellbare Präzisions-Referenz (Shunt-Regler) 2,5–36 V, TO-92",
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "tl431",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "TL431",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "2.495–36"
+    },
+    {
+     "name": "Strom",
+     "unit": "mA",
+     "value": "100"
+    }
+   ],
+   "tags": [
+    "referenz",
+    "shunt",
+    "tl431",
+    "to-92"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Spannungswandler",
+   "datasheet_hint": "LM2596",
+   "description": "Einstellbarer Abwärtswandler mit LM2596, Eingang bis 40 V, Ausgang 1,25–35 V, IC-Nennstrom 3 A (Modul praktisch ca. 2 A ohne Kühlung)",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-lm2596",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LM2596 Step-Down-Modul",
+   "params": [
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "40"
+    },
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "1.25–35"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "3"
+    }
+   ],
+   "tags": [
+    "buck",
+    "dc-dc",
+    "lm2596",
+    "modul",
+    "step-down"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Spannungswandler",
+   "datasheet_hint": "MP1584",
+   "description": "Kompakter einstellbarer Abwärtswandler mit MP1584, Eingang 4,5–28 V, bis 3 A, 1,5 MHz",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-mp1584",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MP1584 Step-Down-Modul",
+   "params": [
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "28"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "3"
+    }
+   ],
+   "tags": [
+    "buck",
+    "dc-dc",
+    "modul",
+    "mp1584",
+    "step-down"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Spannungswandler",
+   "datasheet_hint": "MT3608",
+   "description": "Kleiner einstellbarer Aufwärtswandler mit MT3608, Eingang 2–24 V, Ausgang bis 28 V",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-mt3608",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MT3608 Step-Up-Modul",
+   "params": [
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "24"
+    },
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "28"
+    }
+   ],
+   "tags": [
+    "boost",
+    "dc-dc",
+    "modul",
+    "mt3608",
+    "step-up"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Spannungswandler",
+   "datasheet_hint": "TP4056",
+   "description": "Li-Ion/LiPo-Lademodul 1 S, 4,2 V, bis 1 A, mit Schutzschaltung (DW01A + FS8205A), USB-C oder Micro-USB",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-tp4056",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "TP4056 Lademodul (mit Schutz)",
+   "params": [
+    {
+     "name": "Ausgangsspannung",
+     "unit": "V",
+     "value": "4.2"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "akku",
+    "lader",
+    "li-ion",
+    "lipo",
+    "modul",
+    "tp4056"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Spannungswandler",
+   "datasheet_hint": "XL6009",
+   "description": "Einstellbarer Aufwärtswandler mit XL6009, Eingang bis 32 V, Ausgang bis ca. 35 V",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-xl6009",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "XL6009 Step-Up-Modul",
+   "params": [
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "32"
+    }
+   ],
+   "tags": [
+    "boost",
+    "dc-dc",
+    "modul",
+    "step-up",
+    "xl6009"
+   ],
+   "unit": "Stk"
+  }
+ ]
+}

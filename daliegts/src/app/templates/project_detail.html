@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import buy_badge %}
+{% block title %}{{ p.name }}{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/projekte">Projekte</a></div>
+<div class="row spread top">
+  <div>
+    <h1 class="mb0">{{ p.name }}{% if p.revision %} <span class="muted" style="font-weight:400">Rev. {{ p.revision }}</span>{% endif %}</h1>
+    <div class="row small" style="margin-top:4px"><span class="badge code">{{ p.code }}</span>
+      {% if p.source %}<span class="muted">Stückliste aus {{ p.source }}</span>{% endif %}</div>
+    {% if p.description %}<p>{{ p.description|nl2br }}</p>{% endif %}
+  </div>
+  <div class="row noprint">
+    {% if has_wled() and me.can('wled_show') %}<button class="btn btn-led" data-locate='{"item_ids": {{ p.lines|selectattr("item_id")|rejectattr("dnp")|map(attribute="item_id")|list|tojson }} }'>💡 Fächer zeigen</button>{% endif %}
+    <button class="btn" onclick="print()">🖨 Drucken</button>
+  </div>
+</div>
+
+<div class="card build noprint">
+  <form method="get" class="row" style="gap:10px">
+    <label class="inline" style="margin:0">Wie viele bauen?</label>
+    <input type="number" name="anzahl" min="1" value="{{ anzahl }}" style="width:90px" onchange="this.form.submit()">
+    <button class="btn sm">Berechnen</button>
+    <span class="small">{% if unassigned %}<span class="badge warn">{{ unassigned }} Bauteile noch nicht zugeordnet</span>
+      {% elif buildable >= 999 %}<span class="badge ok">mit freiem Bestand beliebig oft baubar</span>
+      {% elif buildable %}Mit freiem Bestand baubar: <b>{{ buildable }}×</b>{% else %}<span class="badge warn">Mit freiem Bestand nicht baubar</span>{% endif %}
+      {% if short and not unassigned %} · für {{ anzahl }}× fehlen {{ short }} Bauteile{% endif %}</span>
+  </form>
+  {% if me.can('orders', 3) and p.lines %}
+  <form method="post" action="/projekte/{{ p.id }}/bauen" class="row" style="margin-top:10px">
+    <input type="hidden" name="anzahl" value="{{ anzahl }}">
+    <button class="btn primary">🛠 Bauen: Auftrag für {{ anzahl }}× anlegen</button>
+    {% if unassigned and me.can('items', 3) %}<label class="inline" style="margin:0"><input type="checkbox" name="neu" value="1"> nicht zugeordnete als neue Artikel anlegen (kommen auf die Einkaufsliste)</label>{% endif %}
+    <span class="small muted">Reserviert die Teile, setzt Fehlendes auf die Einkaufsliste, Pickliste im Auftrag.</span>
+  </form>
+  {% endif %}
+  {% if me.can('purchasing', 1) and p.lines %}
+  <div class="row" style="margin-top:10px">
+    <a class="btn" href="/projekte/{{ p.id }}/bestellen?anzahl={{ anzahl }}">🛒 Bestellplaner: Fehlteile + Standardteile günstig bei möglichst einem Händler</a>
+  </div>
+  {% endif %}
+</div>
+
+<div class="card table-wrap">
+  <table class="poslist">
+    <tr><th>Referenz</th><th>Wert / Gehäuse</th><th class="num">je Stück</th><th class="num">Bedarf</th><th>Lagerartikel</th><th>Lagerort</th><th>Verfügbar</th></tr>
+    {% for nd in needs %}{% set ln = nd.line %}
+    <tr id="z-{{ ln.id }}" class="{{ 'short' if nd.short > 0 or not ln.item }}" x-data="{more: false}">
+      <td class="small" style="max-width:160px">{{ ln.refs }}</td>
+      <td><b>{{ ln.value }}</b>{% if package_of(ln.footprint) %} <span class="badge">{{ package_of(ln.footprint) }}</span>{% endif %}
+        {% if ln.mpn %}<div class="small muted">{{ ln.mpn }}</div>{% endif %}</td>
+      <td class="num">{{ ln.qty|qty }}</td>
+      <td class="num"><b>{{ nd.need|qty }}</b></td>
+      <td>{% if ln.item %}<a href="/artikel/{{ ln.item.id }}">{{ ln.item.name }}</a>
+          <span class="small muted" title="Wie zugeordnet">{{ {'code': 'Code', 'mpn': 'MPN', 'lcsc': 'LCSC', 'gemerkt': 'gemerkt', 'wert': 'Wert+Gehäuse', 'hand': 'von Hand', 'neu': 'neu angelegt', 'leiterplatte': 'Platine'}.get(ln.match, '') }}</span>
+          {% if me.can('orders', 2) %}<button type="button" class="btn sm ghost noprint" @click="more = !more" title="ändern">⋯</button>{% endif %}
+        {% else %}
+          {% if me.can('orders', 2) %}
+          <form method="post" action="/projekte/zeile/{{ ln.id }}/zuordnen" class="row noprint" style="gap:4px" x-data="itemPick()">
+            {% if cands.get(ln.id) %}
+            <select name="item_id" style="width:auto;max-width:240px;min-height:34px" @change="$event.target.value && $el.form.submit()">
+              <option value="">Vorschlag wählen …</option>
+              {% for it, sc in cands[ln.id] %}<option value="{{ it.id }}">{{ it.name }}{% if it.footprint %} · {{ it.footprint.name }}{% endif %} ({{ it.total_quantity|qty }})</option>{% endfor %}
+            </select>{% endif %}
+            <span class="itempick"><input name="item" x-model="q" @input="find()" @keydown="key($event)" placeholder="suchen …" autocomplete="off" style="width:150px;min-height:34px">
+              <input type="hidden" name="item_id" :value="id" :disabled="!id">
+              <span class="sugg" x-show="sugg.length" x-cloak @click.outside="sugg = []"><template x-for="(it, i) in sugg" :key="it.id">
+                <button type="button" :class="{on: i === idx}" @click="choose(it); $nextTick(() => $el.closest('form').submit())"><b x-text="it.name"></b> <span class="small muted" x-text="(it.total ?? '–') + ' ' + it.unit"></span></button></template></span></span>
+            {% if me.can('items', 3) %}<button class="btn sm ghost" name="neu" value="1" title="Als neuen Artikel anlegen">＋ neu</button>{% endif %}
+          </form>
+          {% else %}<span class="badge warn">nicht zugeordnet</span>{% endif %}
+        {% endif %}
+        <div x-show="more" x-cloak class="noprint" style="margin-top:6px">
+          <form method="post" action="/projekte/zeile/{{ ln.id }}/aendern" class="row" style="gap:4px">
+            <input type="number" name="qty" step="any" min="0" value="{{ ln.qty|qty }}" style="width:70px;min-height:32px" title="Menge je Stück">
+            <input name="refs" value="{{ ln.refs }}" style="width:140px;min-height:32px" title="Referenzen">
+            <button class="btn sm">Speichern</button>
+            <button class="btn sm ghost" name="loesen" value="1" title="Zuordnung lösen">Zuordnung lösen</button>
+            <button class="btn sm ghost" name="dnp" value="1" title="Nicht bestücken">nicht bestücken</button>
+            <button class="btn sm ghost" formaction="/projekte/zeile/{{ ln.id }}/loeschen" title="Zeile entfernen">✕</button>
+          </form>
+        </div>
+      </td>
+      <td class="small">{% for lt in nd.lots[:2] %}{{ tc.path(lt.location_id).split(' / ')[-2:]|join(' › ') if lt.location_id else 'ohne Ort' }}{% if ln.item.stock_mode == 'exact' %} <span class="muted">({{ lt.quantity|qty }})</span>{% endif %}<br>{% else %}{% if ln.item %}<span class="muted">nicht auf Lager</span>{% endif %}{% endfor %}
+        {% if where.get(ln.id) %}<a class="noprint" href="/orte/{{ where[ln.id] }}/wand?artikel={{ ln.item.id }}">📍 Wo?</a>{% endif %}</td>
+      <td>{% if not ln.item %}<span class="muted small">–</span>
+        {% elif nd.short > 0 %}<span class="badge warn">fehlt {{ nd.short|qty }}</span> {{ buy_badge(ln.item.id) }}
+          {% if not buy_state(ln.item.id) %}<div class="small" style="color:var(--err)">nicht bestellt</div>{% endif %}<div class="small muted">{{ nd.free|qty }} frei{% if nd.stock > nd.free %}, {{ (nd.stock - nd.free)|qty }} reserviert{% endif %}</div>
+        {% else %}<span class="badge ok">✔ reicht</span>{% if nd.free < 1000000000000.0 %}<div class="small muted">{{ nd.free|qty }} frei</div>{% endif %}{% endif %}</td>
+    </tr>
+    {% else %}<tr><td colspan="7" class="muted">Noch keine Bauteile – KiCad-Datei importieren oder unten einzeln hinzufügen.</td></tr>{% endfor %}
+    {% set dnps = p.lines|selectattr('dnp')|list %}
+    {% if dnps %}<tr><td colspan="7" class="small muted">Nicht bestücken (DNP): {% for ln in dnps %}{{ ln.refs }} {{ ln.value }}
+      {% if me.can('orders', 2) %}<form method="post" action="/projekte/zeile/{{ ln.id }}/aendern" class="inline"><button class="btn sm ghost" name="dnp" value="0" title="doch bestücken">↺</button></form>{% endif %}{% if not loop.last %} · {% endif %}{% endfor %}</td></tr>{% endif %}
+  </table>
+</div>
+
+{% if me.can('orders', 2) %}
+<div class="cols noprint">
+  <div class="card">
+    <h2 class="mt0">Stückliste aus KiCad {{ 'aktualisieren' if p.lines else 'übernehmen' }}</h2>
+    <form method="post" action="/projekte/{{ p.id }}/import" enctype="multipart/form-data">
+      <input type="file" name="datei" accept=".kicad_sch,.xml,.net,.csv,.txt" required>
+      <label class="inline"><input type="checkbox" name="ersetzen" value="1" checked> bisherige Stückliste ersetzen (von Hand zugeordnete Teile werden wiedererkannt)</label>
+      <button class="btn" style="margin-top:8px">Importieren</button>
+    </form>
+    <p class="small muted">Schaltplan <code>.kicad_sch</code> (bei mehreren Blättern die Netzliste nehmen), Netzliste <code>.xml</code>/<code>.net</code> oder CSV mit Referenz/Wert/Footprint/Menge.</p>
+  </div>
+  <div class="card">
+    <h2 class="mt0">Bauteil hinzufügen</h2>
+    <form method="post" action="/projekte/{{ p.id }}/zeile" x-data="itemPick()">
+      <div class="itempick"><label>Artikel (z. B. Gehäuse, Stecker, Schrauben)</label>
+        <input name="item" x-model="q" @input="find()" @keydown="key($event)" autocomplete="off" required placeholder="Name, Wert oder Code">
+        <input type="hidden" name="item_id" :value="id">
+        <div class="sugg" x-show="sugg.length" x-cloak @click.outside="sugg = []"><template x-for="(it, i) in sugg" :key="it.id">
+          <button type="button" :class="{on: i === idx}" @click="choose(it)"><b x-text="it.name"></b> <span class="small muted" x-text="(it.total ?? '–') + ' ' + it.unit"></span></button></template></div>
+      </div>
+      <div class="fields"><div><label>Menge je Stück</label><input type="number" name="qty" id="pos-qty" step="any" min="0" value="1"></div>
+        <div><label>Referenz</label><input name="refs" placeholder="optional"></div></div>
+      <button class="btn" style="margin-top:8px">Hinzufügen</button>
+    </form>
+  </div>
+</div>
+{% endif %}
+
+{% if orders %}
+<div class="card"><h2 class="mt0">Aufträge aus diesem Projekt</h2>
+  <table>{% for o in orders %}<tr><td><a href="/auftraege/{{ o.id }}">{{ o.code }}</a> {{ o.title }}</td><td><span class="badge st-{{ o.status }}">{{ ORDER_STATUS[o.status] }}</span></td><td class="small muted">{{ o.created_at|dt }}</td></tr>{% endfor %}</table>
+</div>{% endif %}
+
+<details class="card noprint"><summary><b>Projekt bearbeiten</b></summary>
+  {% if me.can('orders', 2) %}
+  <form method="post" action="/projekte/{{ p.id }}/bearbeiten" style="margin-top:8px">
+    <div class="fields"><div style="grid-column:span 2"><label>Name</label><input name="name" value="{{ p.name }}" required></div>
+      <div><label>Revision</label><input name="revision" value="{{ p.revision }}"></div></div>
+    <label>Beschreibung</label><textarea name="description" rows="3">{{ p.description }}</textarea>
+    <button class="btn primary" style="margin-top:8px">Speichern</button>
+  </form>
+  {% if me.has_right('orders', 4) %}<form method="post" action="/projekte/{{ p.id }}/loeschen" style="margin-top:10px"><button class="btn sm danger" data-confirm="Projekt „{{ p.name }}“ löschen? Artikel und Aufträge bleiben erhalten.">Projekt löschen</button></form>{% endif %}
+  {% endif %}
+</details>
+{% endblock %}

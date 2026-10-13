@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Lizenz{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/admin">Verwaltung</a></div>
+<h1>🔑 Lizenz</h1>
+<div class="cols-2">
+  <div>
+    <div class="card" style="border-left:4px solid {{ 'var(--ok)' if lic.pro else '#6b4fd8' }}">
+      {% if lic.pro %}
+      <h2 class="mt0">DaLiegt’s Pro <span class="badge ok">aktiv</span></h2>
+      <p class="mb0">Lizenziert für <b>{{ lic.name }}</b>{% if lic.email %} ({{ lic.email }}){% endif %}</p>
+      <p class="small muted">Lizenz {{ lic.lic_id or '–' }} · ausgestellt {{ lic.issued_de }} ·
+        {% if lic.updates_until %}Updates bis {{ lic.updates_de }}{% else %}Updates ohne Ablauf{% endif %}</p>
+      {% elif lic.ok %}
+      <h2 class="mt0">Grundversion</h2>
+      <p class="note" style="background:var(--warn-bg)">{{ lic.error }}</p>
+      {% else %}
+      <h2 class="mt0">Grundversion</h2>
+      <p class="mb0">Alles Wichtige ist dabei: Artikel, Lagerorte, Lageransicht, Scanner, Buchen, Inventur, Etiketten im Browser, Import aus Part-DB und InvenTree, {{ free_ctrl }} WLED-Controller.</p>
+      {% endif %}
+    </div>
+
+    {% if me.can('system', 2) %}
+    <form method="post" action="/admin/lizenz" class="card">
+      <h2 class="mt0">{{ 'Lizenz ändern' if lic.ok else 'Pro freischalten' }}</h2>
+      <label>Lizenzschlüssel</label>
+      <textarea name="key" rows="4" placeholder="DLS1.…" spellcheck="false" autocomplete="off" style="font-family:monospace;font-size:.8rem"></textarea>
+      <p class="small muted">Der Schlüssel wird ohne Internet geprüft – DaLiegt’s meldet sich nirgends. Er steht in der Kaufbestätigung per E-Mail.</p>
+      <div class="row"><button class="btn primary">Freischalten</button>
+        {% if lic.ok %}<button class="btn ghost" name="entfernen" value="1" data-confirm="Lizenz entfernen? Pro-Funktionen sind danach aus, Daten bleiben erhalten.">Lizenz entfernen</button>{% endif %}</div>
+    </form>
+    {% endif %}
+  </div>
+  <div class="card">
+    <h2 class="mt0">Das bringt Pro</h2>
+    <ul style="padding-left:18px">
+      {% for k, v in features.items() %}<li>{{ v }}</li>{% endfor %}
+    </ul>
+    <p class="small muted mb0">Pro ist ein Einmalkauf. Er gilt für alle Versionen, die im Update-Zeitraum erscheinen – ältere laufen für immer weiter. Ohne Lizenz bleiben alle Daten erhalten, auch solche aus Pro-Funktionen.</p>
+  </div>
+</div>
+{% endblock %}

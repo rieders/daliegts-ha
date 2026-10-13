@@ -1,0 +1,267 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import thumb, loc_path, locpicker, stock_label, buy_badge %}
+{% from "partials/reprint.html" import reprint with context %}
+{% block title %}{{ item.name }}{% endblock %}
+{% block content %}
+<div class="breadcrumb">{% if cat_path %}<a href="/suche?kategorie={{ item.category_id }}">{{ cat_path }}</a>{% endif %}</div>
+<div class="itemhead">
+  {{ thumb(item, "lg") }}
+  <div class="grow" style="min-width:0">
+    <div>
+      <h1 class="mb0">{{ item.name }} {% if item.favorite %}★{% endif %}</h1>
+      <div class="muted">{{ item.description }}</div>
+      <div class="row small" style="margin-top:6px">
+        <span class="badge code">{{ item.code }}</span><span class="badge">{{ ITEM_KINDS.get(item.kind, item.kind) }}</span>
+        {% if item.footprint %}<span class="badge">{{ item.footprint.name }}</span>{% endif %}
+        {% if item.origin %}<span class="badge warn">{{ item.origin }}</span>{% endif %}
+        {% if item.below_min %}<span class="badge warn">unter Mindestbestand</span>{% endif %}
+        {% if item.is_template %}<span class="badge">Vorlage mit {{ item.variants|length }} Varianten</span>{% endif %}
+        {% if item.variant_of %}<span class="badge">Variante von <a href="/artikel/{{ item.variant_of_id }}">{{ item.variant_of.name }}</a></span>{% endif %}
+      </div>
+      <div style="font-size:1.4rem;margin-top:8px"><b>{{ stock_label(item) }}</b>{% if item.min_stock %} <span class="muted small">min. {{ item.min_stock|qty }}</span>{% endif %}</div>
+      {% if buy_state(item.id) %}<div style="margin-top:4px">{{ buy_badge(item.id, detail=True) }}</div>
+      {% elif item.below_min %}<div class="small" style="margin-top:4px"><span class="badge warn">unter Mindestbestand</span> <a href="#bezug">noch nicht bestellt – auf die Einkaufsliste setzen</a></div>{% endif %}
+      {% if res and res.orders %}<div class="small" style="margin-top:2px">📋 <b>{{ res.reserved|qty(item.unit) }}</b> reserviert für
+        {% for o, q in res.orders[:4] %}<a href="/auftraege/{{ o.id }}">{{ o.code }}</a> ({{ q|qty }}){% if not loop.last %}, {% endif %}{% endfor %}{% if res.orders|length > 4 %} …{% endif %}
+        {% if item.stock_mode == 'exact' %} · <b>{{ res.free|qty }}</b> frei{% if res.reserved > res.stock %} · <span style="color:var(--err)">{{ (res.reserved - res.stock)|qty }} fehlen</span>{% endif %}{% endif %}</div>{% endif %}
+    </div>
+  </div>
+  <div class="row actions">
+    {% if has_lights and me.can('wled_show') %}<button class="btn btn-led big" data-locate='{"item_id": {{ item.id }}}'>💡 Zeigen</button>{% endif %}
+    {% if me.can('items', 2) %}<a class="btn" href="/artikel/{{ item.id }}/bearbeiten">Bearbeiten</a>
+    {% if not item.catalog_key %}<a class="btn ghost" href="/artikel/{{ item.id }}/teilen" title="Freiwillig der Community vorschlagen">⇪ Teilen</a>{% endif %}
+    <form method="post" action="/artikel/{{ item.id }}/favorit" class="inline"><button class="btn" title="Favorit">{{ '★' if item.favorite else '☆' }}</button></form>{% endif %}
+    {% if me.can('labels') %}<a class="btn" href="/etiketten?art=item&artikel={{ item.id }}" title="Artikel-Etikett gestalten / mehrere drucken">🏷</a>{{ reprint('item', item.id, '🖨 Etikett', cls='btn') }}{% endif %}
+  </div>
+</div>
+
+<div class="cols-2" style="margin-top:12px">
+<div>
+  <div class="card">
+    <h2>Bestand & Lagerorte</h2>
+    {% for lot in item.lots %}
+    <div id="lot-{{ lot.id }}" style="border-bottom:1px solid var(--border);padding:8px 0" x-data="{open:false}">
+      <div class="row spread">
+        <div>
+          <b>{{ loc_path(tc, lot.location_id) }}</b>
+          <div class="small muted"><span class="badge code">{{ lot.code }}</span>
+            {% if lot.serial %}SN {{ lot.serial }} · {% endif %}{% if lot.batch %}Charge {{ lot.batch }} · {% endif %}
+            {% if lot.status != 'ok' %}<span class="badge warn">{{ LOT_STATUS.get(lot.status) }}</span>{% endif %}
+            {% if lot.needs_review %}<span class="badge">Inventur offen</span>{% endif %}{% if lot.notes %} · {{ lot.notes }}{% endif %}
+            {% for c in lot.codes %}<span class="badge code" title="Fremdcode, {{ c.source }}">{{ c.code }}{% if me.can('stock', 2) %}<form method="post" action="/lot/code/{{ c.id }}/loeschen" class="inline"><button class="btn sm ghost" style="min-height:0;padding:0 4px" title="Code entfernen">✕</button></form>{% endif %}</span> {% endfor %}</div>
+        </div>
+        <div class="row">
+          {% if item.stock_mode == 'coarse' %}
+            {% for k, v in COARSE_LEVELS.items() %}<form method="post" action="/lot/{{ lot.id }}/ampel" class="inline"><input type="hidden" name="level" value="{{ k }}">
+              <button class="btn sm {{ 'primary' if lot.coarse == k }}"><span class="amp {{ k }}"></span> {{ v }}</button></form>{% endfor %}
+          {% else %}<b style="font-size:1.15rem">{{ lot.quantity|qty(item.unit) }}</b>{% endif %}
+          {% if lot.location_id in lit and me.can('wled_show') %}<button class="btn sm btn-led" data-locate='{"location_id": {{ lot.location_id }}}'>💡</button>{% endif %}
+          {% if walls_of.get(lot.id) %}<a class="btn sm" href="/orte/{{ walls_of[lot.id] }}/wand?artikel={{ item.id }}" title="In der Lageransicht zeigen, wo das Teil liegt">📍 Wo?</a>{% endif %}
+          <button class="btn sm" @click="open=!open">⋯</button>
+        </div>
+      </div>
+      <div x-show="open" x-cloak style="margin-top:8px">
+        {% if me.can('stock', 2) %}<form method="post" action="/lot/{{ lot.id }}/code" class="row" style="margin-bottom:6px"><input name="code" placeholder="Fremden Barcode nur für diesen Bestand (z. B. Herstellercode der Spule)" class="grow"><button class="btn sm">＋ Code</button></form>{% endif %}
+        <div class="row">
+          {% if me.can('stock', 2) and item.stock_mode != 'coarse' %}
+          <form method="post" action="/lot/{{ lot.id }}/entnehmen" class="row"><input type="number" name="quantity" value="1" step="any" min="0" style="width:90px"><button class="btn sm">Entnehmen</button></form>
+          {% endif %}
+          {% if me.can('inventory', 2) %}
+          <form method="post" action="/lot/{{ lot.id }}/zaehlen" class="row"><input type="number" name="quantity" value="{{ lot.quantity|qty }}" step="any" min="0" style="width:90px"><button class="btn sm">Zählen</button></form>
+          {% if lot.needs_review %}<form method="post" action="/lot/{{ lot.id }}/bestaetigen" class="inline"><button class="btn sm primary">✔ Stimmt</button></form>{% endif %}
+          {% endif %}
+          {% if me.can('labels') %}<a class="btn sm" href="/etiketten?art=lot&bestand={{ lot.id }}" title="Etikett für diesen Bestand (Tüte/Charge) gestalten">🏷 Bestand</a>
+          {% if spool_tpls %}{{ reprint('lot', lot.id, '🖨 Spule', vorlage=spool_tpls.spool.id) }}{{ reprint('lot', lot.id, '🖨 Verpackung', vorlage=spool_tpls.pack.id) }}
+          {% else %}{{ reprint('lot', lot.id, '🖨 Nachdrucken') }}{% endif %}{% endif %}
+        </div>
+        {% if me.can('stock', 2) %}
+        <form method="post" action="/lot/{{ lot.id }}/umlagern" class="row" style="margin-top:6px">
+          <div class="grow">{{ locpicker(placeholder="Umlagern nach …", required=True) }}</div>
+          <input name="quantity" placeholder="Menge (leer = alles)" style="width:150px"><button class="btn sm">Umlagern</button>
+        </form>
+        <details class="more"><summary>Details bearbeiten</summary>
+          <form method="post" action="/lot/{{ lot.id }}/bearbeiten" class="fields">
+            <div><label>Charge</label><input name="batch" value="{{ lot.batch }}"></div>
+            <div><label>Seriennummer</label><input name="serial" value="{{ lot.serial }}"></div>
+            <div><label>Status</label><select name="status">{% for k, v in LOT_STATUS.items() %}<option value="{{ k }}" {{ 'selected' if lot.status == k }}>{{ v }}</option>{% endfor %}</select></div>
+            <div><label>Ablaufdatum</label><input type="date" name="expiry" value="{{ lot.expiry or '' }}"></div>
+            <div style="grid-column:1/-1"><label>Notiz</label><input name="notes" value="{{ lot.notes }}"></div>
+            <div><button class="btn sm">Speichern</button></div>
+          </form>
+          {% if me.can('stock', 4) %}<form method="post" action="/lot/{{ lot.id }}/loeschen" class="inline"><button class="btn sm danger" data-confirm="Diesen Bestand löschen?">Bestand löschen</button></form>{% endif %}
+        </details>
+        {% endif %}
+      </div>
+    </div>
+    {% else %}<p class="muted">Noch kein Bestand.</p>{% endfor %}
+    {% if me.can('stock', 2) %}
+    <form method="post" action="/artikel/{{ item.id }}/einlagern" class="row" style="margin-top:10px">
+      <div class="grow" style="min-width:220px">{{ locpicker() }}</div>
+      <input type="number" name="quantity" value="1" step="any" min="0" style="width:90px">
+      <button class="btn primary">Einlagern</button>
+    </form>
+    <details class="more"><summary>mit Seriennummer / Charge</summary>
+      <form method="post" action="/artikel/{{ item.id }}/einlagern" class="fields">
+        <div>{{ locpicker() }}</div><div><input name="serial" placeholder="Seriennummer"></div><div><input name="batch" placeholder="Charge"></div>
+        <input type="hidden" name="quantity" value="1"><div><button class="btn">Einlagern</button></div>
+      </form>
+    </details>
+    {% endif %}
+  </div>
+
+  {% if item.parameters %}
+  <div class="card"><h2>Parameter</h2>
+    <dl class="kv">{% for p in item.parameters %}<dt>{{ p.name }}</dt><dd>{{ p.value_text }} {{ p.unit }}</dd>{% endfor %}</dl>
+  </div>{% endif %}
+
+  {% if item.notes %}<div class="card"><h2>Notizen</h2><div>{{ item.notes|nl2br }}</div></div>{% endif %}
+
+  <div class="card"><h2>Historie</h2>
+    <div class="table-wrap"><table>
+      <tr><th>Zeit</th><th>Vorgang</th><th class="num">Menge</th><th>Ort</th><th>Wer</th><th>Notiz</th></tr>
+      {% for m in moves %}<tr><td class="small">{{ m.ts|dt }}</td><td>{{ MOVEMENT_KINDS.get(m.kind, m.kind) }}</td><td class="num">{{ m.delta|qty }}</td>
+        <td class="small">{% if m.from_location and m.to_location %}{{ m.from_location.name }} → {{ m.to_location.name }}{% else %}{{ (m.to_location or m.from_location).name if (m.to_location or m.from_location) else '' }}{% endif %}</td>
+        <td class="small">{{ m.user.label if m.user else '' }}</td><td class="small muted">{{ m.note[:80] }}</td></tr>
+      {% else %}<tr><td colspan="6" class="muted">Keine Einträge.</td></tr>{% endfor %}
+    </table></div>
+  </div>
+</div>
+
+<div>
+  <div class="card"><h2>Details</h2>
+    <dl class="kv">
+      {% if item.manufacturer %}<dt>Hersteller</dt><dd>{{ item.manufacturer.name }}</dd>{% endif %}
+      {% if item.mpn %}<dt>MPN</dt><dd class="mono">{{ item.mpn }}</dd>{% endif %}
+      {% if item.historic_manufacturer %}<dt>Hist. Hersteller</dt><dd>{{ item.historic_manufacturer }}</dd>{% endif %}
+      {% if item.date_code %}<dt>Datumscode</dt><dd>{{ item.date_code }}</dd>{% endif %}
+      {% if item.condition %}<dt>Zustand</dt><dd>{{ item.condition }}</dd>{% endif %}
+      {% if item.collector_value %}<dt>Sammlerwert</dt><dd>{{ '%.2f'|format(item.collector_value) }} €</dd>{% endif %}
+      {% if item.tags %}<dt>Tags</dt><dd>{{ item.tags }}</dd>{% endif %}
+      <dt>Einheit</dt><dd>{{ item.unit }} · {{ STOCK_MODES.get(item.stock_mode) }}</dd>
+      {% if item.purchase_date %}<dt>Gekauft</dt><dd>{{ item.purchase_date|dt }}{% if item.purchase_vendor %} bei {{ item.purchase_vendor }}{% endif %}{% if item.purchase_price %} · {{ '%.2f'|format(item.purchase_price) }} €{% endif %}</dd>{% endif %}
+      {% if item.warranty_until %}<dt>Garantie bis</dt><dd>{{ item.warranty_until|dt }}</dd>{% endif %}
+      <dt>Angelegt</dt><dd>{{ item.created_at|dt }}</dd>
+    </dl>
+    <div id="codes">
+    {% if item.codes %}<h3>Fremde Barcodes <span class="muted small">(werden beim Scannen wie ein eigenes Etikett erkannt)</span></h3>{% for c in item.codes %}<span class="badge code" title="{{ c.source }}">{{ c.code }}{% if me.can('items', 2) %}<form method="post" action="/artikel/code/{{ c.id }}/loeschen" class="inline"><button class="btn sm ghost" style="min-height:0;padding:0 4px" title="Code entfernen">✕</button></form>{% endif %}</span> {% endfor %}{% endif %}
+    {% if me.can('items', 2) %}
+    <form method="post" action="/artikel/{{ item.id }}/code" class="row" style="margin-top:6px"><input name="code" placeholder="Fremden Barcode scannen oder eintippen (EAN, Packung, altes Etikett)" class="grow" {{ 'autofocus' if request.query_params.get('codes') }}><button class="btn sm">＋</button></form>
+    <div class="small muted" style="margin-top:4px">Mit Handscanner: Code scannen, Enter – das Feld bleibt bereit für den nächsten. <a href="/codes">Alle Fremdcodes</a></div>
+    {% endif %}
+    </div>
+  </div>
+
+  {% if me.can('suppliers') or me.can('purchasing') or sparts %}
+  <div class="card" id="bezug"><h2>Bezugsquellen & Nachbestellen</h2>
+    {% if open_questions %}<div class="note" style="margin-bottom:8px">❓ {{ open_questions }} Rückfrage(n) zu Online-Treffern – <a href="/entscheidungen">jetzt entscheiden</a></div>{% endif %}
+    {% if online_active and me.can('items', 2) %}
+    <div class="row" style="margin-bottom:8px">
+      {% if sparts %}<form method="post" action="/artikel/{{ item.id }}/preise-aktualisieren" class="inline"><button class="btn sm" title="Preise holen und bei anderen Shops nach günstigeren Angeboten suchen">🔄 Preise aktualisieren & vergleichen</button></form>{% endif %}
+      <a class="btn sm {{ 'primary' if not sparts }}" href="/artikel/{{ item.id }}/online">🔎 Online suchen</a>
+    </div>{% endif %}
+    {% if offers %}
+    <div class="small muted">Für {{ need|qty(item.unit) }}{% if item.reorder_qty %} (Nachbestellmenge){% elif item.min_stock %} (bis Mindestbestand){% endif %}:</div>
+    {% for sp, of in offers %}
+    <div style="border-bottom:1px solid var(--border);padding:6px 0" x-data="{edit:false}">
+      <div class="row spread">
+        <div style="min-width:0">
+          <b>{{ sp.supplier.name }}</b>{% if loop.first and of.priced %} <span class="badge ok">günstigste</span>{% endif %}{% if sp.preferred %} <span class="badge">bevorzugt</span>{% endif %}{% if sp.obsolete %} <span class="badge">veraltet</span>{% endif %}
+          <div class="small"><span class="mono">{{ sp.sku or '–' }}</span>{% if sp.pack_qty and sp.pack_qty != 1 %} · VPE {{ sp.pack_qty|qty }}{% endif %}
+            {% if of.priced %} · {{ of.order_qty|qty }} × {{ of.unit_price|price }} = <b>{{ of.total|euro }}</b>{% else %} · <span class="muted">kein Preis</span>{% endif %}</div>
+          {% if sp.prices %}<div class="small muted">Staffel: {{ format_tiers(sp.prices) }}{% if sp.prices[0].date %} ({{ sp.prices[0].date|dt }}){% endif %}</div>{% endif %}
+          {% if sp.checked_at or sp.origin == 'automatisch' %}<div class="small muted">{% if sp.stock_available is not none %}Lager beim Shop: {{ sp.stock_available }} · {% endif %}{% if sp.checked_at %}geprüft {{ sp.checked_at|dt }}{% endif %}{% if sp.origin == 'automatisch' %} · <span class="badge">automatisch gefunden</span>{% endif %}</div>{% endif %}
+          {% if sp.check_error %}<div class="small" style="color:var(--warn)">{{ sp.check_error }}</div>{% endif %}
+        </div>
+        <div class="row">
+          {% set link = shop_link(sp) %}{% if link %}<a class="btn sm" href="{{ link }}" target="_blank" rel="noopener noreferrer" title="Im Shop öffnen">↗</a>{% endif %}
+          {% if me.can('purchasing', 3) %}<form method="post" action="/artikel/{{ item.id }}/einkaufsliste" class="inline"><input type="hidden" name="supplier_part_id" value="{{ sp.id }}"><button class="btn sm" title="Bei diesem Lieferanten auf die Einkaufsliste">🛒</button></form>{% endif %}
+          {% if me.can('items', 2) %}<button class="btn sm" @click="edit=!edit">✎</button>{% endif %}
+        </div>
+      </div>
+      {% if me.can('items', 2) %}
+      <div x-show="edit" x-cloak>{% set spx = sp %}{% include "partials/supplier_part_form.html" %}
+        <form method="post" action="/bezugsquelle/{{ sp.id }}/loeschen" style="margin-top:4px"><button class="btn sm danger" data-confirm="Bezugsquelle entfernen?">Entfernen</button></form></div>
+      {% endif %}
+    </div>
+    {% endfor %}
+    {% else %}<p class="small muted">Noch keine Bezugsquelle. Trage Lieferant und Bestellnummer ein, dann kannst du mit einem Klick nachbestellen und Preise vergleichen.</p>{% endif %}
+    {% if prices %}<div class="small muted" style="margin-top:6px">Alte Preise ohne Lieferant: {% for p in prices %}ab {{ p.min_qty|qty }}: {{ p.unit_price|price }}{% if not loop.last %}; {% endif %}{% endfor %}</div>{% endif %}
+
+    {% if me.can('purchasing', 3) %}
+    <form method="post" action="/artikel/{{ item.id }}/einkaufsliste" class="row" style="margin-top:10px">
+      <input name="quantity" value="{{ need|qty }}" inputmode="decimal" style="width:90px">
+      <button class="btn primary sm">🛒 Auf Einkaufsliste</button>
+      {% if on_list %}<a class="small" href="/einkauf">steht schon drauf ({{ on_list.quantity|qty }}{% if on_list.status == 'ordered' %}, bestellt{% endif %})</a>{% endif %}
+    </form>{% endif %}
+
+    {% if me.can('items', 2) %}
+    <details class="more" {{ 'open' if not sparts }}><summary>＋ Bezugsquelle hinzufügen</summary>
+      {% set spx = None %}{% include "partials/supplier_part_form.html" %}
+    </details>
+    <details class="more"><summary>Mindestbestand & Nachbestellmenge</summary>
+      <form method="post" action="/artikel/{{ item.id }}/mindestbestand" class="fields">
+        <div><label>Mindestbestand</label><input name="min_stock" value="{{ item.min_stock|qty }}" inputmode="decimal"></div>
+        <div><label>Nachbestellmenge</label><input name="reorder_qty" value="{{ item.reorder_qty|qty }}" inputmode="decimal"></div>
+        <div><button class="btn sm" style="margin-top:8px">Speichern</button></div>
+      </form>
+      <p class="small muted">Fällt der Bestand unter den Mindestbestand, schlägt die Einkaufsliste den Artikel vor – mit der Nachbestellmenge, mindestens aber bis zum Mindestbestand.</p>
+    </details>
+    {% endif %}
+    {% set searchable = suppliers|selectattr('search_url')|list %}
+    {% if searchable %}<div class="row small" style="margin-top:8px"><span class="muted">In Shops suchen:</span>{% for s in searchable %}{% set u = search_link(s, item) %}{% if u %}<a href="{{ u }}" target="_blank" rel="noopener noreferrer">{{ s.name }}</a>{% endif %}{% endfor %}</div>{% endif %}
+  </div>
+  {% endif %}
+
+  {% if eqs %}<div class="card"><h2>Vergleichstypen</h2>
+    {% for e in eqs %}<div class="small">{{ e.type_b if e.type_a == item.name else e.type_a }} <span class="badge {{ 'ok' if e.relation == 'pinkompatibel' else '' }}">{{ e.relation|replace('aehnlich','ähnlich') }}</span></div>{% endfor %}
+  </div>{% endif %}
+
+  <div class="card" id="anhaenge"><h2>Anhänge & Links</h2>
+    {% for a in attachments %}<div class="row spread small">
+      {% if a.filename %}<a href="/media/{{ a.filename }}" target="_blank">📄 {{ a.title }}</a>{% elif a.url|safe_url %}<a href="{{ a.url|safe_url }}" target="_blank" rel="noopener noreferrer">🔗 {{ a.title }}</a>{% else %}<span class="muted">{{ a.title }} (Datei fehlt)</span>{% endif %}
+      {% if me.can('attachments', 4) %}<form method="post" action="/anhang/{{ a.id }}/loeschen" class="inline"><button class="btn sm ghost" data-confirm="Anhang entfernen?">✕</button></form>{% endif %}
+    </div>{% else %}<p class="muted small">Keine Anhänge.</p>{% endfor %}
+    {% if me.can('attachments', 3) and attachments|selectattr('kind', 'equalto', 'datasheet')|rejectattr('filename')|selectattr('url')|list %}
+    <form method="post" action="/artikel/{{ item.id }}/datenblaetter" style="margin-top:6px"><button class="btn sm">⤓ Datenblatt offline speichern</button></form>{% endif %}
+    {% if me.can('attachments', 3) %}
+    <details class="more"><summary>Anhang hinzufügen</summary>
+      <form method="post" action="/artikel/{{ item.id }}/anhang" enctype="multipart/form-data">
+        <label>Titel</label><input name="title">
+        <label>Art</label><select name="kind"><option value="datasheet">Datenblatt</option><option value="image">Bild</option><option value="invoice">Rechnung/Kaufbeleg</option><option value="manual">Anleitung</option><option value="other">Sonstiges</option></select>
+        <label>Datei</label><input type="file" name="file"><label>oder URL</label><input name="url" type="url">
+        <button class="btn sm" style="margin-top:8px">Hinzufügen</button>
+      </form>
+    </details>{% endif %}
+    <h3>Im Web suchen</h3>
+    <div class="row">{% for name, url in web_links %}{% if url|safe_url %}<a class="btn sm" href="{{ url|safe_url }}" target="_blank" rel="noopener noreferrer">{{ name }}</a>{% endif %}{% endfor %}</div>
+  </div>
+
+  {% if item.kind in ('werkzeug', 'geraet') or loans %}
+  <div class="card"><h2>Verleih</h2>
+    {% for l in loans %}<div class="row spread small"><span>{{ l.borrower_name or (users|selectattr('id','equalto',l.borrower_user_id)|map(attribute='label')|first) }} seit {{ l.since|dt }}{% if l.due %}, bis {{ l.due|dt }}{% endif %}</span>
+      {% if not l.returned_at %}{% if me.can('loans', 2) %}<form method="post" action="/leihe/{{ l.id }}/zurueck" class="inline"><button class="btn sm primary">Zurück</button></form>{% endif %}{% else %}<span class="muted">zurück {{ l.returned_at|dt }}</span>{% endif %}</div>{% endfor %}
+    {% if me.can('loans', 3) %}
+    <form method="post" action="/artikel/{{ item.id }}/verleihen" style="margin-top:8px">
+      <div class="fields">
+        <div><label>An Benutzer</label><select name="borrower_user_id"><option value="">–</option>{% for u in users %}<option value="{{ u.id }}">{{ u.label }}</option>{% endfor %}</select></div>
+        <div><label>oder Name</label><input name="borrower_name"></div>
+        <div><label>Zurück bis</label><input type="date" name="due"></div>
+      </div>
+      <button class="btn sm" style="margin-top:8px">Verleihen</button>
+    </form>{% endif %}
+  </div>{% endif %}
+
+  {% if me.can('items', 3) %}
+  <div class="card"><h2>Aktionen</h2>
+    <form method="post" action="/artikel/{{ item.id }}/duplizieren" class="inline"><button class="btn sm">Duplizieren</button></form>
+    {% if me.can('items', 4) %}
+    <details class="more"><summary>Mit anderem Artikel zusammenführen</summary>
+      <p class="small muted">Bestände, Codes und Historie dieses Artikels werden in den Ziel-Artikel übernommen; dieser Artikel wird danach gelöscht. Praktisch für Platzhalter aus dem InvenTree-Import.</p>
+      <form method="post" action="/artikel/{{ item.id }}/zusammenfuehren" class="row"><input name="target" placeholder="Ziel: Code A-… oder ID" class="grow" required><button class="btn sm warn" data-confirm="Zusammenführen? Dieser Artikel wird danach gelöscht.">Zusammenführen</button></form>
+    </details>
+    <form method="post" action="/artikel/{{ item.id }}/loeschen" style="margin-top:8px"><button class="btn sm danger" data-confirm="Artikel „{{ item.name }}“ inkl. Bestände löschen?">Löschen</button></form>
+    {% endif %}
+  </div>{% endif %}
+</div>
+</div>
+{% endblock %}

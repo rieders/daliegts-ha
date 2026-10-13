@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Zusammenführen: {{ loc.name }}{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/orte">Lagerorte</a> / <a href="/orte/{{ loc.id }}?ansicht=liste">{{ tc.path(loc.id) }}</a></div>
+<h1>🔀 „{{ loc.name }}“ übertragen</h1>
+<p class="muted">Für alte, importierte Orte, die dieselben Schubladen meinen wie deine neu angelegten Möbel: Inhalt, Unterorte und Etiketten wandern in den neuen Ort, der alte wird gelöscht. Alte Etiketten (auch InvenTree-/Part-DB-Codes) zeigen danach auf den neuen Ort. Vorher wird automatisch eine Sicherung angelegt.</p>
+
+<form method="get" class="card">
+  <input type="hidden" name="modus" value="{{ modus }}">
+  <div class="pill-group" style="margin-bottom:8px">
+    <button type="submit" name="modus" value="faecher" class="{{ 'on' if modus == 'faecher' }}">Fächer 1:1 auf ein Möbel übertragen</button>
+    <button type="submit" name="modus" value="ort" class="{{ 'on' if modus == 'ort' }}">Ganzen Ort zusammenführen</button>
+  </div>
+  <div class="fields">
+    <div style="grid-column:span 2"><label>{{ 'Ziel-Möbel (z. B. Kleinteilemagazin 2)' if modus == 'faecher' else 'Ziel-Lagerort' }}</label>
+      <input name="ziel" value="{{ ziel }}" data-locpicker placeholder="Name, Pfad oder Code" required></div>
+    {% if modus == 'faecher' %}
+    <div><label>Quelle</label>
+      <select name="praefix">
+        {% if loc.children %}<option value="">Fächer von „{{ loc.name }}“ ({{ loc.children|length }})</option>{% endif %}
+        {% if suggested_prefix or praefix %}{% set pf = praefix or suggested_prefix %}<option value="{{ pf }}" {{ 'selected' if praefix }}>alle „{{ pf }}…“ daneben</option>{% endif %}
+      </select></div>
+    <div><label>Zuordnung</label><select name="zuordnung">
+      <option value="">automatisch</option>
+      <option value="nummer" {{ 'selected' if zuordnung == 'nummer' and request.query_params.get('zuordnung') }}>nach Fachnummer im Namen (oben104 → Fach 4)</option>
+      <option value="reihe" {{ 'selected' if zuordnung == 'reihe' and request.query_params.get('zuordnung') }}>der Reihe nach</option></select></div>
+    <div><label>Zielfächer überspringen</label><input type="number" name="versatz" value="{{ versatz }}" title="Verschiebt die Zuordnung um so viele Fächer"></div>
+    {% endif %}
+  </div>
+  {% if err %}<p class="flash err">{{ err }}</p>{% endif %}
+  <button class="btn" style="margin-top:8px">Vorschau</button>
+</form>
+
+{% if target %}
+<form method="post" class="card">
+  <input type="hidden" name="modus" value="{{ modus }}"><input type="hidden" name="ziel" value="{{ ziel }}">
+  <input type="hidden" name="praefix" value="{{ praefix }}"><input type="hidden" name="versatz" value="{{ versatz }}"><input type="hidden" name="zuordnung" value="{{ zuordnung }}">
+  {% if modus == 'ort' %}
+    <h2 class="mt0">Vorschau</h2>
+    <p><b>{{ tc.path(loc.id) }}</b> → <b>{{ tc.path(target.id) }}</b></p>
+    <ul>
+      <li>{{ count }} Bestände wandern mit (gleiche Artikel im selben Fach werden zusammengelegt).</li>
+      <li>{{ loc.children|length }} Unterorte{% if merge_kids %}, davon {{ merge_kids|length }} gleichnamige, die mit vorhandenen zusammengeführt werden{% endif %}.</li>
+      <li>„{{ loc.name }}“ wird danach gelöscht, sein Etikett ({{ loc.code }}) zeigt auf „{{ target.name }}“.</li>
+    </ul>
+  {% else %}
+    <h2 class="mt0">Vorschau: {{ pairs|selectattr(1)|list|length }} von {{ pairs|length }} Fächern zugeordnet</h2>
+    <p class="small muted">{% if zuordnung == 'nummer' %}Zuordnung <b>nach Fachnummer</b>: die Zahl am Ende des alten Namens bestimmt das neue Fach (gezählt nach Raster, Reihe für Reihe).{% else %}Zuordnung <b>der Reihe nach</b>: alte Fächer nach Namen, neue nach Raster.{% endif %} Passt es nicht, oben „Zuordnung“ oder „Zielfächer überspringen“ ändern.</p>
+    <div class="table-wrap"><table>
+      <tr><th>Altes Fach</th><th class="num">Inhalt</th><th></th><th>Neues Fach</th><th class="num">Inhalt jetzt</th></tr>
+      {% for s, t, n, m in pairs %}
+      <tr {% if not t %}class="muted"{% endif %}><td>{{ s.name }}</td><td class="num">{{ n or '' }}</td><td>→</td>
+        <td>{% if t %}{{ t.name }}{% else %}<i>kein Platz – bleibt wie es ist</i>{% endif %}</td><td class="num">{{ m or '' }}</td></tr>
+      {% endfor %}
+    </table></div>
+    {% if not praefix and loc.children %}<label class="inline"><input type="checkbox" name="quelle_loeschen" value="1" checked> „{{ loc.name }}“ danach löschen, wenn leer (Etikett zeigt dann auf „{{ target.name }}“)</label>{% endif %}
+  {% endif %}
+  {% if me.can('locations', 4) %}<button class="btn primary" style="margin-top:10px">🔀 Jetzt übertragen</button>
+  {% else %}<p class="note">Zum Übertragen den Admin-Modus einschalten.</p>{% endif %}
+</form>
+{% endif %}
+{% endblock %}

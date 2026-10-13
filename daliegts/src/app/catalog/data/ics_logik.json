@@ -1,0 +1,1128 @@
+{
+ "group": "Logik-ICs & Treiber",
+ "parts": [
+  {
+   "category": "Elektronik/ICs/Logik/74HC",
+   "datasheet_hint": "74HC00",
+   "description": "4× NAND mit 2 Eingängen, CMOS 2–6 V, DIP-14",
+   "equivalents": [
+    "74HCT00 (TTL-Pegel-Eingänge)",
+    "SN74HC00N"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "74hc00",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "74HC00",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–6"
+    },
+    {
+     "name": "Typ",
+     "value": "4× NAND mit 2 Eingängen"
+    }
+   ],
+   "tags": [
+    "7400",
+    "74hc",
+    "cmos",
+    "dip-14",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/74HC",
+   "datasheet_hint": "74HC02",
+   "description": "4× NOR mit 2 Eingängen, CMOS 2–6 V, DIP-14",
+   "equivalents": [
+    "74HCT02 (TTL-Pegel-Eingänge)",
+    "SN74HC02N"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "74hc02",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "74HC02",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–6"
+    },
+    {
+     "name": "Typ",
+     "value": "4× NOR mit 2 Eingängen"
+    }
+   ],
+   "tags": [
+    "7402",
+    "74hc",
+    "cmos",
+    "dip-14",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/74HC",
+   "datasheet_hint": "74HC04",
+   "description": "6× Inverter, CMOS 2–6 V, DIP-14",
+   "equivalents": [
+    "74HCT04 (TTL-Pegel-Eingänge)",
+    "SN74HC04N"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "74hc04",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "74HC04",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–6"
+    },
+    {
+     "name": "Typ",
+     "value": "6× Inverter"
+    }
+   ],
+   "tags": [
+    "7404",
+    "74hc",
+    "cmos",
+    "dip-14",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/74HC",
+   "datasheet_hint": "74HC04",
+   "description": "6× Inverter, CMOS 2–6 V, SMD SO-14",
+   "equivalents": [
+    "74HC04 (DIP)"
+   ],
+   "footprint": "SO-14",
+   "image": "so-14.svg",
+   "key": "74hc04-so",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "74HC04D",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–6"
+    },
+    {
+     "name": "Typ",
+     "value": "6× Inverter"
+    }
+   ],
+   "tags": [
+    "7404",
+    "74hc",
+    "cmos",
+    "logik",
+    "smd",
+    "so-14"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/74HC",
+   "datasheet_hint": "74HC08",
+   "description": "4× AND mit 2 Eingängen, CMOS 2–6 V, DIP-14",
+   "equivalents": [
+    "74HCT08 (TTL-Pegel-Eingänge)",
+    "SN74HC08N"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "74hc08",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "74HC08",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–6"
+    },
+    {
+     "name": "Typ",
+     "value": "4× AND mit 2 Eingängen"
+    }
+   ],
+   "tags": [
+    "7408",
+    "74hc",
+    "cmos",
+    "dip-14",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/74HC",
+   "datasheet_hint": "74HC125",
+   "description": "4× Bustreiber, Tristate, CMOS 2–6 V, DIP-14",
+   "equivalents": [
+    "74HCT125 (TTL-Pegel-Eingänge)",
+    "SN74HC125N"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "74hc125",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "74HC125",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–6"
+    },
+    {
+     "name": "Typ",
+     "value": "4× Bustreiber, Tristate"
+    }
+   ],
+   "tags": [
+    "74125",
+    "74hc",
+    "cmos",
+    "dip-14",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/74HC",
+   "datasheet_hint": "74HC138",
+   "description": "3-zu-8-Dekoder/Demultiplexer, CMOS 2–6 V, DIP-16",
+   "equivalents": [
+    "74HCT138 (TTL-Pegel-Eingänge)",
+    "SN74HC138N"
+   ],
+   "footprint": "DIP-16",
+   "image": "dip-16.svg",
+   "key": "74hc138",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "74HC138",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–6"
+    },
+    {
+     "name": "Typ",
+     "value": "3-zu-8-Dekoder/Demultiplexer"
+    }
+   ],
+   "tags": [
+    "74138",
+    "74hc",
+    "cmos",
+    "dip-16",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/74HC",
+   "datasheet_hint": "74HC14",
+   "description": "6× Inverter mit Schmitt-Trigger, CMOS 2–6 V, DIP-14",
+   "equivalents": [
+    "74HCT14 (TTL-Pegel-Eingänge)",
+    "SN74HC14N"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "74hc14",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "74HC14",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–6"
+    },
+    {
+     "name": "Typ",
+     "value": "6× Inverter mit Schmitt-Trigger"
+    }
+   ],
+   "tags": [
+    "7414",
+    "74hc",
+    "cmos",
+    "dip-14",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/74HC",
+   "datasheet_hint": "74HC14",
+   "description": "6× Inverter mit Schmitt-Trigger, CMOS 2–6 V, SMD SO-14",
+   "equivalents": [
+    "74HC14 (DIP)"
+   ],
+   "footprint": "SO-14",
+   "image": "so-14.svg",
+   "key": "74hc14-so",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "74HC14D",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–6"
+    },
+    {
+     "name": "Typ",
+     "value": "6× Inverter mit Schmitt-Trigger"
+    }
+   ],
+   "tags": [
+    "7414",
+    "74hc",
+    "cmos",
+    "logik",
+    "smd",
+    "so-14"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/74HC",
+   "datasheet_hint": "74HC164",
+   "description": "8-Bit-Schieberegister, seriell-parallel, CMOS 2–6 V, DIP-14",
+   "equivalents": [
+    "74HCT164 (TTL-Pegel-Eingänge)",
+    "SN74HC164N"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "74hc164",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "74HC164",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–6"
+    },
+    {
+     "name": "Typ",
+     "value": "8-Bit-Schieberegister, seriell-parallel"
+    }
+   ],
+   "tags": [
+    "74164",
+    "74hc",
+    "cmos",
+    "dip-14",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/74HC",
+   "datasheet_hint": "74HC165",
+   "description": "8-Bit-Schieberegister, parallel-seriell, CMOS 2–6 V, DIP-16",
+   "equivalents": [
+    "74HCT165 (TTL-Pegel-Eingänge)",
+    "SN74HC165N"
+   ],
+   "footprint": "DIP-16",
+   "image": "dip-16.svg",
+   "key": "74hc165",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "74HC165",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–6"
+    },
+    {
+     "name": "Typ",
+     "value": "8-Bit-Schieberegister, parallel-seriell"
+    }
+   ],
+   "tags": [
+    "74165",
+    "74hc",
+    "cmos",
+    "dip-16",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/74HC",
+   "datasheet_hint": "74HC244",
+   "description": "8× Bustreiber, Tristate, CMOS 2–6 V, DIP-20",
+   "equivalents": [
+    "74HCT244 (TTL-Pegel-Eingänge)",
+    "SN74HC244N"
+   ],
+   "footprint": "DIP-20",
+   "image": "dip-20.svg",
+   "key": "74hc244",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "74HC244",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–6"
+    },
+    {
+     "name": "Typ",
+     "value": "8× Bustreiber, Tristate"
+    }
+   ],
+   "tags": [
+    "74244",
+    "74hc",
+    "cmos",
+    "dip-20",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/74HC",
+   "datasheet_hint": "74HC245",
+   "description": "8× bidirektionaler Bustransceiver, Tristate, CMOS 2–6 V, DIP-20",
+   "equivalents": [
+    "74HCT245 (TTL-Pegel-Eingänge)",
+    "SN74HC245N"
+   ],
+   "footprint": "DIP-20",
+   "image": "dip-20.svg",
+   "key": "74hc245",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "74HC245",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–6"
+    },
+    {
+     "name": "Typ",
+     "value": "8× bidirektionaler Bustransceiver, Tristate"
+    }
+   ],
+   "tags": [
+    "74245",
+    "74hc",
+    "cmos",
+    "dip-20",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/74HC",
+   "datasheet_hint": "74HC32",
+   "description": "4× OR mit 2 Eingängen, CMOS 2–6 V, DIP-14",
+   "equivalents": [
+    "74HCT32 (TTL-Pegel-Eingänge)",
+    "SN74HC32N"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "74hc32",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "74HC32",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–6"
+    },
+    {
+     "name": "Typ",
+     "value": "4× OR mit 2 Eingängen"
+    }
+   ],
+   "tags": [
+    "7432",
+    "74hc",
+    "cmos",
+    "dip-14",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/74HC",
+   "datasheet_hint": "74HC4051",
+   "description": "8-Kanal-Analogmultiplexer/-demultiplexer, CMOS 2–6 V, DIP-16",
+   "equivalents": [
+    "CD4051 (3–18 V)"
+   ],
+   "footprint": "DIP-16",
+   "image": "dip-16.svg",
+   "key": "74hc4051",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "74HC4051",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–6"
+    },
+    {
+     "name": "Typ",
+     "value": "8-Kanal-Analogmultiplexer/-demultiplexer"
+    }
+   ],
+   "tags": [
+    "744051",
+    "74hc",
+    "cmos",
+    "dip-16",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/74HC",
+   "datasheet_hint": "74HC595",
+   "description": "8-Bit-Schieberegister mit Ausgangslatch, Tristate, CMOS 2–6 V, DIP-16",
+   "equivalents": [
+    "74HCT595 (TTL-Pegel-Eingänge)",
+    "SN74HC595N"
+   ],
+   "footprint": "DIP-16",
+   "image": "dip-16.svg",
+   "key": "74hc595",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "74HC595",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–6"
+    },
+    {
+     "name": "Typ",
+     "value": "8-Bit-Schieberegister mit Ausgangslatch, Tristate"
+    }
+   ],
+   "tags": [
+    "74595",
+    "74hc",
+    "cmos",
+    "dip-16",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/74HC",
+   "datasheet_hint": "74HC595",
+   "description": "8-Bit-Schieberegister mit Ausgangslatch, Tristate, CMOS 2–6 V, SMD SO-16",
+   "equivalents": [
+    "74HC595 (DIP)"
+   ],
+   "footprint": "SO-16",
+   "image": "so-16.svg",
+   "key": "74hc595-so",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "74HC595D",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–6"
+    },
+    {
+     "name": "Typ",
+     "value": "8-Bit-Schieberegister mit Ausgangslatch, Tristate"
+    }
+   ],
+   "tags": [
+    "74595",
+    "74hc",
+    "cmos",
+    "logik",
+    "smd",
+    "so-16"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/74HC",
+   "datasheet_hint": "74HC74",
+   "description": "2× D-Flipflop mit Set/Reset, CMOS 2–6 V, DIP-14",
+   "equivalents": [
+    "74HCT74 (TTL-Pegel-Eingänge)",
+    "SN74HC74N"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "74hc74",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "74HC74",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–6"
+    },
+    {
+     "name": "Typ",
+     "value": "2× D-Flipflop mit Set/Reset"
+    }
+   ],
+   "tags": [
+    "7474",
+    "74hc",
+    "cmos",
+    "dip-14",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/74HC",
+   "datasheet_hint": "74HC86",
+   "description": "4× XOR mit 2 Eingängen, CMOS 2–6 V, DIP-14",
+   "equivalents": [
+    "74HCT86 (TTL-Pegel-Eingänge)",
+    "SN74HC86N"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "74hc86",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "74HC86",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–6"
+    },
+    {
+     "name": "Typ",
+     "value": "4× XOR mit 2 Eingängen"
+    }
+   ],
+   "tags": [
+    "7486",
+    "74hc",
+    "cmos",
+    "dip-14",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/CD4000",
+   "datasheet_hint": "CD4001B",
+   "description": "4× NOR mit 2 Eingängen, CMOS 3–18 V, DIP-14",
+   "equivalents": [
+    "HEF4001B",
+    "MC14001B"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "cd4001",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "CD4001B",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3–18"
+    },
+    {
+     "name": "Typ",
+     "value": "4× NOR mit 2 Eingängen"
+    }
+   ],
+   "tags": [
+    "4001",
+    "cd4000",
+    "cmos",
+    "dip-14",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/CD4000",
+   "datasheet_hint": "CD4011B",
+   "description": "4× NAND mit 2 Eingängen, CMOS 3–18 V, DIP-14",
+   "equivalents": [
+    "HEF4011B",
+    "MC14011B"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "cd4011",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "CD4011B",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3–18"
+    },
+    {
+     "name": "Typ",
+     "value": "4× NAND mit 2 Eingängen"
+    }
+   ],
+   "tags": [
+    "4011",
+    "cd4000",
+    "cmos",
+    "dip-14",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/CD4000",
+   "datasheet_hint": "CD4013B",
+   "description": "2× D-Flipflop mit Set/Reset, CMOS 3–18 V, DIP-14",
+   "equivalents": [
+    "HEF4013B",
+    "MC14013B"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "cd4013",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "CD4013B",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3–18"
+    },
+    {
+     "name": "Typ",
+     "value": "2× D-Flipflop mit Set/Reset"
+    }
+   ],
+   "tags": [
+    "4013",
+    "cd4000",
+    "cmos",
+    "dip-14",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/CD4000",
+   "datasheet_hint": "CD4017B",
+   "description": "Dezimalzähler/Teiler mit 10 dekodierten Ausgängen, CMOS 3–18 V, DIP-16",
+   "equivalents": [
+    "HEF4017B",
+    "MC14017B"
+   ],
+   "footprint": "DIP-16",
+   "image": "dip-16.svg",
+   "key": "cd4017",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "CD4017B",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3–18"
+    },
+    {
+     "name": "Typ",
+     "value": "Dezimalzähler/Teiler mit 10 dekodierten Ausgängen"
+    }
+   ],
+   "tags": [
+    "4017",
+    "cd4000",
+    "cmos",
+    "dip-16",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/CD4000",
+   "datasheet_hint": "CD4040B",
+   "description": "12-stufiger Binärzähler, CMOS 3–18 V, DIP-16",
+   "equivalents": [
+    "HEF4040B",
+    "MC14040B"
+   ],
+   "footprint": "DIP-16",
+   "image": "dip-16.svg",
+   "key": "cd4040",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "CD4040B",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3–18"
+    },
+    {
+     "name": "Typ",
+     "value": "12-stufiger Binärzähler"
+    }
+   ],
+   "tags": [
+    "4040",
+    "cd4000",
+    "cmos",
+    "dip-16",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/CD4000",
+   "datasheet_hint": "CD4049B",
+   "description": "6× invertierender Puffer, CMOS 3–18 V, DIP-16",
+   "equivalents": [
+    "HEF4049B",
+    "MC14049B"
+   ],
+   "footprint": "DIP-16",
+   "image": "dip-16.svg",
+   "key": "cd4049",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "CD4049B",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3–18"
+    },
+    {
+     "name": "Typ",
+     "value": "6× invertierender Puffer"
+    }
+   ],
+   "tags": [
+    "4049",
+    "cd4000",
+    "cmos",
+    "dip-16",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/CD4000",
+   "datasheet_hint": "CD4051B",
+   "description": "8-Kanal-Analogmultiplexer/-demultiplexer, CMOS 3–18 V, DIP-16",
+   "equivalents": [
+    "HEF4051B",
+    "MC14051B"
+   ],
+   "footprint": "DIP-16",
+   "image": "dip-16.svg",
+   "key": "cd4051",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "CD4051B",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3–18"
+    },
+    {
+     "name": "Typ",
+     "value": "8-Kanal-Analogmultiplexer/-demultiplexer"
+    }
+   ],
+   "tags": [
+    "4051",
+    "cd4000",
+    "cmos",
+    "dip-16",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/CD4000",
+   "datasheet_hint": "CD4060B",
+   "description": "14-stufiger Binärzähler mit Oszillator, CMOS 3–18 V, DIP-16",
+   "equivalents": [
+    "HEF4060B",
+    "MC14060B"
+   ],
+   "footprint": "DIP-16",
+   "image": "dip-16.svg",
+   "key": "cd4060",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "CD4060B",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3–18"
+    },
+    {
+     "name": "Typ",
+     "value": "14-stufiger Binärzähler mit Oszillator"
+    }
+   ],
+   "tags": [
+    "4060",
+    "cd4000",
+    "cmos",
+    "dip-16",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/CD4000",
+   "datasheet_hint": "CD4066B",
+   "description": "4× bilateraler Analogschalter, CMOS 3–18 V, DIP-14",
+   "equivalents": [
+    "HEF4066B",
+    "MC14066B"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "cd4066",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "CD4066B",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3–18"
+    },
+    {
+     "name": "Typ",
+     "value": "4× bilateraler Analogschalter"
+    }
+   ],
+   "tags": [
+    "4066",
+    "cd4000",
+    "cmos",
+    "dip-14",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/CD4000",
+   "datasheet_hint": "CD4069B",
+   "description": "6× Inverter, CMOS 3–18 V, DIP-14",
+   "equivalents": [
+    "HEF4069B",
+    "MC14069B"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "cd4069",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "CD4069B",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3–18"
+    },
+    {
+     "name": "Typ",
+     "value": "6× Inverter"
+    }
+   ],
+   "tags": [
+    "4069",
+    "cd4000",
+    "cmos",
+    "dip-14",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/CD4000",
+   "datasheet_hint": "CD4093B",
+   "description": "4× NAND mit Schmitt-Trigger, CMOS 3–18 V, DIP-14",
+   "equivalents": [
+    "HEF4093B",
+    "MC14093B"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "cd4093",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "CD4093B",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3–18"
+    },
+    {
+     "name": "Typ",
+     "value": "4× NAND mit Schmitt-Trigger"
+    }
+   ],
+   "tags": [
+    "4093",
+    "cd4000",
+    "cmos",
+    "dip-14",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Logik/CD4000",
+   "datasheet_hint": "CD4511B",
+   "description": "BCD-zu-7-Segment-Dekoder/Treiber mit Latch, CMOS 3–18 V, DIP-16",
+   "equivalents": [
+    "HEF4511B",
+    "MC14511B"
+   ],
+   "footprint": "DIP-16",
+   "image": "dip-16.svg",
+   "key": "cd4511",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "CD4511B",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3–18"
+    },
+    {
+     "name": "Typ",
+     "value": "BCD-zu-7-Segment-Dekoder/Treiber mit Latch"
+    }
+   ],
+   "tags": [
+    "4511",
+    "cd4000",
+    "cmos",
+    "dip-16",
+    "logik"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Treiber",
+   "datasheet_hint": "ULN2003A",
+   "description": "7-fach Darlington-Treiber, 50 V / 500 mA je Kanal, mit Freilaufdioden, DIP-16",
+   "footprint": "DIP-16",
+   "image": "dip-16.svg",
+   "key": "uln2003a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ULN2003A",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "7"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "500"
+    }
+   ],
+   "tags": [
+    "darlington",
+    "dip-16",
+    "relais",
+    "schrittmotor",
+    "treiber",
+    "uln2003"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Treiber",
+   "datasheet_hint": "ULN2803A",
+   "description": "8-fach Darlington-Treiber, 50 V / 500 mA je Kanal, mit Freilaufdioden, DIP-18",
+   "footprint": "DIP-18",
+   "image": "dip-18.svg",
+   "key": "uln2803a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ULN2803A",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "8"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "500"
+    }
+   ],
+   "tags": [
+    "darlington",
+    "dip-18",
+    "treiber",
+    "uln2803"
+   ],
+   "unit": "Stk"
+  }
+ ]
+}

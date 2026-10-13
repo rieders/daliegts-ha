@@ -1,0 +1,185 @@
+{
+ "group": "Relais",
+ "parts": [
+  {
+   "category": "Elektronik/Elektromechanik/Relais/Halbleiterrelais",
+   "description": "Halbleiterrelais (SSR) 2 A, 100–240 V~, Steuerspannung 5 V, Nullspannungsschaltend, nur für Wechselstrom",
+   "footprint": "SIL-4",
+   "image": "relay-sil.svg",
+   "key": "g3mb-202p",
+   "manufacturer": "Omron",
+   "mpn": "G3MB-202P",
+   "name": "G3MB-202P",
+   "params": [
+    {
+     "name": "Spulenspannung",
+     "unit": "V",
+     "value": "5"
+    },
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "2"
+    }
+   ],
+   "tags": [
+    "230v",
+    "halbleiterrelais",
+    "relais",
+    "ssr"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Relais/Leistungsrelais",
+   "datasheet_hint": "Finder 40.52",
+   "description": "Printrelais 2 Wechsler, 8 A / 250 V~, Spulenspannung je nach Ausführung (Aufdruck prüfen)",
+   "footprint": "Relais",
+   "image": "relay.svg",
+   "key": "finder-40-52",
+   "manufacturer": "Finder",
+   "mpn": "",
+   "name": "Finder 40.52",
+   "params": [
+    {
+     "name": "Kontakte",
+     "value": "2 Wechsler"
+    },
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "8"
+    }
+   ],
+   "tags": [
+    "dpdt",
+    "finder",
+    "relais"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Relais/Leistungsrelais",
+   "description": "Leistungsrelais 5 V DC, 1 Wechsler, 10 A / 250 V~ (Songle)",
+   "footprint": "Relais",
+   "image": "relay.svg",
+   "key": "srd-05vdc-sl-c",
+   "manufacturer": "Songle",
+   "mpn": "SRD-05VDC-SL-C",
+   "name": "SRD-05VDC-SL-C",
+   "params": [
+    {
+     "name": "Spulenspannung",
+     "unit": "V",
+     "value": "5"
+    },
+    {
+     "name": "Kontakte",
+     "value": "1 Wechsler"
+    },
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "10"
+    }
+   ],
+   "tags": [
+    "5v",
+    "relais",
+    "songle",
+    "srd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Relais/Leistungsrelais",
+   "description": "Leistungsrelais 12 V DC, 1 Wechsler, 10 A / 250 V~ (Songle)",
+   "footprint": "Relais",
+   "image": "relay.svg",
+   "key": "srd-12vdc-sl-c",
+   "manufacturer": "Songle",
+   "mpn": "SRD-12VDC-SL-C",
+   "name": "SRD-12VDC-SL-C",
+   "params": [
+    {
+     "name": "Spulenspannung",
+     "unit": "V",
+     "value": "12"
+    },
+    {
+     "name": "Kontakte",
+     "value": "1 Wechsler"
+    },
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "10"
+    }
+   ],
+   "tags": [
+    "12v",
+    "relais",
+    "songle",
+    "srd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Relais/Reed-Relais",
+   "datasheet_hint": "SIL05-1A72",
+   "description": "Reed-Relais 5 V DC, 1 Schließer, SIL-4-Gehäuse (Varianten mit Freilaufdiode: -71D)",
+   "footprint": "SIL-4",
+   "image": "relay-sil.svg",
+   "key": "sil05-1a72",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "SIL05-1A72",
+   "params": [
+    {
+     "name": "Spulenspannung",
+     "unit": "V",
+     "value": "5"
+    },
+    {
+     "name": "Kontakte",
+     "value": "1 Schließer"
+    }
+   ],
+   "tags": [
+    "5v",
+    "reed",
+    "relais",
+    "sil"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Relais/Signalrelais",
+   "description": "Signalrelais 5 V DC, 2 Wechsler, DIP-ähnliches Gehäuse (Huike)",
+   "footprint": "Relais",
+   "image": "relay-sil.svg",
+   "key": "hk19f-dc5v",
+   "manufacturer": "Huike",
+   "mpn": "HK19F-DC5V-SHG",
+   "name": "HK19F-DC5V-SHG",
+   "params": [
+    {
+     "name": "Spulenspannung",
+     "unit": "V",
+     "value": "5"
+    },
+    {
+     "name": "Kontakte",
+     "value": "2 Wechsler"
+    }
+   ],
+   "tags": [
+    "5v",
+    "dpdt",
+    "relais",
+    "signalrelais"
+   ],
+   "unit": "Stk"
+  }
+ ]
+}

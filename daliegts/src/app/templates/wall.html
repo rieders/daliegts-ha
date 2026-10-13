@@ -1,0 +1,377 @@
+{% extends "base.html" %}
+{% block title %}{{ wall.name }} – Wandansicht{% endblock %}
+{% block head %}<script src="/static/js/wall.js?v={{ APP_VERSION }}" defer></script>{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/orte">Lagerorte</a>{% for aid in path_ids %} / <a href="/orte/{{ aid }}">{{ tc.nodes[aid].name }}</a>{% endfor %} / <a href="/orte/{{ wall.id }}">{{ wall.name }}</a></div>
+<div id="wallapp" @keydown.escape.window="cell = null" x-data='wallEditor({{ {"id": wall.id, "areaTargets": area_targets, "preset": preset, "presetLabel": preset_label, "canStock": me.can("stock", 2), "canInv": me.can("inventory", 1), "canEdit": me.can("locations", 2), "canCreate": me.can("locations", 3), "canLed": me.can("wled_show"), "canLabels": me.can("labels"), "canWled": me.can("wled_config", 2) and controllers|length > 0, "templates": templates, "controllers": controllers}|tojson }})' x-init="init()">
+  <div class="row spread">
+    <div class="row" style="gap:10px">
+      <h1 class="mb0">🧱</h1>
+      <select class="room-select" aria-label="Raum wählen" onchange="lwGo('/orte/' + this.value + '/wand')">
+        {% for r in rooms %}<option value="{{ r.id }}" {{ 'selected' if r.id == wall.id }}>{{ r.path }}{{ '' if r.modules else ' (noch leer)' }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="row">
+      {% if me.can('inventory') %}<a class="btn" href="/inventur?raum={{ wall.id }}" title="Zufällige Fächer dieses Raums prüfen">🎲 Inventur</a>{% endif %}
+      {% if me.can('locations', 2) %}<button class="btn" :class="{primary: edit}" @click="toggleEdit()" x-text="edit ? '✔ Fertig' : '✎ Anordnen'"></button>{% elif me.has_right('locations', 2) %}<span class="small muted">Zum Anordnen Admin-Modus einschalten</span>{% endif %}
+      <a class="btn" href="/orte/{{ wall.id }}?ansicht=liste">Liste</a>
+    </div>
+  </div>
+
+  {% if tabs %}
+  <nav class="area-tabs" aria-label="Bereiche">
+    {% for t in tabs %}<a href="/orte/{{ t.id }}/wand" class="{{ 'on' if t.id == wall.id }}">{{ ('Ganzer Raum' if loop.first else t.name) }}</a>{% endfor %}
+  </nav>
+  {% endif %}
+  <div class="row wall-toolbar">
+    <input type="search" class="grow" placeholder="In dieser Wand suchen – Treffer leuchten auf (z. B. 10k, BC547, Akkuschrauber)" x-model="q" @input.debounce.300ms="search()" @keydown.enter.prevent="enterSearch()" style="min-width:200px">
+    <span class="small" x-show="hits.count" x-text="hits.count + ' Artikel' + (hits.cells.length ? ' in ' + hits.cells.length + (hits.cells.length === 1 ? ' Fach' : ' Fächern') : '')"></span>
+    <button class="btn sm" :class="{primary: freeMode}" @click="freeMode = !freeMode" x-show="!edit && data.cells_total" title="Freie Fächer hervorheben"
+            x-text="(freeMode ? '✔ ' : '') + data.cells_free + ' von ' + data.cells_total + ' frei'"></button>
+    {% if me.can('wled_show') and has_wled() %}<button class="btn btn-led sm" x-show="hits.locations.length" @click="locate({location_ids: hits.locations})">💡 Treffer zeigen</button>{% endif %}
+    <button class="btn sm" :class="{primary: showLeds}" @click="showLeds = !showLeds" x-show="!edit" title="Zeigt, wo die LEDs sitzen und welche beim gewählten Fach leuchten"
+            x-text="(showLeds ? '✔ ' : '') + '💡 LEDs anzeigen'"></button>
+    <div class="row" style="gap:4px">
+      <button class="btn sm" @click="zoomBy(1/1.25)" title="Verkleinern">−</button>
+      <button class="btn sm" @click="fit()" title="Einpassen">⤢</button>
+      <button class="btn sm" @click="zoomBy(1.25)" title="Vergrößern">＋</button>
+    </div>
+  </div>
+
+  <div class="wall-banner" x-show="presetLabel && hitSet.size" x-cloak>
+    <span>Markiert: <b x-text="presetLabel"></b> <span class="small" x-text="'(' + hits.cells.length + (hits.cells.length === 1 ? ' Fach)' : ' Fächer)')"></span></span>
+    <button class="btn sm ghost" @click="clearHits()">✕</button>
+  </div>
+  <div class="places" x-show="!edit && hits.places && hits.places.length" x-cloak>
+    <template x-for="p in hits.places" :key="p.lot">
+      <button type="button" class="place" :class="{on: cell && cell.id === p.cell, away: !p.cell}" @click="goPlace(p)" :title="p.cell ? '' : 'Liegt in einem anderen Bereich – öffnen'">
+        <b x-text="p.name"></b><span class="small" x-text="p.where + (p.sub ? ' › ' + p.sub : '')"></span><span class="amt" x-text="p.amount"></span>
+      </button>
+    </template>
+  </div>
+
+  <div class="wall-layout">
+    <div>
+    <div class="area-cards" x-show="data.areas && data.areas.length" x-cloak>
+      <template x-for="a in data.areas" :key="a.id">
+        <a class="area-card" :class="{hit: hits.areas && hits.areas[a.id]}" :href="'/orte/' + a.id + '/wand'">
+          <b x-text="a.name"></b>
+          <span class="small muted" x-text="a.modules.length ? a.modules.slice(0, 4).join(' · ') + (a.modules.length > 4 ? ' …' : '') : 'noch keine Module'"></span>
+          <span class="small" x-text="a.cells_total ? a.cells_free + ' von ' + a.cells_total + ' frei' : ''"></span>
+          <span class="badge ok" x-show="hits.areas && hits.areas[a.id]" x-text="(hits.areas && hits.areas[a.id]) + ' Treffer'"></span>
+        </a>
+      </template>
+    </div>
+    <div class="wall-scroll" x-ref="scroll" x-show="data.modules.length || !(data.areas && data.areas.length) || edit">
+      <div class="wall-canvas" :class="{editing: edit, freemode: freeMode && !edit, hassel: cell && !edit}" :style="`width:${bounds().w * scale}px;height:${bounds().h * scale}px`" @click.self="sel = null; cell = null">
+        <template x-for="m in data.modules" :key="m.id">
+          <div class="wmod" :data-id="m.id" :class="{free: !m.rows && !m.n, virtual: m.virtual, sel: sel && sel.id === m.id, overlap: data.overlap.includes(m.id), hit: hitSet.has(m.id), dragging: drag && drag.id === m.id, box: !m.rows, 'calib-open': calib && calibIndex(m.id) < 0, 'calib-set': calib && calibIndex(m.id) >= 0}"
+               :style="`left:${m.x * scale}px;top:${m.y * scale}px;width:${m.w * scale}px;height:${m.h * scale}px`"
+               @pointerdown="startDrag($event, m)" @click.stop="selectModule(m)" @dblclick="openModule(m)">
+            <div class="wmod-head" :title="m.name + ' (' + m.w + ' × ' + m.h + ' cm)'"><span class="calib-no" x-show="calib && calibIndex(m.id) >= 0" x-text="calibIndex(m.id) + 1"></span><i class="chk-dot" x-show="checkColor(m.id)" :style="'background:' + checkColor(m.id)"></i><span x-text="m.name"></span><span class="wled" x-show="m.lit">●</span></div>
+            <template x-if="m.rows">
+              <div class="wgw">
+              <div class="wgrid" :style="`grid-template-rows:repeat(${m.rows},1fr);grid-template-columns:repeat(${m.cols},1fr)`">
+                <template x-for="c in m.cells" :key="c.id">
+                  <div class="wcell" :data-id="c.id" :class="{empty: !c.n, low: c.low, hit: hitSet.has(c.id), sel: cell && cell.id === c.id, tiny: scale * m.w / m.cols < 34}"
+                       :style="`grid-row:${c.r} / span ${c.rs};grid-column:${c.c} / span ${c.cs}`" @click.stop="selectCell(m, c)"
+                       :title="c.name + (c.lots.length ? ': ' + c.lots.map((l) => l.name + ' (' + l.amount + ')').join(', ') : ' – frei')">
+                    <b x-text="c.name"></b><span x-text="c.items[0] || (scale * m.w / m.cols >= 34 ? 'frei' : '')"></span>
+                    <i x-show="c.comps" class="wcomps"><template x-for="k in c.comps"><s></s></template></i>
+                  </div>
+                </template>
+              </div>
+              <div class="wleds" x-show="showLeds"><template x-for="d in ledDots(m)" :key="d.k"><i class="wled-dot" :class="d.kind + (d.on ? ' on' : '')" :style="`left:${d.x}%;top:${d.y}%`" :title="'LED ' + d.n"><span x-text="d.n" x-show="d.n !== '' && (d.on || scale * m.w / m.cols >= 44)"></span></i></template></div>
+              </div>
+            </template>
+            <template x-if="!m.rows">
+              <div class="wbox"><span x-text="m.children.length ? m.children.join(' · ') : (m.items.join(', ') || '')"></span></div>
+            </template>
+          </div>
+        </template>
+        <div class="wspot" x-show="spot && !edit" x-cloak :style="spot ? `left:${spot.x}px;top:${spot.y}px;width:${spot.w}px;height:${spot.h}px` : ''"></div>
+        <template x-if="edit && data.modules.length"><div class="wall-floor" :style="`top:${data.height * scale}px;width:${(data.width + 20) * scale}px`"></div></template>
+        <div class="wall-empty" x-show="!data.modules.length && !(data.areas && data.areas.length)">
+          <p>Noch keine Module auf dieser Fläche.</p>
+          <p class="small muted" x-show="canCreate">Rechts „＋ Modul“ wählen – z. B. ein Kleinteilemagazin – und weitere daneben, darüber oder darunter anfügen.</p>
+        </div>
+      </div>
+    </div>
+
+    </div>
+    <aside class="wall-side">
+      <div class="card small" x-show="!sel && !edit">
+        <b>So funktioniert's</b>
+        <ul style="padding-left:18px;margin:6px 0">
+          <li>Fach antippen: Inhalt mit Menge anzeigen{% if has_wled() %}, LED leuchtet{% endif %}.</li>
+          <li>Suchen: Treffer werden markiert und darüber aufgelistet – antippen springt zum Fach.</li>
+          <li>„… frei“ hebt alle freien Fächer hervor.</li>
+          <li>Doppelklick auf ein Modul öffnet es.</li>
+          {% if me.can('locations', 2) %}<li>„✎ Anordnen“: Module ziehen, neue daneben, darüber oder darunter anfügen.</li>{% endif %}
+        </ul>
+        <div class="legend small"><span><i class="lg used"></i>belegt</span><span><i class="lg free"></i>frei</span><span><i class="lg hit"></i>Treffer</span><span><i class="lg sel"></i>ausgewählt</span><span><span class="amp low"></span> unter Mindestbestand</span></div>
+      </div>
+
+      <!-- Auswahl: Fach -->
+      <div class="card" x-show="cell" x-cloak>
+        <div class="row spread"><b x-text="cell && cell.name"></b><span class="badge code" x-text="cell && cell.code"></span></div>
+        <div class="small muted" x-text="cell && sel && sel.name"></div>
+        <template x-if="cell && cell.lots.length">
+          <div class="cell-lots">
+            <template x-for="l in cell.lots" :key="l.lot">
+              <div class="cell-lot">
+                <div><a :href="'/artikel/' + l.item" x-text="l.name"></a><span class="amp low" x-show="l.low" title="unter Mindestbestand"></span>
+                  <span class="badge" :class="l.buy && l.buy.startsWith('📦') ? 'buy-ordered' : 'buy-open'" x-show="l.buy" x-text="l.buy"></span>
+                  <div class="small muted" x-text="(l.sub ? l.sub + ' · ' : '') + l.desc"></div></div>
+                <b class="amt" x-text="l.amount"></b>
+                <template x-if="canStock && l.mode === 'exact'">
+                  <form method="post" :action="'/lot/' + l.lot + '/entnehmen'" class="row take"><input type="number" name="quantity" value="1" min="0" step="any" aria-label="Menge"><button class="btn sm">Entnehmen</button></form>
+                </template>
+              </div>
+            </template>
+            <div class="small muted" x-show="cell.n > cell.lots.length" x-text="'… und ' + (cell.n - cell.lots.length) + ' weitere'"></div>
+          </div>
+        </template>
+        <p class="free-note" x-show="cell && !cell.lots.length">✓ Lagerfach ist frei</p>
+        <div class="row">
+          <a class="btn sm" :href="cell && '/orte/' + cell.id">Öffnen →</a>
+          <a class="btn sm" x-show="canCreate" :href="cell && '/artikel/neu?ort=' + cell.code" x-text="cell && cell.lots.length ? '＋ Artikel hier' : '＋ Artikel hier einlagern'"></a>
+          <button class="btn sm btn-led" x-show="canLed && cell && cell.lit" @click="locate({location_id: cell.id})">💡</button>
+          <form method="post" action="/etiketten/nachdruck" class="inline" x-show="canLabels && cell"><input type="hidden" name="art" value="location">
+            <input type="hidden" name="id" :value="cell && cell.id"><input type="hidden" name="zurueck" :value="location.pathname + location.search">
+            <button class="btn sm" title="Fach-Etikett mit demselben Code neu drucken (z. B. wenn es beschädigt oder unleserlich ist)">🖨 Etikett</button></form>
+        </div>
+      </div>
+
+      <!-- Auswahl: Modul -->
+      <div class="card" x-show="sel && !cell" x-cloak>
+        <div class="row spread"><b x-text="sel && sel.name"></b><span class="badge code" x-text="sel && sel.code"></span></div>
+        <div class="small muted" x-text="sel && ((sel.rows ? sel.rows + ' Reihen · ' + sel.cells.length + ' Fächer (' + sel.free + ' frei) · ' : '') + sel.w + ' × ' + sel.h + ' cm')"></div>
+        <template x-if="sel && !sel.rows && !edit">
+          <div class="cell-lots">
+            <template x-for="l in sel.lots" :key="l.lot">
+              <div class="cell-lot"><div><a :href="'/artikel/' + l.item" x-text="l.name"></a><div class="small muted" x-text="l.sub"></div></div><b class="amt" x-text="l.amount"></b></div>
+            </template>
+            <p class="free-note" x-show="!sel.lots.length && !sel.children.length">✓ frei</p>
+          </div>
+        </template>
+        <div class="row" style="margin-top:8px">
+          <a class="btn sm" :href="sel && '/orte/' + sel.id">Öffnen →</a>
+          <a class="btn sm" x-show="sel && !sel.rows" :href="sel && '/orte/' + sel.id + '/wand'">Innen anordnen</a>
+          <button class="btn sm btn-led" x-show="canLed && sel && sel.lit" @click="locate({location_id: sel.id})">💡</button>
+        </div>
+        <template x-if="canCreate && sel && sel.count >= 2">
+          <details class="gridfix" :open="sel.virtual || !sel.rows">
+            <summary class="small" style="margin:10px 0 4px;cursor:pointer"><b x-text="sel.virtual || !sel.rows ? 'Raster festlegen' : 'Raster ändern / Vorlage anwenden'"></b></summary>
+            <div class="small muted" x-text="(sel.virtual || !sel.rows ? 'Die ' + sel.count + ' Fächer sind noch nicht angeordnet (vorläufige Ansicht). ' : 'Ordnet die ' + sel.count + ' vorhandenen Fächer neu an (Fach1, Fach2 … der Reihe nach). ') + 'Namen, Codes, Etiketten und Inhalt bleiben erhalten.'"></div>
+            <label>Vorlage</label>
+            <select x-model="gridForm.template_id">
+              <option value="">– eigenes Raster –</option>
+              <template x-for="t in templatesFor(sel)" :key="t.id"><option :value="t.id" x-text="(t.cells === sel.count ? '✓ ' : '') + t.name + ' (' + t.cells + ' Fächer)'"></option></template>
+            </select>
+            <template x-if="!gridForm.template_id">
+              <div class="fields">
+                <div><label>Reihen</label><input type="number" min="1" max="60" x-model.number="gridForm.rows"></div>
+                <div><label>Fächer je Reihe</label><input type="number" min="1" max="60" x-model.number="gridForm.cols"></div>
+                <div style="grid-column:1/-1"><label>Zusammengefasste Schubladen (Reihe Spalte Höhe Breite, je Zeile)</label><textarea rows="3" x-model="gridForm.merges" placeholder="z. B. 9 1 1 4"></textarea></div>
+                <div style="grid-column:1/-1"><label>Zählrichtung</label><select x-model="gridForm.count_direction"><option value="rows">zeilenweise</option><option value="cols">spaltenweise</option><option value="bands">blockweise (links, Mitte oben/unten, rechts)</option></select></div>
+              </div>
+            </template>
+            <div class="small muted" x-text="gridHint(sel)"></div>
+            <button class="btn sm primary" style="margin-top:6px" @click="applyGrid()">Raster übernehmen</button>
+          </details>
+        </template>
+        <template x-if="edit">
+          <div>
+            <div class="small muted" style="margin-top:10px">Neues Modul anfügen:</div>
+            <div class="side-grid" x-show="canCreate">
+              <span></span><button class="btn sm" @click="openAdd('above')">↑ darüber</button><span></span>
+              <button class="btn sm" @click="openAdd('left')">← links</button><span class="small muted center" x-text="sel && sel.name"></span><button class="btn sm" @click="openAdd('right')">rechts →</button>
+              <span></span><button class="btn sm" @click="openAdd('below')">↓ darunter</button><span></span>
+            </div>
+            <div class="fields" style="margin-top:8px">
+              <div><label>Breite (cm)</label><input type="number" step="0.5" min="2" x-model.number="size.w"></div>
+              <div><label>Höhe (cm)</label><input type="number" step="0.5" min="2" x-model.number="size.h"></div>
+            </div>
+            <div class="row" style="margin-top:6px">
+              <button class="btn sm" @click="act({action: 'resize', id: sel.id, w: size.w, h: size.h})">Größe übernehmen</button>
+              <button class="btn sm ghost" @click="act({action: 'unplace', id: sel.id}); sel = null">Von der Fläche nehmen</button>
+            </div>
+            <p class="small muted" x-show="sel && sel.rows">Reihen/Fächer ändern: Modul öffnen › „Umbauen“.</p>
+            <template x-if="areaTargets.length">
+              <div class="row" style="margin-top:6px">
+                <select x-ref="areasel" style="width:auto;flex:1;min-height:34px"><template x-for="t in areaTargets" :key="t.id"><option :value="t.id" x-text="t.name"></option></template></select>
+                <button class="btn sm" @click="act({action: 'move_area', id: sel.id, target: $refs.areasel.value}); sel = null">In Bereich verschieben</button>
+              </div>
+            </template>
+          </div>
+        </template>
+      </div>
+
+      <!-- Neues Modul -->
+      <div class="card" x-show="edit && canCreate" x-cloak>
+        <div class="row spread"><h3 class="mt0 mb0" x-text="add.open ? 'Neues Modul ' + sideLabel() : 'Module'"></h3>
+          <button class="btn sm primary" x-show="!add.open" @click="openAdd(sel ? 'right' : null)">＋ Modul</button></div>
+        <template x-if="add.open">
+          <div>
+            <div class="pill-group" style="margin:8px 0">
+              <button type="button" :class="{on: add.kind === 'template'}" @click="add.kind = 'template'">Vorlage</button>
+              <button type="button" :class="{on: add.kind === 'grid'}" @click="add.kind = 'grid'">Eigenes Raster</button>
+              <button type="button" :class="{on: add.kind === 'box'}" @click="add.kind = 'box'">Kiste / Box</button>
+            </div>
+            <template x-if="add.kind === 'template'">
+              <div><label>Vorlage</label>
+                <select x-model="add.template_id" @change="applyTemplate()"><option value="">– wählen –</option>
+                  <template x-for="g in tplGroups()" :key="g.name"><optgroup :label="g.name">
+                    <template x-for="t in g.items" :key="t.id"><option :value="t.id" x-text="t.name"></option></template></optgroup></template></select>
+                <div class="small muted" x-show="tplNote()" x-text="tplNote()" style="margin-top:4px"></div></div>
+            </template>
+            <template x-if="add.kind === 'grid'">
+              <div class="fields">
+                <div><label>Art</label><select x-model="add.type"><option value="magazin">Kleinteilemagazin</option><option value="regal">Regal</option><option value="schrank">Schrank</option><option value="sortierbox">Sortierbox</option></select></div>
+                <div><label x-text="add.type === 'regal' ? 'Böden' : 'Reihen'"></label><input type="number" min="1" max="60" x-model.number="add.rows"></div>
+                <div><label x-text="add.type === 'regal' ? 'Plätze je Boden' : 'Fächer je Reihe'"></label><input type="number" min="1" max="60" x-model.number="add.cols"></div>
+                <div><label>Abteile je Fach</label><input type="number" min="0" max="12" x-model.number="add.subdivision"></div>
+                <div style="grid-column:1/-1"><label>Schubladen je Reihe (optional, z. B. 4,4,4,2 – breite zählen als eine)</label><input x-model="add.row_counts" placeholder="leer = überall gleich"></div>
+              </div>
+            </template>
+            <template x-if="add.kind === 'box'">
+              <div><label>Art</label><select x-model="add.type"><option value="kiste">Kiste / Box</option><option value="schrank">Schrank</option><option value="lochwand">Lochwand</option><option value="bereich">Bereich (z. B. Werkbank)</option><option value="sonstiges">Sonstiges</option></select></div>
+            </template>
+            <label>Name</label><input x-model="add.name" placeholder="z. B. Magazin 3">
+            <div class="fields">
+              <div><label>Breite (cm)</label><input type="number" step="0.5" min="2" x-model.number="add.w"></div>
+              <div><label>Höhe (cm)</label><input type="number" step="0.5" min="2" x-model.number="add.h"></div>
+            </div>
+            <div class="mini-preview" x-show="add.kind !== 'box' && previewCells().length" :style="{aspectRatio: (add.w || 1) + ' / ' + (add.h || 1)}">
+              <div class="wgrid" :style="`grid-template-rows:repeat(${previewDims().rows},1fr);grid-template-columns:repeat(${previewDims().cols},1fr)`">
+                <template x-for="p in previewCells()"><div class="wcell tiny empty" :style="`grid-row:${p.r} / span ${p.rs};grid-column:${p.c} / span ${p.cs}`"></div></template>
+              </div>
+            </div>
+            <div class="row" style="margin-top:8px">
+              <button class="btn primary sm" @click="createModule()" :disabled="busy">Anlegen</button>
+              <button class="btn sm ghost" @click="add.open = false">Abbrechen</button>
+            </div>
+          </div>
+        </template>
+        <template x-if="!add.open && data.unplaced.length">
+          <div style="margin-top:10px"><div class="small muted">Noch nicht auf der Fläche:</div>
+            <template x-for="u in data.unplaced" :key="u.id">
+              <div class="row spread" style="padding:3px 0"><span x-text="u.name"></span>
+                <span class="row" style="gap:4px"><button class="btn sm" @click="act({action: 'place', id: u.id, ref: sel && sel.id, side: 'right'})" x-text="sel ? 'neben „' + sel.name + '“' : 'platzieren'"></button></span></div>
+            </template>
+          </div>
+        </template>
+        <p class="small muted" x-show="!add.open">Module ziehen zum Verschieben – sie rasten an Kanten anderer Module ein. Rot = überlappt.</p>
+        <details class="small" x-show="!add.open" style="margin-top:8px">
+          <summary style="cursor:pointer"><b>Raum unterteilen</b> (z. B. Regalwand, Schreibtisch)</summary>
+          <p class="muted">Jeder Bereich bekommt eine eigene, größere Ansicht. Danach Module auswählen und „In Bereich verschieben“. Codes und Etiketten bleiben gleich.</p>
+          <div class="row"><input x-model="areaName" placeholder="Name des Bereichs" style="flex:1"><button class="btn sm" @click="if (areaName.trim()) act({action: 'area', name: areaName}).then((r) => { if (r) { areaName = ''; location.reload(); } })">＋ Bereich</button></div>
+        </details>
+      </div>
+
+      <!-- Einmessen -->
+      <div class="card calib-card" x-show="calib" x-cloak>
+        <h3 class="mt0">🧭 LED-Kette einmessen</h3>
+        <template x-if="calib">
+          <div>
+            <p class="mb0"><b x-text="'Schritt ' + (calibChain().modules.length + 1) + ':'"></b> An welchem Modul pulsiert jetzt die <b style="color:#12a150">grüne</b> LED?
+              <span class="muted">Tippe es links in der Wand an.</span></p>
+            <p class="small muted" x-text="'LED Nr. ' + calib.pos + (calibChain().modules.length ? ' – bereits zugeordnete Module leuchten schwach blau.' : ' – Anfang der Kette.')"></p>
+            <p class="small" style="color:var(--err)" x-show="calib.error" x-text="calib.error"></p>
+            <div class="row" style="gap:4px">
+              <button class="btn sm" @click="calibShift(-1)" title="Die grüne LED sitzt eine zu weit">◀ 1 LED zurück</button>
+              <button class="btn sm" @click="calibShift(1)" title="Vor dem Modul liegen noch LEDs (Kabelbrücke)">1 LED weiter ▶</button>
+              <button class="btn sm ghost" @click="calibUndo()" :disabled="!calibChain().modules.length">↶ Rückgängig</button>
+            </div>
+            <ol class="small" style="margin:8px 0;padding-left:20px" x-show="calibChain().modules.length">
+              <template x-for="(e, ei) in calibChain().modules" :key="e.id"><li><span x-text="modName(e.id)"></span> <span class="muted" x-text="rangeText(calibChain(), ei) + (e.gap ? ' · danach ' + e.gap + ' LED Lücke' : '')"></span></li></template>
+            </ol>
+            <div class="row" style="margin-top:6px">
+              <button class="btn primary" @click="calibDone()" :disabled="!calibChain().modules.length || busy">✓ Fertig – nichts leuchtet mehr</button>
+              <button class="btn ghost" @click="calibCancel()">Abbrechen</button>
+            </div>
+            <p class="small muted mb0" style="margin-top:6px">Leuchtet die grüne LED mitten im Modul statt am Anfang, stimmt dessen LED-Zahl nicht (⚙ in der Kette: LEDs pro Fach, Lücken). Sitzt sie nur eine LED daneben, mit ◀ ▶ korrigieren.</p>
+          </div>
+        </template>
+      </div>
+      <div class="card small" x-show="checkColors && !calib" x-cloak>
+        <div class="row spread"><b>🎨 Kette prüfen</b><button class="btn sm ghost" @click="checkColors = null">✕</button></div>
+        <p class="muted" style="margin:4px 0">Jedes Modul leuchtet jetzt 20 Sekunden in seiner Farbe (Punkt am Modulnamen). Stimmt ein Modul nicht, einfach neu einmessen.</p>
+      </div>
+
+      <!-- LED-Ketten -->
+      <div class="card" x-show="canWled && data.modules.length" x-cloak>
+        <details :open="chainsDirty">
+          <summary><b>💡 LED-Streifen über mehrere Module</b></summary>
+          <p class="small muted">Ein Streifen läuft durch mehrere Magazine: Reihenfolge festlegen, {{ APP_NAME }} nummeriert die LEDs fortlaufend. „Lücke“ = LEDs zwischen zwei Modulen (Kabelbrücke). Am einfachsten: <b>🧭 Einmessen</b> – die LEDs zeigen, wo es weitergeht, du tippst das Modul an.</p>
+          <template x-for="(ch, ci) in chains" :key="ci">
+            <div class="chain">
+              <div class="fields">
+                <div><label>Controller</label><select x-model.number="ch.controller_id" @change="chainsDirty = true">
+                  <template x-for="c in controllers" :key="c.id"><option :value="c.id" x-text="c.name" :selected="c.id === ch.controller_id"></option></template></select></div>
+                <div><label>Start-LED</label><input type="number" min="0" x-model.number="ch.start" @input="chainsDirty = true"></div>
+              </div>
+              <ol class="chain-list">
+                <template x-for="(e, ei) in ch.modules" :key="e.id">
+                  <li>
+                    <div class="row spread">
+                      <span><b x-text="modName(e.id)"></b> <span class="small muted" x-text="rangeText(ch, ei)"></span></span>
+                      <span class="row" style="gap:2px">
+                        <button class="btn sm ghost" @click="moveInChain(ch, ei, -1)" :disabled="ei === 0">↑</button>
+                        <button class="btn sm ghost" @click="moveInChain(ch, ei, 1)" :disabled="ei === ch.modules.length - 1">↓</button>
+                        <button class="btn sm ghost" @click="e.open = !e.open">⚙</button>
+                        <button class="btn sm ghost" @click="ch.modules.splice(ei, 1); chainsDirty = true">✕</button>
+                      </span>
+                    </div>
+                    <div class="row small" style="gap:6px;flex-wrap:wrap"><span>Ansteuerung</span>
+                      <select x-model="spec(e.id).led_mode" @change="chainsDirty = true" style="width:auto;min-height:30px" title="Voll: LEDs je Fach. Zeile + Spalte: je Reihe eine LED am Rand und je Spalte eine LED oben/unten – das Fach liegt am Kreuzungspunkt">
+                        <option value="cell">Voll – LEDs je Fach</option><option value="xy">Zeile + Spalte (spart LEDs)</option></select>
+                      <span class="muted" x-show="spec(e.id).led_mode === 'xy'" x-text="'→ ' + ledsOf(e.id) + ' statt ' + ((data.modules.find(m => m.id === e.id) || {}).count || '?') * (spec(e.id).leds_per_cell) + ' LEDs'"></span></div>
+                    <div class="row small" style="gap:6px"><span>Lücke danach</span><input type="number" min="0" x-model.number="e.gap" @input="chainsDirty = true" style="width:70px;min-height:30px"></div>
+                    <template x-if="e.open && spec(e.id).led_mode === 'xy'">
+                      <div class="fields small">
+                        <div><label>Zeilen-LEDs sitzen</label><select x-model="spec(e.id).xy_rows_side" @change="chainsDirty = true"><option value="left">links</option><option value="right">rechts</option></select></div>
+                        <div><label>Spalten-LEDs sitzen</label><select x-model="spec(e.id).xy_cols_side" @change="chainsDirty = true"><option value="top">oben</option><option value="bottom">unten</option></select></div>
+                        <div><label>Zuerst am Strip</label><select x-model="spec(e.id).xy_first" @change="chainsDirty = true"><option value="rows">Zeilen, dann Spalten</option><option value="cols">Spalten, dann Zeilen</option></select></div>
+                        <div><label>Lücke dazwischen</label><input type="number" min="0" x-model.number="spec(e.id).xy_gap" @input="chainsDirty = true"></div>
+                        <div><label class="inline"><input type="checkbox" x-model="spec(e.id).xy_rows_reverse" @change="chainsDirty = true"> Zeilen von unten nach oben</label></div>
+                        <div><label class="inline"><input type="checkbox" x-model="spec(e.id).xy_cols_reverse" @change="chainsDirty = true"> Spalten von rechts nach links</label></div>
+                      </div>
+                    </template>
+                    <template x-if="e.open && spec(e.id).led_mode !== 'xy'">
+                      <div class="fields small">
+                        <div><label>LEDs pro Fach</label><input type="number" min="1" x-model.number="spec(e.id).leds_per_cell" @input="chainsDirty = true"></div>
+                        <div><label>Lücke zw. Fächern</label><input type="number" min="0" x-model.number="spec(e.id).led_gap" @input="chainsDirty = true"></div>
+                        <div><label>Lücke Reihenende</label><input type="number" min="0" x-model.number="spec(e.id).led_row_gap" @input="chainsDirty = true"></div>
+                        <div><label>Verlauf</label><select x-model="spec(e.id).led_direction" @change="chainsDirty = true"><option value="rows">Reihe für Reihe</option><option value="cols">Spalte für Spalte</option></select></div>
+                        <div><label>Start-Ecke</label><select x-model="spec(e.id).led_start_corner" @change="chainsDirty = true"><option value="top_left">oben links</option><option value="top_right">oben rechts</option><option value="bottom_left">unten links</option><option value="bottom_right">unten rechts</option></select></div>
+                        <div><label class="inline"><input type="checkbox" x-model="spec(e.id).serpentine" @change="chainsDirty = true"> Schlangenlinie</label></div>
+                      </div>
+                    </template>
+                  </li>
+                </template>
+              </ol>
+              <div class="row">
+                <select x-ref="addsel" style="width:auto;min-height:32px" @change="if ($event.target.value) { ch.modules.push({id: +$event.target.value, gap: 0}); $event.target.value = ''; chainsDirty = true }">
+                  <option value="">＋ Modul anhängen …</option>
+                  <template x-for="m in data.modules.filter(m => !ch.modules.some(e => e.id === m.id))" :key="m.id"><option :value="m.id" x-text="m.name"></option></template>
+                </select>
+                <button class="btn sm" @click="startCalib(ci)" :disabled="!!calib" title="Module nacheinander antippen, während die LEDs zeigen, wo der nächste Abschnitt beginnt">🧭 Einmessen</button>
+                <button class="btn sm ghost" @click="checkChain(ci)" x-show="ch.modules.length && !chainsDirty" title="Jedes Modul in eigener Farbe leuchten lassen">🎨 Prüfen</button>
+                <button class="btn sm ghost" @click="autoOrder(ch)" title="Nach Position sortieren (Schlangenlinie von unten links)">⇄ nach Position</button>
+                <button class="btn sm ghost" @click="chains.splice(ci, 1); chainsDirty = true">Kette entfernen</button>
+              </div>
+              <div class="small" :style="chainEnd(ch) > ctrlLeds(ch) ? 'color:var(--err)' : ''" x-text="'belegt LED ' + ch.start + '–' + (chainEnd(ch) - 1) + ' von ' + ctrlLeds(ch)"></div>
+            </div>
+          </template>
+          <div class="row" style="margin-top:8px">
+            <button class="btn sm" @click="chains.push({controller_id: controllers[0].id, start: 0, modules: []}); chainsDirty = true">＋ Kette</button>
+            <button class="btn sm primary" @click="saveChains()" :disabled="busy">LED-Nummern berechnen & speichern</button>
+          </div>
+        </details>
+      </div>
+    </aside>
+  </div>
+</div>
+{% endblock %}

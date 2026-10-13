@@ -1,0 +1,933 @@
+{
+ "group": "Mikrocontroller & Funkmodule (Chips)",
+ "parts": [
+  {
+   "category": "Elektronik/Mikrocontroller/ARM",
+   "datasheet_hint": "RP2040",
+   "description": "Dual-Core ARM Cortex-M0+, 264 KB SRAM, bis 133 MHz, externer QSPI-Flash nötig, PIO, QFN-56",
+   "footprint": "QFN-56",
+   "image": "qfn.svg",
+   "key": "rp2040",
+   "manufacturer": "Raspberry Pi",
+   "mpn": "",
+   "name": "RP2040",
+   "params": [
+    {
+     "name": "RAM",
+     "unit": "KB",
+     "value": "264"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "133M"
+    }
+   ],
+   "tags": [
+    "arm",
+    "cortex-m0+",
+    "mcu",
+    "mikrocontroller",
+    "raspberry",
+    "rp2040"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Mikrocontroller/ARM",
+   "datasheet_hint": "STM32F103C8T6",
+   "description": "32-Bit-ARM Cortex-M3, 64 KB Flash, 20 KB SRAM, 72 MHz, USB, LQFP-48 (\"Blue Pill\"-Chip)",
+   "footprint": "LQFP-48",
+   "image": "tqfp.svg",
+   "key": "stm32f103c8t6",
+   "manufacturer": "STMicroelectronics",
+   "mpn": "",
+   "name": "STM32F103C8T6",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "64"
+    },
+    {
+     "name": "RAM",
+     "unit": "KB",
+     "value": "20"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "72M"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–3.6"
+    }
+   ],
+   "tags": [
+    "arm",
+    "cortex-m3",
+    "mcu",
+    "mikrocontroller",
+    "stm32"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Mikrocontroller/AVR",
+   "datasheet_hint": "ATmega1284P-PU",
+   "description": "8-Bit-AVR, 128 KB Flash, 16 KB SRAM, 4 KB EEPROM, bis 20 MHz, DIP-40",
+   "footprint": "DIP-40",
+   "image": "dip-40.svg",
+   "key": "atmega1284p",
+   "manufacturer": "Microchip (Atmel)",
+   "mpn": "",
+   "name": "ATmega1284P-PU",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "128"
+    },
+    {
+     "name": "RAM",
+     "unit": "KB",
+     "value": "16"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "20M"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "1.8–5.5"
+    },
+    {
+     "name": "EEPROM",
+     "unit": "KB",
+     "value": "4"
+    }
+   ],
+   "tags": [
+    "atmega",
+    "avr",
+    "mcu",
+    "mikrocontroller"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Mikrocontroller/AVR",
+   "datasheet_hint": "ATmega328P-AU",
+   "description": "8-Bit-AVR, 32 KB Flash, 2 KB SRAM, 1 KB EEPROM, bis 20 MHz, TQFP-32",
+   "equivalents": [
+    "ATmega328P-PU (DIP-28)"
+   ],
+   "footprint": "TQFP-32",
+   "image": "tqfp.svg",
+   "key": "atmega328p-au",
+   "manufacturer": "Microchip (Atmel)",
+   "mpn": "",
+   "name": "ATmega328P-AU",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "32"
+    },
+    {
+     "name": "RAM",
+     "unit": "KB",
+     "value": "2"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "20M"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "1.8–5.5"
+    },
+    {
+     "name": "EEPROM",
+     "unit": "KB",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "arduino",
+    "atmega",
+    "avr",
+    "mcu",
+    "mikrocontroller",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Mikrocontroller/AVR",
+   "datasheet_hint": "ATmega328P-PU",
+   "description": "8-Bit-AVR, 32 KB Flash, 2 KB SRAM, 1 KB EEPROM, bis 20 MHz, DIP-28 (Arduino-Uno-Chip)",
+   "equivalents": [
+    "ATmega328P-AU (TQFP-32)"
+   ],
+   "footprint": "DIP-28",
+   "image": "dip-28.svg",
+   "key": "atmega328p-pu",
+   "manufacturer": "Microchip (Atmel)",
+   "mpn": "",
+   "name": "ATmega328P-PU",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "32"
+    },
+    {
+     "name": "RAM",
+     "unit": "KB",
+     "value": "2"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "20M"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "1.8–5.5"
+    },
+    {
+     "name": "EEPROM",
+     "unit": "KB",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "arduino",
+    "atmega",
+    "avr",
+    "mcu",
+    "mikrocontroller"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Mikrocontroller/AVR",
+   "datasheet_hint": "ATmega32A-PU",
+   "description": "8-Bit-AVR, 32 KB Flash, 2 KB SRAM, 1 KB EEPROM, bis 16 MHz, DIP-40",
+   "footprint": "DIP-40",
+   "image": "dip-40.svg",
+   "key": "atmega32a",
+   "manufacturer": "Microchip (Atmel)",
+   "mpn": "",
+   "name": "ATmega32A-PU",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "32"
+    },
+    {
+     "name": "RAM",
+     "unit": "KB",
+     "value": "2"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "16M"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2.7–5.5"
+    },
+    {
+     "name": "EEPROM",
+     "unit": "KB",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "atmega",
+    "avr",
+    "mcu",
+    "mikrocontroller"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Mikrocontroller/AVR",
+   "datasheet_hint": "ATmega8A-PU",
+   "description": "8-Bit-AVR, 8 KB Flash, 1 KB SRAM, 512 B EEPROM, bis 16 MHz, DIP-28",
+   "footprint": "DIP-28",
+   "image": "dip-28.svg",
+   "key": "atmega8a",
+   "manufacturer": "Microchip (Atmel)",
+   "mpn": "",
+   "name": "ATmega8A-PU",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "8"
+    },
+    {
+     "name": "RAM",
+     "unit": "KB",
+     "value": "1"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "16M"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2.7–5.5"
+    },
+    {
+     "name": "EEPROM",
+     "unit": "B",
+     "value": "512"
+    }
+   ],
+   "tags": [
+    "atmega",
+    "avr",
+    "mcu",
+    "mikrocontroller"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Mikrocontroller/AVR",
+   "datasheet_hint": "ATtiny13A-PU",
+   "description": "8-Bit-AVR, 1 KB Flash, 64 B SRAM, 64 B EEPROM, bis 20 MHz, DIP-8",
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "attiny13a",
+   "manufacturer": "Microchip (Atmel)",
+   "mpn": "",
+   "name": "ATtiny13A-PU",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "1"
+    },
+    {
+     "name": "RAM",
+     "unit": "B",
+     "value": "64"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "20M"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "1.8–5.5"
+    },
+    {
+     "name": "EEPROM",
+     "unit": "B",
+     "value": "64"
+    }
+   ],
+   "tags": [
+    "attiny",
+    "avr",
+    "mcu",
+    "mikrocontroller"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Mikrocontroller/AVR",
+   "datasheet_hint": "ATtiny2313A-PU",
+   "description": "8-Bit-AVR, 2 KB Flash, 128 B SRAM, 128 B EEPROM, UART, bis 20 MHz, DIP-20",
+   "footprint": "DIP-20",
+   "image": "dip-20.svg",
+   "key": "attiny2313a",
+   "manufacturer": "Microchip (Atmel)",
+   "mpn": "",
+   "name": "ATtiny2313A-PU",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "2"
+    },
+    {
+     "name": "RAM",
+     "unit": "B",
+     "value": "128"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "20M"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "1.8–5.5"
+    },
+    {
+     "name": "EEPROM",
+     "unit": "B",
+     "value": "128"
+    }
+   ],
+   "tags": [
+    "attiny",
+    "avr",
+    "mcu",
+    "mikrocontroller"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Mikrocontroller/AVR",
+   "datasheet_hint": "ATtiny44A-PU",
+   "description": "8-Bit-AVR, 4 KB Flash, 256 B SRAM, 256 B EEPROM, bis 20 MHz, DIP-14",
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "attiny44a",
+   "manufacturer": "Microchip (Atmel)",
+   "mpn": "",
+   "name": "ATtiny44A-PU",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "4"
+    },
+    {
+     "name": "RAM",
+     "unit": "B",
+     "value": "256"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "20M"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "1.8–5.5"
+    },
+    {
+     "name": "EEPROM",
+     "unit": "B",
+     "value": "256"
+    }
+   ],
+   "tags": [
+    "attiny",
+    "avr",
+    "mcu",
+    "mikrocontroller"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Mikrocontroller/AVR",
+   "datasheet_hint": "ATtiny45-20PU",
+   "description": "8-Bit-AVR, 4 KB Flash, 256 B SRAM, 256 B EEPROM, bis 20 MHz, DIP-8",
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "attiny45",
+   "manufacturer": "Microchip (Atmel)",
+   "mpn": "",
+   "name": "ATtiny45-20PU",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "4"
+    },
+    {
+     "name": "RAM",
+     "unit": "B",
+     "value": "256"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "20M"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2.7–5.5"
+    },
+    {
+     "name": "EEPROM",
+     "unit": "B",
+     "value": "256"
+    }
+   ],
+   "tags": [
+    "attiny",
+    "avr",
+    "mcu",
+    "mikrocontroller"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Mikrocontroller/AVR",
+   "datasheet_hint": "ATtiny84A-PU",
+   "description": "8-Bit-AVR, 8 KB Flash, 512 B SRAM, 512 B EEPROM, bis 20 MHz, DIP-14",
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "attiny84a",
+   "manufacturer": "Microchip (Atmel)",
+   "mpn": "",
+   "name": "ATtiny84A-PU",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "8"
+    },
+    {
+     "name": "RAM",
+     "unit": "B",
+     "value": "512"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "20M"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "1.8–5.5"
+    },
+    {
+     "name": "EEPROM",
+     "unit": "B",
+     "value": "512"
+    }
+   ],
+   "tags": [
+    "attiny",
+    "avr",
+    "mcu",
+    "mikrocontroller"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Mikrocontroller/AVR",
+   "datasheet_hint": "ATtiny85-20PU",
+   "description": "8-Bit-AVR, 8 KB Flash, 512 B SRAM, 512 B EEPROM, bis 20 MHz, DIP-8",
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "attiny85",
+   "manufacturer": "Microchip (Atmel)",
+   "mpn": "",
+   "name": "ATtiny85-20PU",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "8"
+    },
+    {
+     "name": "RAM",
+     "unit": "B",
+     "value": "512"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "20M"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2.7–5.5"
+    },
+    {
+     "name": "EEPROM",
+     "unit": "B",
+     "value": "512"
+    }
+   ],
+   "tags": [
+    "attiny",
+    "avr",
+    "mcu",
+    "mikrocontroller"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Mikrocontroller/ESP",
+   "datasheet_hint": "ESP-01S",
+   "description": "Kleines WLAN-Modul mit ESP8266, 1 MB Flash, 2×4-Stiftleiste, nur 3,3 V (nicht 5-V-tolerant)",
+   "equivalents": [
+    "ESP-01 (512 KB oder 1 MB Flash)"
+   ],
+   "footprint": "Modul",
+   "image": "module-esp.svg",
+   "key": "esp-01s",
+   "manufacturer": "Ai-Thinker",
+   "mpn": "",
+   "name": "ESP-01S",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "MB",
+     "value": "1"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "80M"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3.3"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "WLAN"
+    }
+   ],
+   "tags": [
+    "esp-01",
+    "esp8266",
+    "mcu",
+    "mikrocontroller",
+    "wifi",
+    "wlan"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Mikrocontroller/ESP",
+   "datasheet_hint": "ESP-12F",
+   "description": "WLAN-Modul mit ESP8266, 4 MB Flash, 80/160 MHz, 3,3 V",
+   "equivalents": [
+    "ESP-12E (ähnlich)"
+   ],
+   "footprint": "Modul",
+   "image": "module-esp.svg",
+   "key": "esp-12f",
+   "manufacturer": "Ai-Thinker",
+   "mpn": "",
+   "name": "ESP-12F",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "MB",
+     "value": "4"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "80M"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3.3"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "WLAN"
+    }
+   ],
+   "tags": [
+    "esp8266",
+    "mcu",
+    "mikrocontroller",
+    "wifi",
+    "wlan"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Mikrocontroller/ESP",
+   "datasheet_hint": "ESP32-WROOM-32",
+   "description": "WLAN/Bluetooth-Modul mit ESP32 Dual-Core 240 MHz, 520 KB SRAM, 4 MB Flash, 3,3 V",
+   "equivalents": [
+    "ESP32-WROOM-32E (Nachfolger)"
+   ],
+   "footprint": "Modul",
+   "image": "module-esp.svg",
+   "key": "esp32-wroom-32",
+   "manufacturer": "Espressif",
+   "mpn": "",
+   "name": "ESP32-WROOM-32",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "MB",
+     "value": "4"
+    },
+    {
+     "name": "RAM",
+     "unit": "KB",
+     "value": "520"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "240M"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3.0–3.6"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "WLAN, Bluetooth"
+    }
+   ],
+   "tags": [
+    "bluetooth",
+    "esp32",
+    "mcu",
+    "mikrocontroller",
+    "wifi",
+    "wlan"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Mikrocontroller/PIC",
+   "datasheet_hint": "PIC12F675",
+   "description": "8-Bit-PIC, 1 k Worte Flash, 64 B RAM, 128 B EEPROM, 10-Bit-ADC, bis 20 MHz, DIP-8",
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "pic12f675",
+   "manufacturer": "Microchip",
+   "mpn": "",
+   "name": "PIC12F675",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "1.75"
+    },
+    {
+     "name": "RAM",
+     "unit": "B",
+     "value": "64"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "20M"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–5.5"
+    },
+    {
+     "name": "EEPROM",
+     "unit": "B",
+     "value": "128"
+    }
+   ],
+   "tags": [
+    "mcu",
+    "mikrocontroller",
+    "pic"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Mikrocontroller/PIC",
+   "datasheet_hint": "PIC16F628A",
+   "description": "8-Bit-PIC, 2 k Worte Flash, 224 B RAM, 128 B EEPROM, interner Oszillator, bis 20 MHz, DIP-18",
+   "footprint": "DIP-18",
+   "image": "dip-18.svg",
+   "key": "pic16f628a",
+   "manufacturer": "Microchip",
+   "mpn": "",
+   "name": "PIC16F628A",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "3.5"
+    },
+    {
+     "name": "RAM",
+     "unit": "B",
+     "value": "224"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "20M"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–5.5"
+    },
+    {
+     "name": "EEPROM",
+     "unit": "B",
+     "value": "128"
+    }
+   ],
+   "tags": [
+    "mcu",
+    "mikrocontroller",
+    "pic"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Mikrocontroller/PIC",
+   "datasheet_hint": "PIC16F84A",
+   "description": "8-Bit-PIC, 1 k Worte Flash, 68 B RAM, 64 B EEPROM, bis 20 MHz, DIP-18",
+   "footprint": "DIP-18",
+   "image": "dip-18.svg",
+   "key": "pic16f84a",
+   "manufacturer": "Microchip",
+   "mpn": "",
+   "name": "PIC16F84A",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "1.75"
+    },
+    {
+     "name": "RAM",
+     "unit": "B",
+     "value": "68"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "20M"
+    },
+    {
+     "name": "EEPROM",
+     "unit": "B",
+     "value": "64"
+    }
+   ],
+   "tags": [
+    "mcu",
+    "mikrocontroller",
+    "pic"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Mikrocontroller/PIC",
+   "datasheet_hint": "PIC16F877A",
+   "description": "8-Bit-PIC, 8 k Worte Flash, 368 B RAM, 256 B EEPROM, bis 20 MHz, DIP-40",
+   "footprint": "DIP-40",
+   "image": "dip-40.svg",
+   "key": "pic16f877a",
+   "manufacturer": "Microchip",
+   "mpn": "",
+   "name": "PIC16F877A",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "14"
+    },
+    {
+     "name": "RAM",
+     "unit": "B",
+     "value": "368"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "20M"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–5.5"
+    },
+    {
+     "name": "EEPROM",
+     "unit": "B",
+     "value": "256"
+    }
+   ],
+   "tags": [
+    "mcu",
+    "mikrocontroller",
+    "pic"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Mikrocontroller/PIC",
+   "datasheet_hint": "PIC18F2550",
+   "description": "8-Bit-PIC18 mit Full-Speed-USB, 32 KB Flash, 2 KB RAM, 256 B EEPROM, bis 48 MHz, DIP-28",
+   "footprint": "DIP-28",
+   "image": "dip-28.svg",
+   "key": "pic18f2550",
+   "manufacturer": "Microchip",
+   "mpn": "",
+   "name": "PIC18F2550",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "32"
+    },
+    {
+     "name": "RAM",
+     "unit": "KB",
+     "value": "2"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "48M"
+    },
+    {
+     "name": "EEPROM",
+     "unit": "B",
+     "value": "256"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "USB 2.0 FS"
+    }
+   ],
+   "tags": [
+    "mcu",
+    "mikrocontroller",
+    "pic",
+    "usb"
+   ],
+   "unit": "Stk"
+  }
+ ]
+}

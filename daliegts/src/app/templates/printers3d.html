@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+{% block title %}3D-Drucker{% endblock %}
+{% block content %}
+{% from "partials/reprint.html" import reprint with context %}
+<h1>🧵 3D-Drucker & Filament</h1>
+<p class="muted">{{ APP_NAME }} hört beim Drucker mit und bucht nach jedem Druck das verbrauchte Filament von der eingesetzten Spule ab – Creality K1/K2 mit Original-Firmware, Bambu Lab, Prusa (PrusaLink), alle Klipper-Drucker und OctoPrint. Die Druckmodelle merken sich ihren Verbrauch: beim nächsten Druck siehst du vorher, ob die Spule reicht.</p>
+
+{% if new_lot and me.can('labels') %}
+<div class="card" id="neu" style="border-left:4px solid var(--ok);scroll-margin-top:90px">
+  <div class="row spread"><div><b>Neue Spule: {{ new_lot.item.name }}</b> <span class="badge code">{{ new_lot.code }}</span>
+    <div class="small muted">Beide Etiketten tragen denselben Code – egal ob du die Spule oder die Verpackung scannst, es ist immer diese Spule.</div></div></div>
+  <div class="row" style="margin-top:8px">
+    {{ reprint('lot', new_lot.id, '🖨 Spulen-Etikett', vorlage=spool_tpls.spool.id, cls='btn') }}
+    {{ reprint('lot', new_lot.id, '🖨 Verpackungs-Etikett', vorlage=spool_tpls.pack.id, cls='btn') }}
+    <a class="btn ghost" href="/etiketten/vorlagen?art=lot&id={{ spool_tpls.spool.id }}" title="Größe und Inhalt anpassen">✎ Vorlagen anpassen</a>
+    <a class="btn ghost" href="/drucker3d">Schließen</a>
+  </div>
+  {% if not label_printers %}<p class="small muted mb0" style="margin-top:6px">Kein Etikettendrucker eingerichtet – die Knöpfe öffnen die Etikettenseite zum Drucken im Browser. <a href="/etiketten/drucker">Drucker einrichten</a></p>{% endif %}
+</div>
+{% endif %}
+
+<div class="cols-2">
+  <div>
+    {% for p in printers %}{% set si = info[p.id] %}
+    <div class="card">
+      <div class="row spread">
+        <h2 class="mt0 mb0">{{ p.name }} <span class="small muted">{{ p.model }}{% if p.has_cfs %} · {{ MULTI.get(p.kind or 'creality', 'CFS') }}{% endif %}</span></h2>
+        <span class="badge {{ 'ok' if p.last_state in ('printing', 'completed', 'idle') else ('warn' if p.last_state in ('offline', 'error') else '') }}">{{ labels.get(p.last_state, p.last_state) }}</span>
+      </div>
+      <div class="small muted">{{ p.host }}:{{ p.port }}{% if p.last_seen %} · zuletzt gemeldet {{ p.last_seen.strftime('%d.%m. %H:%M') }}{% endif %}{% if not p.enabled %} · deaktiviert{% endif %}</div>
+      {% if p.last_error and p.last_state == 'offline' %}<p class="small" style="color:var(--warn)">Nicht erreichbar: {{ p.last_error }} – ist der Drucker eingeschaltet und im WLAN/LAN?</p>{% endif %}
+      {% if p.last_state == 'offline' or not p.last_seen %}<details class="small"><summary style="cursor:pointer">Einrichtung am Drucker prüfen</summary>
+        <ol style="padding-left:18px;margin:4px 0">{% for st in GUIDES.get(p.kind or 'creality', []) %}<li>{{ st|safe }}</li>{% endfor %}</ol></details>{% endif %}
+      {% if p.warning %}<div class="note" style="margin-top:8px;background:var(--warn-bg)">⚠ {{ p.warning }}
+        <form method="post" action="/drucker3d/{{ p.id }}/hinweis-weg" class="inline"><button class="btn sm ghost">ok</button></form></div>{% endif %}
+
+      {% if p.job %}
+      <div class="note" style="margin-top:8px">🖨 <b>{{ p.job.file.rsplit('/', 1)[-1] }}</b> – bisher {{ '%.2f'|format((p.job.used_mm or 0) / 1000) }} m
+        {% if p.job.expected_g %}· geplant ~{{ p.job.expected_g|round|int }} g{% endif %}</div>
+      {% endif %}
+
+      {% if p.has_cfs %}
+      <h3 style="margin-bottom:4px">{{ MULTI.get(p.kind or 'creality', 'CFS') }} – Plätze</h3>
+      {% for lt in slots[p.id] %}{% set s2 = slot_info(lt) %}
+      <form method="post" action="/drucker3d/{{ p.id }}/platz/{{ loop.index }}" class="row small" style="border-bottom:1px solid var(--border);padding:4px 0">
+        <b style="min-width:58px">Platz {{ loop.index }}</b>
+        <span class="grow">{% if s2 %}<a href="/artikel/{{ s2.item.id }}">{{ s2.item.name }}</a> <span class="muted">{{ s2.material }}{% if s2.grams is not none %} · {{ s2.grams|round|int }} g{% endif %}</span>{% if me.can('labels') %} <button type="submit" form="rp-{{ p.id }}-{{ loop.index }}" class="btn sm ghost" title="Spulen-Etikett nachdrucken ({{ lt.code }})">🖨</button>{% endif %}{% else %}<span class="muted">leer</span>{% endif %}</span>
+        {% if me.can('stock', 2) %}<input name="code" placeholder="scannen …" autocomplete="off" style="width:110px;min-height:32px">
+        <select name="lot_id" style="width:auto;max-width:170px;min-height:32px" onchange="this.form.submit()"><option value="">– wählen –</option>{% for sp in spools %}<option value="{{ sp.id }}" {{ 'selected' if lt and lt.id == sp.id }}>{{ sp.item.name }}</option>{% endfor %}</select>
+        <button class="btn sm">OK</button>{% endif %}
+      </form>
+      {% if s2 and me.can('labels') %}<form id="rp-{{ p.id }}-{{ loop.index }}" method="post" action="/etiketten/nachdruck" hidden><input type="hidden" name="art" value="lot"><input type="hidden" name="id" value="{{ lt.id }}"><input type="hidden" name="vorlage" value="{{ spool_tpls.spool.id }}"><input type="hidden" name="zurueck" value="/drucker3d"></form>{% endif %}
+      {% endfor %}
+      <p class="small muted">Mit einer Spule im CFS wird automatisch von ihr abgebucht. Bei mehreren fragt {{ APP_NAME }} nach (unten „Noch nicht abgebucht“), bis wir anhand deines Mitschnitts wissen, wie der K1C den Verbrauch je Platz meldet.</p>
+      {% else %}
+      <h3 style="margin-bottom:4px">Eingesetzte Spule</h3>
+      {% if si %}
+      <div class="row spread"><div><a href="/artikel/{{ si.item.id }}"><b>{{ si.item.name }}</b></a> <span class="badge code">{{ si.lot.code }}</span>
+        {% if me.can('labels') %}{{ reprint('lot', si.lot.id, '🖨 Spule', vorlage=spool_tpls.spool.id, cls='btn sm ghost') }}{{ reprint('lot', si.lot.id, '🖨 Verpackung', vorlage=spool_tpls.pack.id, cls='btn sm ghost') }}{% endif %}
+        <div class="small muted">{{ si.material }} · {% if si.grams is not none %}noch <b>{{ si.grams|round|int }} g</b>{% else %}Rest {{ si.lot.quantity|qty(si.item.unit) }}{% endif %}{% if si.lot.location_id %} · {{ tc.path(si.lot.location_id) }}{% endif %}</div></div></div>
+      {% if si.unit not in ('g', 'gramm', 'kg', 'm', 'meter') %}<p class="small" style="color:var(--warn)">Einheit „{{ si.item.unit }}“: zum Abbuchen beim Artikel die Einheit auf g (oder kg / m) stellen und die Restmenge eintragen.</p>{% endif %}
+      {% else %}<p class="small muted">Keine Spule eingesetzt – Drucke werden unten gemerkt.</p>{% endif %}
+      {% if me.can('stock', 2) %}
+      <form method="post" action="/drucker3d/{{ p.id }}/spule" class="row" style="margin-top:6px">
+        <input name="code" placeholder="Spulen-Etikett scannen …" autocomplete="off" style="flex:1;min-width:160px">
+        <select name="lot_id" style="flex:1;min-width:160px" onchange="this.form.submit()">
+          <option value="">{{ '… oder aus Liste wählen' if spools else '(noch keine Spulen – unten anlegen)' }}</option>
+          {% for lt in spools %}<option value="{{ lt.id }}" {{ 'selected' if p.spool_lot_id == lt.id }}>{{ lt.item.name }} – {{ lt.quantity|qty(lt.item.unit) }} ({{ lt.code }})</option>{% endfor %}
+        </select>
+        <button class="btn sm">Einsetzen</button>
+        {% if si %}<button class="btn sm ghost" name="lot_id" value="">Entnehmen</button>{% endif %}
+      </form>
+      {% endif %}
+      {% endif %}
+
+      {% if p.pending %}
+      <h3 style="margin-bottom:4px">Noch nicht abgebucht</h3>
+      {% for e in p.pending %}
+      <form method="post" action="/drucker3d/{{ p.id }}/offen/{{ loop.index0 }}" class="row small" style="border-bottom:1px solid var(--border);padding:4px 0">
+        <span class="grow"><b>{{ e.file }}</b> – {{ e.meters }} m ≈ {{ e.grams }} g <span class="muted">{{ e.ts[:16]|replace('T', ' ') }} · {{ e.why }}</span></span>
+        {% if me.can('stock', 2) %}<select name="lot_id" style="width:auto;min-height:32px">{% for lt in spools %}<option value="{{ lt.id }}" {{ 'selected' if p.spool_lot_id == lt.id }}>{{ lt.item.name }}</option>{% endfor %}</select>
+        <button class="btn sm">Abbuchen</button><button class="btn sm ghost" name="verwerfen" value="1" title="nicht abbuchen">✕</button>{% endif %}
+      </form>
+      {% endfor %}
+      {% endif %}
+
+      <details style="margin-top:10px" id="modelle" {{ 'open' if models[p.id] and models[p.id]|length <= 12 }} x-data="{f: '', w: 'alle'}">
+        <summary><b>Druckmodelle</b> <span class="small muted">({{ models[p.id]|length }}) – reicht das eingelegte Filament?</span></summary>
+        <p class="small muted" style="margin:6px 0 0">Alle Modelle bleiben dauerhaft gespeichert – auch wenn die Datei nicht mehr auf dem Drucker liegt (Archiv). Gelöscht wird nur von Hand.</p>
+        <div class="row" style="margin:6px 0">
+          <input x-model="f" placeholder="Modell suchen …" style="flex:1;min-width:140px">
+          <select x-model="w" style="width:auto;min-height:32px"><option value="alle">alle</option><option value="drauf">auf dem Drucker</option><option value="archiv">Archiv</option></select>
+          {% if me.can('stock', 2) %}<form method="post" action="/drucker3d/{{ p.id }}/dateien" class="inline"><button class="btn sm">🔄 Dateien vom Drucker holen</button></form>{% endif %}
+        </div>
+        {% if models[p.id] %}
+        <div class="table-wrap"><table class="small">
+          <tr><th>Modell</th><th class="num">Bedarf</th><th class="num">Gedruckt</th><th>Reicht?</th></tr>
+          {% for m in models[p.id] %}
+          <tr data-n="{{ m.name|lower }}" data-w="{{ 'drauf' if m.on_printer else 'archiv' }}" x-show="(!f || $el.dataset.n.includes(f.toLowerCase())) && (w === 'alle' || w === $el.dataset.w)">
+            <td x-data="{ed: false}"><b>{{ m.name }}</b>{% if not m.on_printer %} <span class="badge" title="Datei liegt nicht (mehr) auf dem Drucker – Verbrauch bleibt gespeichert">📦 Archiv{% if m.seen_at %} · zuletzt {{ m.seen_at.strftime('%d.%m.%y') }}{% endif %}</span>{% endif %}
+              {% if me.can('stock', 2) %}<button type="button" class="btn sm ghost" style="min-height:24px;padding:0 6px" @click="ed = !ed" title="Bearbeiten">✎</button>{% endif %}
+              {% if m.notes %}<div class="muted">{{ m.notes }}</div>{% endif %}
+              {% if me.can('stock', 2) %}<form method="post" action="/drucker3d/modell/{{ m.id }}" class="row" x-show="ed" x-cloak style="margin-top:4px;gap:4px">
+                <input name="gramm" inputmode="decimal" placeholder="geplant g" value="{{ '%g'|format(m.expected_g) if m.expected_g else '' }}" style="width:90px;min-height:30px">
+                <input name="notes" placeholder="Notiz (Farbe, Einstellungen …)" value="{{ m.notes }}" style="flex:1;min-width:140px;min-height:30px">
+                <button class="btn sm">OK</button><button class="btn sm ghost" name="loeschen" value="1" data-confirm="Modell „{{ m.name }}“ mit gemerktem Verbrauch löschen?">Löschen</button></form>{% endif %}</td>
+            <td class="num">{% if m.need_g %}{{ m.need_g|round(1) }} g{% else %}–{% endif %}
+              {% if m.last_g and m.expected_g %}<div class="muted">Slicer {{ m.expected_g|round(1) }} g</div>{% endif %}</td>
+            <td class="num">{% if m.prints %}{{ m.prints }}×<div class="muted">{{ m.last_printed.strftime('%d.%m.%y') }}</div>{% else %}–{% endif %}</td>
+            <td>{% for lbl, s3, ok in fit[m.id] %}<div>{% if ok is none %}<span class="muted">?</span>{% elif ok %}<span style="color:var(--ok)">✓</span>{% else %}<span style="color:var(--err)">✗</span>{% endif %}
+                {% if p.has_cfs %}{{ lbl }}: {% endif %}{{ s3.item.name }}{% if s3.grams is not none %} <span class="muted">({{ s3.grams|round|int }} g)</span>{% endif %}</div>
+              {% else %}<span class="muted">keine Spule eingelegt</span>{% endfor %}</td>
+          </tr>{% endfor %}
+        </table></div>
+        {% else %}<p class="small muted">Noch keine Modelle – sobald der Drucker verbunden ist, holt {{ APP_NAME }} die Dateiliste mit dem geplanten Verbrauch; gedruckte Modelle merken sich den tatsächlichen Verbrauch.</p>{% endif %}
+        {% if me.can('stock', 2) %}<details class="small" style="margin-top:6px"><summary style="cursor:pointer">＋ Modell von Hand anlegen</summary>
+          <form method="post" action="/drucker3d/{{ p.id }}/modell-neu" class="row" style="margin-top:4px;gap:4px">
+            <input name="name" required placeholder="Name wie im Slicer, z. B. Halter_Kamera" style="flex:1;min-width:160px">
+            <input name="gramm" inputmode="decimal" placeholder="Verbrauch g" style="width:110px"><button class="btn sm">Speichern</button></form>
+          <p class="muted" style="margin:4px 0 0">Praktisch bei Bambu Lab: Den Verbrauch zeigt der Slicer vor dem Senden an. Heißt der Druck später genauso, rechnet {{ APP_NAME }} damit.</p>
+        </details>{% endif %}
+      </details>
+
+      <details style="margin-top:8px">
+        <summary><b>Mitschnitt</b> <span class="small muted">{% if p.recording_until and p.recording_until > now %}· läuft bis {{ p.recording_until.strftime('%d.%m. %H:%M') }}{% elif rec[p.id] %}· {{ (rec[p.id] / 1024)|round(1) }} KB vorhanden{% else %}· aus{% endif %}</span></summary>
+        <p class="small muted">Zeichnet alles auf, was der Drucker über das Netz meldet – z. B. nach dem CFS-Upgrade einen kurzen Mehrfarbdruck mitschneiden und die Datei an Claude schicken, damit der Verbrauch je Platz eingebaut werden kann. Enthält nur Druckerdaten (Temperaturen, Dateinamen, Fortschritt), keine Passwörter.</p>
+        {% if me.can('stock', 3) %}
+        <form method="post" action="/drucker3d/{{ p.id }}/mitschnitt" class="row">
+          {% if p.recording_until and p.recording_until > now %}<button class="btn sm">⏹ Stoppen</button>
+          {% else %}<button class="btn sm" name="stunden" value="2">⏺ 2 Std.</button><button class="btn sm" name="stunden" value="12">⏺ 12 Std.</button><button class="btn sm" name="stunden" value="24">⏺ 24 Std.</button>{% endif %}
+          {% if rec[p.id] %}<a class="btn sm" href="/drucker3d/{{ p.id }}/mitschnitt.jsonl">⤓ Herunterladen</a><button class="btn sm ghost" name="loeschen" value="1" data-confirm="Mitschnitt löschen?">Löschen</button>{% endif %}
+        </form>{% endif %}
+      </details>
+
+      {% if history[p.id] %}
+      <details style="margin-top:8px"><summary class="small">Letzte Drucke</summary>
+        {% for m in history[p.id] %}<div class="small">{{ m.ts.strftime('%d.%m. %H:%M') }} · {{ m.note }}</div>{% endfor %}
+      </details>{% endif %}
+      {% if me.can('stock', 3) %}<div class="row" style="margin-top:8px"><a class="btn sm ghost" href="/drucker3d?id={{ p.id }}">Bearbeiten</a></div>{% endif %}
+    </div>
+    {% else %}
+    <div class="card"><p class="mb0">Noch kein Drucker eingetragen. Rechts Modell und IP-Adresse eintragen.</p></div>
+    {% endfor %}
+  </div>
+
+  <div>
+    {% if me.can('stock', 3) %}
+    <form method="post" action="/drucker3d/speichern" class="card"
+          x-data='{k: {{ (edit.kind if edit else "creality")|tojson }}, mk: {{ MODEL_KIND|tojson }}, ports: {{ KINDS|dictsort|map("last")|map("last")|list|tojson }}, pk: {{ KINDS|dictsort|map("first")|list|tojson }}, multi: {{ MULTI|tojson }}}'>
+      <h2 class="mt0">{{ 'Drucker bearbeiten' if edit else 'Drucker hinzufügen' }}</h2>
+      <input type="hidden" name="id" value="{{ edit.id if edit else '' }}">
+      <div class="fields">
+        <div style="grid-column:span 2"><label>Modell</label>
+          <select name="model" @change="const old = k; k = mk[$event.target.value] || 'creality'; const port = $refs.port; if (!port.value || port.value == ports[pk.indexOf(old)]) port.value = ports[pk.indexOf(k)]">
+            {% for kd, models in MODEL_GROUPS %}<optgroup label="{{ KINDS[kd][0] }}">{% for mdl in models %}<option {{ 'selected' if (edit.model if edit else 'K1C') == mdl }}>{{ mdl }}</option>{% endfor %}</optgroup>{% endfor %}
+          </select></div>
+        <div><label>Name</label><input name="name" required value="{{ edit.name if edit else '3D-Drucker' }}"></div>
+        <div><label>IP-Adresse</label><input name="host" required placeholder="z. B. 192.168.1.80" value="{{ edit.host if edit else '' }}"></div>
+        <div><label>Port</label><input name="port" type="number" x-ref="port" value="{{ edit.port if edit else 9999 }}"></div>
+        <div><label>Filament-Ø (mm)</label><input name="diameter_mm" value="{{ '%g'|format(edit.diameter_mm) if edit else '1.75' }}"></div>
+        <div x-show="k === 'bambu' || k === 'prusalink'"><label x-text="k === 'bambu' ? 'Seriennummer' : 'Benutzer (PrusaLink)'"></label>
+          <input name="serial" :placeholder="k === 'bambu' ? 'z. B. 01P00A123456789' : 'maker'" value="{{ edit.serial if edit else '' }}"></div>
+        <div x-show="k !== 'creality'"><label x-text="{bambu: 'Zugangscode (LAN)', prusalink: 'Passwort (PrusaLink)', octoprint: 'API-Schlüssel', moonraker: 'API-Schlüssel (meist leer)'}[k]"></label>
+          <input name="access_code" type="password" autocomplete="new-password" placeholder="{{ '•••••• (gespeichert – leer lassen = behalten)' if edit and edit.access_code else '' }}"></div>
+      </div>
+      {% for kd, steps in GUIDES.items() %}
+      <details class="small" x-show="k === '{{ kd }}'" {{ 'x-cloak' if kd != 'creality' }} {{ 'open' if kd == 'bambu' or not edit }} style="margin:6px 0">
+        <summary style="cursor:pointer"><b>So richtest du den Drucker ein</b>{% if kd != 'creality' %} <span class="muted">– noch ohne echtes Gerät getestet</span>{% endif %}</summary>
+        <ol style="padding-left:18px;margin:4px 0">{% for st in steps %}<li>{{ st|safe }}</li>{% endfor %}</ol>
+        <p class="muted mb0">{{ {'creality': 'Meldet den tatsächlichen Verbrauch.', 'moonraker': 'Klipper meldet den tatsächlichen Verbrauch – so genau wie beim K1.', 'bambu': 'Abgebucht wird Fortschritt × geplanter Verbrauch (aus der Druckdatei oder deiner Angabe im Modell).', 'prusalink': 'Abgebucht wird Fortschritt × geplanter Verbrauch der Datei.', 'octoprint': 'Abgebucht wird Fortschritt × geplante Länge aus der G-Code-Analyse.'}[kd] }}</p>
+      </details>{% endfor %}
+      <label class="inline"><input type="checkbox" name="has_cfs" value="1" {{ 'checked' if edit and edit.has_cfs }}> <span x-text="(multi[k] || 'Mehrfach-Spulensystem') + ' vorhanden (4 Plätze)'"></span></label>
+      {% if edit %}<label class="inline"><input type="checkbox" name="enabled" value="1" {{ 'checked' if edit.enabled }}> aktiv</label>{% endif %}
+      <div class="row" style="margin-top:10px"><button class="btn primary">Speichern</button>
+        {% if edit %}<a class="btn" href="/drucker3d">Neuer Drucker</a>{% endif %}</div>
+    </form>
+    {% if edit %}<form method="post" action="/drucker3d/{{ edit.id }}/loeschen" style="margin:-4px 0 12px"><button class="btn sm ghost" data-confirm="Drucker entfernen? Seine Modell-Bibliothek wird mit gelöscht – wer den Drucker nur vorübergehend nicht nutzt, nimmt besser bei „aktiv“ den Haken raus.">Drucker entfernen</button></form>{% endif %}
+    {% endif %}
+    {% if me.can('items', 3) %}
+    <details class="card" {{ 'open' if not spools }}>
+      <summary><b>＋ Neue Spule anlegen</b> <span class="small muted">– in einem Schritt, auf Wunsch gleich einsetzen</span></summary>
+      <form method="post" action="/drucker3d/spule-neu" style="margin-top:8px">
+        <div class="fields">
+          <div><label>Material</label><select name="material">{% for m in MATERIALS %}<option>{{ m }}</option>{% endfor %}</select></div>
+          <div><label>Farbe</label><input name="farbe" placeholder="z. B. schwarz"></div>
+          <div><label>Marke</label><input name="marke" placeholder="z. B. Creality Hyper"></div>
+          <div><label>Restgewicht (g)</label><input name="gramm" inputmode="decimal" value="1000"></div>
+          <div style="grid-column:span 2"><label>Lagerort (optional)</label><input name="ort" data-locpicker placeholder="z. B. Filamentregal"></div>
+          {% if me.can('labels') %}<div style="grid-column:span 2"><label>Etiketten</label>
+            <div class="row" style="gap:6px;flex-wrap:nowrap"><select name="etiketten" style="flex:1">
+              <option value="beide" {{ 'selected' if label_printers }}>2 Etiketten: Spule + Verpackung</option><option value="spule">nur Spule</option><option value="verpackung">nur Verpackung</option><option value="" {{ 'selected' if not label_printers }}>keine (später drucken)</option></select>
+            {% if label_printers|length > 1 %}<select name="etikettendrucker" style="flex:1">{% for lp in label_printers %}<option value="{{ lp.id }}">{{ lp.name }}</option>{% endfor %}</select>{% endif %}</div>
+            <div class="small muted">{% if label_printers %}Wird gleich auf „{{ label_printers[0].name }}“ gedruckt{% if label_printers|length > 1 %} (oder gewählten Drucker){% endif %}.{% else %}Kein Etikettendrucker eingerichtet – nach dem Anlegen erscheinen Knöpfe zum Drucken im Browser.{% endif %} Beide tragen denselben Code; Nachdruck jederzeit hier oder beim Artikel.</div></div>{% endif %}
+          {% if printers %}<div style="grid-column:span 2"><label>Gleich einsetzen in</label><select name="einsetzen"><option value="">– nicht einsetzen –</option>{% for p in printers %}<option value="{{ p.id }}" {{ 'selected' if loop.first }}>{{ p.name }}{{ ' (freier CFS-Platz)' if p.has_cfs }}</option>{% endfor %}</select></div>{% endif %}
+        </div>
+        <p class="small muted" style="margin:6px 0">Angelegt wird ein Artikel der Art „Filament“ mit Einheit g (z. B. „PLA schwarz Creality Hyper“) und ein Bestand mit dem Restgewicht. Weitere Spulen derselben Sorte landen beim selben Artikel.</p>
+        <button class="btn primary">Spule anlegen</button>
+      </form>
+    </details>
+    {% endif %}
+    <div class="card small">
+      <h3 class="mt0">So funktioniert's</h3>
+      <ol style="padding-left:18px;margin:0">
+        <li><b>IP-Adresse</b> am Drucker unter Einstellungen › Netzwerk ablesen und in der Fritz!Box fest vergeben.</li>
+        <li><b>Spule als Artikel</b> anlegen: Art „Filament“, Einheit <b>g</b>, Menge = Restgewicht (neue 1-kg-Spule: 1000). Material steht im Namen, z. B. „PLA schwarz eSun“ – daraus kommt die Dichte (PLA 1,24 · PETG 1,27 · ABS 1,05 · ASA 1,07 · TPU 1,21 g/cm³).</li>
+        <li><b>Spule einsetzen</b>: Etikett scannen oder aus der Liste wählen – beim Spulenwechsel einfach die neue einsetzen.</li>
+        <li><b>Drucken</b> wie gewohnt. Nach jedem Druck (auch abgebrochen) wird der tatsächliche Verbrauch abgebucht. Kennt der Drucker das geplante Gewicht der Datei, rechnet {{ APP_NAME }} mit seinem Verhältnis aus dem Slicer.</li>
+        <li>Reicht die Spule für den gestarteten Druck nicht, erscheint hier und auf der Startseite ein Hinweis (auch für Home Assistant).</li>
+      </ol>
+      <p class="muted" style="margin-bottom:0">Die Schnittstelle des K1 ist von Creality nicht offiziell dokumentiert. Liefert eine neue Firmware andere Daten, bucht {{ APP_NAME }} nichts und merkt sich den Druck.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

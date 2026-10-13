@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import locpicker, buy_badge %}
+{% block title %}{{ o.code }} {{ o.title }}{% endblock %}
+
+{% block content %}
+{% set active = o.active %}
+<div class="breadcrumb"><a href="/auftraege">Aufträge</a></div>
+<div class="row spread top">
+  <div>
+    <h1 class="mb0">{{ o.title }}</h1>
+    <div class="row small" style="margin-top:4px">
+      <span class="badge code">{{ o.code }}</span><span class="badge st-{{ o.status }}">{{ ORDER_STATUS[o.status] }}</span>
+      {% if o.project %}<a href="/projekte/{{ o.project_id }}?anzahl={{ o.build_qty or 1 }}">📐 Projekt {{ o.project.name }}{% if o.build_qty %} ×{{ o.build_qty }}{% endif %}</a>
+      {% elif o.requester %}<span>für <b>{{ o.requester }}</b></span>{% endif %}
+      {% if o.due %}<span class="{{ 'overdue' if active and o.due < today }}">fällig {{ o.due.strftime('%d.%m.%Y') }}</span>{% endif %}
+      {% if o.priority %}<span class="badge">Priorität {{ o.priority }}</span>{% endif %}
+    </div>
+    {% if o.description %}<p>{{ o.description|nl2br }}</p>{% endif %}
+  </div>
+  <div class="row noprint">
+    {% if active and has_wled() and me.can('wled_show') and o.lines %}<button class="btn btn-led" data-locate='{"item_ids": {{ o.lines|rejectattr("remaining", "le", 0)|map(attribute="item_id")|list|tojson }} }'>💡 Fächer zeigen</button>{% endif %}
+    {% if active and o.lines and not st.done %}<a class="btn primary" href="/auftraege/{{ o.id }}/entnahme?neu=1">▶ Auslager-Assistent</a>{% endif %}
+    <a class="btn" href="/auftraege/{{ o.id }}/pickliste">🖨 Pickliste</a>
+    {% if active and shop_open and me.can('purchasing', 2) %}<a class="btn" href="#bestellt" onclick="document.getElementById('bestellt').open = true">📦 Als bestellt markieren</a>{% endif %}
+    {% if me.can('orders', 2) %}
+      {% if active %}
+        <form method="post" action="/auftraege/{{ o.id }}/status" class="inline"><input type="hidden" name="status" value="erledigt">
+          <button class="btn {{ 'primary' if st.done }}" {% if not st.done %}data-confirm="Noch nicht alles entnommen – trotzdem abschließen? Offene Reservierungen werden freigegeben."{% endif %}>✔ Abschließen</button></form>
+        <form method="post" action="/auftraege/{{ o.id }}/status" class="inline"><input type="hidden" name="status" value="storniert">
+          <button class="btn ghost" data-confirm="Auftrag stornieren? Reservierungen und noch nicht bestellte Fehlteile werden freigegeben.">Stornieren</button></form>
+      {% else %}
+        <form method="post" action="/auftraege/{{ o.id }}/status" class="inline"><input type="hidden" name="status" value="{{ 'in_arbeit' if o.lines|selectattr('qty_issued')|list else 'offen' }}">
+          <button class="btn">↺ Wieder öffnen</button></form>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+
+<div class="card">
+  <div class="row spread">
+    <div style="flex:1;min-width:200px">
+      <div class="progress" style="height:12px"><span style="width:{{ st.progress }}%"></span></div>
+      <div class="small muted" style="margin-top:4px">{{ st.progress }} % entnommen · {{ o.lines|selectattr('remaining', 'le', 0)|list|length }} von {{ o.lines|length }} Positionen vollständig
+        {% if st.short_lines %} · <b style="color:var(--err)">{{ st.short_lines }} mit Fehlmenge</b>{% endif %}</div>
+    </div>
+    {% if active and me.can('stock', 2) and o.lines and not st.done %}
+    <form method="post" action="/auftraege/{{ o.id }}/alles-entnehmen" class="inline noprint">
+      <button class="btn" data-confirm="Alle verfügbaren Teile dieses Auftrags jetzt entnehmen?">Alles Verfügbare entnehmen</button></form>{% endif %}
+  </div>
+</div>
+
+{% if active and (shop_open or shop_ordered) %}
+<details class="card noprint" id="bestellt">
+  <summary><b>Bestellstatus der Fehlteile:</b>
+    {% if shop_open %}<span class="badge buy-open">🛒 {{ shop_open }} zu bestellen</span>{% endif %}
+    {% if shop_ordered %}<span class="badge buy-ordered">📦 {{ shop_ordered }} bestellt</span>{% endif %}</summary>
+  {% if shop_open and me.can('purchasing', 2) %}
+  <form method="post" action="/auftraege/{{ o.id }}/bestellt" class="row" style="margin-top:8px">
+    <input name="order_ref" placeholder="Bestellnummer / Lieferant (optional)" style="width:280px">
+    <button class="btn primary">📦 Alle {{ shop_open }} als bestellt markieren</button>
+    <a class="btn" href="/einkauf">Einkaufsliste öffnen (günstigsten Shop berechnen) →</a>
+  </form>
+  <p class="small muted">Beim Wareneingang in der Einkaufsliste („erhalten“) wird die Ware eingelagert und deckt den Bedarf dieses Auftrags automatisch.</p>
+  {% endif %}
+</details>
+{% endif %}
+
+<div class="card table-wrap">
+  <table class="poslist">
+    <tr><th>Bauteil</th><th>Lagerort</th><th class="num">Bedarf</th><th class="num">Entnommen</th><th>Verfügbar</th><th class="noprint"></th></tr>
+    {% for ln in o.lines %}{% set s = st.lines[ln.id] %}{% set it = ln.item %}{% set lts = lots[ln.id] %}
+    <tr id="pos-{{ ln.id }}" class="{{ 'done' if ln.remaining <= 0 }} {{ 'short' if active and s.short > 0 }}" x-data="{more: false}">
+      <td><a href="/artikel/{{ it.id }}"><b>{{ it.name }}</b></a>{% if ln.note %} <span class="small muted">{{ ln.note }}</span>{% endif %}
+        <div class="small muted">{{ (it.description or '')[:60] }}</div></td>
+      <td class="small">{% for lt in lts[:2] %}{{ tc.path(lt.location_id).split(' / ')[-2:]|join(' › ') if lt.location_id else 'ohne Ort' }}{% if it.stock_mode == 'exact' %} <span class="muted">({{ lt.quantity|qty }})</span>{% endif %}<br>{% else %}<span class="muted">–</span>{% endfor %}
+        {% if lts|length > 2 %}<span class="muted">+{{ lts|length - 2 }} weitere</span>{% endif %}
+        {% if where.get(ln.id) %}<a class="noprint" href="/orte/{{ where[ln.id] }}/wand?artikel={{ it.id }}" title="In der Lageransicht zeigen">📍 Wo?</a>{% endif %}</td>
+      <td class="num">{{ ln.qty_required|qty(it.unit) }}</td>
+      <td class="num">{{ ln.qty_issued|qty }}</td>
+      <td>{% if ln.remaining <= 0 %}<span class="badge ok">✔ vollständig</span>
+        {% elif not active %}<span class="muted small">–</span>
+        {% elif s.short > 0 %}<span class="badge warn">fehlt {{ s.short|qty }}</span>
+          {% set se = shop.get(it.id) %}
+          {% if se and se.status == 'ordered' %}<div class="small buy-line ordered">📦 bestellt{% if se.ordered_at %} am {{ se.ordered_at.strftime('%d.%m.') }}{% endif %}{% if se.supplier_part and se.supplier_part.supplier %} bei {{ se.supplier_part.supplier.name }}{% endif %}{% if se.order_ref %} ({{ se.order_ref }}){% endif %}</div>
+          {% elif se %}<div class="small buy-line open">🛒 muss bestellt werden ({{ se.quantity|qty }})</div>
+          {% else %}<div class="small buy-line none">nicht auf der Einkaufsliste</div>{% endif %}
+          {% if s.covered %}<div class="small muted">{{ s.covered|qty }} reserviert</div>{% endif %}
+          {% if blocked.get(ln.id) %}{% set b = blocked[ln.id] %}<div class="small muted" title="Ältere Aufträge oder solche mit höherer Priorität bekommen den Bestand zuerst">{{ b[0]|qty }} auf Lager, reserviert für
+            {% for x in b[1][:3] %}<a href="/auftraege/{{ x.id }}">{{ x.code }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</div>{% endif %}
+        {% else %}<span class="badge ok">reserviert</span>{% endif %}</td>
+      <td class="noprint">
+        {% if active and ln.remaining > 0 and me.can('stock', 2) and lts %}
+        <form method="post" action="/auftraege/position/{{ ln.id }}/entnehmen" class="issue">
+          <input type="number" name="qty" step="any" min="0" value="{{ take[ln.id]|qty }}" aria-label="Menge">
+          {% if lts|length > 1 %}<select name="lot_id" aria-label="Aus Fach"><option value="">der Reihe nach</option>{% for lt in lts %}<option value="{{ lt.id }}">{{ tc.nodes[lt.location_id].name if lt.location_id else 'ohne Ort' }}{% if it.stock_mode == 'exact' %} ({{ lt.quantity|qty }}){% endif %}</option>{% endfor %}</select>{% endif %}
+          <button class="btn sm primary">Entnehmen</button>
+          <button type="button" class="btn sm ghost" @click="more = !more" title="Mehr">⋯</button>
+        </form>
+        {% else %}<button type="button" class="btn sm ghost" @click="more = !more" title="Mehr">⋯</button>{% endif %}
+        <div x-show="more" x-cloak class="card" style="margin:6px 0 0;padding:10px">
+          {% if me.can('orders', 2) %}
+          <form method="post" action="/auftraege/position/{{ ln.id }}/aendern" class="row">
+            <input type="number" name="qty_required" step="any" min="0" value="{{ ln.qty_required|qty }}" style="width:90px" aria-label="Bedarf">
+            <input name="note" value="{{ ln.note }}" placeholder="Referenz, z. B. R1, R5" style="width:160px">
+            <button class="btn sm">Bedarf ändern</button></form>
+          {% endif %}
+          {% if ln.qty_issued and me.can('stock', 2) %}
+          <form method="post" action="/auftraege/position/{{ ln.id }}/zurueck" class="row" style="margin-top:6px">
+            <input type="number" name="qty" step="any" min="0" value="{{ ln.qty_issued|qty }}" style="width:90px" aria-label="Menge zurück">
+            {{ locpicker("location", (tc.path(lts[0].location_id) if lts and lts[0].location_id else ""), "zurück nach …", True) }}
+            <button class="btn sm">Zurückgeben</button></form>
+          {% endif %}
+          {% if me.can('orders', 2) and not ln.qty_issued %}
+          <form method="post" action="/auftraege/position/{{ ln.id }}/loeschen" style="margin-top:6px"><button class="btn sm ghost">✕ Position entfernen</button></form>
+          {% endif %}
+        </div>
+      </td>
+    </tr>
+    {% else %}<tr><td colspan="6" class="muted">Noch keine Bauteile – unten hinzufügen oder eine Stückliste einfügen.</td></tr>{% endfor %}
+  </table>
+</div>
+
+{% if active and me.can('orders', 2) %}
+<div class="cols noprint">
+  <div class="card">
+    <h2 class="mt0">Bauteil hinzufügen</h2>
+    <form method="post" action="/auftraege/{{ o.id }}/position" x-data="itemPick()">
+      <div class="itempick"><label>Artikel</label>
+        <input name="item" x-model="q" @input="find()" @keydown="key($event)" autocomplete="off" placeholder="Name, Wert, MPN oder Code (z. B. BC547, 10k 0805)" required>
+        <input type="hidden" name="item_id" :value="id">
+        <div class="sugg" x-show="sugg.length" x-cloak @click.outside="sugg = []">
+          <template x-for="(it, i) in sugg" :key="it.id"><button type="button" :class="{on: i === idx}" @click="choose(it)">
+            <b x-text="it.name"></b> <span class="small muted" x-text="(it.description || '').slice(0, 50) + ' · ' + (it.total ?? '–') + ' ' + it.unit"></span></button></template>
+        </div>
+      </div>
+      <div class="fields">
+        <div><label>Menge</label><input type="number" name="qty" id="pos-qty" step="any" min="0" value="1"></div>
+        <div><label>Referenz (optional)</label><input name="note" placeholder="z. B. R1, R5"></div>
+      </div>
+      {% if me.can('items', 3) %}<label class="inline"><input type="checkbox" name="neu" value="1"> falls nicht vorhanden: als neuen Artikel anlegen (kommt als Fehlteil auf die Einkaufsliste)</label>{% endif %}
+      <button class="btn primary" style="margin-top:8px">Hinzufügen</button>
+    </form>
+  </div>
+  <div class="card">
+    <h2 class="mt0">Stückliste einfügen</h2>
+    <form method="post" action="/auftraege/{{ o.id }}/stueckliste">
+      <textarea name="text" rows="7" placeholder="Eine Zeile pro Bauteil, z. B.&#10;10 BC547&#10;4x 100nF 0805&#10;2 NE555&#10;&#10;oder CSV aus KiCad/Excel mit Spalten Menge;Wert;Referenz"></textarea>
+      {% if me.can('items', 3) %}<label class="inline"><input type="checkbox" name="neu" value="1"> unbekannte Bauteile als neue Artikel anlegen</label>{% endif %}
+      <button class="btn" style="margin-top:8px">Übernehmen</button>
+    </form>
+    <p class="small muted">Gefunden wird über Artikel-Code, Hersteller-Nr. (MPN) oder genauen Namen. Gleiche Bauteile werden zusammengezählt.</p>
+  </div>
+</div>
+{% endif %}
+
+<details class="card noprint">
+  <summary><b>Auftrag bearbeiten</b></summary>
+  {% if me.can('orders', 2) %}
+  <form method="post" action="/auftraege/{{ o.id }}/bearbeiten" style="margin-top:8px">
+    <div class="fields">
+      <div style="grid-column:span 2"><label>Titel</label><input name="title" value="{{ o.title }}" required></div>
+      <div><label>Für / Kunde / Anlage</label><input name="requester" value="{{ o.requester }}"></div>
+      <div><label>Fällig am</label><input type="date" name="due" value="{{ o.due.isoformat() if o.due else '' }}"></div>
+      <div><label>Priorität</label><input type="number" name="priority" value="{{ o.priority }}" title="Höhere Priorität bekommt knappe Teile zuerst"></div>
+    </div>
+    <label>Beschreibung</label><textarea name="description" rows="3">{{ o.description }}</textarea>
+    <div class="row" style="margin-top:8px"><button class="btn primary">Speichern</button>
+      {% if active and me.can('purchasing', 2) %}<button class="btn" formaction="/auftraege/{{ o.id }}/fehlteile">🛒 Fehlteile erneut prüfen</button>{% endif %}</div>
+  </form>
+  {% if me.has_right('orders', 4) %}
+  <form method="post" action="/auftraege/{{ o.id }}/loeschen" style="margin-top:12px"><button class="btn sm danger" data-confirm="Auftrag {{ o.code }} löschen? Bereits entnommene Teile bleiben entnommen (Historie).">Auftrag löschen</button></form>
+  {% endif %}
+  {% endif %}
+  <p class="small muted">Angelegt {{ o.created_at|dt }}{% if o.closed_at %} · abgeschlossen {{ o.closed_at|dt }}{% endif %}. Knappe Teile bekommen Aufträge mit höherer Priorität zuerst, danach der ältere Auftrag. Entnahmen stehen in der Historie mit Verweis „Auftrag {{ o.code }}“.</p>
+</details>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ what }} teilen{% endblock %}
+{% block content %}
+<div class="row spread"><h1>{{ what }} teilen?</h1><a class="btn sm" href="{{ back }}">{{ 'Nein, danke' if neu else '← Zurück' }}</a></div>
+{% if neu %}<div class="note">✓ Gespeichert. Möchtest du „{{ title }}“ auch anderen zur Verfügung stellen? Das ist <b>freiwillig</b> – du kannst jetzt einfach „Nein, danke“ wählen.</div>{% endif %}
+<p class="muted">Eigene Vorlagen und Bauteile können in die gemeinsame Sammlung auf GitHub wandern, damit andere sie nicht noch einmal anlegen müssen.
+Es wird <b>nichts automatisch gesendet</b>: Du siehst unten genau, was weitergegeben würde, und schickst es selbst ab. Danach prüft der Betreiber der Sammlung
+jeden Vorschlag, bevor er aufgenommen wird – und jeder Nutzer entscheidet beim Import selbst, was er übernimmt.</p>
+<div class="grid2">
+  <div class="card"><h3>Wird weitergegeben</h3><ul class="small">{% for x in shared %}<li>{{ x }}</li>{% endfor %}</ul>
+    <h3>Bleibt bei dir</h3><ul class="small">{% for x in not_shared %}<li>{{ x }}</li>{% endfor %}</ul></div>
+  <div class="card"><h3>„{{ title }}“</h3>
+    <form method="get" action="{{ action }}" class="row"><input name="author" value="{{ author }}" placeholder="Dein Name oder Spitzname (optional)" class="grow" maxlength="60"><button class="btn sm">Übernehmen</button></form>
+    {% if errs %}<div class="note err" style="margin-top:8px"><b>So noch nicht:</b><ul>{% for x in errs %}<li>{{ x }}</li>{% endfor %}</ul>
+      {% if what == 'Vorlage' %}Ergänze Name bzw. Notiz in der Vorlage und öffne diese Seite erneut.{% else %}Ergänze die Angaben am Artikel („Bearbeiten“) und öffne diese Seite erneut.{% endif %}</div>{% endif %}
+    {% if warns %}<div class="note" style="margin-top:8px"><b>Tipps:</b><ul>{% for x in warns %}<li>{{ x }}</li>{% endfor %}</ul></div>{% endif %}
+  </div>
+</div>
+{% if contrib and not errs %}
+<div class="card" x-data="{ok: false, copied: false}">
+  <h3>Vorschau der Daten</h3>
+  <pre id="contrib" class="small" style="white-space:pre-wrap;max-height:260px;overflow:auto">{{ contrib|tojson(indent=1) }}</pre>
+  <label class="row" style="gap:8px"><input type="checkbox" x-model="ok"> Ich stimme zu, dass diese Daten frei (CC0) in der Sammlung genutzt werden dürfen.</label>
+  <div class="row" style="margin-top:8px">
+    <a class="btn primary" :class="{'disabled': !ok}" :style="ok ? '' : 'pointer-events:none;opacity:.5'" href="{{ url }}" target="_blank" rel="noopener">Auf GitHub vorschlagen …</a>
+    <button class="btn" type="button" @click="navigator.clipboard && navigator.clipboard.writeText(document.getElementById('contrib').textContent); copied = true" x-text="copied ? 'Kopiert ✓' : 'JSON kopieren'"></button>
+  </div>
+  {% if not full %}<p class="small muted">Die Daten sind für einen Link zu lang. Klicke auf „JSON kopieren“ und füge sie auf der GitHub-Seite in das Textfeld ein.</p>{% endif %}
+  <p class="small muted">Du brauchst dafür ein kostenloses GitHub-Konto. Der Vorschlag wird als „Issue“ im Repository <a href="{{ repo }}" target="_blank" rel="noopener">{{ repo.replace('https://github.com/','') }}</a> geöffnet; abgeschickt wird erst, wenn du dort auf „Submit new issue“ klickst.</p>
+</div>
+{% endif %}
+{% endblock %}

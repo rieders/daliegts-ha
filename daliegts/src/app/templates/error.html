@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Hinweis{% endblock %}
+{% block content %}
+<div class="card" style="max-width:560px">
+  <h1>{{ title or 'Nicht erlaubt' }}</h1>
+  <p>{{ message }}</p>
+  {% if admin_hint %}
+  <form method="post" action="/admin-mode"><input type="hidden" name="on" value="1"><button class="btn warn">Admin-Modus einschalten</button></form>
+  {% endif %}
+  <p><a href="javascript:history.back()">← zurück</a></p>
+</div>
+{% endblock %}

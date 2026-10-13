@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Ersteinrichtung{% endblock %}
+{% block content %}
+<div style="max-width:480px;margin:5vh auto" class="card">
+  <h1>Willkommen bei {{ APP_NAME }}</h1>
+  <p class="muted">Lege das erste Konto an. Es gehört zur Gruppe <b>Admin</b>. Weitere Konten (Familie, Gäste) legst du danach unter Verwaltung an.</p>
+  <form method="post" action="/setup">
+    <label>Benutzername</label><input name="username" required autofocus>
+    <label>Anzeigename</label><input name="display_name">
+    <label>Passwort (mind. 8 Zeichen)</label><input type="password" name="password" minlength="8" required>
+    <label>Passwort wiederholen</label><input type="password" name="password2" minlength="8" required>
+    <button class="btn primary" style="width:100%;margin-top:14px">Konto anlegen</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,384 @@
+{
+ "group": "Schalter & Taster",
+ "parts": [
+  {
+   "category": "Elektronik/Elektromechanik/Schalter & Taster/Drehgeber",
+   "datasheet_hint": "Alps EC11",
+   "description": "Inkrementaler Drehgeber (Encoder) mit Rastung und Druckfunktion, 5 Pins, Achse 6 mm",
+   "footprint": "Drehgeber",
+   "image": "encoder.svg",
+   "key": "ec11",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Drehencoder EC11",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "drehgeber",
+    "ec11",
+    "encoder",
+    "inkrementalgeber"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Schalter & Taster/Drehgeber",
+   "description": "Drehgeber-Modul mit EC11-Encoder und Pull-up-Widerständen, Pins CLK/DT/SW/+/GND",
+   "footprint": "Modul",
+   "image": "encoder.svg",
+   "key": "ky-040",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Drehencoder-Modul KY-040",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "drehgeber",
+    "encoder",
+    "ky-040",
+    "modul"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Schalter & Taster/Schalter",
+   "description": "DIP-Schalter 4-fach, Rastermaß 2,54 mm, passt in DIP-8-Raster",
+   "footprint": "Schalter",
+   "image": "dip-switch.svg",
+   "key": "dipswitch-4",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "DIP-Schalter 4-fach",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "4"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "codierschalter",
+    "dip-schalter"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Schalter & Taster/Schalter",
+   "description": "DIP-Schalter 8-fach, Rastermaß 2,54 mm, passt in DIP-16-Raster",
+   "footprint": "Schalter",
+   "image": "dip-switch.svg",
+   "key": "dipswitch-8",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "DIP-Schalter 8-fach",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "8"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "codierschalter",
+    "dip-schalter"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Schalter & Taster/Schalter",
+   "description": "Einbau-Wippschalter EIN-AUS, 2 Flachstecker, 6 A / 250 V~, Ausschnitt ca. 21×15 mm",
+   "footprint": "Schalter",
+   "image": "rocker-switch.svg",
+   "key": "kcd1-101",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Wippschalter KCD1-101",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "EIN-AUS"
+    },
+    {
+     "name": "Polzahl",
+     "value": "2"
+    }
+   ],
+   "tags": [
+    "netzschalter",
+    "rocker",
+    "wippschalter"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Schalter & Taster/Schalter",
+   "description": "Mikroschalter (Endschalter) mit Rollenhebel, 1× Um, 5 A / 250 V~",
+   "footprint": "Schalter",
+   "image": "microswitch.svg",
+   "key": "kw11-3z",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Mikroschalter KW11-3Z mit Hebel",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "1× Um"
+    },
+    {
+     "name": "Polzahl",
+     "value": "3"
+    }
+   ],
+   "tags": [
+    "3d-drucker",
+    "cnc",
+    "endschalter",
+    "mikroschalter"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Schalter & Taster/Schalter",
+   "description": "Mini-Kippschalter 1× Um (EIN-EIN), 3 Lötanschlüsse, Einbau 6 mm",
+   "footprint": "Schalter",
+   "image": "toggle-switch.svg",
+   "key": "mts-102",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Kippschalter MTS-102 (EIN-EIN)",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "EIN-EIN"
+    },
+    {
+     "name": "Polzahl",
+     "value": "3"
+    }
+   ],
+   "tags": [
+    "kippschalter",
+    "mts-102",
+    "spdt",
+    "toggle"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Schalter & Taster/Schalter",
+   "description": "Mini-Kippschalter 1× Um mit Mittelstellung (EIN-AUS-EIN), Einbau 6 mm",
+   "footprint": "Schalter",
+   "image": "toggle-switch.svg",
+   "key": "mts-103",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Kippschalter MTS-103 (EIN-AUS-EIN)",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "EIN-AUS-EIN"
+    },
+    {
+     "name": "Polzahl",
+     "value": "3"
+    }
+   ],
+   "tags": [
+    "kippschalter",
+    "mts-103",
+    "spdt",
+    "toggle"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Schalter & Taster/Schalter",
+   "description": "Mini-Kippschalter 2× Um (EIN-EIN), 6 Lötanschlüsse, Einbau 6 mm",
+   "footprint": "Schalter",
+   "image": "toggle-switch.svg",
+   "key": "mts-202",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Kippschalter MTS-202 (2× EIN-EIN)",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "EIN-EIN"
+    },
+    {
+     "name": "Polzahl",
+     "value": "6"
+    }
+   ],
+   "tags": [
+    "dpdt",
+    "kippschalter",
+    "mts-202",
+    "toggle"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Schalter & Taster/Schalter",
+   "description": "Miniatur-Schiebeschalter 1× Um, 3 Pins, Raster 2,54 mm, stehend",
+   "footprint": "Schalter",
+   "image": "slide-switch.svg",
+   "key": "ss12d00",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Schiebeschalter SS12D00",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "1× Um"
+    },
+    {
+     "name": "Polzahl",
+     "value": "3"
+    },
+    {
+     "name": "Rastermaß",
+     "unit": "mm",
+     "value": "2.54"
+    }
+   ],
+   "tags": [
+    "schiebeschalter",
+    "slide",
+    "spdt"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Schalter & Taster/Taster",
+   "description": "Kurzhubtaster 12×12 mm, 4 Pins THT, oft mit aufsteckbarer farbiger Kappe",
+   "footprint": "Taster",
+   "image": "button-12x12.svg",
+   "key": "tact-12x12",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Taster 12×12 mm",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "4"
+    }
+   ],
+   "tags": [
+    "12x12",
+    "kurzhubtaster",
+    "tact",
+    "taster"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Schalter & Taster/Taster",
+   "description": "Kurzhubtaster 6×6 mm, Höhe 13 mm, 4 Pins THT, Schließer",
+   "footprint": "Taster",
+   "image": "button-6x6.svg",
+   "key": "tact-6x6x13",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Taster 6×6×13 mm",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "4"
+    }
+   ],
+   "tags": [
+    "6x6",
+    "kurzhubtaster",
+    "tact",
+    "taster"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Schalter & Taster/Taster",
+   "description": "Kurzhubtaster 6×6 mm, Höhe 5 mm, 4 Pins THT, Schließer",
+   "footprint": "Taster",
+   "image": "button-6x6.svg",
+   "key": "tact-6x6x5",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Taster 6×6×5 mm",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "4"
+    }
+   ],
+   "tags": [
+    "6x6",
+    "kurzhubtaster",
+    "tact",
+    "taster"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Schalter & Taster/Taster",
+   "description": "Kurzhubtaster 6×6 mm, Höhe 9,5 mm, 4 Pins THT, Schließer",
+   "footprint": "Taster",
+   "image": "button-6x6.svg",
+   "key": "tact-6x6x95",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Taster 6×6×9,5 mm",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "4"
+    }
+   ],
+   "tags": [
+    "6x6",
+    "kurzhubtaster",
+    "tact",
+    "taster"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Elektromechanik/Schalter & Taster/Taster",
+   "description": "Kurzhubtaster SMD 3×6×2,5 mm, 2 Anschlüsse",
+   "footprint": "Taster",
+   "image": "button-smd.svg",
+   "key": "tact-smd-3x6",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "SMD-Taster 3×6 mm",
+   "params": [
+    {
+     "name": "Polzahl",
+     "value": "2"
+    }
+   ],
+   "tags": [
+    "3x6",
+    "smd",
+    "tact",
+    "taster"
+   ],
+   "unit": "Stk"
+  }
+ ]
+}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import thumb %}
+{% block title %}{{ m.name }}{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/lieferanten?tab=hersteller">Hersteller</a></div>
+<div class="row spread top">
+  <div><h1 class="mb0">{{ m.name }}</h1>{% if m.notes %}<p>{{ m.notes|nl2br }}</p>{% endif %}</div>
+  {% if m.website|safe_url %}<a class="btn" href="{{ m.website|safe_url }}" target="_blank" rel="noopener noreferrer">Website ↗</a>{% endif %}
+</div>
+<div class="cols-2">
+<div class="card"><h2>Artikel ({{ items|length }})</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Artikel</th><th>Hersteller-Nr.</th><th class="num">Bestand</th></tr>
+    {% for it in items %}<tr><td><a href="/artikel/{{ it.id }}">{{ it.name }}</a></td><td class="mono">{{ it.mpn }}</td><td class="num">{{ it.total_quantity|qty(it.unit) }}</td></tr>
+    {% else %}<tr><td colspan="3" class="muted">Keine Artikel.</td></tr>{% endfor %}
+  </table></div>
+</div>
+<div>
+  {% if me.can('suppliers', 2) %}
+  <div class="card"><h2>Bearbeiten</h2>
+    <form method="post" action="/hersteller/speichern">
+      <input type="hidden" name="id" value="{{ m.id }}">
+      <label>Name</label><input name="name" value="{{ m.name }}" required>
+      <label>Website</label><input name="website" type="url" value="{{ m.website }}">
+      <label>Notiz</label><input name="notes" value="{{ m.notes }}">
+      <button class="btn primary sm" style="margin-top:8px">Speichern</button>
+    </form>
+  </div>{% endif %}
+  {% if me.can('suppliers', 4) %}
+  <details class="card more"><summary>Zusammenführen / Löschen</summary>
+    <p class="small muted">Z. B. „TI“ und „Texas Instruments“: alle Artikel wandern zum Ziel, dieser Eintrag wird gelöscht.</p>
+    <form method="post" action="/hersteller/{{ m.id }}/zusammenfuehren" class="row">
+      <select name="target_id" class="grow" required>{% for o in others %}<option value="{{ o.id }}">{{ o.name }}</option>{% endfor %}</select>
+      <button class="btn sm warn" data-confirm="„{{ m.name }}“ in den gewählten Hersteller übernehmen und löschen?">Zusammenführen</button>
+    </form>
+    <form method="post" action="/hersteller/{{ m.id }}/loeschen" style="margin-top:8px"><button class="btn sm danger" data-confirm="Hersteller löschen?">Löschen (nur ohne Artikel)</button></form>
+  </details>{% endif %}
+</div>
+</div>
+{% endblock %}

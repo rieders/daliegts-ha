@@ -1,0 +1,16 @@
+<form method="post" action="/lieferanten/speichern">
+  <input type="hidden" name="id" value="{{ s.id if s else '' }}">
+  <div class="fields">
+    <div><label>Name</label><input name="name" value="{{ s.name if s else '' }}" required></div>
+    <div><label>Website</label><input name="website" type="url" value="{{ s.website if s else '' }}" placeholder="https://…"></div>
+    <div style="grid-column:1/-1"><label>Shop-Suche (Link mit <code>{query}</code> als Platzhalter)</label>
+      <input name="search_url" value="{{ s.search_url if s else '' }}" placeholder="https://www.shop.de/suche?q={query}"></div>
+    <div><label>Versandkosten (€)</label><input name="shipping_cost" inputmode="decimal" value="{{ ('%g'|format(s.shipping_cost))|replace('.', ',') if s and s.shipping_cost is not none else '' }}"></div>
+    <div><label>versandkostenfrei ab (€)</label><input name="free_shipping_from" inputmode="decimal" value="{{ ('%g'|format(s.free_shipping_from))|replace('.', ',') if s and s.free_shipping_from else '' }}"></div>
+    <div><label>Mindestbestellwert (€)</label><input name="min_order_value" inputmode="decimal" value="{{ ('%g'|format(s.min_order_value))|replace('.', ',') if s and s.min_order_value else '' }}"></div>
+    <div><label>Kundennummer</label><input name="customer_no" value="{{ s.customer_no if s else '' }}"></div>
+    <div style="grid-column:1/-1"><label>Notiz</label><input name="notes" value="{{ s.notes if s else '' }}"></div>
+  </div>
+  <label class="inline"><input type="checkbox" name="active" value="1" {{ 'checked' if not s or s.active }}> aktiv (wird beim Preisvergleich berücksichtigt)</label>
+  <div><button class="btn primary sm" style="margin-top:8px">{{ 'Speichern' if s else 'Anlegen' }}</button></div>
+</form>

@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import loc_path, locpicker %}
+{% from "partials/reprint.html" import reprint with context %}
+{% block title %}{{ loc.name }}{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/orte">Lagerorte</a>{% for aid in path_ids %} / <a href="/orte/{{ aid }}">{{ tc.nodes[aid].name }}</a>{% endfor %}</div>
+<div class="row spread top">
+  <div>
+    <h1 class="mb0">{{ loc.name }}</h1>
+    <div class="row small" style="margin-top:4px">
+      <span class="badge code">{{ loc.code }}</span><span class="badge">{{ LOCATION_TYPES.get(loc.type, loc.type) }}</span>
+      {% if loc.structural %}<span class="badge">nur Struktur</span>{% endif %}{% if loc.is_full %}<span class="badge warn">voll</span>{% endif %}
+      {% if loc.compartment_index %}<span class="badge">Abteil {{ loc.compartment_index }} von {{ loc.compartment_count }}</span>{% endif %}
+      {% for t in targets %}<span class="badge ok">💡 LED {{ t.start }}–{{ t.start + t.count - 1 }}{% if t.inherited %} (geerbt){% endif %}{% if t.blink %} · blinkt {{ t.blink }}×{% endif %}</span>{% endfor %}
+    </div>
+    {% if loc.description %}<p>{{ loc.description|nl2br }}</p>{% endif %}
+  </div>
+  <div class="row">
+    {% if targets and me.can('wled_show') %}<button class="btn btn-led big" data-locate='{"location_id": {{ loc.id }}}'>💡 Zeigen</button>{% endif %}
+    {% if not loc.grid_rows and not loc.compartment_index and (loc.children or loc.type in ('raum', 'bereich', 'lagerwand', 'regal', 'schrank', 'lochwand')) %}<a class="btn" href="/orte/{{ loc.id }}/wand">🧱 Wandansicht</a>{% endif %}
+    {% if loc.parent and loc.wall_x is not none %}<a class="btn" href="/orte/{{ loc.parent_id }}/wand">🧱 in {{ loc.parent.name }}</a>{% endif %}
+    {% if me.can('items', 3) %}<a class="btn" href="/artikel/neu?ort={{ loc.code }}">＋ Artikel hier</a>{% endif %}
+    {% if me.has_right('locations', 4) %}<a class="btn" href="/orte/{{ loc.id }}/zusammenfuehren" title="Alten Ort mit neuem zusammenführen oder Fächer 1:1 übertragen">🔀 Übertragen</a>{% endif %}
+    {% if me.can('inventory') %}<a class="btn" href="/orte/{{ loc.id }}/inventur">Inventur</a>{% endif %}
+    {% if me.can('labels') %}<a class="btn" href="/etiketten?art=location&ort={{ loc.id }}">🏷 Etiketten</a>{{ reprint('location', loc.id, '🖨 Etikett nachdrucken', cls='btn') }}{% endif %}
+  </div>
+</div>
+{% if loc.photo %}<img src="{{ loc.photo|img }}" alt="" style="max-width:100%;max-height:260px;border-radius:10px;margin:8px 0">{% endif %}
+
+{% if grid %}
+<div class="card" x-data="gridEditor()">
+  <div class="row spread"><h2 class="mt0">Raster</h2><span class="small muted">Fach antippen = Details{% if me.can('wled_show') %} + LED{% endif %}</span></div>
+  <div class="furniture" style="grid-template-columns: repeat({{ loc.grid_cols }}, minmax(64px, 1fr));">
+    {% for c in grid.cells %}{% set lots = grid['items'].get(c.id, []) %}
+    {% set comps = c.children|selectattr('type','equalto','abteil')|list %}
+    <div class="cell {{ 'empty' if not lots }} {{ 'low' if lots|selectattr('item.below_min')|list }}" :class="{sel: sel && sel.id=={{ c.id }}}"
+         style="grid-row: {{ c.grid_row }} / span {{ c.grid_rowspan }}; grid-column: {{ c.grid_col }} / span {{ c.grid_colspan }};"
+         @click='pick({{ {"id": c.id, "name": c.name, "code": c.code, "lights": c.lights|map(attribute="led_start")|list, "count": (c.lights[0].led_count if c.lights else 3), "ctrl": (c.lights[0].controller_id if c.lights else (controllers[0].id if controllers else None)), "items": lots|map(attribute="item.name")|unique|list}|tojson }})'>
+      <div class="cn">{{ c.name }}</div>
+      <div class="ci">{{ lots|map(attribute='item.name')|unique|join(', ') }}</div>
+      {% if c.lights %}<span class="led">●</span>{% endif %}
+      {% if comps %}<div class="compartments">{% for k in comps %}<span></span>{% endfor %}</div>{% endif %}
+    </div>{% endfor %}
+  </div>
+  <div x-show="sel" x-cloak class="card" style="margin-top:10px">
+    <div class="row spread"><b x-text="sel && sel.name"></b><a class="btn sm" :href="sel && '/orte/'+sel.id">Öffnen →</a></div>
+    <div class="small muted" x-text="sel && (sel.items.length ? sel.items.join(', ') : 'leer')"></div>
+    {% if me.can('wled_config', 2) and controllers %}
+    <div class="row" style="margin-top:8px">
+      <select x-model.number="ctrl" style="width:auto">{% for ct in controllers %}<option value="{{ ct.id }}">{{ ct.name }}</option>{% endfor %}</select>
+      <span class="small">Start-LED</span>
+      <div class="stepper"><button class="btn" @click="start=Math.max(0,start-1); preview()">−</button><input type="number" x-model.number="start" @change="preview()"><button class="btn" @click="start++; preview()">＋</button></div>
+      <span class="small">Anzahl</span><input type="number" x-model.number="count" min="1" style="width:70px" @change="preview()">
+      <button class="btn primary sm" @click="save()">Speichern</button>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+<div class="cols-2">
+<div>
+  {% set kids = loc.children %}
+  {% set collapse = kids and lots_below and not grid %}
+  {% if kids and not grid %}
+  <div class="card"><h2>Unterorte ({{ kids|length }})</h2>
+    <div class="subloc">{% for c in kids %}
+      <a href="/orte/{{ c.id }}" class="subloc-item"><b>{{ c.name }}</b><span class="small muted">{{ LOCATION_TYPES.get(c.type, c.type) }}</span>
+        {% if subcounts.get(c.id) %}<span class="badge ok" title="Bestände inkl. Unterorte">{{ subcounts[c.id] }}</span>{% endif %}</a>{% endfor %}</div>
+    {% if collapse %}<p class="small muted" style="margin:8px 0 0">Zahl = Bestände inklusive Unterorte. Ort öffnen, um seinen Inhalt zu sehen.</p>{% endif %}
+  </div>{% endif %}
+
+  {% set all_lots = lots_here + lots_below %}
+  {% if collapse %}<details class="card"><summary><b>Inhalt aller Unterorte</b> <span class="muted">({{ all_lots|length }} Bestände) – aufklappen</span></summary>
+  {% else %}<div class="card">
+    <h2>Inhalt</h2>{% endif %}
+    {% if all_lots %}
+    <div class="table-wrap"><table>
+      <tr><th>Artikel</th>{% if lots_below %}<th>Ort</th>{% endif %}<th class="num">Menge</th><th></th></tr>
+      {% set wled = has_wled() %}{% for lot in all_lots|sort(attribute='item.name') %}
+      <tr><td><a href="/artikel/{{ lot.item_id }}">{{ lot.item.name }}</a> {% if lot.needs_review %}<span class="badge">prüfen</span>{% endif %}<div class="small muted">{{ lot.item.description[:70] }}</div></td>
+        {% if lots_below %}<td class="small">{% if lot.location_id != loc.id %}<a href="/orte/{{ lot.location_id }}">{{ lot.location.name }}</a>{% endif %}</td>{% endif %}
+        <td class="num">{% if lot.item.stock_mode == 'coarse' %}<span class="amp {{ lot.coarse or 'empty' }}"></span>{% else %}{{ lot.quantity|qty(lot.item.unit) }}{% endif %}</td>
+        <td>{% if wled and me.can('wled_show') and lot.location_id != loc.id %}<button class="btn sm btn-led" data-locate='{"location_id": {{ lot.location_id }}}'>💡</button>{% endif %}</td></tr>
+      {% endfor %}
+    </table></div>
+    {% else %}<p class="muted">Leer.</p>{% endif %}
+  {% if collapse %}</details>{% else %}</div>{% endif %}
+</div>
+
+<div>
+  {% if me.has_right('locations', 2) and not me.admin_mode %}
+  <div class="note" style="margin-bottom:12px">Zum Anlegen, Umbenennen oder Umbauen von Lagerorten den <b>Admin-Modus</b> einschalten (Verwaltung oder unten).
+    <form method="post" action="/admin-mode" style="margin-top:6px"><input type="hidden" name="on" value="1"><button class="btn sm warn">Admin-Modus einschalten</button></form></div>
+  {% endif %}
+  {% if me.can('locations', 3) %}
+  <div class="card"><h2>Hier anlegen</h2>
+    <a class="btn primary" href="/orte/{{ loc.id }}/moebel-neu">🗄 Lagermöbel-Assistent</a>
+    <p class="small muted">Regal, Magazin oder Sortimentskasten mit Reihen × Fächern, optional Abteile und LED-Zuordnung.</p>
+    <form method="post" action="/orte/text">
+      <input type="hidden" name="parent_id" value="{{ loc.id }}">
+      <textarea name="text" rows="4" placeholder="Unterorte per Text, z. B.&#10;Kiste Kabel&#10;Kiste Schrauben&#10;  Fach links"></textarea>
+      <button class="btn sm" style="margin-top:6px">Unterorte anlegen</button>
+    </form>
+  </div>
+  {% endif %}
+
+  {% if me.can('locations', 2) %}
+  <details class="card more"><summary>Bearbeiten</summary>
+    <form method="post" action="/orte/{{ loc.id }}/bearbeiten" enctype="multipart/form-data">
+      <label>Name</label><input name="name" value="{{ loc.name }}">
+      <label>Typ</label><select name="type">{% for k, v in LOCATION_TYPES.items() %}<option value="{{ k }}" {{ 'selected' if loc.type == k }}>{{ v }}</option>{% endfor %}</select>
+      <label>Beschreibung (z. B. „hinter der Tür links“)</label><textarea name="description" rows="2">{{ loc.description }}</textarea>
+      <label>Foto</label><input type="file" name="photo" accept="image/*" capture="environment">
+      {% if grid %}<label>LED-Anzeige für Abteile</label><select name="light_mode"><option value="both" {{ 'selected' if loc.light_mode == 'both' }}>LED-Abschnitt + Blinkcode</option><option value="segment" {{ 'selected' if loc.light_mode == 'segment' }}>nur LED-Abschnitt (pulsiert)</option><option value="blink" {{ 'selected' if loc.light_mode == 'blink' }}>nur Blinkcode</option></select>{% endif %}
+      <label class="inline"><input type="checkbox" name="structural" value="1" {{ 'checked' if loc.structural }}> nur Struktur (kein eigener Bestand)</label>
+      <label class="inline"><input type="checkbox" name="is_full" value="1" {{ 'checked' if loc.is_full }}> voll</label>
+      <div><button class="btn primary sm" style="margin-top:8px">Speichern</button></div>
+    </form>
+  </details>
+  {% endif %}
+
+  {% if loc.type == 'fach' and me.can('locations', 3) and not loc.children|selectattr('type','equalto','abteil')|list %}
+  <details class="card more"><summary>Fach unterteilen (Abteile)</summary>
+    <form method="post" action="/orte/{{ loc.id }}/abteile">
+      <div class="fields">
+        <div><label>Anzahl</label><input type="number" name="count" value="2" min="2" max="12"></div>
+        <div><label>Anordnung</label><select name="layout"><option value="row">nebeneinander</option><option value="column">hintereinander</option><option value="grid">Raster</option></select></div>
+        <div><label>Benennung</label><select name="naming"><option value="dot">{{ loc.name }}.1, .2 …</option><option value="words">links/mitte/rechts</option></select></div>
+      </div>
+      <button class="btn sm" style="margin-top:8px">Abteile anlegen</button>
+      <p class="small muted">Beim Anzeigen blinkt die Fach-LED so oft wie die Abteilnummer; bei mehreren LEDs leuchtet zusätzlich nur der passende Abschnitt.</p>
+    </form>
+  </details>
+  {% endif %}
+
+  {% if me.can('wled_config', 2) and controllers %}
+  <details class="card more"><summary>LED-Zuordnung {{ 'für das ganze Möbel' if grid else '' }}</summary>
+    {% if grid %}
+    <form method="post" action="/orte/{{ loc.id }}/led-mapping">
+      <div class="fields">
+        <div><label>Controller</label><select name="controller_id">{% for c in controllers %}<option value="{{ c.id }}">{{ c.name }}</option>{% endfor %}</select></div>
+        <div><label>Start-LED</label><input type="number" name="led_start" value="0" min="0"></div>
+        <div><label>LEDs pro Fach</label><input type="number" name="leds_per_cell" value="3" min="1"></div>
+        <div><label>Lücke zwischen Fächern</label><input type="number" name="led_gap" value="0" min="0"></div>
+        <div><label>Lücke am Reihenende</label><input type="number" name="led_row_gap" value="0" min="0"></div>
+        <div><label>Verlauf</label><select name="led_direction"><option value="rows">Reihe für Reihe</option><option value="cols">Spalte für Spalte</option></select></div>
+        <div><label>Start-Ecke</label><select name="led_start_corner"><option value="top_left">oben links</option><option value="top_right">oben rechts</option><option value="bottom_left">unten links</option><option value="bottom_right">unten rechts</option></select></div>
+      </div>
+      <input type="hidden" name="light_mode" value="{{ loc.light_mode }}">
+      <label class="inline"><input type="checkbox" name="serpentine" value="1" checked> Schlangenlinie (jede zweite Reihe rückwärts)</label>
+      <div><button class="btn sm primary" style="margin-top:8px" data-confirm="Bestehende Zuordnungen dieses Controllers im Möbel werden ersetzt.">Zuordnung berechnen</button></div>
+    </form>
+    {% else %}
+    <form method="post" action="/orte/{{ loc.id }}/leds" class="fields">
+      <div><label>Controller</label><select name="controller_id">{% for c in controllers %}<option value="{{ c.id }}">{{ c.name }}</option>{% endfor %}</select></div>
+      <div><label>Start-LED</label><input type="number" name="led_start" value="{{ loc.lights[0].led_start if loc.lights else 0 }}" min="0"></div>
+      <div><label>Anzahl (0 = entfernen)</label><input type="number" name="led_count" value="{{ loc.lights[0].led_count if loc.lights else 1 }}" min="0"></div>
+      <div><label>Farbe (optional)</label><input name="color" placeholder="00FF40" value="{{ loc.lights[0].color or '' if loc.lights else '' }}"></div>
+      <div><button class="btn sm primary" style="margin-top:8px">Speichern</button></div>
+    </form>
+    {% endif %}
+  </details>
+  {% endif %}
+
+  {% if me.can('locations', 3) and loc.children and not loc.compartment_index %}
+  <details class="card more"><summary>{{ "Fächer neu im Raster zuordnen" if grid else "Als Raster anordnen (z. B. importiertes Magazin)" }}</summary>
+    <form method="post" action="/orte/{{ loc.id }}/raster">
+      <p class="small muted">Ordnet die {{ loc.children|length }} Unterorte in natürlicher Reihenfolge (Fach1, Fach2 …) einem Raster zu. Namen, Codes und Inhalt bleiben.</p>
+      <label>Vorlage (oder unten eigenes Raster)</label>
+      <select name="template_id"><option value="">– eigenes Raster –</option>{% for t in templates %}<option value="{{ t.id }}">{{ t.name }}</option>{% endfor %}</select>
+      <div class="fields">
+        <div><label>Reihen</label><input type="number" name="rows" value="{{ loc.grid_rows or 8 }}" min="1"></div>
+        <div><label>Spalten</label><input type="number" name="cols" value="{{ loc.grid_cols or 4 }}" min="1"></div>
+        <div><label>Zählrichtung</label><select name="count_direction"><option value="rows">zeilenweise</option><option value="cols">spaltenweise</option><option value="bands">blockweise (je Block: links, Mitte oben/unten, rechts)</option></select></div>
+      </div>
+      <label>Zusammengefasste Zellen (Reihe, Spalte, Höhe, Breite – eine pro Zeile)</label><textarea name="merges" rows="2" placeholder="9 1 1 2&#10;9 3 1 2"></textarea>
+      <label>Leere Plätze (Reihe Spalte, je Zeile; „* 3“ = Spalte 3 in allen Reihen)</label><textarea name="gaps" rows="2" placeholder="* 3"></textarea>
+      <label class="inline"><input type="checkbox" name="bottom_up" value="1"> von unten zählen</label>
+      <div><button class="btn sm" style="margin-top:8px">Raster übernehmen</button></div>
+    </form>
+  </details>
+  {% endif %}
+
+  {% if grid and me.can('locations', 3) %}
+  <details class="card more"><summary>Umbauen (Reihen / Fächer ändern)</summary>
+    <form method="post" action="/orte/{{ loc.id }}/umbauen">
+      <p class="small muted">Z. B. ein Regal um einen Boden erweitern oder eine Reihe mit weniger Plätzen. Bestehende Fächer behalten Namen, Code und Etikett; neue Positionen bekommen neue Fächer. Wegfallende Fächer müssen leer sein.</p>
+      <div class="fields">
+        <div><label>{{ 'Böden' if loc.type == 'regal' else 'Reihen' }}</label><input type="number" name="rows" value="{{ loc.grid_rows }}" min="1" max="60"></div>
+        <div><label>{{ 'Plätze je Boden' if loc.type == 'regal' else 'Fächer je Reihe' }}</label><input type="number" name="cols" value="{{ loc.grid_cols }}" min="1" max="60"></div>
+      </div>
+      <label>Schubladen je Reihe (optional, z. B. „4,4,4,2“ – von oben, breite zählen als eine)</label><input name="row_counts" placeholder="leer = überall gleich">
+      <div><button class="btn sm" style="margin-top:8px" data-confirm="Möbel umbauen?">Umbauen</button></div>
+    </form>
+  </details>
+  <details class="card more"><summary>Vorlage / Duplizieren</summary>
+    <form method="post" action="/orte/{{ loc.id }}/als-vorlage" class="row"><input name="name" placeholder="Vorlagenname" class="grow" required><button class="btn sm">Als Vorlage speichern</button></form>
+    <form method="post" action="/orte/{{ loc.id }}/duplizieren" class="row" style="margin-top:8px"><input name="name" value="{{ loc.name }} (2)" class="grow" required><button class="btn sm">Duplizieren (LEDs dahinter)</button></form>
+  </details>
+  {% endif %}
+
+  <details class="card more"><summary>Etiketten & Codes ({{ loc.aliases|length }} externe)</summary>
+    <div><span class="badge code">{{ loc.code }}</span> {% for a in loc.aliases %}<span class="badge code" title="{{ a.source }}">{{ a.code }}{% if me.can('locations', 2) %}<form method="post" action="/alias/{{ a.id }}/loeschen" class="inline"><button class="btn sm ghost" style="min-height:0;padding:0 4px">✕</button></form>{% endif %}</span> {% endfor %}</div>
+    {% if me.can('locations', 2) %}
+    <form method="post" action="/orte/{{ loc.id }}/alias" class="row" style="margin-top:8px"><input name="code" placeholder="Vorhandenes Etikett (Inhalt) zuordnen" class="grow" required><button class="btn sm">＋</button></form>
+    <p class="small muted">Schneller geht's im Scanner: Modus „Etiketten zuordnen“.</p>{% endif %}
+  </details>
+
+  {% if me.can('locations', 4) %}
+  <details class="card more"><summary>Löschen</summary>
+    <form method="post" action="/orte/{{ loc.id }}/loeschen">
+      <p class="small">Löscht „{{ loc.name }}“ und alle Unterorte. Enthaltene Bestände werden nach folgendem Ort verschoben:</p>
+      {{ locpicker(name="target", placeholder="Ziel für Inhalt (nur nötig, wenn nicht leer)") }}
+      <button class="btn danger sm" style="margin-top:8px" data-confirm="Lagerort inkl. aller Unterorte löschen?">Löschen</button>
+    </form>
+  </details>
+  {% endif %}
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+function gridEditor() {
+  return {
+    sel: null, start: 0, count: 3, ctrl: null,
+    pick(c) {
+      this.sel = c; this.start = c.lights.length ? c.lights[0] : this.start; this.count = c.count || 3; this.ctrl = c.ctrl;
+      {% if me.can('wled_show') %}locate({location_id: c.id});{% endif %}
+    },
+    async preview() {
+      if (!this.ctrl) return;
+      const fd = new FormData(); fd.append("start", this.start); fd.append("count", this.count);
+      await fetch(`/wled/${this.ctrl}/bereich`, {method: "POST", body: fd, credentials: "same-origin"});
+    },
+    async save() {
+      const fd = new FormData(); fd.append("controller_id", this.ctrl); fd.append("led_start", this.start); fd.append("led_count", this.count);
+      const r = await fetch(`/orte/${this.sel.id}/leds`, {method: "POST", body: fd, credentials: "same-origin", headers: {"HX-Request": "true"}});
+      toast(r.ok ? "LED-Zuordnung gespeichert" : "Fehler beim Speichern");
+      if (r.ok) this.sel.lights = [this.start];
+    },
+  };
+}
+</script>
+{% endblock %}

@@ -1,0 +1,512 @@
+{
+ "group": "Sicherungen",
+ "parts": [
+  {
+   "category": "Elektronik/Schutz/Sicherungen/Feinsicherungen 5x20",
+   "description": "Glasrohr-Feinsicherung 5×20 mm, flink (F), 0,5 A, 250 V",
+   "footprint": "Sicherung 5x20",
+   "image": "fuse-5x20.svg",
+   "key": "fuse-5x20-f-05a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Feinsicherung 5×20 F 0,5 A",
+   "params": [
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "0.5"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "250"
+    },
+    {
+     "name": "Typ",
+     "value": "flink"
+    }
+   ],
+   "tags": [
+    "5x20",
+    "feinsicherung",
+    "flink",
+    "sicherung"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Schutz/Sicherungen/Feinsicherungen 5x20",
+   "description": "Glasrohr-Feinsicherung 5×20 mm, flink (F), 1 A, 250 V",
+   "footprint": "Sicherung 5x20",
+   "image": "fuse-5x20.svg",
+   "key": "fuse-5x20-f-1a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Feinsicherung 5×20 F 1 A",
+   "params": [
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "1"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "250"
+    },
+    {
+     "name": "Typ",
+     "value": "flink"
+    }
+   ],
+   "tags": [
+    "5x20",
+    "feinsicherung",
+    "flink",
+    "sicherung"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Schutz/Sicherungen/Feinsicherungen 5x20",
+   "description": "Glasrohr-Feinsicherung 5×20 mm, flink (F), 2 A, 250 V",
+   "footprint": "Sicherung 5x20",
+   "image": "fuse-5x20.svg",
+   "key": "fuse-5x20-f-2a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Feinsicherung 5×20 F 2 A",
+   "params": [
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "2"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "250"
+    },
+    {
+     "name": "Typ",
+     "value": "flink"
+    }
+   ],
+   "tags": [
+    "5x20",
+    "feinsicherung",
+    "flink",
+    "sicherung"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Schutz/Sicherungen/Feinsicherungen 5x20",
+   "description": "Glasrohr-Feinsicherung 5×20 mm, flink (F), 3,15 A, 250 V",
+   "footprint": "Sicherung 5x20",
+   "image": "fuse-5x20.svg",
+   "key": "fuse-5x20-f-315a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Feinsicherung 5×20 F 3,15 A",
+   "params": [
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "3.15"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "250"
+    },
+    {
+     "name": "Typ",
+     "value": "flink"
+    }
+   ],
+   "tags": [
+    "5x20",
+    "feinsicherung",
+    "flink",
+    "sicherung"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Schutz/Sicherungen/Feinsicherungen 5x20",
+   "description": "Glasrohr-Feinsicherung 5×20 mm, flink (F), 5 A, 250 V",
+   "footprint": "Sicherung 5x20",
+   "image": "fuse-5x20.svg",
+   "key": "fuse-5x20-f-5a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Feinsicherung 5×20 F 5 A",
+   "params": [
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "5"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "250"
+    },
+    {
+     "name": "Typ",
+     "value": "flink"
+    }
+   ],
+   "tags": [
+    "5x20",
+    "feinsicherung",
+    "flink",
+    "sicherung"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Schutz/Sicherungen/Feinsicherungen 5x20",
+   "description": "Glasrohr-Feinsicherung 5×20 mm, träge (T), 0,5 A, 250 V",
+   "footprint": "Sicherung 5x20",
+   "image": "fuse-5x20.svg",
+   "key": "fuse-5x20-t-05a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Feinsicherung 5×20 T 0,5 A",
+   "params": [
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "0.5"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "250"
+    },
+    {
+     "name": "Typ",
+     "value": "träge"
+    }
+   ],
+   "tags": [
+    "5x20",
+    "feinsicherung",
+    "sicherung",
+    "träge"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Schutz/Sicherungen/Feinsicherungen 5x20",
+   "description": "Glasrohr-Feinsicherung 5×20 mm, träge (T), 1 A, 250 V",
+   "footprint": "Sicherung 5x20",
+   "image": "fuse-5x20.svg",
+   "key": "fuse-5x20-t-1a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Feinsicherung 5×20 T 1 A",
+   "params": [
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "1"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "250"
+    },
+    {
+     "name": "Typ",
+     "value": "träge"
+    }
+   ],
+   "tags": [
+    "5x20",
+    "feinsicherung",
+    "sicherung",
+    "träge"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Schutz/Sicherungen/Feinsicherungen 5x20",
+   "description": "Glasrohr-Feinsicherung 5×20 mm, träge (T), 2 A, 250 V",
+   "footprint": "Sicherung 5x20",
+   "image": "fuse-5x20.svg",
+   "key": "fuse-5x20-t-2a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Feinsicherung 5×20 T 2 A",
+   "params": [
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "2"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "250"
+    },
+    {
+     "name": "Typ",
+     "value": "träge"
+    }
+   ],
+   "tags": [
+    "5x20",
+    "feinsicherung",
+    "sicherung",
+    "träge"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Schutz/Sicherungen/Feinsicherungen 5x20",
+   "description": "Glasrohr-Feinsicherung 5×20 mm, träge (T), 3,15 A, 250 V",
+   "footprint": "Sicherung 5x20",
+   "image": "fuse-5x20.svg",
+   "key": "fuse-5x20-t-315a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Feinsicherung 5×20 T 3,15 A",
+   "params": [
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "3.15"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "250"
+    },
+    {
+     "name": "Typ",
+     "value": "träge"
+    }
+   ],
+   "tags": [
+    "5x20",
+    "feinsicherung",
+    "sicherung",
+    "träge"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Schutz/Sicherungen/Feinsicherungen 5x20",
+   "description": "Glasrohr-Feinsicherung 5×20 mm, träge (T), 5 A, 250 V",
+   "footprint": "Sicherung 5x20",
+   "image": "fuse-5x20.svg",
+   "key": "fuse-5x20-t-5a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Feinsicherung 5×20 T 5 A",
+   "params": [
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "5"
+    },
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "250"
+    },
+    {
+     "name": "Typ",
+     "value": "träge"
+    }
+   ],
+   "tags": [
+    "5x20",
+    "feinsicherung",
+    "sicherung",
+    "träge"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Schutz/Sicherungen/PTC",
+   "description": "Rückstellende SMD-Sicherung (PolySwitch), Haltestrom 0,5 A, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-generic.svg",
+   "key": "ptc-1206-05a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "PTC-Sicherung 1206 0,5 A",
+   "params": [
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "0.5"
+    },
+    {
+     "name": "Typ",
+     "value": "PTC rückstellend"
+    }
+   ],
+   "tags": [
+    "1206",
+    "polyfuse",
+    "ptc",
+    "rückstellend",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Schutz/Sicherungen/PTC",
+   "description": "Rückstellende SMD-Sicherung (PolySwitch), Haltestrom 1 A, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-generic.svg",
+   "key": "ptc-1206-1a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "PTC-Sicherung 1206 1 A",
+   "params": [
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "1"
+    },
+    {
+     "name": "Typ",
+     "value": "PTC rückstellend"
+    }
+   ],
+   "tags": [
+    "1206",
+    "polyfuse",
+    "ptc",
+    "rückstellend",
+    "smd"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Schutz/Sicherungen/PTC",
+   "description": "Rückstellende Sicherung (PolySwitch), bedrahtet, Haltestrom 0,5 A",
+   "footprint": "THT radial",
+   "image": "ptc.svg",
+   "key": "ptc-tht-05a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "PTC-Sicherung THT 0,5 A",
+   "params": [
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "0.5"
+    },
+    {
+     "name": "Typ",
+     "value": "PTC rückstellend"
+    }
+   ],
+   "tags": [
+    "polyfuse",
+    "ptc",
+    "rückstellend",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Schutz/Sicherungen/PTC",
+   "description": "Rückstellende Sicherung (PolySwitch), bedrahtet, Haltestrom 1 A",
+   "footprint": "THT radial",
+   "image": "ptc.svg",
+   "key": "ptc-tht-1a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "PTC-Sicherung THT 1 A",
+   "params": [
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "1"
+    },
+    {
+     "name": "Typ",
+     "value": "PTC rückstellend"
+    }
+   ],
+   "tags": [
+    "polyfuse",
+    "ptc",
+    "rückstellend",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Schutz/Sicherungen/PTC",
+   "description": "Rückstellende Sicherung (PolySwitch), bedrahtet, Haltestrom 2 A",
+   "footprint": "THT radial",
+   "image": "ptc.svg",
+   "key": "ptc-tht-2a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "PTC-Sicherung THT 2 A",
+   "params": [
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "2"
+    },
+    {
+     "name": "Typ",
+     "value": "PTC rückstellend"
+    }
+   ],
+   "tags": [
+    "polyfuse",
+    "ptc",
+    "rückstellend",
+    "tht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Schutz/Sicherungen/Sicherungshalter",
+   "description": "Einbau-Sicherungshalter für 5×20-mm-Sicherungen mit Schraub-/Bajonettkappe",
+   "footprint": "Sicherung 5x20",
+   "image": "fuse-holder.svg",
+   "key": "fuseholder-5x20-panel",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Sicherungshalter 5×20 Einbau",
+   "params": [],
+   "tags": [
+    "5x20",
+    "einbau",
+    "gehäuse",
+    "sicherungshalter"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Schutz/Sicherungen/Sicherungshalter",
+   "description": "Printsicherungshalter für 5×20-mm-Sicherungen mit Abdeckkappe",
+   "footprint": "Sicherung 5x20",
+   "image": "fuse-holder.svg",
+   "key": "fuseholder-5x20-pcb",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Sicherungshalter 5×20 Platine",
+   "params": [],
+   "tags": [
+    "5x20",
+    "platine",
+    "sicherungshalter"
+   ],
+   "unit": "Stk"
+  }
+ ]
+}

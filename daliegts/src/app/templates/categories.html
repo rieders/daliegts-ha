@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Kategorien{% endblock %}
+{% block head %}<script src="/static/vendor/sortable-1.15.7.min.js" defer></script>{% endblock %}
+{% block content %}
+<div class="row spread"><h1>Kategorien</h1><a class="btn sm" href="/kategorien/export.txt">Als Text exportieren</a></div>
+{% macro branch(parent, depth) %}
+<ul data-sortable="cat" data-parent="{{ parent or '' }}">
+{% for c in children.get(parent, []) %}{% set kids = children.get(c.id, []) %}
+  <li data-move-url="/kategorien/{{ c.id }}/verschieben">
+    {% if kids %}<details {{ 'open' if depth < 1 }}><summary class="node">
+      {% if me.can('categories', 2) %}<span class="handle">⠿</span>{% endif %}<span class="caret">▸</span>
+      <span {% if me.can('categories', 2) %}data-rename-url="/kategorien/{{ c.id }}/umbenennen"{% endif %}>{{ c.name }}</span>
+      <a class="small" href="/suche?kategorie={{ c.id }}">{{ counts.get(c.id, 0) }} Artikel</a>
+    </summary>{{ branch(c.id, depth + 1) }}</details>
+    {% else %}<div class="node">{% if me.can('categories', 2) %}<span class="handle">⠿</span>{% endif %}<span class="caret"></span>
+      <span {% if me.can('categories', 2) %}data-rename-url="/kategorien/{{ c.id }}/umbenennen"{% endif %}>{{ c.name }}</span>
+      <a class="small" href="/suche?kategorie={{ c.id }}">{{ counts.get(c.id, 0) }} Artikel</a>
+      {% if me.can('categories', 4) and not counts.get(c.id) %}<form method="post" action="/kategorien/{{ c.id }}/loeschen" class="inline"><button class="btn sm ghost" data-confirm="Kategorie „{{ c.name }}“ löschen?">✕</button></form>{% endif %}
+    </div><ul data-sortable="cat" data-parent="{{ c.id }}"></ul>{% endif %}
+  </li>
+{% endfor %}
+</ul>
+{% endmacro %}
+<div class="cols-2">
+  <div class="card tree">
+    {% if children.get(None) %}{{ branch(None, 0) }}{% else %}<p class="muted">Noch keine Kategorien. Wähle rechts Startvorlagen oder tippe deine Struktur ein. Beim Übernehmen aus dem Katalog werden passende Kategorien automatisch angelegt.</p>{% endif %}
+    <p class="small muted">Doppelklick = umbenennen · ⠿ ziehen = verschieben (auch in andere Ebenen).</p>
+  </div>
+  <div>
+    {% if me.can('categories', 3) %}
+    <div class="card">
+      <h2 class="mt0">Schnell aufbauen</h2>
+      <form method="post" action="/kategorien/text">
+        <label>Startvorlagen</label>
+        {% for name in starters %}<label class="inline"><input type="checkbox" name="starter" value="{{ name }}"> {{ name }}</label><br>{% endfor %}
+        <label>Eigene Struktur (eingerückt)</label>
+        <textarea name="text" rows="8" placeholder="Werkzeug&#10;  Zangen&#10;  Schraubendreher&#10;Modellbau&#10;  Heli-Ersatzteile"
+          hx-post="/orte/text/vorschau" hx-trigger="input changed delay:300ms" hx-target="#cat-preview"></textarea>
+        <div id="cat-preview" class="tree small"></div>
+        <button class="btn primary" style="margin-top:8px">Anlegen</button>
+      </form>
+    </div>
+    {% else %}<div class="note">Zum Ändern der Kategorien bitte den Admin-Modus einschalten.</div>{% endif %}
+    <div class="card" id="footprints"><h2 class="mt0">Gehäuse / Footprints ({{ footprints|length }})</h2>
+      <div style="max-height:360px;overflow:auto">{% for f in footprints %}<div class="row small" style="margin:2px 0">{% if f.image %}<img src="{{ f.image|img }}" alt="" style="width:34px;height:26px;object-fit:contain">{% endif %}<span {% if me.can('categories', 2) %}data-rename-url="/footprints/{{ f.id }}/umbenennen"{% endif %}>{{ f.name }}</span></div>{% endfor %}</div>
+    </div>
+  </div>
+</div>
+{% endblock %}

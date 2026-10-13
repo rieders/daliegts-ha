@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">
+<line x1="90" y1="90" x2="90" y2="146" stroke="#9aa0a8" stroke-width="4" stroke-linecap="round"/><line x1="110" y1="90" x2="110" y2="146" stroke="#9aa0a8" stroke-width="4" stroke-linecap="round"/><ellipse cx="100" cy="62" rx="34" ry="30" fill="#3c78c8" stroke="#224f8c" stroke-width="2"/><ellipse cx="90" cy="52" rx="10" ry="6" fill="#ffffff" fill-opacity="0.35"/>
+</svg>

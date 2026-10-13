@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Lieferanten & Hersteller{% endblock %}
+{% block content %}
+<div class="row spread"><h1 class="mb0">Lieferanten & Hersteller</h1>
+  <div class="pill-group"><a class="btn sm {{ 'primary' if tab == 'lieferanten' }}" href="/lieferanten">Lieferanten ({{ suppliers|length }})</a><a class="btn sm {{ 'primary' if tab == 'hersteller' }}" href="/lieferanten?tab=hersteller">Hersteller ({{ manufacturers|length }})</a></div>
+</div>
+<p class="small muted">Lieferanten sind Shops, bei denen du bestellst (Reichelt, Conrad …). Hersteller bauen die Teile (Texas Instruments, Vishay …). Am Artikel verknüpfst du beides; die <a href="/einkauf">Einkaufsliste</a> sucht dann den günstigsten Weg.</p>
+
+{% if tab == 'lieferanten' %}
+<div class="card">
+  <div class="table-wrap"><table>
+    <tr><th>Lieferant</th><th class="num">Bezugsquellen</th><th class="num">Versand</th><th class="num">versandfrei ab</th><th>Shop-Suche</th><th></th></tr>
+    {% for s in suppliers %}
+    <tr class="{{ 'muted' if not s.active }}"><td><a href="/lieferanten/{{ s.id }}"><b>{{ s.name }}</b></a>{% if not s.active %} <span class="badge">inaktiv</span>{% endif %}
+        {% if s.website|safe_url %}<div class="small"><a href="{{ s.website|safe_url }}" target="_blank" rel="noopener noreferrer">{{ s.website|replace('https://','')|replace('http://','') }}</a></div>{% endif %}</td>
+      <td class="num">{{ sstats.get(s.id, 0) }}</td>
+      <td class="num">{{ s.shipping_cost|euro }}</td>
+      <td class="num">{{ s.free_shipping_from|euro }}</td>
+      <td>{% if s.search_url %}<span class="badge ok">✓</span>{% else %}<span class="badge">fehlt</span>{% endif %}</td>
+      <td><a class="btn sm" href="/lieferanten/{{ s.id }}">Öffnen</a></td></tr>
+    {% else %}<tr><td colspan="6" class="muted">Noch keine Lieferanten.</td></tr>{% endfor %}
+  </table></div>
+  {% if me.can('suppliers', 3) %}
+  <form method="post" action="/lieferanten/vorlagen" style="margin-top:10px"><button class="btn sm">＋ Standard-Shops anlegen</button>
+    <span class="small muted">{{ presets|join(', ') }} – mit Such-Link; Versandkosten trägst du selbst ein.</span></form>
+  <details class="more"><summary>Eigenen Lieferanten anlegen</summary>
+    {% set s = None %}{% include "partials/supplier_form.html" %}
+  </details>
+  {% endif %}
+</div>
+{% else %}
+<div class="card">
+  <div class="table-wrap"><table>
+    <tr><th>Hersteller</th><th class="num">Artikel</th><th>Website</th></tr>
+    {% for m in manufacturers %}
+    <tr><td><a href="/hersteller/{{ m.id }}"><b>{{ m.name }}</b></a></td><td class="num">{{ mstats.get(m.id, 0) }}</td>
+      <td class="small">{% if m.website|safe_url %}<a href="{{ m.website|safe_url }}" target="_blank" rel="noopener noreferrer">{{ m.website|replace('https://','')|replace('http://','') }}</a>{% endif %}</td></tr>
+    {% else %}<tr><td colspan="3" class="muted">Noch keine Hersteller. Sie entstehen auch automatisch, wenn du am Artikel einen Hersteller einträgst.</td></tr>{% endfor %}
+  </table></div>
+  {% if me.can('suppliers', 3) %}
+  <details class="more"><summary>Hersteller anlegen</summary>
+    <form method="post" action="/hersteller/speichern" class="fields">
+      <div><label>Name</label><input name="name" required></div>
+      <div><label>Website</label><input name="website" type="url" placeholder="https://…"></div>
+      <div style="grid-column:1/-1"><label>Notiz</label><input name="notes"></div>
+      <div><button class="btn primary sm" style="margin-top:8px">Anlegen</button></div>
+    </form>
+  </details>{% endif %}
+</div>
+{% endif %}
+{% endblock %}

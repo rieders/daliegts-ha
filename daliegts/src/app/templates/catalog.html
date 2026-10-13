@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Bauteil-Katalog{% endblock %}
+{% block content %}
+<h1>Bauteil-Katalog</h1>
+<p class="muted">Über 900 gängige Bauteile mit Beschreibung, Parametern und Gehäusebild. „Übernehmen“ legt den Artikel in deinem Lager an – optional gleich mit Lagerort und Menge. Exoten, Werkzeug und Sonstiges legst du über <a href="/artikel/neu">＋ Artikel</a> selbst an.</p>
+<p class="small"><a href="/katalog/community">🌐 Bauteile aus der Community-Sammlung holen …</a></p>
+<div class="card">
+  <input type="search" name="q" value="{{ q }}" placeholder="z. B. BC547, 10k 0805, NE555, LED rot 5mm, U880 …" autofocus
+         hx-get="/katalog" hx-trigger="input changed delay:250ms, search" hx-target="#results" hx-push-url="true">
+</div>
+<div id="results">{% include "partials/catalog_results.html" %}</div>
+{% endblock %}

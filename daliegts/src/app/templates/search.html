@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import item_row %}
+{% block title %}Suche{% endblock %}
+{% block content %}
+<form method="get" action="/suche" class="card">
+  <input type="hidden" name="q" value="{{ sq.q }}">
+  <div class="row">
+    <span class="grow small muted">{% if sq.q %}Suche nach „{{ sq.q }}“ – oben im Suchfeld ändern.{% else %}Suchbegriff oben eingeben.{% endif %}</span>
+    {% if me.can('items', 3) %}<a class="btn" href="/artikel/neu">＋ Neu</a><a class="btn" href="/artikel/erkennen">📷 Erkennen</a>{% endif %}
+  </div>
+  <details class="more" {{ 'open' if sq.category_id or sq.kind or sq.below_min or sq.params or sq.origin or sq.needs_review or ort or nur }}>
+    <summary>Filter</summary>
+    <div class="fields">
+      <div><label>Kategorie</label><select name="kategorie"><option value="">alle</option>{% for id, p in cats %}<option value="{{ id }}" {{ 'selected' if sq.category_id == id }}>{{ p }}</option>{% endfor %}</select></div>
+      <div><label>Art</label><select name="art"><option value="">alle</option>{% for k, v in ITEM_KINDS.items() %}<option value="{{ k }}" {{ 'selected' if sq.kind == k }}>{{ v }}</option>{% endfor %}</select></div>
+      <div><label>Herkunft</label><select name="herkunft"><option value="">alle</option>{% for o in ['DDR','UdSSR','West'] %}<option {{ 'selected' if sq.origin == o }}>{{ o }}</option>{% endfor %}</select></div>
+      <div><label>Lagerort (inkl. Unterorte)</label><input name="ort" value="{{ ort }}" data-locpicker placeholder="Name, Pfad oder Code"></div>
+      <div><label>Nur</label><select name="nur"><option value="">alle Artikel</option>
+        <option value="platzhalter" {{ 'selected' if nur == 'platzhalter' }}>Platzhalter aus dem Import („Unbenannt …“)</option>
+        <option value="ohne_ort" {{ 'selected' if nur == 'ohne_ort' }}>Bestand ohne Lagerort</option>
+        <option value="ohne_bestand" {{ 'selected' if nur == 'ohne_bestand' }}>ohne Bestand</option></select></div>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <label class="inline"><input type="checkbox" name="unter_min" value="1" {{ 'checked' if sq.below_min }}> unter Mindestbestand</label>
+      <label class="inline"><input type="checkbox" name="pruefen" value="1" {{ 'checked' if sq.needs_review }}> Inventur offen</label>
+    </div>
+    <h3>Parameter (Bereichsfilter, z. B. Widerstand 1k – 10k)</h3>
+    <datalist id="pnames">{% for n in param_names %}<option value="{{ n }}">{% endfor %}</datalist>
+    {% for i in range(1, 4) %}{% set pf = pfs[i-1] if pfs|length >= i else None %}
+    <div class="fields">
+      <div><input name="p{{ i }}" list="pnames" placeholder="Parameter" value="{{ pf.name if pf else '' }}"></div>
+      <div><input name="p{{ i }}min" placeholder="von (z. B. 1k)" value="{{ pf.min if pf else '' }}"></div>
+      <div><input name="p{{ i }}max" placeholder="bis (z. B. 10k)" value="{{ pf.max if pf else '' }}"></div>
+      <div><input name="p{{ i }}txt" placeholder="Text enthält" value="{{ pf.text if pf else '' }}"></div>
+    </div>{% endfor %}
+    <div style="margin-top:8px"><button class="btn primary">Filter anwenden</button></div>
+  </details>
+</form>
+
+{% if items %}
+{% set can_bulk = me.can('items', 2) or me.can('stock', 2) or me.can('labels') %}
+<form method="post" action="/artikel/sammel" x-data="{sel: [], act: '', ids: {{ items|map(attribute='id')|list|tojson }} }" @submit="if (!sel.length) { $event.preventDefault(); toast('Bitte Artikel auswählen'); }">
+<div class="row spread" style="margin-bottom:8px">
+  <span class="row">{% if can_bulk %}<label class="inline" title="Alle auf dieser Seite"><input type="checkbox" @change="sel = $event.target.checked ? [...ids] : []" :checked="sel.length === ids.length"> alle</label>{% endif %}
+  <span class="muted">{{ total }} {{ 'Treffer' if (sq.q or sq.category_id or sq.location_id or sq.kind or nur or sq.below_min or sq.needs_review) else 'Artikel insgesamt (A–Z)' }}{% if total > 100 %} · Seite {{ seite }} von {{ ((total - 1) // 100) + 1 }}{% endif %}</span></span>
+  {% if has_wled() and me.can('wled_show') %}<button class="btn btn-led sm" data-locate='{"item_ids": {{ items[:40]|map(attribute="id")|list|tojson }} }'>💡 Alle Treffer anzeigen</button>{% endif %}
+</div>
+<div class="itemlist">{% for item in items %}
+  {% if can_bulk %}<div class="selrow" :class="{on: sel.includes({{ item.id }})}"><input type="checkbox" name="ids" value="{{ item.id }}" x-model.number="sel" aria-label="{{ item.name }} auswählen">{{ item_row(item, tc) }}</div>
+  {% else %}{{ item_row(item, tc) }}{% endif %}{% endfor %}</div>
+{% if can_bulk %}
+<div class="bulkbar" x-show="sel.length" x-cloak>
+  <b x-text="sel.length + ' ausgewählt'"></b>
+  <select name="action" x-model="act" required style="width:auto">
+    <option value="">Aktion wählen …</option>
+    {% if me.can('stock', 2) %}<option value="umlagern">Alle Bestände umlagern nach …</option>{% endif %}
+    {% if me.can('items', 2) %}<option value="kategorie">Kategorie setzen …</option>{% endif %}
+    {% if me.can('labels') %}<option value="etiketten">🏷 Etiketten drucken</option>{% endif %}
+    {% if me.has_right('items', 4) %}<option value="loeschen">Löschen (inkl. Bestände)</option>{% endif %}
+  </select>
+  <input name="ziel" data-locpicker placeholder="Ziel-Lagerort" x-show="act === 'umlagern'" :required="act === 'umlagern'" style="width:220px">
+  <select name="kategorie" x-show="act === 'kategorie'" style="width:auto"><option value="">– keine –</option>{% for id, p in cats %}<option value="{{ id }}">{{ p }}</option>{% endfor %}</select>
+  <button class="btn primary" :class="{warn: act === 'loeschen'}" :disabled="!act"
+          @click="if (act === 'loeschen' && !confirm(sel.length + ' Artikel inkl. Bestände endgültig löschen?')) $event.preventDefault()">Ausführen</button>
+  <button type="button" class="btn ghost" @click="sel = []">✕</button>
+</div>
+{% endif %}
+</form>
+<div class="row" style="margin-top:10px">
+  {% if seite > 1 %}<a class="btn" href="?{{ request.query_params|string|replace('seite='~seite, '') }}&seite={{ seite-1 }}">← zurück</a>{% endif %}
+  {% if total > seite*100 %}<a class="btn" href="?{{ request.query_params|string|replace('&seite='~seite, '') }}&seite={{ seite+1 }}">weiter →</a>{% endif %}
+</div>
+{% elif sq.q or sq.category_id or sq.kind or sq.below_min or sq.params %}
+<div class="card"><p>Nichts gefunden.</p>
+  {% if sq.q and me.can('items', 3) %}<p><a class="btn" href="/katalog?q={{ sq.q|urlencode }}">Im Bauteil-Katalog nach „{{ sq.q }}“ suchen</a></p>{% endif %}
+</div>
+{% else %}
+<p class="muted">Tipp: Mehrere Wörter werden kombiniert („10k 0805“). Codes wie <code>L-00042</code> oder gescannte Etiketten springen direkt zum Ziel.</p>
+{% endif %}
+{% endblock %}

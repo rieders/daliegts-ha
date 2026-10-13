@@ -1,0 +1,1865 @@
+{
+ "group": "Transistoren & MOSFETs",
+ "parts": [
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/Darlington NPN",
+   "datasheet_hint": "TIP120",
+   "description": "NPN-Darlington-Leistungstransistor 60 V / 5 A, TO-220",
+   "equivalents": [
+    "TIP121",
+    "TIP122 (100 V)"
+   ],
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "tip120",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "TIP120",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Darlington NPN"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "60"
+    },
+    {
+     "name": "I_C max",
+     "unit": "A",
+     "value": "5"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "65"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "darlington",
+    "npn",
+    "to-220",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/Darlington NPN",
+   "datasheet_hint": "TIP122",
+   "description": "NPN-Darlington-Leistungstransistor 100 V / 5 A, TO-220",
+   "equivalents": [
+    "TIP120 (60 V)"
+   ],
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "tip122",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "TIP122",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Darlington NPN"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "100"
+    },
+    {
+     "name": "I_C max",
+     "unit": "A",
+     "value": "5"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "65"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "darlington",
+    "npn",
+    "to-220",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/Darlington PNP",
+   "datasheet_hint": "TIP125",
+   "description": "PNP-Darlington-Leistungstransistor 60 V / 5 A, TO-220",
+   "equivalents": [
+    "TIP127 (100 V)"
+   ],
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "tip125",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "TIP125",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Darlington PNP"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "60"
+    },
+    {
+     "name": "I_C max",
+     "unit": "A",
+     "value": "5"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "65"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "darlington",
+    "pnp",
+    "to-220",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/Darlington PNP",
+   "datasheet_hint": "TIP127",
+   "description": "PNP-Darlington-Leistungstransistor 100 V / 5 A, TO-220",
+   "equivalents": [
+    "TIP125 (60 V)"
+   ],
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "tip127",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "TIP127",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Darlington PNP"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "100"
+    },
+    {
+     "name": "I_C max",
+     "unit": "A",
+     "value": "5"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "65"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "darlington",
+    "pnp",
+    "to-220",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/MOSFET N-Kanal",
+   "datasheet_hint": "2N7000",
+   "description": "N-Kanal-MOSFET 60 V / 200 mA, R_DS(on) 5 Ω, TO-92",
+   "equivalents": [
+    "BS170 (Pinbelegung beachten!)",
+    "2N7002 (SMD)"
+   ],
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "2n7000",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2N7000",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "N-Kanal MOSFET"
+    },
+    {
+     "name": "U_DS max",
+     "unit": "V",
+     "value": "60"
+    },
+    {
+     "name": "I_D max",
+     "unit": "mA",
+     "value": "200"
+    },
+    {
+     "name": "R_DS(on)",
+     "unit": "Ω",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "mosfet",
+    "n-kanal",
+    "to-92",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/MOSFET N-Kanal",
+   "datasheet_hint": "2N7002",
+   "description": "N-Kanal-MOSFET 60 V / 115 mA, SOT-23",
+   "equivalents": [
+    "2N7000 (THT)"
+   ],
+   "footprint": "SOT-23",
+   "image": "sot-23.svg",
+   "key": "2n7002",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2N7002",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "N-Kanal MOSFET"
+    },
+    {
+     "name": "U_DS max",
+     "unit": "V",
+     "value": "60"
+    },
+    {
+     "name": "I_D max",
+     "unit": "mA",
+     "value": "115"
+    }
+   ],
+   "tags": [
+    "mosfet",
+    "n-kanal",
+    "sot-23",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/MOSFET N-Kanal",
+   "datasheet_hint": "AO3400A",
+   "description": "N-Kanal-MOSFET 30 V / 5,7 A, SOT-23, Logic-Level",
+   "footprint": "SOT-23",
+   "image": "sot-23.svg",
+   "key": "ao3400",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "AO3400A",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "N-Kanal MOSFET"
+    },
+    {
+     "name": "U_DS max",
+     "unit": "V",
+     "value": "30"
+    },
+    {
+     "name": "I_D max",
+     "unit": "A",
+     "value": "5.7"
+    }
+   ],
+   "tags": [
+    "logic-level",
+    "mosfet",
+    "n-kanal",
+    "sot-23",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/MOSFET N-Kanal",
+   "datasheet_hint": "BS170",
+   "description": "N-Kanal-MOSFET 60 V / 500 mA, R_DS(on) 5 Ω, TO-92",
+   "equivalents": [
+    "2N7000 (Pinbelegung beachten!)"
+   ],
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "bs170",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BS170",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "N-Kanal MOSFET"
+    },
+    {
+     "name": "U_DS max",
+     "unit": "V",
+     "value": "60"
+    },
+    {
+     "name": "I_D max",
+     "unit": "mA",
+     "value": "500"
+    },
+    {
+     "name": "R_DS(on)",
+     "unit": "Ω",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "mosfet",
+    "n-kanal",
+    "to-92",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/MOSFET N-Kanal",
+   "datasheet_hint": "BSS138",
+   "description": "N-Kanal-MOSFET 50 V / 220 mA, SOT-23, Logic-Level, oft für Pegelwandler",
+   "footprint": "SOT-23",
+   "image": "sot-23.svg",
+   "key": "bss138",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BSS138",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "N-Kanal MOSFET"
+    },
+    {
+     "name": "U_DS max",
+     "unit": "V",
+     "value": "50"
+    },
+    {
+     "name": "I_D max",
+     "unit": "mA",
+     "value": "220"
+    }
+   ],
+   "tags": [
+    "logic-level",
+    "mosfet",
+    "n-kanal",
+    "sot-23",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/MOSFET N-Kanal",
+   "datasheet_hint": "IRF3205",
+   "description": "N-Kanal-MOSFET 55 V / 110 A, R_DS(on) 8 mΩ, TO-220",
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "irf3205",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "IRF3205",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "N-Kanal MOSFET"
+    },
+    {
+     "name": "U_DS max",
+     "unit": "V",
+     "value": "55"
+    },
+    {
+     "name": "I_D max",
+     "unit": "A",
+     "value": "110"
+    },
+    {
+     "name": "R_DS(on)",
+     "unit": "mΩ",
+     "value": "8"
+    }
+   ],
+   "tags": [
+    "mosfet",
+    "n-kanal",
+    "to-220",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/MOSFET N-Kanal",
+   "datasheet_hint": "IRF520",
+   "description": "N-Kanal-MOSFET 100 V / 9,2 A, R_DS(on) 0,27 Ω, TO-220",
+   "equivalents": [
+    "IRF520N (ähnlich, 9,7 A)"
+   ],
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "irf520",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "IRF520",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "N-Kanal MOSFET"
+    },
+    {
+     "name": "U_DS max",
+     "unit": "V",
+     "value": "100"
+    },
+    {
+     "name": "I_D max",
+     "unit": "A",
+     "value": "9.2"
+    },
+    {
+     "name": "R_DS(on)",
+     "unit": "Ω",
+     "value": "0.27"
+    }
+   ],
+   "tags": [
+    "mosfet",
+    "n-kanal",
+    "to-220",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/MOSFET N-Kanal",
+   "datasheet_hint": "IRF540N",
+   "description": "N-Kanal-MOSFET 100 V / 33 A, R_DS(on) 44 mΩ, TO-220",
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "irf540n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "IRF540N",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "N-Kanal MOSFET"
+    },
+    {
+     "name": "U_DS max",
+     "unit": "V",
+     "value": "100"
+    },
+    {
+     "name": "I_D max",
+     "unit": "A",
+     "value": "33"
+    },
+    {
+     "name": "R_DS(on)",
+     "unit": "mΩ",
+     "value": "44"
+    }
+   ],
+   "tags": [
+    "mosfet",
+    "n-kanal",
+    "to-220",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/MOSFET N-Kanal",
+   "datasheet_hint": "IRFZ44N",
+   "description": "N-Kanal-MOSFET 55 V / 49 A, R_DS(on) 17,5 mΩ, TO-220",
+   "equivalents": [
+    "IRLZ44N (Logic-Level)"
+   ],
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "irfz44n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "IRFZ44N",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "N-Kanal MOSFET"
+    },
+    {
+     "name": "U_DS max",
+     "unit": "V",
+     "value": "55"
+    },
+    {
+     "name": "I_D max",
+     "unit": "A",
+     "value": "49"
+    },
+    {
+     "name": "R_DS(on)",
+     "unit": "mΩ",
+     "value": "17.5"
+    }
+   ],
+   "tags": [
+    "mosfet",
+    "n-kanal",
+    "to-220",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/MOSFET N-Kanal",
+   "datasheet_hint": "IRLML2502",
+   "description": "N-Kanal-MOSFET 20 V / 4,2 A, R_DS(on) 45 mΩ, SOT-23 (bei U_GS 4,5 V), Logic-Level",
+   "footprint": "SOT-23",
+   "image": "sot-23.svg",
+   "key": "irlml2502",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "IRLML2502",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "N-Kanal MOSFET"
+    },
+    {
+     "name": "U_DS max",
+     "unit": "V",
+     "value": "20"
+    },
+    {
+     "name": "I_D max",
+     "unit": "A",
+     "value": "4.2"
+    },
+    {
+     "name": "R_DS(on)",
+     "unit": "mΩ",
+     "value": "45"
+    }
+   ],
+   "tags": [
+    "logic-level",
+    "mosfet",
+    "n-kanal",
+    "sot-23",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/MOSFET N-Kanal",
+   "datasheet_hint": "IRLZ44N",
+   "description": "N-Kanal-MOSFET 55 V / 47 A, R_DS(on) 22 mΩ, TO-220, Logic-Level",
+   "equivalents": [
+    "IRFZ44N (kein Logic-Level)"
+   ],
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "irlz44n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "IRLZ44N",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "N-Kanal MOSFET"
+    },
+    {
+     "name": "U_DS max",
+     "unit": "V",
+     "value": "55"
+    },
+    {
+     "name": "I_D max",
+     "unit": "A",
+     "value": "47"
+    },
+    {
+     "name": "R_DS(on)",
+     "unit": "mΩ",
+     "value": "22"
+    }
+   ],
+   "tags": [
+    "logic-level",
+    "mosfet",
+    "n-kanal",
+    "to-220",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/MOSFET P-Kanal",
+   "datasheet_hint": "AO3401A",
+   "description": "P-Kanal-MOSFET 30 V / 4 A, SOT-23, Logic-Level",
+   "footprint": "SOT-23",
+   "image": "sot-23.svg",
+   "key": "ao3401",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "AO3401A",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "P-Kanal MOSFET"
+    },
+    {
+     "name": "U_DS max",
+     "unit": "V",
+     "value": "30"
+    },
+    {
+     "name": "I_D max",
+     "unit": "A",
+     "value": "4"
+    }
+   ],
+   "tags": [
+    "logic-level",
+    "mosfet",
+    "p-kanal",
+    "sot-23",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/MOSFET P-Kanal",
+   "datasheet_hint": "IRF4905",
+   "description": "P-Kanal-MOSFET 55 V / 74 A, R_DS(on) 20 mΩ, TO-220",
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "irf4905",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "IRF4905",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "P-Kanal MOSFET"
+    },
+    {
+     "name": "U_DS max",
+     "unit": "V",
+     "value": "55"
+    },
+    {
+     "name": "I_D max",
+     "unit": "A",
+     "value": "74"
+    },
+    {
+     "name": "R_DS(on)",
+     "unit": "mΩ",
+     "value": "20"
+    }
+   ],
+   "tags": [
+    "mosfet",
+    "p-kanal",
+    "to-220",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/MOSFET P-Kanal",
+   "datasheet_hint": "IRF9540N",
+   "description": "P-Kanal-MOSFET 100 V / 23 A, R_DS(on) 117 mΩ, TO-220",
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "irf9540n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "IRF9540N",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "P-Kanal MOSFET"
+    },
+    {
+     "name": "U_DS max",
+     "unit": "V",
+     "value": "100"
+    },
+    {
+     "name": "I_D max",
+     "unit": "A",
+     "value": "23"
+    },
+    {
+     "name": "R_DS(on)",
+     "unit": "mΩ",
+     "value": "117"
+    }
+   ],
+   "tags": [
+    "mosfet",
+    "p-kanal",
+    "to-220",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/MOSFET P-Kanal",
+   "datasheet_hint": "IRLML6402",
+   "description": "P-Kanal-MOSFET 20 V / 3,7 A, R_DS(on) 65 mΩ, SOT-23 (bei U_GS −4,5 V), Logic-Level",
+   "footprint": "SOT-23",
+   "image": "sot-23.svg",
+   "key": "irlml6402",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "IRLML6402",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "P-Kanal MOSFET"
+    },
+    {
+     "name": "U_DS max",
+     "unit": "V",
+     "value": "20"
+    },
+    {
+     "name": "I_D max",
+     "unit": "A",
+     "value": "3.7"
+    },
+    {
+     "name": "R_DS(on)",
+     "unit": "mΩ",
+     "value": "65"
+    }
+   ],
+   "tags": [
+    "logic-level",
+    "mosfet",
+    "p-kanal",
+    "sot-23",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/NPN",
+   "datasheet_hint": "2N2222A",
+   "description": "NPN-Kleinsignaltransistor 40 V / 600 mA, TO-92 (Kunststoff PN2222A; Original im Metallgehäuse TO-18)",
+   "equivalents": [
+    "PN2222A",
+    "MMBT2222A (SMD)"
+   ],
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "2n2222a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2N2222A",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "40"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "600"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "npn",
+    "to-92",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/NPN",
+   "datasheet_hint": "2N3055",
+   "description": "NPN-Leistungstransistor 60 V / 15 A, TO-3",
+   "equivalents": [
+    "MJ2955 (PNP-Komplement)"
+   ],
+   "footprint": "TO-3",
+   "image": "to-3.svg",
+   "key": "2n3055",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2N3055",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "60"
+    },
+    {
+     "name": "I_C max",
+     "unit": "A",
+     "value": "15"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "115"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "npn",
+    "to-3",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/NPN",
+   "datasheet_hint": "2N3904",
+   "description": "NPN-Kleinsignaltransistor 40 V / 200 mA, TO-92",
+   "equivalents": [
+    "MMBT3904 (SMD)",
+    "BC547 (ähnlich, Pinbelegung beachten!)"
+   ],
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "2n3904",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2N3904",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "40"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "200"
+    },
+    {
+     "name": "Leistung",
+     "unit": "mW",
+     "value": "625"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "npn",
+    "to-92",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/NPN",
+   "datasheet_hint": "BC337",
+   "description": "NPN-Kleinsignaltransistor 45 V / 800 mA, TO-92",
+   "equivalents": [
+    "BC338",
+    "BC817 (SMD)"
+   ],
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "bc337",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BC337-40",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "45"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "800"
+    },
+    {
+     "name": "Leistung",
+     "unit": "mW",
+     "value": "625"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "npn",
+    "to-92",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/NPN",
+   "datasheet_hint": "BC546",
+   "description": "NPN-Kleinsignaltransistor 65 V / 100 mA, TO-92",
+   "equivalents": [
+    "BC547 (geringere Spannung)"
+   ],
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "bc546",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BC546B",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "65"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "100"
+    },
+    {
+     "name": "Leistung",
+     "unit": "mW",
+     "value": "500"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "npn",
+    "to-92",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/NPN",
+   "datasheet_hint": "BC547",
+   "description": "NPN-Kleinsignaltransistor 45 V / 100 mA, TO-92",
+   "equivalents": [
+    "BC548",
+    "BC549",
+    "BC847 (SMD)",
+    "2N3904 (ähnlich, Pinbelegung beachten!)"
+   ],
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "bc547",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BC547B",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "45"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "100"
+    },
+    {
+     "name": "Leistung",
+     "unit": "mW",
+     "value": "500"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "npn",
+    "to-92",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/NPN",
+   "datasheet_hint": "BC548",
+   "description": "NPN-Kleinsignaltransistor 30 V / 100 mA, TO-92",
+   "equivalents": [
+    "BC547",
+    "BC549",
+    "BC848 (SMD)"
+   ],
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "bc548",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BC548B",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "30"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "100"
+    },
+    {
+     "name": "Leistung",
+     "unit": "mW",
+     "value": "500"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "npn",
+    "to-92",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/NPN",
+   "datasheet_hint": "BC549",
+   "description": "NPN-Kleinsignaltransistor 30 V / 100 mA, TO-92, rauscharm",
+   "equivalents": [
+    "BC550",
+    "BC548"
+   ],
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "bc549",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BC549C",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "30"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "100"
+    },
+    {
+     "name": "Leistung",
+     "unit": "mW",
+     "value": "500"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "npn",
+    "to-92",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/NPN",
+   "datasheet_hint": "BC817",
+   "description": "NPN-Kleinsignaltransistor 45 V / 500 mA, SOT-23",
+   "equivalents": [
+    "BC337 (THT)"
+   ],
+   "footprint": "SOT-23",
+   "image": "sot-23.svg",
+   "key": "bc817",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BC817-40",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "45"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "500"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "npn",
+    "sot-23",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/NPN",
+   "datasheet_hint": "BC847",
+   "description": "NPN-Kleinsignaltransistor 45 V / 100 mA, SOT-23",
+   "equivalents": [
+    "BC547 (THT)"
+   ],
+   "footprint": "SOT-23",
+   "image": "sot-23.svg",
+   "key": "bc847",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BC847B",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "45"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "100"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "npn",
+    "sot-23",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/NPN",
+   "datasheet_hint": "BD139",
+   "description": "NPN-Leistungstransistor 80 V / 1,5 A, TO-126",
+   "equivalents": [
+    "BD135/BD137 (geringere Spannung)"
+   ],
+   "footprint": "TO-126",
+   "image": "to-126.svg",
+   "key": "bd139",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BD139",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "80"
+    },
+    {
+     "name": "I_C max",
+     "unit": "A",
+     "value": "1.5"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "12.5"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "npn",
+    "to-126",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/NPN",
+   "datasheet_hint": "MMBT2222A",
+   "description": "NPN-Kleinsignaltransistor 40 V / 600 mA, SOT-23",
+   "equivalents": [
+    "2N2222A (THT)"
+   ],
+   "footprint": "SOT-23",
+   "image": "sot-23.svg",
+   "key": "mmbt2222a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MMBT2222A",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "40"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "600"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "npn",
+    "sot-23",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/NPN",
+   "datasheet_hint": "MMBT3904",
+   "description": "NPN-Kleinsignaltransistor 40 V / 200 mA, SOT-23",
+   "equivalents": [
+    "2N3904 (THT)"
+   ],
+   "footprint": "SOT-23",
+   "image": "sot-23.svg",
+   "key": "mmbt3904",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MMBT3904",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "40"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "200"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "npn",
+    "sot-23",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/NPN",
+   "datasheet_hint": "TIP31C",
+   "description": "NPN-Leistungstransistor 100 V / 3 A, TO-220",
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "tip31c",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "TIP31C",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "100"
+    },
+    {
+     "name": "I_C max",
+     "unit": "A",
+     "value": "3"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "40"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "npn",
+    "to-220",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/NPN",
+   "datasheet_hint": "TIP41C",
+   "description": "NPN-Leistungstransistor 100 V / 6 A, TO-220",
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "tip41c",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "TIP41C",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "NPN"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "100"
+    },
+    {
+     "name": "I_C max",
+     "unit": "A",
+     "value": "6"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "65"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "npn",
+    "to-220",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/PNP",
+   "datasheet_hint": "2N3906",
+   "description": "PNP-Kleinsignaltransistor 40 V / 200 mA, TO-92",
+   "equivalents": [
+    "MMBT3906 (SMD)",
+    "BC557 (ähnlich, Pinbelegung beachten!)"
+   ],
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "2n3906",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2N3906",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "PNP"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "40"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "200"
+    },
+    {
+     "name": "Leistung",
+     "unit": "mW",
+     "value": "625"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "pnp",
+    "to-92",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/PNP",
+   "datasheet_hint": "BC327",
+   "description": "PNP-Kleinsignaltransistor 45 V / 800 mA, TO-92",
+   "equivalents": [
+    "BC328",
+    "BC807 (SMD)"
+   ],
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "bc327",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BC327-40",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "PNP"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "45"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "800"
+    },
+    {
+     "name": "Leistung",
+     "unit": "mW",
+     "value": "625"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "pnp",
+    "to-92",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/PNP",
+   "datasheet_hint": "BC556",
+   "description": "PNP-Kleinsignaltransistor 65 V / 100 mA, TO-92",
+   "equivalents": [
+    "BC557 (geringere Spannung)"
+   ],
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "bc556",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BC556B",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "PNP"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "65"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "100"
+    },
+    {
+     "name": "Leistung",
+     "unit": "mW",
+     "value": "500"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "pnp",
+    "to-92",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/PNP",
+   "datasheet_hint": "BC557",
+   "description": "PNP-Kleinsignaltransistor 45 V / 100 mA, TO-92",
+   "equivalents": [
+    "BC558",
+    "BC559",
+    "BC857 (SMD)",
+    "2N3906 (ähnlich, Pinbelegung beachten!)"
+   ],
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "bc557",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BC557B",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "PNP"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "45"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "100"
+    },
+    {
+     "name": "Leistung",
+     "unit": "mW",
+     "value": "500"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "pnp",
+    "to-92",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/PNP",
+   "datasheet_hint": "BC558",
+   "description": "PNP-Kleinsignaltransistor 30 V / 100 mA, TO-92",
+   "equivalents": [
+    "BC557",
+    "BC559"
+   ],
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "bc558",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BC558B",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "PNP"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "30"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "100"
+    },
+    {
+     "name": "Leistung",
+     "unit": "mW",
+     "value": "500"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "pnp",
+    "to-92",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/PNP",
+   "datasheet_hint": "BC807",
+   "description": "PNP-Kleinsignaltransistor 45 V / 500 mA, SOT-23",
+   "equivalents": [
+    "BC327 (THT)"
+   ],
+   "footprint": "SOT-23",
+   "image": "sot-23.svg",
+   "key": "bc807",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BC807-40",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "PNP"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "45"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "500"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "pnp",
+    "sot-23",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/PNP",
+   "datasheet_hint": "BC857",
+   "description": "PNP-Kleinsignaltransistor 45 V / 100 mA, SOT-23",
+   "equivalents": [
+    "BC557 (THT)"
+   ],
+   "footprint": "SOT-23",
+   "image": "sot-23.svg",
+   "key": "bc857",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BC857B",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "PNP"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "45"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "100"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "pnp",
+    "sot-23",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/PNP",
+   "datasheet_hint": "BD140",
+   "description": "PNP-Leistungstransistor 80 V / 1,5 A, TO-126",
+   "equivalents": [
+    "BD136/BD138 (geringere Spannung)"
+   ],
+   "footprint": "TO-126",
+   "image": "to-126.svg",
+   "key": "bd140",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "BD140",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "PNP"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "80"
+    },
+    {
+     "name": "I_C max",
+     "unit": "A",
+     "value": "1.5"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "12.5"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "pnp",
+    "to-126",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/PNP",
+   "datasheet_hint": "MJ2955",
+   "description": "PNP-Leistungstransistor 60 V / 15 A, TO-3",
+   "equivalents": [
+    "2N3055 (NPN-Komplement)"
+   ],
+   "footprint": "TO-3",
+   "image": "to-3.svg",
+   "key": "mj2955",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MJ2955",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "PNP"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "60"
+    },
+    {
+     "name": "I_C max",
+     "unit": "A",
+     "value": "15"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "115"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "pnp",
+    "to-3",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/PNP",
+   "datasheet_hint": "MMBT3906",
+   "description": "PNP-Kleinsignaltransistor 40 V / 200 mA, SOT-23",
+   "equivalents": [
+    "2N3906 (THT)"
+   ],
+   "footprint": "SOT-23",
+   "image": "sot-23.svg",
+   "key": "mmbt3906",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MMBT3906",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "PNP"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "40"
+    },
+    {
+     "name": "I_C max",
+     "unit": "mA",
+     "value": "200"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "pnp",
+    "sot-23",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/PNP",
+   "datasheet_hint": "TIP32C",
+   "description": "PNP-Leistungstransistor 100 V / 3 A, TO-220",
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "tip32c",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "TIP32C",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "PNP"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "100"
+    },
+    {
+     "name": "I_C max",
+     "unit": "A",
+     "value": "3"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "40"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "pnp",
+    "to-220",
+    "transistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Halbleiter/Transistoren/PNP",
+   "datasheet_hint": "TIP42C",
+   "description": "PNP-Leistungstransistor 100 V / 6 A, TO-220",
+   "footprint": "TO-220",
+   "image": "to-220.svg",
+   "key": "tip42c",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "TIP42C",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "PNP"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "100"
+    },
+    {
+     "name": "I_C max",
+     "unit": "A",
+     "value": "6"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "65"
+    }
+   ],
+   "tags": [
+    "bipolar",
+    "pnp",
+    "to-220",
+    "transistor"
+   ],
+   "unit": "Stk"
+  }
+ ]
+}

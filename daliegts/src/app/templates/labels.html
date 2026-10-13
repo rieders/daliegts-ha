@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import locpicker %}
+{% from "partials/label.html" import label, label_css %}
+{% block title %}Etiketten{% endblock %}
+{% block head %}
+<style>
+  @page { {% if s.sheet %}size: A4; margin: 0;{% else %}size: {{ '%g'|format(s.width_mm) }}mm {{ '%g'|format(s.height_mm) }}mm; margin: 0;{% endif %} }
+  {{ label_css(s) }}
+  .sheet { width: 210mm; height: 297mm; padding-top: {{ s.margin_top }}mm; padding-left: {{ s.margin_left }}mm; display: grid; box-sizing: border-box;
+           grid-template-columns: repeat({{ s.cols }}, {{ '%g'|format(s.width_mm) }}mm); grid-auto-rows: {{ '%g'|format(s.height_mm) }}mm; column-gap: {{ s.gap_x }}mm; row-gap: {{ s.gap_y }}mm; background: #fff; margin-bottom: 8mm; }
+  @media screen { .sheet { box-shadow: 0 0 0 1px #ccc; } }
+</style>
+{% endblock %}
+{% block content %}
+<div class="noprint">
+  <div class="row spread"><h1 class="mb0">Etiketten drucken</h1><div class="row"><a class="btn" href="/etiketten/drucker">🖨 Drucker{% if not labelprint_pro %} <span class="badge pro">Pro</span>{% endif %}</a><a class="btn" href="/etiketten/vorlagen?art={{ art }}">✎ Vorlagen gestalten</a></div></div>
+  <form method="get" action="/etiketten/code" class="row small" style="margin-top:8px;gap:6px">
+    <span class="muted">Etikett kaputt oder unleserlich?</span>
+    <input name="c" placeholder="Code abtippen, z. B. S-00077 oder L-00123" autocomplete="off" style="flex:1;min-width:200px;max-width:340px">
+    <button class="btn sm">Nachdrucken →</button>
+    <a class="small" href="/codes">Oder vorhandene Barcodes weiterverwenden →</a>
+  </form>
+  <nav class="lbl-kinds" style="margin-top:10px">
+    {% for k, v in kinds.items() %}<a href="/etiketten?art={{ k }}" class="{{ 'on' if art == k }}">{{ {'location': '🗄', 'item': '🔩', 'lot': '📦'}[k] }} {{ v }}</a>{% endfor %}
+  </nav>
+
+  <form method="get" class="card" x-data="{ids: {{ chosen|map(attribute='id')|list|tojson }}, names: {{ chosen|map(attribute='name')|list|tojson }}}">
+    <input type="hidden" name="art" value="{{ art }}"><input type="hidden" name="f" value="1">
+    <div class="fields">
+      {% if art == 'location' %}
+      <div style="grid-column:span 2"><label>Lagerort (Raum, Magazin oder Fach)</label>{{ locpicker(name="ort_code", value=loc.code if loc else "", placeholder="Name, Pfad oder Code, z. B. Kleinteilemagazin1") }}</div>
+      <div><label>Umfang</label><select name="nur">{% for k, v in {'alle':'alle Orte','faecher':'nur Fächer','abteile':'nur Abteile','ungedruckt':'nur noch nicht gedruckte'}.items() %}<option value="{{ k }}" {{ 'selected' if nur == k }}>{{ v }}</option>{% endfor %}</select></div>
+      {% else %}
+      <div style="grid-column:span 2" x-data="itemPick()">
+        <label>{{ 'Artikel' if art == 'item' else 'Bestände dieser Artikel' }}</label>
+        <div class="chips" x-show="ids.length"><template x-for="(id, i) in ids" :key="id"><span class="chip"><span x-text="names[i]"></span><button type="button" @click="ids.splice(i, 1); names.splice(i, 1)" aria-label="entfernen">✕</button></span></template></div>
+        <span class="itempick" style="display:block"><input x-model="q" @input="find()" @keydown.enter.prevent="sugg.length && (ids.includes(sugg[0].id) || (ids.push(sugg[0].id), names.push(sugg[0].name)), q = '', sugg = [])" autocomplete="off" placeholder="Artikel suchen und hinzufügen (Name, Wert, MPN, Code)">
+          <span class="sugg" x-show="sugg.length" x-cloak @click.outside="sugg = []"><template x-for="(it, i) in sugg" :key="it.id">
+            <button type="button" :class="{on: i === idx}" @click="if (!ids.includes(it.id)) { ids.push(it.id); names.push(it.name) } q = ''; sugg = []"><b x-text="it.name"></b> <span class="small muted" x-text="(it.description || '').slice(0, 50)"></span></button></template></span></span>
+        <input type="hidden" name="artikel" :value="ids.join(',')">
+      </div>
+      <div><label>… oder alle {{ 'Artikel' if art == 'item' else 'Bestände' }} in Lagerort</label>{{ locpicker(name="artikel_ort", value=artikel_ort, placeholder="z. B. Kleinteilemagazin2") }}</div>
+      {% if bestand %}<input type="hidden" name="bestand" value="{{ bestand }}">{% endif %}
+      {% endif %}
+      <div><label>Vorlage</label><select name="vorlage" onchange="this.form.submit()">{% for x in tpls %}<option value="{{ x.id }}" {{ 'selected' if x.id == t.id }}>{{ x.name }}{{ ' ★' if x.is_default }}</option>{% endfor %}</select></div>
+      <div><label>Anzahl je Etikett</label><input type="number" name="anzahl" min="1" max="50" value="{{ anzahl }}"></div>
+      {% if s.sheet %}<div><label>Start-Position auf Bogen</label><input type="number" name="start" value="{{ start }}" min="1"></div>{% endif %}
+    </div>
+    {% if art == 'location' %}<label class="inline"><input type="checkbox" name="unterorte" value="1" {{ 'checked' if unterorte }}> Unterorte einschließen (alle Fächer eines Magazins)</label>{% endif %}
+    <div class="row" style="margin-top:8px"><button class="btn">Übernehmen</button>
+      {% if labels %}<button type="button" class="btn primary" onclick="window.print()">🖨 {{ labels|length }} Etikett{{ 'en' if labels|length != 1 }} über Browser drucken</button>{% endif %}
+      <span class="small muted">Format: {{ s.width_mm|round(1) }} × {{ s.height_mm|round(1) }} mm{% if s.sheet %}, A4-Bogen {{ s.cols }}×{{ s.rows }}{% endif %}</span></div>
+    <p class="small muted" style="margin-bottom:0">Im Druckdialog „Tatsächliche Größe“ bzw. Skalierung 100 % und Ränder „Keine“ wählen; beim Brother-Drucker das passende Endlosband einstellen. QR-Codes führen zu <code>{{ BASE_URL }}/s/&lt;Code&gt;</code>.</p>
+  </form>
+
+  {% if labels and not s.sheet %}
+  <form method="post" action="/etiketten/direktdruck" class="card row" style="align-items:center">
+    <input type="hidden" name="query" value="{{ query }}">
+    <b>Direktdruck</b>
+    {% if printers %}
+    <select name="drucker" style="width:auto">{% for p in printers %}<option value="{{ p.id }}">{{ p.name }} – {{ p.host }}</option>{% endfor %}</select>
+    <button class="btn primary">🖨 {{ labels|length }} Etikett{{ 'en' if labels|length != 1 }} an Drucker senden</button>
+    {% if loc_ids %}<label class="inline" style="margin:0"><input type="checkbox" name="markieren" value="1" checked> danach als gedruckt markieren</label>{% endif %}
+    {% elif not labelprint_pro %}
+    <span class="small muted">Direkt auf Brother, Zebra &amp; Co. drucken – ohne Druckdialog: <span class="badge pro">Pro</span></span><a href="/admin/lizenz">Mehr erfahren</a>
+    {% else %}
+    <span class="small muted">Noch kein Etikettendrucker eingerichtet – </span><a href="/etiketten/drucker">Brother QL im Netzwerk hinzufügen</a>
+    {% endif %}
+  </form>
+  {% endif %}
+
+  {% if loc_ids %}
+  <form method="post" action="/etiketten/gedruckt" class="row" style="margin-bottom:10px">
+    <input type="hidden" name="ids" value="{{ loc_ids|join(',') }}"><button class="btn sm">Als gedruckt markieren</button>
+  </form>{% endif %}
+
+  {% if sample %}
+  <div class="card">
+    <div class="row spread"><b>Vorschau „{{ t.name }}“</b><span class="small muted">mit Beispieldaten – oben {{ 'einen Lagerort' if art == 'location' else 'Artikel oder einen Lagerort' }} wählen</span></div>
+    <div class="lbl-preview zoomed" style="margin-top:8px">{{ label(sample, s) }}</div>
+    <div class="small muted">Vergrößert dargestellt; gedruckt wird in Originalgröße.</div>
+  </div>
+  {% else %}
+  <div class="small muted" style="margin:0 0 6px">Vorschau ({{ labels|length }}) – so werden die Etiketten gedruckt:</div>
+  {% endif %}
+</div>
+
+{% if pages %}
+  {% for page in pages %}<div class="sheet">{% for l in page %}{% if l %}{{ label(l, s) }}{% else %}<div></div>{% endif %}{% endfor %}</div>{% endfor %}
+{% elif labels %}
+  <div class="labels-screen">{% for l in labels %}{{ label(l, s) }}{% endfor %}</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">
+<line x1="88" y1="96" x2="88" y2="146" stroke="#9aa0a8" stroke-width="4" stroke-linecap="round"/><line x1="112" y1="96" x2="112" y2="146" stroke="#9aa0a8" stroke-width="4" stroke-linecap="round"/><circle cx="100" cy="62" r="36" fill="#d9d2c0" stroke="#8e8670" stroke-width="2"/><path d="M76 46 H124 V54 H76 V62 H124 V70 H76 V78 H124" fill="none" stroke="#c0462c" stroke-width="4"/>
+</svg>

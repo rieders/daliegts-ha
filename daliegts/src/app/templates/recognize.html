@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import locpicker %}
+{% block title %}Bauteil erkennen{% endblock %}
+{% macro unsure(field) %}{% if sug and field in sug.unsure %} unsure{% endif %}{% endmacro %}
+{% macro unsure_note(field) %}{% if sug and field in sug.unsure %}<div class="small" style="color:var(--warn)">unsicher – bitte prüfen</div>{% endif %}{% endmacro %}
+{% block content %}
+<div class="breadcrumb"><a href="/suche">Artikel</a></div>
+<h1>📷 Bauteil erkennen</h1>
+{% if error %}<div class="flash err">{{ error }}</div>{% endif %}
+
+{% if not sug %}
+<div class="cols">
+  <div class="card">
+    <h2 class="mt0">📦 Tüten-Etikett</h2>
+    <p class="small">DigiKey, Mouser, LCSC und TME drucken einen QR-/DataMatrix-Code mit Hersteller-Nr., Bestellnummer und Menge auf die Tüte. Kostenlos und genau.</p>
+    <a class="btn primary" href="/scan">Im Scanner scannen</a>
+    <form method="get" action="/artikel/erkennen" style="margin-top:10px">
+      <input type="hidden" name="ort" value="{{ ort }}">
+      <label>oder Etikett-Inhalt einfügen (Handscanner)</label>
+      <div class="row"><input name="code" class="grow" value="{{ code }}" placeholder="[)>06…  oder  {pbn:…,pc:C…}"><button class="btn">Auswerten</button></div>
+    </form>
+  </div>
+  <div class="card">
+    <h2 class="mt0">🤖 Foto vom Bauteil</h2>
+    {% if vision_active %}
+    <p class="small">Aufdruck, Farbringe, Wert und Gehäuse werden erkannt; danach sucht {{ APP_NAME }} Bestellnummern und Preise. Tipp: Aufdruck scharf und groß, bei Widerständen die Ringe gut ausgeleuchtet. Bis zu {{ 3 }} Fotos.</p>
+    <form method="post" action="/artikel/erkennen" enctype="multipart/form-data" onsubmit="this.querySelector('button').disabled=true; document.getElementById('busy').classList.remove('hide')">
+      <input type="hidden" name="ort" value="{{ ort }}"><input type="hidden" name="code" value="{{ code }}">
+      <input type="file" name="photos" accept="image/*" capture="environment" multiple required>
+      <label>Hinweis (optional)</label><input name="hint" placeholder="z. B. „aus DDR-Gerät“, „SMD-Widerstand 0805“, „Elko 25 V“">
+      <button class="btn primary big" style="width:100%;margin-top:10px">Erkennen</button>
+      <div id="busy" class="hide small" style="margin-top:6px">⏳ Analysiere Foto und frage die Shops an … (ca. 10–30 s)</div>
+    </form>
+    {% else %}
+    <p class="small muted">Noch nicht eingerichtet. Dafür wird ein eigener API-Schlüssel für die KI gebraucht (Kosten pro Foto meist im Cent-Bereich).
+      {% if me.can('system') %}<a href="/admin/info-provider#vision">Jetzt einrichten</a>{% else %}Bitte einen Admin fragen.{% endif %}</p>
+    {% endif %}
+  </div>
+</div>
+<p class="small muted">Alles wird nur als Vorschlag angezeigt – du prüfst und speicherst selbst. Alternativ: <a href="/katalog">aus dem Katalog</a> oder <a href="/artikel/neu">von Hand anlegen</a>.</p>
+
+{% else %}
+<div class="row small" style="margin-bottom:8px">{% for s in sug.source %}<span class="badge ok">{{ s }}</span>{% endfor %}
+  {% if sug.label %}<span class="badge code">{{ sug.label.supplier or sug.label.source }} {{ sug.label.sku }}</span>{% endif %}
+  {% if sug.aufdruck %}<span class="badge">Aufdruck: {{ sug.aufdruck[:60] }}</span>{% endif %}</div>
+
+{% if sug.existing %}
+<div class="note" style="margin-bottom:10px">Diesen Artikel gibt es schon:
+  {% for i in sug.existing %}<a href="/artikel/{{ i.id }}"><b>{{ i.name }}</b></a> ({{ i.total_quantity|qty(i.unit) }}){% if not loop.last %}, {% endif %}{% endfor %}
+  – besser dort <b>einlagern</b> statt neu anlegen.</div>
+{% endif %}
+
+{% if sug.rueckfragen or sug.hinweise %}
+<div class="card" style="border-color:var(--warn)">
+  {% if sug.rueckfragen %}<b>Rückfragen</b><ul>{% for q in sug.rueckfragen %}<li>{{ q }}</li>{% endfor %}</ul>{% endif %}
+  {% if sug.hinweise %}<ul class="small muted">{% for h in sug.hinweise %}<li>{{ h }}</li>{% endfor %}</ul>{% endif %}
+  {% if sug.images and vision_active %}
+  <form method="post" action="/artikel/erkennen" class="row" onsubmit="this.querySelector('button').disabled=true">
+    {% for im in sug.images %}<input type="hidden" name="stored" value="{{ im }}">{% endfor %}
+    <input type="hidden" name="code" value="{{ code }}"><input type="hidden" name="ort" value="{{ ort }}">
+    <input name="hint" class="grow" placeholder="Antwort, z. B. „Hersteller Vishay, 1 %, 0,6 W“ oder „Aufdruck lautet KT315B“">
+    <button class="btn sm">Neu analysieren</button>
+  </form>
+  <div class="small muted">Oder unten die Felder direkt korrigieren.</div>{% endif %}
+</div>
+{% endif %}
+
+<form method="post" action="/artikel/erkennen/anlegen">
+<input type="hidden" name="code" value="{{ code }}">
+<div class="cols-2">
+<div>
+  <div class="card"><h2 class="mt0">Vorschlag</h2>
+    <label>Name</label><input name="name" value="{{ sug.name }}" required class="{{ unsure('typ') }}">
+    <div class="fields">
+      <div><label>Art</label><select name="kind">{% for k, v in ITEM_KINDS.items() %}<option value="{{ k }}" {{ 'selected' if sug.art == k }}>{{ v }}</option>{% endfor %}</select></div>
+      <div><label>Kategorie</label><input name="category" value="{{ sug.kategorie }}" list="cats"><datalist id="cats">{% for c in categories %}<option value="{{ c }}">{% endfor %}</datalist></div>
+      <div><label>Hersteller</label><input name="manufacturer" value="{{ sug.hersteller }}" class="{{ unsure('hersteller') }}">{{ unsure_note('hersteller') }}</div>
+      <div><label>Hersteller-Nr. (MPN)</label><input name="mpn" value="{{ sug.mpn }}" class="{{ unsure('mpn') }}" placeholder="wichtig für Preise & Nachbestellen">{{ unsure_note('mpn') }}</div>
+      <div><label>Gehäuse / Bauform</label><input name="footprint" value="{{ sug.gehaeuse }}" class="{{ unsure('gehaeuse') }}" placeholder="z. B. TO-92, 0805, DIP-8">{{ unsure_note('gehaeuse') }}</div>
+      <div><label>Herkunft</label><input name="origin" value="{{ sug.herkunft }}" placeholder="z. B. DDR"></div>
+    </div>
+    <label>Beschreibung</label><textarea name="description" rows="2">{{ sug.beschreibung }}</textarea>
+    <h3>Parameter {% if 'wert' in sug.unsure %}<span class="badge warn">Wert unsicher</span>{% endif %}</h3>
+    <table><tbody id="param-rows">
+      {% for p in sug.parameter %}<tr><td><input name="param_name" value="{{ p.name }}" list="ptpl"></td><td><input name="param_value" value="{{ p.wert }}"></td><td><input name="param_unit" value="{{ p.einheit or '' }}" style="width:80px"></td><td><button type="button" class="btn sm ghost" onclick="this.closest('tr').remove()">✕</button></td></tr>{% endfor %}
+    </tbody></table>
+    <datalist id="ptpl">{% for n in params %}<option value="{{ n }}">{% endfor %}</datalist>
+    <template id="param-row-tpl"><tr><td><input name="param_name" list="ptpl"></td><td><input name="param_value" placeholder="z. B. 4k7, 100n"></td><td><input name="param_unit" style="width:80px"></td><td><button type="button" class="btn sm ghost" onclick="this.closest('tr').remove()">✕</button></td></tr></template>
+    <button type="button" class="btn sm" onclick="addParamRow(this)" style="margin-top:6px">＋ Parameter</button>
+  </div>
+
+  {% if sug.rows %}
+  <div class="card"><h2 class="mt0">Bezugsquellen übernehmen</h2>
+    <p class="small muted">Vorausgewählt ist, was eindeutig passt (gleiche Hersteller-Nr. bzw. Bestellnummer vom Etikett). Kosten für {{ sug.need|qty }} Stk.</p>
+    {% for key, rows in sug.rows.items() %}
+    <h3>{{ names[key] }}</h3>
+    {% if rows is string %}<p class="small" style="color:var(--err)">{{ rows }}</p>{% elif not rows %}<p class="small muted">Keine Treffer.</p>{% else %}
+    <div class="table-wrap"><table>
+      {% for r in rows %}{% set h = r.hit %}
+      <tr><td><input type="checkbox" name="hit" value="{{ r.json }}" {{ 'checked' if r.exact }}></td>
+        <td class="mono small">{% if h.url|safe_url %}<a href="{{ h.url|safe_url }}" target="_blank" rel="noopener noreferrer">{{ h.sku }}</a>{% else %}{{ h.sku }}{% endif %}{% if r.exact %}<div><span class="badge ok">passt genau</span></div>{% endif %}</td>
+        <td class="small"><b>{{ h.mpn or h.name }}</b><div class="muted">{{ h.manufacturer }}</div></td>
+        <td class="small">{{ h.description[:90] }}</td>
+        <td class="num">{{ r.total|euro if r.total is not none else '–' }}</td></tr>
+      {% endfor %}
+    </table></div>{% endif %}
+    {% endfor %}
+  </div>
+  {% elif online_active %}<p class="small muted">Keine Shop-Treffer – nach dem Anlegen am Artikel „🔎 Online suchen“.</p>{% endif %}
+</div>
+
+<div>
+  {% if sug.images %}
+  <div class="card"><h2 class="mt0">Foto</h2>
+    <div class="row">{% for im in sug.images %}<label class="inline" style="flex-direction:column"><img src="{{ im|img }}" alt="" style="width:120px;height:120px;object-fit:cover;border-radius:8px">
+      <span class="small"><input type="radio" name="image" value="{{ im }}" {{ 'checked' if loop.first }}> als Artikelbild</span></label>{% endfor %}</div>
+  </div>{% endif %}
+  <div class="card"><h2 class="mt0">Einlagern (optional)</h2>
+    <label>Lagerort</label>{{ locpicker(value=ort) }}
+    <label>Menge</label><input name="quantity" value="{{ sug.qty or '' }}" inputmode="decimal">
+    {% if sug.label and sug.label.lot %}<div class="small muted">Charge vom Etikett: {{ sug.label.lot }}</div>{% endif %}
+  </div>
+  {% if sug.catalog %}
+  <div class="card"><h2 class="mt0">Im Katalog</h2>
+    {% for c in sug.catalog %}<div class="small"><a href="/katalog?q={{ c.name|urlencode }}">{{ c.name }}</a> – {{ c.description[:60] }}</div>{% endfor %}
+    <p class="small muted">Katalogeinträge bringen Gehäusebild und Vergleichstypen mit.</p>
+  </div>{% endif %}
+  <button class="btn primary big" style="width:100%">✔ Artikel anlegen</button>
+  <p class="small muted">Nichts wird gespeichert, bevor du hier bestätigst.</p>
+</div>
+</div>
+</form>
+{% endif %}
+{% endblock %}

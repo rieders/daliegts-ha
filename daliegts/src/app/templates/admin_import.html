@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Import{% endblock %}
+{% block content %}
+<h1>Import</h1>
+{% if report %}<div class="card"><h2 class="mt0">Ergebnis</h2><pre style="white-space:pre-wrap" class="small">{{ report }}</pre></div>{% endif %}
+<p class="note">Nach dem Import aufräumen: <a href="/admin/aufraeumen">Platzhalter „Unbenannter Lagerartikel“ und leere Import-Lagerorte entfernen →</a></p>
+{% if not me.can('import_export', 3) %}<p class="note">Import erfordert den Admin-Modus.</p>{% endif %}
+<div class="card"><h2 class="mt0">Import-Assistent <span class="badge">neu</span></h2>
+  <p class="small muted">Für <b>Part-DB</b> (SQL-Dump, CSV/JSON-Export), <b>InvenTree</b> (SQLite-Datenbank, CSV-Export) und <b>beliebige Tabellen</b> (CSV, JSON): Spalten selbst zuordnen, Kategorien/Lagerorte/Gehäuse umbenennen,
+  Regeln festlegen, Probelauf ansehen, Einstellungen als Profil merken. Vorhandene Artikel werden auf Wunsch zusammengeführt statt verdoppelt.</p>
+  <form method="post" action="/admin/import/assistent" enctype="multipart/form-data" class="row"><input type="file" name="file" accept=".csv,.tsv,.txt,.json,.sql,.sqlite,.sqlite3,.db" required class="grow">
+    <button class="btn primary" {{ 'disabled' if not me.can('import_export', 3) }}>Datei laden …</button></form></div>
+<div class="cols">
+  <div class="card">
+    <h2 class="mt0">Part-DB 0.x (SQL-Dump)</h2>
+    <form method="post" action="/admin/import/partdb" enctype="multipart/form-data">
+      <label>Dump (phpMyAdmin/mysqldump, z. B. „bauteile 3.sql“)</label><input type="file" name="dump" accept=".sql" required>
+      <label>Neuerer Dump derselben Datenbank (optional – neuere Namen haben Vorrang)</label><input type="file" name="dump_neuer" accept=".sql">
+      <label>Alter Medien-Ordner als ZIP/TAR (optional, für Bilder & Datenblätter)</label><input type="file" name="media">
+      <label class="inline"><input type="checkbox" name="probelauf" value="true" checked> Probelauf (nichts speichern, nur Bericht)</label>
+      <div><button class="btn primary" style="margin-top:8px" {{ 'disabled' if not me.can('import_export', 3) }}>Importieren</button></div>
+    </form>
+    <p class="small muted">Benutzer, Gruppen und Passwort-Hashes werden nie übernommen. Lagerorte landen unter „Part-DB (Altbestand)“, Bestände sind zur Inventur markiert. Mehrfacher Import aktualisiert statt zu verdoppeln.</p>
+  </div>
+  <div class="card">
+    <h2 class="mt0">InvenTree</h2>
+    <form method="post" action="/admin/import/inventree" enctype="multipart/form-data">
+      <label>Datenbank (SQLite-Datei)</label><input type="file" name="sqlite">
+      <label>Bestandshistorie als CSV (stock_stockitemtracking)</label><input type="file" name="tracking" accept=".csv">
+      <label>Medien-Backup (tar.gz/zip mit part_images)</label><input type="file" name="media">
+      <label class="inline"><input type="checkbox" name="probelauf" value="true" checked> Probelauf</label>
+      <div><button class="btn primary" style="margin-top:8px" {{ 'disabled' if not me.can('import_export', 3) }}>Importieren</button></div>
+    </form>
+    <p class="small muted">Alte InvenTree-Etiketten ({"stocklocation": n}) werden den Lagerorten zugeordnet und funktionieren sofort. Artikel ohne Namen (nur aus der Historie bekannt) erscheinen als „Unbenannter Lagerartikel #…“ zur Klärung per Inventur.</p>
+  </div>
+  <div class="card">
+    <h2 class="mt0">{{ APP_NAME }}-Export (Umzug/Wiederherstellung)</h2>
+    <form method="post" action="/admin/import/lagerwerk" enctype="multipart/form-data">
+      <label>Export-ZIP</label><input type="file" name="file" accept=".zip" required>
+      <div><button class="btn warn" style="margin-top:8px" data-confirm="Nur in eine leere Installation möglich. Fortfahren?" {{ 'disabled' if not me.can('import_export', 4) }}>Wiederherstellen</button></div>
+    </form>
+  </div>
+</div>
+{% endblock %}

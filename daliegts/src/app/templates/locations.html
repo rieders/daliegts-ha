@@ -1,0 +1,277 @@
+{% extends "base.html" %}
+{% block title %}Lagerorte{% endblock %}
+{% block head %}<script src="/static/vendor/sortable-1.15.7.min.js" defer></script>
+<script>
+function locTree() {
+  return {
+    mode: "", node: {}, addType: "sonstiges", moveTarget: "",
+    info(li) { const d = li.dataset; return { id: d.id, name: d.name, type: d.type, kids: +d.kids, lots: +d.lots, el: li }; },
+    onClick(e) {
+      const b = e.target.closest("[data-act]");
+      if (!b) return;
+      e.preventDefault(); e.stopPropagation();
+      const n = this.info(b.closest("li"));
+      if (b.dataset.act === "rename") return this.rename(n);
+      if (b.dataset.act === "merge") { lwGo(`/orte/${n.id}/zusammenfuehren`); return; }
+      this.openDlg(b.dataset.act, n);
+    },
+    openDlg(mode, n) {
+      this.mode = mode; this.node = n; this.moveTarget = "";
+      const furniture = ["magazin", "regal", "schrank", "sortierbox", "kiste"].includes(n.type);
+      this.addType = mode === "add" ? (furniture ? "fach" : (n.id ? "sonstiges" : "raum")) : this.addType;
+      this.$refs.dlg.showModal();
+      this.$nextTick(() => { if (mode === "add") this.$refs.addName.focus(); if (mode === "move") this.$refs.moveInput.focus(); initLocPickers(this.$refs.dlg); });
+    },
+    title() {
+      return { add: "Neuer Ort in „" + this.node.name + "“", move: "„" + this.node.name + "“ verschieben", del: "„" + this.node.name + "“ löschen" }[this.mode] || "";
+    },
+    async rename(n) {
+      const name = prompt("Neuer Name:", n.name);
+      if (!name || name === n.name) return;
+      const fd = new FormData(); fd.append("name", name);
+      const r = await fetch(`/orte/${n.id}/umbenennen`, { method: "POST", body: fd, credentials: "same-origin", headers: { "HX-Request": "true" } });
+      if (r.ok) { const a = n.el.querySelector(":scope > details > summary > a, :scope > .node > a"); if (a) a.textContent = name; n.el.dataset.name = name; toast("Umbenannt"); }
+      else toast("Umbenennen nicht möglich");
+    },
+    async doMove() {
+      if (!this.moveTarget.trim()) { toast("Bitte ein Ziel angeben"); return; }
+      const fd = new FormData(); fd.append("target", this.moveTarget.trim());
+      const r = await fetch(`/orte/${this.node.id}/verschieben`, { method: "POST", body: fd, credentials: "same-origin" });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok || j.ok === false) { toast("Verschieben nicht möglich: " + (j.error || j.detail || r.statusText)); return; }
+      lwGo("/orte#ort-" + this.node.id);
+      window.location.reload();
+    },
+  };
+}
+
+function tplPreview(data, canCreate) {
+  return {
+    data, sel: null, canCreate, dragging: false, over: null, parent: null, busy: false, err: "",
+    openG: { "Sortimentskästen": true, "Eigene Vorlagen": true },
+    groups() {
+      const order = ["Eigene Vorlagen", "Sortimentskästen", "IKEA", "Allgemein"], by = {};
+      this.data.forEach((t) => { (by[t.group || "Allgemein"] = by[t.group || "Allgemein"] || []).push(t); });
+      const pos = (g) => (order.indexOf(g) < 0 ? 50 : order.indexOf(g));
+      return Object.keys(by).sort((a, b) => pos(a) - pos(b) || a.localeCompare(b)).map((name) => ({ name, items: by[name] }));
+    },
+    isOpen(g) { return !!this.openG[g] || !!(this.sel && this.sel.group === g); },
+    setOpen(g, v) { this.openG[g] = v; },
+    pick(t) { this.sel = this.sel && this.sel.id === t.id ? null : t; },
+    gridStyle(t) {
+      const ratio = t.w && t.h ? Math.min(Math.max(t.w / t.h, 0.35), 3) : Math.max(t.cols / t.rows, 0.35);
+      const w = Math.round(Math.min(220, 260 * ratio));
+      return `grid-template-columns:repeat(${t.cols},1fr);grid-template-rows:repeat(${t.rows},1fr);width:${w}px;aspect-ratio:${ratio}`;
+    },
+    cellStyle(c) { return `grid-area:${c.row} / ${c.col} / span ${c.rowspan} / span ${c.colspan}`; },
+    size(t) { return t.w && t.h ? `${t.w} × ${t.h} cm` : ""; },
+    dragStart(e) {
+      if (!this.canCreate) return;
+      e.dataTransfer.setData("text/plain", "vorlage:" + this.sel.id); e.dataTransfer.effectAllowed = "copy";
+      this.dragging = true; document.body.classList.add("tpl-dragging");
+    },
+    dragEnd() { this.dragging = false; this.clearOver(); document.body.classList.remove("tpl-dragging"); },
+    clearOver() { if (this.over) this.over.classList.remove("tpl-over"); this.over = null; },
+    nodeAt(e) {
+      const li = e.target.closest && e.target.closest(".tree li[data-id]");
+      return li ? { li, el: li.querySelector(":scope > details > summary.node, :scope > .node"), id: li.dataset.id, name: li.dataset.name } : null;
+    },
+    init() {
+      document.addEventListener("dragover", (e) => {
+        if (!this.dragging) return;
+        const n = this.nodeAt(e);
+        if (!n) { this.clearOver(); return; }
+        e.preventDefault(); e.dataTransfer.dropEffect = "copy";
+        if (this.over !== n.el) { this.clearOver(); this.over = n.el; if (n.el) n.el.classList.add("tpl-over"); }
+      });
+      document.addEventListener("drop", (e) => {
+        if (!this.dragging) return;
+        const n = this.nodeAt(e);
+        if (!n) return;
+        e.preventDefault(); this.dragEnd(); this.openDlg({ id: n.id, name: n.name });
+      });
+    },
+    openDlg(parent) {
+      this.parent = parent || null; this.err = "";
+      this.$refs.tname.value = this.sel.short;
+      this.$refs.tdlg.showModal();
+      this.$nextTick(() => { if (!parent) initLocPickers(this.$refs.tdlg); this.$refs.tname.focus(); this.$refs.tname.select(); });
+    },
+    async create() {
+      this.busy = true; this.err = "";
+      const fd = new FormData(this.$refs.tform);
+      try {
+        const r = await fetch(`/vorlagen/${this.sel.id}/anlegen`, { method: "POST", body: fd, credentials: "same-origin", headers: { "HX-Request": "true" } });
+        const j = await r.json().catch(() => ({}));
+        if (!r.ok || !j.ok) { this.err = j.detail || j.error || r.statusText; this.busy = false; return; }
+        this.$refs.tdlg.close(); lwGo(j.url);
+      } catch (e) { this.err = String(e); this.busy = false; }
+    },
+  };
+}
+</script>
+<style>
+.tpl-item{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--border);padding:6px 4px;color:var(--text);cursor:pointer;font:inherit;font-size:.9rem}
+.tpl-item:hover{background:var(--surface-2)}.tpl-item.on{background:var(--accent-2);font-weight:600}
+.tpl-list{max-height:300px;overflow:auto;margin-top:6px}
+.tpl-grp{cursor:pointer;font-weight:600;font-size:.9rem;padding:6px 2px;position:sticky;top:0;background:var(--surface)}
+.tpl-card{position:sticky;top:8px;max-height:calc(100vh - 16px);overflow:auto;z-index:2}
+.tpl-prev{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;padding:10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface-2);margin-bottom:8px}
+.tpl-grid{display:grid;gap:3px;padding:6px;border:2px solid var(--muted);border-radius:6px;background:var(--surface);cursor:grab;touch-action:none}
+.tpl-grid.nodrag{cursor:default}.tpl-grid div{background:var(--accent-2);border:1px solid var(--accent);border-radius:3px;min-height:6px}
+body.tpl-dragging .tree summary.node,body.tpl-dragging .tree div.node{outline:1px dashed var(--border)}
+.tree .tpl-over{outline:2px solid var(--accent)!important;background:var(--accent-2)}
+</style>{% endblock %}
+{% block content %}
+<div class="row spread"><h1>Lagerorte</h1>
+  <div class="row">
+    <a class="btn sm" href="/orte-export.txt">Als Text exportieren</a>
+    {% if me.can('labels') %}<a class="btn sm" href="/etiketten">🏷 Etiketten</a>{% endif %}
+  </div>
+</div>
+{% set can2, can3, can4 = me.can('locations', 2), me.can('locations', 3), me.can('locations', 4) %}
+{% macro actions(cid) -%}
+{% set can2, can3, can4 = me.can('locations', 2), me.can('locations', 3), me.can('locations', 4) %}
+{% if can2 or can3 or can4 %}<span class="node-actions">
+  {% if can3 %}<button type="button" data-act="add" title="Unterort anlegen">＋</button>{% endif %}
+  {% if can2 %}<button type="button" data-act="rename" title="Umbenennen">✎</button><button type="button" data-act="move" title="Verschieben nach …">⤴</button>{% endif %}
+  {% if can4 %}<button type="button" data-act="merge" title="Mit anderem Ort zusammenführen / Fächer übertragen">🔀</button><button type="button" data-act="del" title="Löschen">🗑</button>{% endif %}
+</span>{% endif %}
+{%- endmacro %}
+{% macro branch(parent, depth) %}
+{% set can2 = me.can('locations', 2) %}
+<ul data-sortable="loc" data-parent="{{ parent or '' }}">
+{% for cid in tc.children.get(parent, []) %}{% set n = tc.nodes[cid] %}{% set kids = tc.children.get(cid, []) %}
+  <li id="ort-{{ cid }}" data-move-url="/orte/{{ cid }}/verschieben" data-id="{{ cid }}" data-name="{{ n.name }}" data-type="{{ n.type }}"
+      data-kids="{{ tc.descendants(cid)|length }}" data-lots="{{ sub.get(cid, 0) }}">
+    {% if kids %}<details {{ 'open' if depth < 1 }}><summary class="node">
+      {% if can2 %}<span class="handle" title="Ziehen zum Verschieben">⠿</span>{% endif %}<span class="caret">▸</span>
+      <a href="/orte/{{ cid }}" {% if can2 %}data-rename-url="/orte/{{ cid }}/umbenennen"{% endif %}>{{ n.name }}</a>
+      <span class="badge">{{ LOCATION_TYPES.get(n.type, n.type) }}</span><span class="muted small" title="Unterorte">{{ kids|length }}</span>
+      {% if sub.get(cid) %}<span class="badge ok" title="Bestände inkl. Unterorte">{{ sub[cid] }}</span>{% endif %}
+      {{ actions(cid) }}
+    </summary>{{ branch(cid, depth + 1) }}</details>
+    {% else %}<div class="node">
+      {% if can2 %}<span class="handle" title="Ziehen zum Verschieben">⠿</span>{% endif %}<span class="caret"></span>
+      <a href="/orte/{{ cid }}" {% if can2 %}data-rename-url="/orte/{{ cid }}/umbenennen"{% endif %}>{{ n.name }}</a>
+      <span class="badge">{{ LOCATION_TYPES.get(n.type, n.type) }}</span>{% if counts.get(cid) %}<span class="badge ok">{{ counts[cid] }}</span>{% endif %}
+      {{ actions(cid) }}
+    </div><ul data-sortable="loc" data-parent="{{ cid }}"></ul>{% endif %}
+  </li>
+{% endfor %}
+</ul>
+{% endmacro %}
+{% if rooms %}
+<div class="card rooms">
+  <div class="row spread"><h2 class="mt0 mb0">Räume</h2>{% if me.can('inventory') %}<a class="btn sm" href="/inventur">🎲 Stichproben-Inventur</a>{% endif %}</div>
+  <p class="small muted" style="margin:4px 0 8px">Raum wählen: Lagermöbel mit allen Fächern – frei oder belegt, mit Inhalt und Menge.</p>
+  <div class="row">{% for r in rooms %}<a class="btn {{ '' if r.modules else 'ghost' }}" href="/orte/{{ r.id }}/wand" title="{{ r.path }}">🧱 {{ r.name }}</a>{% endfor %}</div>
+</div>
+{% endif %}
+<div class="cols-2">
+  <div class="card tree" x-data="locTree()" @click="onClick($event)">
+    {% if can2 or can3 %}<div class="row spread" style="margin-bottom:6px">
+      <span class="small muted">＋ Unterort · ✎ umbenennen · ⤴ verschieben · 🔀 übertragen · 🗑 löschen · ⠿ ziehen</span>
+      {% if can3 %}<button type="button" class="btn sm" @click="openDlg('add', {id: '', name: 'oberste Ebene', type: '', kids: 0, lots: 0})">＋ Ort (oberste Ebene)</button>{% endif %}
+    </div>{% elif me.has_right('locations', 2) %}<p class="note small">Zum Bearbeiten (anlegen, verschieben, löschen) den Admin-Modus einschalten.</p>{% endif %}
+    {% if tc.children.get(None) %}{{ branch(None, 0) }}{% else %}<p class="muted">Noch keine Lagerorte. Lege rechts welche an – am schnellsten per Text.</p>{% endif %}
+
+    <dialog x-ref="dlg" class="dlg" @close="mode = ''">
+      <form method="dialog" class="row spread"><b x-text="title()"></b><button class="btn sm ghost" aria-label="Schließen">✕</button></form>
+      <!-- Anlegen -->
+      <form method="post" action="/orte/neu" x-show="mode === 'add'">
+        <input type="hidden" name="parent_id" :value="node.id"><input type="hidden" name="zurueck" value="/orte">
+        <label>Name</label><input name="name" x-ref="addName" required placeholder="z. B. Regal 2, Kiste Kabel, Fach 18">
+        <label>Typ</label><select name="type" x-model="addType">{% for k, v in LOCATION_TYPES.items() %}<option value="{{ k }}">{{ v }}</option>{% endfor %}</select>
+        <div class="row" style="margin-top:10px"><button class="btn primary">Anlegen</button>
+          <a class="btn" x-show="node.id" :href="'/orte/' + node.id + '/moebel-neu'">🗄 Magazin/Regal mit Fächern …</a></div>
+      </form>
+      <!-- Verschieben -->
+      <form x-show="mode === 'move'" @submit.prevent="doMove()">
+        <label>Neuer übergeordneter Ort (Name, Pfad oder Code)</label>
+        <input x-model="moveTarget" data-locpicker x-ref="moveInput" placeholder="z. B. Hobbyraum / Regalwand">
+        <p class="small muted">Alles darunter (Fächer, Inhalt, Etiketten) wandert mit.</p>
+        <div class="row"><button class="btn primary">Verschieben</button><button type="button" class="btn" @click="moveTarget = '/'; doMove()">Auf oberste Ebene</button></div>
+      </form>
+      <!-- Löschen -->
+      <form method="post" :action="'/orte/' + node.id + '/loeschen'" x-show="mode === 'del'">
+        <input type="hidden" name="zurueck" value="/orte">
+        <p>„<b x-text="node.name"></b>“ <span x-show="node.kids > 0" x-text="'und ' + node.kids + ' Unterorte'"></span> endgültig löschen?</p>
+        <template x-if="node.lots > 0">
+          <div><label x-text="'Inhalt (' + node.lots + ' Bestände) verschieben nach'"></label>
+            <input name="target" data-locpicker required placeholder="Ziel-Lagerort (Name, Pfad oder Code)">
+            <p class="small muted">Ohne Ziel lässt sich ein Ort mit Inhalt nicht löschen – so geht nichts verloren.</p></div>
+        </template>
+        <button class="btn warn">🗑 Löschen</button>
+      </form>
+    </dialog>
+  </div>
+  <div style="align-self:stretch">
+    {% if me.can('locations', 3) %}
+    <div class="card">
+      <h2>Per Text anlegen</h2>
+      <p class="small muted">Eine Zeile pro Ort, Einrückung (2 Leerzeichen oder Tab) = Unterort. Vorhandene Orte werden erkannt.</p>
+      <form method="post" action="/orte/text">
+        <textarea name="text" rows="10" placeholder="Zuhause&#10;  Keller&#10;    Regal 1&#10;  Garage&#10;    Werkbank&#10;Garten&#10;  Schuppen"
+          hx-post="/orte/text/vorschau" hx-trigger="input changed delay:300ms" hx-target="#outline-preview"></textarea>
+        <div id="outline-preview" class="tree small"></div>
+        <button class="btn primary" style="margin-top:8px">Anlegen</button>
+      </form>
+    </div>
+    <div class="card">
+      <h2>Einzelnen Ort anlegen</h2>
+      <form method="post" action="/orte/neu">
+        <label>Name</label><input name="name" required>
+        <label>Typ</label><select name="type">{% for k, v in LOCATION_TYPES.items() %}<option value="{{ k }}">{{ v }}</option>{% endfor %}</select>
+        <button class="btn" style="margin-top:8px">Anlegen (oberste Ebene)</button>
+      </form>
+      <p class="small muted">Regale, Magazine & Sortimentskästen mit Fächern legst du auf der Seite des Elternorts über „Lagermöbel-Assistent“ an.</p>
+    </div>
+    {% else %}<div class="note">Zum Anlegen und Umbauen der Struktur bitte den Admin-Modus einschalten.</div>{% endif %}
+    <div class="card tpl-card" x-data='tplPreview({{ tpl_data|tojson }}, {{ "true" if can3 else "false" }})'><h2>Vorlagen für Lagermöbel</h2>
+      <p class="small muted" style="margin:0 0 6px">Vorlage anklicken – die Vorschau lässt sich auf einen Ort im Baum links ziehen, dort wird das Möbel angelegt.</p>
+      <template x-if="sel"><div class="tpl-prev">
+        <div class="tpl-grid" :class="{nodrag: !canCreate}" :style="gridStyle(sel)" :draggable="canCreate" @dragstart="dragStart($event)" @dragend="dragEnd()" :title="canCreate ? 'Auf einen Ort im Baum ziehen' : ''">
+          <template x-for="(c, i) in sel.cells" :key="i"><div :style="cellStyle(c)"></div></template>
+        </div>
+        <div style="flex:1;min-width:180px">
+          <b x-text="sel.name"></b>
+          <div class="small muted"><span x-text="sel.cells.length + ' Fächer'"></span><span x-show="size(sel)" x-text="' · ' + size(sel)"></span><span x-show="sel.sub > 1" x-text="' · je ' + sel.sub + ' Abteile'"></span></div>
+          <div class="small" x-show="sel.notes" x-text="sel.notes" style="margin-top:4px"></div>
+          <div class="row" style="margin-top:8px" x-show="canCreate">
+            <button type="button" class="btn sm primary" @click="openDlg(null)">＋ In Ort anlegen …</button>
+            <a class="btn sm" :href="'/orte/0/moebel-neu?vorlage=' + sel.id" title="Mit allen Einstellungen (Benennung, LEDs …)">Anpassen …</a>
+          </div>
+          <div class="small muted" style="margin-top:6px" x-show="canCreate">⠿ Raster ziehen: auf einen Ort im Baum fallen lassen.</div>
+          <div class="small" style="margin-top:6px"><a :href="'/vorlagen/' + sel.id + '.json'" download>JSON-Export</a><template x-if="!sel.builtin"> · <a :href="'/vorlagen/' + sel.id + '/teilen'">Mit anderen teilen …</a></template></div>
+        </div>
+      </div></template>
+      <div class="tpl-list">
+        <template x-for="g in groups()" :key="g.name"><details :open="isOpen(g.name)" @toggle="setOpen(g.name, $event.target.open)">
+          <summary class="tpl-grp"><span x-text="g.name"></span> <span class="muted small" x-text="'(' + g.items.length + ')'"></span></summary>
+          <template x-for="t in g.items" :key="t.id"><button type="button" class="tpl-item" :class="{on: sel && sel.id === t.id}" @click="pick(t)"><span x-text="t.name"></span> <span class="badge" x-show="t.builtin">mitgeliefert</span></button></template>
+        </details></template>
+      </div>
+      {% if me.can('locations', 3) %}<div class="small" style="margin-top:6px"><a href="/vorlagen/katalog">🌐 Weitere Vorlagen aus dem Katalog holen …</a></div>{% endif %}
+      <dialog x-ref="tdlg" class="dlg">
+        <form method="dialog" class="row spread"><b x-text="'Möbel aus „' + (sel ? sel.short : '') + '“ anlegen'"></b><button class="btn sm ghost" aria-label="Schließen">✕</button></form>
+        <form x-ref="tform" @submit.prevent="create()">
+          <label>Name des Möbels</label><input name="name" x-ref="tname" required>
+          <template x-if="parent"><div>
+            <input type="hidden" name="parent_id" :value="parent.id">
+            <p style="margin:10px 0 0">Ort: <b x-text="parent.name"></b> <a href="#" class="small" @click.prevent="parent = null; $nextTick(() => initLocPickers($refs.tdlg))">anderer Ort</a></p>
+          </div></template>
+          <template x-if="!parent"><div>
+            <label>Ort, in dem das Möbel stehen soll</label>
+            <input name="ziel" data-locpicker placeholder="Name, Pfad oder Code, z. B. Keller / Regalwand">
+            <p class="small muted">Leer lassen = oberste Ebene.</p>
+          </div></template>
+          <p class="note err" x-show="err" x-text="err" style="margin-top:8px"></p>
+          <div class="row" style="margin-top:10px"><button class="btn primary" :disabled="busy">Anlegen</button></div>
+        </form>
+      </dialog>
+      {% if me.can('locations', 3) %}<form method="post" action="/vorlagen/import" enctype="multipart/form-data" class="row" style="margin-top:8px"><input type="file" name="file" accept=".json" required><button class="btn sm">Vorlage importieren</button></form>{% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

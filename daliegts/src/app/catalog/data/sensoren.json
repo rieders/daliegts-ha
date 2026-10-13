@@ -1,0 +1,622 @@
+{
+ "group": "Sensoren",
+ "parts": [
+  {
+   "category": "Elektronik/Sensoren/Bewegung & Abstand",
+   "description": "Ultraschall-Entfernungssensor 2–400 cm, 5 V, Trigger/Echo",
+   "footprint": "Modul",
+   "image": "ultrasonic.svg",
+   "key": "hc-sr04",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "HC-SR04",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    },
+    {
+     "name": "Frequenz",
+     "unit": "Hz",
+     "value": "40k"
+    }
+   ],
+   "tags": [
+    "abstand",
+    "entfernung",
+    "hc-sr04",
+    "ultraschall"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Bewegung & Abstand",
+   "description": "Passiv-Infrarot-Bewegungsmelder, 4,5–20 V, 3,3-V-Ausgang, Haltezeit und Empfindlichkeit einstellbar",
+   "footprint": "Modul",
+   "image": "pir.svg",
+   "key": "hc-sr501",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "PIR HC-SR501",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "4.5–20"
+    }
+   ],
+   "tags": [
+    "bewegungsmelder",
+    "hc-sr501",
+    "pir"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Bewegung & Abstand",
+   "datasheet_hint": "MPU-6050",
+   "description": "6-Achsen-Bewegungssensor (3 Achsen Beschleunigung + 3 Achsen Gyroskop), I²C",
+   "footprint": "Modul",
+   "image": "sensor.svg",
+   "key": "mpu6050",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MPU-6050-Modul (GY-521)",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "I²C"
+    }
+   ],
+   "tags": [
+    "beschleunigung",
+    "gy-521",
+    "gyroskop",
+    "imu",
+    "mpu6050"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Bewegung & Abstand",
+   "description": "Laser-Laufzeit-Entfernungssensor (ToF) bis ca. 2 m, I²C",
+   "footprint": "Modul",
+   "image": "sensor.svg",
+   "key": "vl53l0x",
+   "manufacturer": "STMicroelectronics",
+   "mpn": "",
+   "name": "VL53L0X-Modul",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "I²C"
+    }
+   ],
+   "tags": [
+    "abstand",
+    "entfernung",
+    "laser",
+    "tof",
+    "vl53l0x"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Licht",
+   "datasheet_hint": "BH1750",
+   "description": "Digitaler Umgebungslichtsensor 1–65535 lx, I²C",
+   "footprint": "Modul",
+   "image": "sensor.svg",
+   "key": "bh1750",
+   "manufacturer": "Rohm",
+   "mpn": "",
+   "name": "BH1750-Modul",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "I²C"
+    }
+   ],
+   "tags": [
+    "bh1750",
+    "licht",
+    "lux"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Magnetfeld",
+   "description": "Hall-Schalter (unipolar), Open-Collector-Ausgang, 4,5–24 V, flaches TO-92-Gehäuse",
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "a3144",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "A3144",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "4.5–24"
+    },
+    {
+     "name": "Typ",
+     "value": "Hall-Schalter"
+    }
+   ],
+   "tags": [
+    "a3144",
+    "hall",
+    "magnet"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Magnetfeld",
+   "description": "Reedkontakt im Glasröhrchen, Schließer, schaltet bei Magnetannäherung (Glas bruchempfindlich)",
+   "footprint": "THT axial",
+   "image": "reed.svg",
+   "key": "reed-contact",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Reedkontakt Schließer",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Schließer"
+    }
+   ],
+   "tags": [
+    "kontakt",
+    "magnet",
+    "reed"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Strom & Kraft",
+   "datasheet_hint": "ACS712",
+   "description": "Hall-Stromsensor ±20 A, galvanisch getrennt, analog 100 mV/A, 5 V",
+   "footprint": "Modul",
+   "image": "sensor.svg",
+   "key": "acs712-20a",
+   "manufacturer": "Allegro",
+   "mpn": "",
+   "name": "ACS712-20A-Modul",
+   "params": [
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "20"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "acs712",
+    "hall",
+    "strom"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Strom & Kraft",
+   "datasheet_hint": "ACS712",
+   "description": "Hall-Stromsensor ±30 A, galvanisch getrennt, analog 66 mV/A, 5 V",
+   "footprint": "Modul",
+   "image": "sensor.svg",
+   "key": "acs712-30a",
+   "manufacturer": "Allegro",
+   "mpn": "",
+   "name": "ACS712-30A-Modul",
+   "params": [
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "30"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "acs712",
+    "hall",
+    "strom"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Strom & Kraft",
+   "datasheet_hint": "ACS712",
+   "description": "Hall-Stromsensor ±5 A, galvanisch getrennt, analog 185 mV/A, 5 V",
+   "footprint": "Modul",
+   "image": "sensor.svg",
+   "key": "acs712-5a",
+   "manufacturer": "Allegro",
+   "mpn": "",
+   "name": "ACS712-5A-Modul",
+   "params": [
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "5"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "acs712",
+    "hall",
+    "strom"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Strom & Kraft",
+   "datasheet_hint": "HX711",
+   "description": "24-Bit-A/D-Wandler für Wägezellen (Brückenschaltung), 2,6–5,5 V, 10/80 Messungen/s",
+   "footprint": "Modul",
+   "image": "sensor.svg",
+   "key": "hx711",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "HX711-Modul",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2.6–5.5"
+    }
+   ],
+   "tags": [
+    "adc",
+    "hx711",
+    "waage",
+    "wägezelle"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Strom & Kraft",
+   "datasheet_hint": "INA219",
+   "description": "Strom-/Spannungs-/Leistungsmonitor, Busspannung bis 26 V, I²C; mit 0,1-Ω-Shunt bis ±3,2 A",
+   "footprint": "Modul",
+   "image": "sensor.svg",
+   "key": "ina219",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "INA219-Modul",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "I²C"
+    },
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "26"
+    }
+   ],
+   "tags": [
+    "ina219",
+    "leistung",
+    "messung",
+    "strom"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Temperatur & Klima",
+   "datasheet_hint": "BME280",
+   "description": "Sensor für Temperatur, Luftfeuchte und Luftdruck (300–1100 hPa), I²C/SPI; Chip 1,71–3,6 V (Modul teils mit Regler)",
+   "equivalents": [
+    "BMP280 (ohne Feuchte)"
+   ],
+   "footprint": "Modul",
+   "image": "sensor.svg",
+   "key": "bme280",
+   "manufacturer": "Bosch Sensortec",
+   "mpn": "",
+   "name": "BME280-Modul",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "I²C, SPI"
+    }
+   ],
+   "tags": [
+    "bme280",
+    "bosch",
+    "feuchte",
+    "klima",
+    "luftdruck",
+    "temperatur"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Temperatur & Klima",
+   "datasheet_hint": "BMP280",
+   "description": "Sensor für Luftdruck (300–1100 hPa) und Temperatur, I²C/SPI, 3,3 V",
+   "equivalents": [
+    "BME280 (mit Feuchte)"
+   ],
+   "footprint": "Modul",
+   "image": "sensor.svg",
+   "key": "bmp280",
+   "manufacturer": "Bosch Sensortec",
+   "mpn": "",
+   "name": "BMP280-Modul",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "I²C, SPI"
+    }
+   ],
+   "tags": [
+    "barometer",
+    "bmp280",
+    "bosch",
+    "luftdruck"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Temperatur & Klima",
+   "datasheet_hint": "DHT11",
+   "description": "Temperatur-/Feuchtesensor 0–50 °C (±2 °C), 20–90 % rF (±5 %), Eindraht-Protokoll, 3,3–5,5 V",
+   "footprint": "Sonstiges",
+   "image": "dht.svg",
+   "key": "dht11",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "DHT11",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3.3–5.5"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "Eindraht (proprietär)"
+    }
+   ],
+   "tags": [
+    "dht11",
+    "feuchte",
+    "klima",
+    "temperatur"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Temperatur & Klima",
+   "datasheet_hint": "AM2302",
+   "description": "Temperatur-/Feuchtesensor −40 bis +80 °C (±0,5 °C), 0–100 % rF (±2 %), Eindraht-Protokoll, 3,3–6 V",
+   "footprint": "Sonstiges",
+   "image": "dht.svg",
+   "key": "dht22",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "DHT22 / AM2302",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3.3–6"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "Eindraht (proprietär)"
+    }
+   ],
+   "tags": [
+    "am2302",
+    "dht22",
+    "feuchte",
+    "klima",
+    "temperatur"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Temperatur & Klima",
+   "datasheet_hint": "DS18B20",
+   "description": "Digitaler 1-Wire-Temperatursensor −55 bis +125 °C, ±0,5 °C, 3,0–5,5 V, TO-92",
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "ds18b20",
+   "manufacturer": "Analog Devices (Maxim)",
+   "mpn": "",
+   "name": "DS18B20",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3–5.5"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "1-Wire"
+    }
+   ],
+   "tags": [
+    "1-wire",
+    "ds18b20",
+    "onewire",
+    "temperatur"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Temperatur & Klima",
+   "description": "DS18B20 in Edelstahlhülse mit Kabel (ca. 1 m), wasserdicht, 1-Wire",
+   "footprint": "Sonstiges",
+   "image": "ntc.svg",
+   "key": "ds18b20-probe",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "DS18B20 wasserdicht",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "1-Wire"
+    }
+   ],
+   "tags": [
+    "1-wire",
+    "ds18b20",
+    "fühler",
+    "temperatur",
+    "wasserdicht"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Temperatur & Klima",
+   "datasheet_hint": "LM35",
+   "description": "Analoger Temperatursensor 10 mV/°C, 0–100 °C, 4–30 V, TO-92",
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "lm35dz",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LM35DZ",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "4–30"
+    },
+    {
+     "name": "Typ",
+     "value": "analog 10 mV/°C"
+    }
+   ],
+   "tags": [
+    "analog",
+    "lm35",
+    "temperatur"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Temperatur & Klima",
+   "datasheet_hint": "MAX6675",
+   "description": "Thermoelement-Wandler für Typ K, 0–1024 °C, 0,25 °C Auflösung, SPI, meist mit Fühler",
+   "footprint": "Modul",
+   "image": "sensor.svg",
+   "key": "max6675",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MAX6675-Modul",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "SPI"
+    }
+   ],
+   "tags": [
+    "max6675",
+    "temperatur",
+    "thermoelement",
+    "typ-k"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Temperatur & Klima",
+   "description": "Heißleiter (NTC-Thermistor) 10 kΩ bei 25 °C, B-Wert 3950 K, bedrahtet",
+   "footprint": "THT radial",
+   "image": "ntc.svg",
+   "key": "ntc-10k-3950",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "NTC 10 kΩ B3950",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "10k"
+    },
+    {
+     "name": "Typ",
+     "value": "NTC B3950"
+    }
+   ],
+   "tags": [
+    "ntc",
+    "temperatur",
+    "thermistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Temperatur & Klima",
+   "description": "NTC-Temperaturfühler 10 kΩ / B3950 in Edelstahlhülse mit Kabel (z. B. 3D-Drucker)",
+   "footprint": "Sonstiges",
+   "image": "ntc.svg",
+   "key": "ntc-10k-3950-probe",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "NTC 10 kΩ B3950 Fühler",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "10k"
+    },
+    {
+     "name": "Typ",
+     "value": "NTC B3950"
+    }
+   ],
+   "tags": [
+    "fühler",
+    "ntc",
+    "temperatur",
+    "thermistor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Sensoren/Temperatur & Klima",
+   "datasheet_hint": "TMP36",
+   "description": "Analoger Temperatursensor 10 mV/°C (750 mV bei 25 °C), −40 bis +125 °C, 2,7–5,5 V, TO-92",
+   "footprint": "TO-92",
+   "image": "to-92.svg",
+   "key": "tmp36",
+   "manufacturer": "Analog Devices",
+   "mpn": "",
+   "name": "TMP36",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2.7–5.5"
+    },
+    {
+     "name": "Typ",
+     "value": "analog 10 mV/°C"
+    }
+   ],
+   "tags": [
+    "analog",
+    "temperatur",
+    "tmp36"
+   ],
+   "unit": "Stk"
+  }
+ ]
+}

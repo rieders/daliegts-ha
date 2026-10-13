@@ -1,0 +1,9592 @@
+{
+ "group": "Widerstände & Potentiometer",
+ "parts": [
+  {
+   "category": "Elektronik/Passiv/Potentiometer",
+   "description": "Dreh-Potentiometer 100kΩ logarithmisch, Ø 16 mm, 3 Lötpins, Achse 6 mm (z. B. Typ WH148)",
+   "footprint": "Potentiometer",
+   "image": "potentiometer.svg",
+   "key": "pot-16mm-a100k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Poti 100kΩ log. (A100K)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "100k"
+    },
+    {
+     "name": "Typ",
+     "value": "logarithmisch"
+    }
+   ],
+   "tags": [
+    "100k",
+    "a100k",
+    "logarithmisch",
+    "potentiometer",
+    "poti"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Potentiometer",
+   "description": "Dreh-Potentiometer 10kΩ logarithmisch, Ø 16 mm, 3 Lötpins, Achse 6 mm (z. B. Typ WH148)",
+   "footprint": "Potentiometer",
+   "image": "potentiometer.svg",
+   "key": "pot-16mm-a10k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Poti 10kΩ log. (A10K)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "10k"
+    },
+    {
+     "name": "Typ",
+     "value": "logarithmisch"
+    }
+   ],
+   "tags": [
+    "10k",
+    "a10k",
+    "logarithmisch",
+    "potentiometer",
+    "poti"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Potentiometer",
+   "description": "Dreh-Potentiometer 100kΩ linear, Ø 16 mm, 3 Lötpins, Achse 6 mm (z. B. Typ WH148)",
+   "footprint": "Potentiometer",
+   "image": "potentiometer.svg",
+   "key": "pot-16mm-b100k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Poti 100kΩ lin. (B100K)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "100k"
+    },
+    {
+     "name": "Typ",
+     "value": "linear"
+    }
+   ],
+   "tags": [
+    "100k",
+    "b100k",
+    "linear",
+    "potentiometer",
+    "poti"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Potentiometer",
+   "description": "Dreh-Potentiometer 10kΩ linear, Ø 16 mm, 3 Lötpins, Achse 6 mm (z. B. Typ WH148)",
+   "footprint": "Potentiometer",
+   "image": "potentiometer.svg",
+   "key": "pot-16mm-b10k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Poti 10kΩ lin. (B10K)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "10k"
+    },
+    {
+     "name": "Typ",
+     "value": "linear"
+    }
+   ],
+   "tags": [
+    "10k",
+    "b10k",
+    "linear",
+    "potentiometer",
+    "poti"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Potentiometer",
+   "description": "Dreh-Potentiometer 1kΩ linear, Ø 16 mm, 3 Lötpins, Achse 6 mm (z. B. Typ WH148)",
+   "footprint": "Potentiometer",
+   "image": "potentiometer.svg",
+   "key": "pot-16mm-b1k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Poti 1kΩ lin. (B1K)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1k"
+    },
+    {
+     "name": "Typ",
+     "value": "linear"
+    }
+   ],
+   "tags": [
+    "1k",
+    "b1k",
+    "linear",
+    "potentiometer",
+    "poti"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Trimmer",
+   "datasheet_hint": "Bourns 3296",
+   "description": "Präzisions-Spindeltrimmer 100kΩ, 25 Umdrehungen, 0,5 W, stehend (Aufdruck 104)",
+   "footprint": "Trimmer",
+   "image": "trimmer.svg",
+   "key": "trim-3296w-100k",
+   "manufacturer": "Bourns",
+   "mpn": "3296W-1-104LF",
+   "name": "3296W 100kΩ",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "100k"
+    },
+    {
+     "name": "Typ",
+     "value": "Spindeltrimmer 25 Gänge"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "100k",
+    "104",
+    "3296w",
+    "spindeltrimmer",
+    "trimmer"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Trimmer",
+   "datasheet_hint": "Bourns 3296",
+   "description": "Präzisions-Spindeltrimmer 10kΩ, 25 Umdrehungen, 0,5 W, stehend (Aufdruck 103)",
+   "footprint": "Trimmer",
+   "image": "trimmer.svg",
+   "key": "trim-3296w-10k",
+   "manufacturer": "Bourns",
+   "mpn": "3296W-1-103LF",
+   "name": "3296W 10kΩ",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "10k"
+    },
+    {
+     "name": "Typ",
+     "value": "Spindeltrimmer 25 Gänge"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "103",
+    "10k",
+    "3296w",
+    "spindeltrimmer",
+    "trimmer"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Trimmer",
+   "datasheet_hint": "Bourns 3296",
+   "description": "Präzisions-Spindeltrimmer 1kΩ, 25 Umdrehungen, 0,5 W, stehend (Aufdruck 102)",
+   "footprint": "Trimmer",
+   "image": "trimmer.svg",
+   "key": "trim-3296w-1k",
+   "manufacturer": "Bourns",
+   "mpn": "3296W-1-102LF",
+   "name": "3296W 1kΩ",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1k"
+    },
+    {
+     "name": "Typ",
+     "value": "Spindeltrimmer 25 Gänge"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.5"
+    }
+   ],
+   "tags": [
+    "102",
+    "1k",
+    "3296w",
+    "spindeltrimmer",
+    "trimmer"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Trimmer",
+   "description": "Einstelltrimmer 100kΩ, einfach, 6 mm, stehend (Aufdruck 104)",
+   "footprint": "Trimmer",
+   "image": "trimmer.svg",
+   "key": "trim-6mm-100k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Trimmer 6 mm 100kΩ",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "100k"
+    },
+    {
+     "name": "Typ",
+     "value": "Einstelltrimmer 1 Gang"
+    }
+   ],
+   "tags": [
+    "100k",
+    "104",
+    "einstellregler",
+    "trimmer"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Trimmer",
+   "description": "Einstelltrimmer 10kΩ, einfach, 6 mm, stehend (Aufdruck 103)",
+   "footprint": "Trimmer",
+   "image": "trimmer.svg",
+   "key": "trim-6mm-10k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Trimmer 6 mm 10kΩ",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "10k"
+    },
+    {
+     "name": "Typ",
+     "value": "Einstelltrimmer 1 Gang"
+    }
+   ],
+   "tags": [
+    "103",
+    "10k",
+    "einstellregler",
+    "trimmer"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Trimmer",
+   "description": "Einstelltrimmer 1kΩ, einfach, 6 mm, stehend (Aufdruck 102)",
+   "footprint": "Trimmer",
+   "image": "trimmer.svg",
+   "key": "trim-6mm-1k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Trimmer 6 mm 1kΩ",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1k"
+    },
+    {
+     "name": "Typ",
+     "value": "Einstelltrimmer 1 Gang"
+    }
+   ],
+   "tags": [
+    "102",
+    "1k",
+    "einstellregler",
+    "trimmer"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Nullohm-Brücke, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-0r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "0 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "0"
+    },
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "0r",
+    "brücke",
+    "jumper",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 100 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-100k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "100 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "100k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "100k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 100 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-100r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "100 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "100"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "100",
+    "100r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 10 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-10k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "10 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "10k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "10k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 10 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-10r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "10 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "10"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "10",
+    "10r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 120 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-120k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "120 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "120k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "120k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 120 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-120r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "120 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "120"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "120",
+    "120r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 12 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-12k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "12 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "12k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "12k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 12 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-12r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "12 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "12"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "12",
+    "12r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 150 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-150k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "150 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "150k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "150k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 150 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-150r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "150 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "150"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "150",
+    "150r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 15 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-15k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "15 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "15k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "15k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 15 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-15r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "15 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "15"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "15",
+    "15r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 180 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-180k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "180 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "180k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "180k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 180 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-180r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "180 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "180"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "180",
+    "180r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 18 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-18k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "18 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "18k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "18k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 18 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-18r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "18 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "18"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "18",
+    "18r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-1k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "1k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1,2 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-1k2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1,2 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1.2k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "1.2k",
+    "1k2",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1,5 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-1k5",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1,5 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1.5k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "1.5k",
+    "1k5",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1,8 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-1k8",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1,8 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1.8k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "1.8k",
+    "1k8",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1 MΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-1m",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1 MΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1M"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "1m",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-1r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "1",
+    "1r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1,2 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-1r2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1,2 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1.2"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "1.2",
+    "1r2",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1,5 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-1r5",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1,5 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1.5"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "1.5",
+    "1r5",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1,8 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-1r8",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1,8 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1.8"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "1.8",
+    "1r8",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 220 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-220k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "220 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "220k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "220k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 220 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-220r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "220 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "220"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "220",
+    "220r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 22 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-22k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "22 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "22k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "22k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 22 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-22r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "22 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "22"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "22",
+    "22r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 270 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-270k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "270 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "270k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "270k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 270 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-270r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "270 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "270"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "270",
+    "270r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 27 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-27k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "27 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "27k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "27k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 27 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-27r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "27 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "27"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "27",
+    "27r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 2,2 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-2k2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2,2 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "2.2k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "2.2k",
+    "2k2",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 2,7 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-2k7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2,7 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "2.7k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "2.7k",
+    "2k7",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 2,2 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-2r2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2,2 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "2.2"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "2.2",
+    "2r2",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 2,7 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-2r7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2,7 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "2.7"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "2.7",
+    "2r7",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 330 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-330k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "330 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "330k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "330k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 330 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-330r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "330 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "330"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "330",
+    "330r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 33 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-33k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "33 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "33k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "33k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 33 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-33r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "33 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "33"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "33",
+    "33r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 390 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-390k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "390 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "390k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "390k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 390 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-390r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "390 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "390"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "390",
+    "390r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 39 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-39k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "39 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "39k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "39k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 39 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-39r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "39 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "39"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "39",
+    "39r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 3,3 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-3k3",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "3,3 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "3.3k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "3.3k",
+    "3k3",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 3,9 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-3k9",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "3,9 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "3.9k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "3.9k",
+    "3k9",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 3,3 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-3r3",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "3,3 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "3.3"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "3.3",
+    "3r3",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 3,9 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-3r9",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "3,9 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "3.9"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "3.9",
+    "3r9",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 470 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-470k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "470 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "470k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "470k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 470 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-470r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "470 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "470"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "470",
+    "470r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 47 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-47k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "47 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "47k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "47k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 47 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-47r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "47 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "47"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "47",
+    "47r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 4,7 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-4k7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "4,7 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "4.7k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "4.7k",
+    "4k7",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 4,7 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-4r7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "4,7 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "4.7"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "4.7",
+    "4r7",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 560 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-560k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "560 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "560k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "560k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 560 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-560r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "560 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "560"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "560",
+    "560r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 56 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-56k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "56 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "56k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "56k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 56 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-56r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "56 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "56"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "56",
+    "56r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 5,6 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-5k6",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "5,6 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "5.6k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "5.6k",
+    "5k6",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 5,6 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-5r6",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "5,6 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "5.6"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "5.6",
+    "5r6",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 680 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-680k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "680 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "680k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "680k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 680 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-680r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "680 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "680"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "680",
+    "680r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 68 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-68k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "68 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "68k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "68k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 68 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-68r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "68 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "68"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "68",
+    "68r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 6,8 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-6k8",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "6,8 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "6.8k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "6.8k",
+    "6k8",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 6,8 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-6r8",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "6,8 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "6.8"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "6.8",
+    "6r8",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 820 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-820k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "820 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "820k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "820k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 820 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-820r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "820 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "820"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "820",
+    "820r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 82 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-82k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "82 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "82k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "82k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 82 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-82r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "82 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "82"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "82",
+    "82r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 8,2 kΩ, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-8k2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "8,2 kΩ (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "8.2k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "8.2k",
+    "8k2",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 8,2 Ω, 1 %, 0,1 W, Bauform 0603",
+   "footprint": "0603",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0603-8r2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "8,2 Ω (0603)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "8.2"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.1"
+    }
+   ],
+   "tags": [
+    "0603",
+    "8.2",
+    "8r2",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Nullohm-Brücke, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-0r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "0 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "0"
+    },
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "2"
+    }
+   ],
+   "tags": [
+    "0805",
+    "0r",
+    "brücke",
+    "jumper",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 100 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-100k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "100 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "100k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "100k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 100 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-100r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "100 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "100"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "100",
+    "100r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 10 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-10k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "10 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "10k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "10k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 10 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-10r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "10 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "10"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "10",
+    "10r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 120 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-120k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "120 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "120k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "120k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 120 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-120r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "120 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "120"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "120",
+    "120r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 12 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-12k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "12 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "12k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "12k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 12 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-12r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "12 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "12"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "12",
+    "12r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 150 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-150k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "150 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "150k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "150k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 150 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-150r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "150 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "150"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "150",
+    "150r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 15 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-15k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "15 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "15k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "15k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 15 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-15r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "15 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "15"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "15",
+    "15r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 180 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-180k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "180 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "180k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "180k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 180 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-180r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "180 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "180"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "180",
+    "180r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 18 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-18k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "18 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "18k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "18k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 18 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-18r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "18 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "18"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "18",
+    "18r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-1k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "1k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1,2 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-1k2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1,2 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1.2k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "1.2k",
+    "1k2",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1,5 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-1k5",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1,5 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1.5k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "1.5k",
+    "1k5",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1,8 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-1k8",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1,8 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1.8k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "1.8k",
+    "1k8",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1 MΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-1m",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1 MΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1M"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "1m",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-1r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "1",
+    "1r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1,2 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-1r2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1,2 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1.2"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "1.2",
+    "1r2",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1,5 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-1r5",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1,5 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1.5"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "1.5",
+    "1r5",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1,8 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-1r8",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1,8 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1.8"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "1.8",
+    "1r8",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 220 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-220k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "220 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "220k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "220k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 220 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-220r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "220 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "220"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "220",
+    "220r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 22 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-22k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "22 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "22k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "22k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 22 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-22r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "22 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "22"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "22",
+    "22r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 270 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-270k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "270 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "270k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "270k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 270 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-270r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "270 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "270"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "270",
+    "270r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 27 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-27k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "27 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "27k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "27k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 27 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-27r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "27 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "27"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "27",
+    "27r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 2,2 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-2k2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2,2 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "2.2k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "2.2k",
+    "2k2",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 2,7 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-2k7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2,7 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "2.7k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "2.7k",
+    "2k7",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 2,2 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-2r2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2,2 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "2.2"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "2.2",
+    "2r2",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 2,7 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-2r7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2,7 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "2.7"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "2.7",
+    "2r7",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 330 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-330k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "330 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "330k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "330k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 330 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-330r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "330 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "330"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "330",
+    "330r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 33 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-33k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "33 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "33k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "33k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 33 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-33r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "33 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "33"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "33",
+    "33r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 390 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-390k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "390 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "390k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "390k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 390 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-390r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "390 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "390"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "390",
+    "390r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 39 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-39k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "39 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "39k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "39k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 39 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-39r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "39 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "39"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "39",
+    "39r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 3,3 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-3k3",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "3,3 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "3.3k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "3.3k",
+    "3k3",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 3,9 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-3k9",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "3,9 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "3.9k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "3.9k",
+    "3k9",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 3,3 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-3r3",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "3,3 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "3.3"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "3.3",
+    "3r3",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 3,9 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-3r9",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "3,9 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "3.9"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "3.9",
+    "3r9",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 470 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-470k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "470 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "470k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "470k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 470 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-470r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "470 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "470"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "470",
+    "470r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 47 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-47k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "47 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "47k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "47k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 47 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-47r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "47 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "47"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "47",
+    "47r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 4,7 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-4k7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "4,7 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "4.7k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "4.7k",
+    "4k7",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 4,7 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-4r7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "4,7 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "4.7"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "4.7",
+    "4r7",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 560 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-560k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "560 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "560k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "560k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 560 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-560r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "560 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "560"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "560",
+    "560r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 56 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-56k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "56 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "56k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "56k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 56 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-56r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "56 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "56"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "56",
+    "56r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 5,6 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-5k6",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "5,6 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "5.6k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "5.6k",
+    "5k6",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 5,6 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-5r6",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "5,6 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "5.6"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "5.6",
+    "5r6",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 680 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-680k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "680 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "680k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "680k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 680 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-680r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "680 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "680"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "680",
+    "680r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 68 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-68k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "68 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "68k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "68k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 68 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-68r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "68 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "68"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "68",
+    "68r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 6,8 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-6k8",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "6,8 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "6.8k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "6.8k",
+    "6k8",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 6,8 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-6r8",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "6,8 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "6.8"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "6.8",
+    "6r8",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 820 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-820k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "820 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "820k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "820k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 820 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-820r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "820 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "820"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "820",
+    "820r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 82 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-82k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "82 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "82k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "82k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 82 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-82r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "82 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "82"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "82",
+    "82r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 8,2 kΩ, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-8k2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "8,2 kΩ (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "8.2k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "8.2k",
+    "8k2",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 8,2 Ω, 1 %, 0,125 W, Bauform 0805",
+   "footprint": "0805",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-0805-8r2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "8,2 Ω (0805)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "8.2"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.125"
+    }
+   ],
+   "tags": [
+    "0805",
+    "8.2",
+    "8r2",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Nullohm-Brücke, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-0r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "0 Ω (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "0"
+    },
+    {
+     "name": "Strom",
+     "unit": "A",
+     "value": "2"
+    }
+   ],
+   "tags": [
+    "0r",
+    "1206",
+    "brücke",
+    "jumper",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 100 kΩ, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-100k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "100 kΩ (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "100k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "100k",
+    "1206",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 100 Ω, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-100r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "100 Ω (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "100"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "100",
+    "100r",
+    "1206",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 10 kΩ, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-10k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "10 kΩ (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "10k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "10k",
+    "1206",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 10 Ω, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-10r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "10 Ω (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "10"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "10",
+    "10r",
+    "1206",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 150 kΩ, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-150k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "150 kΩ (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "150k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "150k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 150 Ω, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-150r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "150 Ω (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "150"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "150",
+    "150r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 15 kΩ, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-15k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "15 kΩ (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "15k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "15k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 15 Ω, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-15r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "15 Ω (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "15"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "15",
+    "15r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1 kΩ, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-1k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1 kΩ (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "1k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1,5 kΩ, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-1k5",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1,5 kΩ (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1.5k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1.5k",
+    "1206",
+    "1k5",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1 MΩ, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-1m",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1 MΩ (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1M"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "1m",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1 Ω, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-1r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1 Ω (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1",
+    "1206",
+    "1r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 1,5 Ω, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-1r5",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1,5 Ω (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1.5"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1.5",
+    "1206",
+    "1r5",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 220 kΩ, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-220k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "220 kΩ (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "220k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "220k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 220 Ω, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-220r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "220 Ω (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "220"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "220",
+    "220r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 22 kΩ, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-22k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "22 kΩ (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "22k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "22k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 22 Ω, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-22r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "22 Ω (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "22"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "22",
+    "22r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 2,2 kΩ, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-2k2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2,2 kΩ (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "2.2k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "2.2k",
+    "2k2",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 2,2 Ω, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-2r2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2,2 Ω (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "2.2"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "2.2",
+    "2r2",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 330 kΩ, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-330k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "330 kΩ (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "330k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "330k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 330 Ω, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-330r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "330 Ω (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "330"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "330",
+    "330r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 33 kΩ, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-33k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "33 kΩ (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "33k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "33k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 33 Ω, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-33r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "33 Ω (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "33"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "33",
+    "33r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 3,3 kΩ, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-3k3",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "3,3 kΩ (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "3.3k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "3.3k",
+    "3k3",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 3,3 Ω, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-3r3",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "3,3 Ω (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "3.3"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "3.3",
+    "3r3",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 470 kΩ, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-470k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "470 kΩ (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "470k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "470k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 470 Ω, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-470r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "470 Ω (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "470"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "470",
+    "470r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 47 kΩ, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-47k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "47 kΩ (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "47k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "47k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 47 Ω, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-47r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "47 Ω (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "47"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "47",
+    "47r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 4,7 kΩ, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-4k7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "4,7 kΩ (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "4.7k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "4.7k",
+    "4k7",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 4,7 Ω, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-4r7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "4,7 Ω (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "4.7"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "4.7",
+    "4r7",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 680 kΩ, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-680k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "680 kΩ (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "680k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "680k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 680 Ω, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-680r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "680 Ω (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "680"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "680",
+    "680r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 68 kΩ, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-68k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "68 kΩ (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "68k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "68k",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 68 Ω, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-68r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "68 Ω (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "68"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "68",
+    "68r",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 6,8 kΩ, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-6k8",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "6,8 kΩ (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "6.8k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "6.8k",
+    "6k8",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/SMD",
+   "description": "SMD-Dickschichtwiderstand 6,8 Ω, 1 %, 0,25 W, Bauform 1206",
+   "footprint": "1206",
+   "image": "smd-chip-resistor.svg",
+   "key": "res-1206-6r8",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "6,8 Ω (1206)",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "6.8"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    }
+   ],
+   "tags": [
+    "1206",
+    "6.8",
+    "6r8",
+    "smd",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 100 kΩ, 1 %, 0,25 W, axial (Farbcode braun-schwarz-schwarz-orange-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-100k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "100 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "100k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-schwarz-schwarz-orange-braun"
+    }
+   ],
+   "tags": [
+    "100k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 100 Ω, 1 %, 0,25 W, axial (Farbcode braun-schwarz-schwarz-schwarz-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-100r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "100 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "100"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-schwarz-schwarz-schwarz-braun"
+    }
+   ],
+   "tags": [
+    "100",
+    "100r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 10 kΩ, 1 %, 0,25 W, axial (Farbcode braun-schwarz-schwarz-rot-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-10k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "10 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "10k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-schwarz-schwarz-rot-braun"
+    }
+   ],
+   "tags": [
+    "10k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 10 Ω, 1 %, 0,25 W, axial (Farbcode braun-schwarz-schwarz-gold-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-10r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "10 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "10"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-schwarz-schwarz-gold-braun"
+    }
+   ],
+   "tags": [
+    "10",
+    "10r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 120 kΩ, 1 %, 0,25 W, axial (Farbcode braun-rot-schwarz-orange-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-120k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "120 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "120k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-rot-schwarz-orange-braun"
+    }
+   ],
+   "tags": [
+    "120k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 120 Ω, 1 %, 0,25 W, axial (Farbcode braun-rot-schwarz-schwarz-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-120r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "120 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "120"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-rot-schwarz-schwarz-braun"
+    }
+   ],
+   "tags": [
+    "120",
+    "120r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 12 kΩ, 1 %, 0,25 W, axial (Farbcode braun-rot-schwarz-rot-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-12k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "12 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "12k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-rot-schwarz-rot-braun"
+    }
+   ],
+   "tags": [
+    "12k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 12 Ω, 1 %, 0,25 W, axial (Farbcode braun-rot-schwarz-gold-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-12r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "12 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "12"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-rot-schwarz-gold-braun"
+    }
+   ],
+   "tags": [
+    "12",
+    "12r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 150 kΩ, 1 %, 0,25 W, axial (Farbcode braun-grün-schwarz-orange-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-150k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "150 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "150k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-grün-schwarz-orange-braun"
+    }
+   ],
+   "tags": [
+    "150k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 150 Ω, 1 %, 0,25 W, axial (Farbcode braun-grün-schwarz-schwarz-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-150r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "150 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "150"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-grün-schwarz-schwarz-braun"
+    }
+   ],
+   "tags": [
+    "150",
+    "150r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 15 kΩ, 1 %, 0,25 W, axial (Farbcode braun-grün-schwarz-rot-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-15k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "15 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "15k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-grün-schwarz-rot-braun"
+    }
+   ],
+   "tags": [
+    "15k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 15 Ω, 1 %, 0,25 W, axial (Farbcode braun-grün-schwarz-gold-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-15r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "15 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "15"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-grün-schwarz-gold-braun"
+    }
+   ],
+   "tags": [
+    "15",
+    "15r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 180 kΩ, 1 %, 0,25 W, axial (Farbcode braun-grau-schwarz-orange-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-180k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "180 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "180k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-grau-schwarz-orange-braun"
+    }
+   ],
+   "tags": [
+    "180k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 180 Ω, 1 %, 0,25 W, axial (Farbcode braun-grau-schwarz-schwarz-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-180r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "180 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "180"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-grau-schwarz-schwarz-braun"
+    }
+   ],
+   "tags": [
+    "180",
+    "180r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 18 kΩ, 1 %, 0,25 W, axial (Farbcode braun-grau-schwarz-rot-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-18k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "18 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "18k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-grau-schwarz-rot-braun"
+    }
+   ],
+   "tags": [
+    "18k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 18 Ω, 1 %, 0,25 W, axial (Farbcode braun-grau-schwarz-gold-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-18r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "18 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "18"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-grau-schwarz-gold-braun"
+    }
+   ],
+   "tags": [
+    "18",
+    "18r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 1 kΩ, 1 %, 0,25 W, axial (Farbcode braun-schwarz-schwarz-braun-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-1k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-schwarz-schwarz-braun-braun"
+    }
+   ],
+   "tags": [
+    "1k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 1,2 kΩ, 1 %, 0,25 W, axial (Farbcode braun-rot-schwarz-braun-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-1k2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1,2 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1.2k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-rot-schwarz-braun-braun"
+    }
+   ],
+   "tags": [
+    "1.2k",
+    "1k2",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 1,5 kΩ, 1 %, 0,25 W, axial (Farbcode braun-grün-schwarz-braun-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-1k5",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1,5 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1.5k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-grün-schwarz-braun-braun"
+    }
+   ],
+   "tags": [
+    "1.5k",
+    "1k5",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 1,8 kΩ, 1 %, 0,25 W, axial (Farbcode braun-grau-schwarz-braun-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-1k8",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1,8 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1.8k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-grau-schwarz-braun-braun"
+    }
+   ],
+   "tags": [
+    "1.8k",
+    "1k8",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 1 MΩ, 1 %, 0,25 W, axial (Farbcode braun-schwarz-schwarz-gelb-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-1m",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1 MΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1M"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-schwarz-schwarz-gelb-braun"
+    }
+   ],
+   "tags": [
+    "1m",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 1 Ω, 1 %, 0,25 W, axial (Farbcode braun-schwarz-schwarz-silber-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-1r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-schwarz-schwarz-silber-braun"
+    }
+   ],
+   "tags": [
+    "1",
+    "1r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 1,2 Ω, 1 %, 0,25 W, axial (Farbcode braun-rot-schwarz-silber-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-1r2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1,2 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1.2"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-rot-schwarz-silber-braun"
+    }
+   ],
+   "tags": [
+    "1.2",
+    "1r2",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 1,5 Ω, 1 %, 0,25 W, axial (Farbcode braun-grün-schwarz-silber-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-1r5",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1,5 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1.5"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-grün-schwarz-silber-braun"
+    }
+   ],
+   "tags": [
+    "1.5",
+    "1r5",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 1,8 Ω, 1 %, 0,25 W, axial (Farbcode braun-grau-schwarz-silber-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-1r8",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "1,8 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "1.8"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "braun-grau-schwarz-silber-braun"
+    }
+   ],
+   "tags": [
+    "1.8",
+    "1r8",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 220 kΩ, 1 %, 0,25 W, axial (Farbcode rot-rot-schwarz-orange-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-220k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "220 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "220k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "rot-rot-schwarz-orange-braun"
+    }
+   ],
+   "tags": [
+    "220k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 220 Ω, 1 %, 0,25 W, axial (Farbcode rot-rot-schwarz-schwarz-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-220r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "220 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "220"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "rot-rot-schwarz-schwarz-braun"
+    }
+   ],
+   "tags": [
+    "220",
+    "220r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 22 kΩ, 1 %, 0,25 W, axial (Farbcode rot-rot-schwarz-rot-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-22k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "22 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "22k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "rot-rot-schwarz-rot-braun"
+    }
+   ],
+   "tags": [
+    "22k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 22 Ω, 1 %, 0,25 W, axial (Farbcode rot-rot-schwarz-gold-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-22r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "22 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "22"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "rot-rot-schwarz-gold-braun"
+    }
+   ],
+   "tags": [
+    "22",
+    "22r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 270 kΩ, 1 %, 0,25 W, axial (Farbcode rot-violett-schwarz-orange-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-270k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "270 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "270k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "rot-violett-schwarz-orange-braun"
+    }
+   ],
+   "tags": [
+    "270k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 270 Ω, 1 %, 0,25 W, axial (Farbcode rot-violett-schwarz-schwarz-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-270r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "270 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "270"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "rot-violett-schwarz-schwarz-braun"
+    }
+   ],
+   "tags": [
+    "270",
+    "270r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 27 kΩ, 1 %, 0,25 W, axial (Farbcode rot-violett-schwarz-rot-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-27k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "27 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "27k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "rot-violett-schwarz-rot-braun"
+    }
+   ],
+   "tags": [
+    "27k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 27 Ω, 1 %, 0,25 W, axial (Farbcode rot-violett-schwarz-gold-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-27r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "27 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "27"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "rot-violett-schwarz-gold-braun"
+    }
+   ],
+   "tags": [
+    "27",
+    "27r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 2,2 kΩ, 1 %, 0,25 W, axial (Farbcode rot-rot-schwarz-braun-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-2k2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2,2 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "2.2k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "rot-rot-schwarz-braun-braun"
+    }
+   ],
+   "tags": [
+    "2.2k",
+    "2k2",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 2,7 kΩ, 1 %, 0,25 W, axial (Farbcode rot-violett-schwarz-braun-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-2k7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2,7 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "2.7k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "rot-violett-schwarz-braun-braun"
+    }
+   ],
+   "tags": [
+    "2.7k",
+    "2k7",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 2,2 Ω, 1 %, 0,25 W, axial (Farbcode rot-rot-schwarz-silber-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-2r2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2,2 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "2.2"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "rot-rot-schwarz-silber-braun"
+    }
+   ],
+   "tags": [
+    "2.2",
+    "2r2",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 2,7 Ω, 1 %, 0,25 W, axial (Farbcode rot-violett-schwarz-silber-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-2r7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "2,7 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "2.7"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "rot-violett-schwarz-silber-braun"
+    }
+   ],
+   "tags": [
+    "2.7",
+    "2r7",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 330 kΩ, 1 %, 0,25 W, axial (Farbcode orange-orange-schwarz-orange-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-330k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "330 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "330k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "orange-orange-schwarz-orange-braun"
+    }
+   ],
+   "tags": [
+    "330k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 330 Ω, 1 %, 0,25 W, axial (Farbcode orange-orange-schwarz-schwarz-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-330r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "330 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "330"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "orange-orange-schwarz-schwarz-braun"
+    }
+   ],
+   "tags": [
+    "330",
+    "330r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 33 kΩ, 1 %, 0,25 W, axial (Farbcode orange-orange-schwarz-rot-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-33k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "33 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "33k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "orange-orange-schwarz-rot-braun"
+    }
+   ],
+   "tags": [
+    "33k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 33 Ω, 1 %, 0,25 W, axial (Farbcode orange-orange-schwarz-gold-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-33r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "33 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "33"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "orange-orange-schwarz-gold-braun"
+    }
+   ],
+   "tags": [
+    "33",
+    "33r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 390 kΩ, 1 %, 0,25 W, axial (Farbcode orange-weiß-schwarz-orange-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-390k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "390 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "390k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "orange-weiß-schwarz-orange-braun"
+    }
+   ],
+   "tags": [
+    "390k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 390 Ω, 1 %, 0,25 W, axial (Farbcode orange-weiß-schwarz-schwarz-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-390r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "390 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "390"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "orange-weiß-schwarz-schwarz-braun"
+    }
+   ],
+   "tags": [
+    "390",
+    "390r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 39 kΩ, 1 %, 0,25 W, axial (Farbcode orange-weiß-schwarz-rot-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-39k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "39 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "39k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "orange-weiß-schwarz-rot-braun"
+    }
+   ],
+   "tags": [
+    "39k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 39 Ω, 1 %, 0,25 W, axial (Farbcode orange-weiß-schwarz-gold-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-39r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "39 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "39"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "orange-weiß-schwarz-gold-braun"
+    }
+   ],
+   "tags": [
+    "39",
+    "39r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 3,3 kΩ, 1 %, 0,25 W, axial (Farbcode orange-orange-schwarz-braun-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-3k3",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "3,3 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "3.3k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "orange-orange-schwarz-braun-braun"
+    }
+   ],
+   "tags": [
+    "3.3k",
+    "3k3",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 3,9 kΩ, 1 %, 0,25 W, axial (Farbcode orange-weiß-schwarz-braun-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-3k9",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "3,9 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "3.9k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "orange-weiß-schwarz-braun-braun"
+    }
+   ],
+   "tags": [
+    "3.9k",
+    "3k9",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 3,3 Ω, 1 %, 0,25 W, axial (Farbcode orange-orange-schwarz-silber-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-3r3",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "3,3 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "3.3"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "orange-orange-schwarz-silber-braun"
+    }
+   ],
+   "tags": [
+    "3.3",
+    "3r3",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 3,9 Ω, 1 %, 0,25 W, axial (Farbcode orange-weiß-schwarz-silber-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-3r9",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "3,9 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "3.9"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "orange-weiß-schwarz-silber-braun"
+    }
+   ],
+   "tags": [
+    "3.9",
+    "3r9",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 470 kΩ, 1 %, 0,25 W, axial (Farbcode gelb-violett-schwarz-orange-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-470k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "470 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "470k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "gelb-violett-schwarz-orange-braun"
+    }
+   ],
+   "tags": [
+    "470k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 470 Ω, 1 %, 0,25 W, axial (Farbcode gelb-violett-schwarz-schwarz-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-470r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "470 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "470"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "gelb-violett-schwarz-schwarz-braun"
+    }
+   ],
+   "tags": [
+    "470",
+    "470r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 47 kΩ, 1 %, 0,25 W, axial (Farbcode gelb-violett-schwarz-rot-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-47k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "47 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "47k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "gelb-violett-schwarz-rot-braun"
+    }
+   ],
+   "tags": [
+    "47k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 47 Ω, 1 %, 0,25 W, axial (Farbcode gelb-violett-schwarz-gold-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-47r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "47 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "47"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "gelb-violett-schwarz-gold-braun"
+    }
+   ],
+   "tags": [
+    "47",
+    "47r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 4,7 kΩ, 1 %, 0,25 W, axial (Farbcode gelb-violett-schwarz-braun-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-4k7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "4,7 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "4.7k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "gelb-violett-schwarz-braun-braun"
+    }
+   ],
+   "tags": [
+    "4.7k",
+    "4k7",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 4,7 Ω, 1 %, 0,25 W, axial (Farbcode gelb-violett-schwarz-silber-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-4r7",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "4,7 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "4.7"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "gelb-violett-schwarz-silber-braun"
+    }
+   ],
+   "tags": [
+    "4.7",
+    "4r7",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 560 kΩ, 1 %, 0,25 W, axial (Farbcode grün-blau-schwarz-orange-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-560k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "560 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "560k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "grün-blau-schwarz-orange-braun"
+    }
+   ],
+   "tags": [
+    "560k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 560 Ω, 1 %, 0,25 W, axial (Farbcode grün-blau-schwarz-schwarz-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-560r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "560 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "560"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "grün-blau-schwarz-schwarz-braun"
+    }
+   ],
+   "tags": [
+    "560",
+    "560r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 56 kΩ, 1 %, 0,25 W, axial (Farbcode grün-blau-schwarz-rot-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-56k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "56 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "56k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "grün-blau-schwarz-rot-braun"
+    }
+   ],
+   "tags": [
+    "56k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 56 Ω, 1 %, 0,25 W, axial (Farbcode grün-blau-schwarz-gold-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-56r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "56 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "56"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "grün-blau-schwarz-gold-braun"
+    }
+   ],
+   "tags": [
+    "56",
+    "56r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 5,6 kΩ, 1 %, 0,25 W, axial (Farbcode grün-blau-schwarz-braun-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-5k6",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "5,6 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "5.6k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "grün-blau-schwarz-braun-braun"
+    }
+   ],
+   "tags": [
+    "5.6k",
+    "5k6",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 5,6 Ω, 1 %, 0,25 W, axial (Farbcode grün-blau-schwarz-silber-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-5r6",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "5,6 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "5.6"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "grün-blau-schwarz-silber-braun"
+    }
+   ],
+   "tags": [
+    "5.6",
+    "5r6",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 680 kΩ, 1 %, 0,25 W, axial (Farbcode blau-grau-schwarz-orange-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-680k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "680 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "680k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "blau-grau-schwarz-orange-braun"
+    }
+   ],
+   "tags": [
+    "680k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 680 Ω, 1 %, 0,25 W, axial (Farbcode blau-grau-schwarz-schwarz-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-680r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "680 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "680"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "blau-grau-schwarz-schwarz-braun"
+    }
+   ],
+   "tags": [
+    "680",
+    "680r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 68 kΩ, 1 %, 0,25 W, axial (Farbcode blau-grau-schwarz-rot-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-68k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "68 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "68k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "blau-grau-schwarz-rot-braun"
+    }
+   ],
+   "tags": [
+    "68k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 68 Ω, 1 %, 0,25 W, axial (Farbcode blau-grau-schwarz-gold-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-68r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "68 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "68"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "blau-grau-schwarz-gold-braun"
+    }
+   ],
+   "tags": [
+    "68",
+    "68r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 6,8 kΩ, 1 %, 0,25 W, axial (Farbcode blau-grau-schwarz-braun-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-6k8",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "6,8 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "6.8k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "blau-grau-schwarz-braun-braun"
+    }
+   ],
+   "tags": [
+    "6.8k",
+    "6k8",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 6,8 Ω, 1 %, 0,25 W, axial (Farbcode blau-grau-schwarz-silber-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-6r8",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "6,8 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "6.8"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "blau-grau-schwarz-silber-braun"
+    }
+   ],
+   "tags": [
+    "6.8",
+    "6r8",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 820 kΩ, 1 %, 0,25 W, axial (Farbcode grau-rot-schwarz-orange-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-820k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "820 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "820k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "grau-rot-schwarz-orange-braun"
+    }
+   ],
+   "tags": [
+    "820k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 820 Ω, 1 %, 0,25 W, axial (Farbcode grau-rot-schwarz-schwarz-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-820r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "820 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "820"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "grau-rot-schwarz-schwarz-braun"
+    }
+   ],
+   "tags": [
+    "820",
+    "820r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 82 kΩ, 1 %, 0,25 W, axial (Farbcode grau-rot-schwarz-rot-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-82k",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "82 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "82k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "grau-rot-schwarz-rot-braun"
+    }
+   ],
+   "tags": [
+    "82k",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 82 Ω, 1 %, 0,25 W, axial (Farbcode grau-rot-schwarz-gold-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-82r",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "82 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "82"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "grau-rot-schwarz-gold-braun"
+    }
+   ],
+   "tags": [
+    "82",
+    "82r",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 8,2 kΩ, 1 %, 0,25 W, axial (Farbcode grau-rot-schwarz-braun-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-8k2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "8,2 kΩ ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "8.2k"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "grau-rot-schwarz-braun-braun"
+    }
+   ],
+   "tags": [
+    "8.2k",
+    "8k2",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Passiv/Widerstände/THT",
+   "description": "Metallschichtwiderstand 8,2 Ω, 1 %, 0,25 W, axial (Farbcode grau-rot-schwarz-silber-braun)",
+   "footprint": "THT axial",
+   "image": "resistor-tht.svg",
+   "key": "res-tht-8r2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "8,2 Ω ¼ W",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "8.2"
+    },
+    {
+     "name": "Toleranz",
+     "unit": "%",
+     "value": "1"
+    },
+    {
+     "name": "Leistung",
+     "unit": "W",
+     "value": "0.25"
+    },
+    {
+     "name": "Farbcode",
+     "value": "grau-rot-schwarz-silber-braun"
+    }
+   ],
+   "tags": [
+    "8.2",
+    "8r2",
+    "metallschicht",
+    "tht",
+    "widerstand"
+   ],
+   "unit": "Stk"
+  }
+ ]
+}

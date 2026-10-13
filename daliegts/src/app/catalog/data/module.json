@@ -1,0 +1,1235 @@
+{
+ "group": "Module & Entwicklungsboards",
+ "parts": [
+  {
+   "category": "Elektronik/Module/Displays",
+   "datasheet_hint": "LCD 1602 mit I²C-Adapter",
+   "description": "Text-LCD 16×2 Zeichen (HD44780) mit I²C-Rucksack (PCF8574, Adresse meist 0x27 oder 0x3F), 5 V",
+   "footprint": "Modul",
+   "image": "lcd1602.svg",
+   "key": "mod-lcd1602-i2c",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LCD 1602 mit I²C-Adapter",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "I²C"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "1602",
+    "display",
+    "hd44780",
+    "i2c",
+    "lcd",
+    "modul"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Displays",
+   "datasheet_hint": "LCD 2004 mit I²C-Adapter",
+   "description": "Text-LCD 20×4 Zeichen (HD44780) mit I²C-Rucksack (PCF8574), 5 V",
+   "footprint": "Modul",
+   "image": "lcd1602.svg",
+   "key": "mod-lcd2004-i2c",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LCD 2004 mit I²C-Adapter",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "I²C"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "2004",
+    "display",
+    "hd44780",
+    "i2c",
+    "lcd",
+    "modul"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Displays",
+   "datasheet_hint": "MAX7219 8-stellige 7-Segment",
+   "description": "8-stelliges 7-Segment-Modul mit MAX7219, kaskadierbar",
+   "footprint": "Modul",
+   "image": "seven-segment.svg",
+   "key": "mod-max7219-7seg",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MAX7219 8-stellige 7-Segment",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "SPI"
+    }
+   ],
+   "tags": [
+    "7-segment",
+    "display",
+    "max7219",
+    "modul"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Displays",
+   "datasheet_hint": "MAX7219 8×8-Matrix",
+   "description": "LED-Matrix 8×8 mit MAX7219, kaskadierbar (auch als 4er-Block FC-16)",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-max7219-matrix",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MAX7219 8×8-Matrix",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "SPI"
+    }
+   ],
+   "tags": [
+    "display",
+    "led",
+    "matrix",
+    "max7219",
+    "modul"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Displays",
+   "datasheet_hint": "OLED 1,3\" SH1106 I²C",
+   "description": "OLED-Display 1,3\", 128×64 Pixel, Controller SH1106 (nicht SSD1306!), I²C",
+   "footprint": "Modul",
+   "image": "oled.svg",
+   "key": "mod-sh1106-13",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "OLED 1,3\" SH1106 I²C",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "I²C"
+    }
+   ],
+   "tags": [
+    "display",
+    "i2c",
+    "modul",
+    "oled",
+    "sh1106"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Displays",
+   "datasheet_hint": "OLED 0,96\" SSD1306 I²C",
+   "description": "OLED-Display 0,96\", 128×64 Pixel, Controller SSD1306, I²C (4 Pins), 3,3–5 V",
+   "footprint": "Modul",
+   "image": "oled.svg",
+   "key": "mod-ssd1306-096",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "OLED 0,96\" SSD1306 I²C",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "I²C"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3.3–5"
+    }
+   ],
+   "tags": [
+    "display",
+    "i2c",
+    "modul",
+    "oled",
+    "ssd1306"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Displays",
+   "datasheet_hint": "TM1637 4-stellige Anzeige",
+   "description": "4-stelliges 7-Segment-Modul mit TM1637, 2-Draht-Ansteuerung (CLK/DIO), Doppelpunkt",
+   "footprint": "Modul",
+   "image": "seven-segment.svg",
+   "key": "mod-tm1637",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "TM1637 4-stellige Anzeige",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "2-Draht (CLK/DIO)"
+    }
+   ],
+   "tags": [
+    "7-segment",
+    "display",
+    "modul",
+    "tm1637"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Entwicklungsboards",
+   "datasheet_hint": "Arduino Mega 2560",
+   "description": "Board mit ATmega2560, 16 MHz, 256 KB Flash, 8 KB SRAM, 54 digitale I/O, 16 Analogeingänge",
+   "footprint": "Modul",
+   "image": "module-arduino.svg",
+   "key": "mod-arduino-mega-2560",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Arduino Mega 2560",
+   "params": [
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "16M"
+    },
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "256"
+    },
+    {
+     "name": "RAM",
+     "unit": "KB",
+     "value": "8"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "arduino",
+    "atmega2560",
+    "board",
+    "mega",
+    "modul"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Entwicklungsboards",
+   "datasheet_hint": "Arduino Nano",
+   "description": "Board mit ATmega328P, 16 MHz, 5 V, 32 KB Flash; Klone meist mit CH340 und Mini-USB/USB-C",
+   "footprint": "Modul",
+   "image": "module-arduino.svg",
+   "key": "mod-arduino-nano",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Arduino Nano",
+   "params": [
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "16M"
+    },
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "32"
+    },
+    {
+     "name": "RAM",
+     "unit": "KB",
+     "value": "2"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "arduino",
+    "atmega328p",
+    "board",
+    "modul",
+    "nano"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Entwicklungsboards",
+   "datasheet_hint": "Arduino Pro Mini 3,3 V/8 MHz",
+   "description": "Kompaktes Board mit ATmega328P ohne USB, 3,3 V (Programmierung über USB-Seriell-Adapter)",
+   "footprint": "Modul",
+   "image": "module-arduino.svg",
+   "key": "mod-arduino-pro-mini-3v3",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Arduino Pro Mini 3,3 V/8 MHz",
+   "params": [
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "8M"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3.3"
+    }
+   ],
+   "tags": [
+    "3v3",
+    "arduino",
+    "atmega328p",
+    "board",
+    "modul",
+    "pro-mini"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Entwicklungsboards",
+   "datasheet_hint": "Arduino Pro Mini 5 V/16 MHz",
+   "description": "Kompaktes Board mit ATmega328P ohne USB (Programmierung über USB-Seriell-Adapter)",
+   "footprint": "Modul",
+   "image": "module-arduino.svg",
+   "key": "mod-arduino-pro-mini-5v",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Arduino Pro Mini 5 V/16 MHz",
+   "params": [
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "16M"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "arduino",
+    "atmega328p",
+    "board",
+    "modul",
+    "pro-mini"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Entwicklungsboards",
+   "datasheet_hint": "Arduino Uno R3",
+   "description": "Board mit ATmega328P (DIP-28), 16 MHz, 5 V, USB-B über ATmega16U2, Eingang 7–12 V empfohlen",
+   "footprint": "Modul",
+   "image": "module-arduino.svg",
+   "key": "mod-arduino-uno-r3",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Arduino Uno R3",
+   "params": [
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "16M"
+    },
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "32"
+    },
+    {
+     "name": "RAM",
+     "unit": "KB",
+     "value": "2"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "arduino",
+    "atmega328p",
+    "board",
+    "modul",
+    "uno"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Entwicklungsboards",
+   "datasheet_hint": "Digispark ATtiny85",
+   "description": "Mini-Board mit ATtiny85, USB-Stecker direkt auf Platine (V-USB), ca. 6 KB nutzbarer Flash",
+   "footprint": "Modul",
+   "image": "module-arduino.svg",
+   "key": "mod-digispark",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Digispark ATtiny85",
+   "params": [
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "16.5M"
+    }
+   ],
+   "tags": [
+    "attiny85",
+    "board",
+    "digispark",
+    "modul",
+    "usb"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Entwicklungsboards",
+   "datasheet_hint": "ESP32-CAM",
+   "description": "ESP32-Board mit Kamera OV2640, 4 MB PSRAM, microSD-Slot; ohne USB (Adapter nötig)",
+   "footprint": "Modul",
+   "image": "module-esp.svg",
+   "key": "mod-esp32-cam",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ESP32-CAM",
+   "params": [
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "240M"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "WLAN, Bluetooth"
+    }
+   ],
+   "tags": [
+    "board",
+    "esp32",
+    "kamera",
+    "modul",
+    "wlan"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Entwicklungsboards",
+   "datasheet_hint": "ESP32 DevKitC",
+   "description": "Entwicklungsboard mit ESP32-WROOM-32, USB-Seriell, 3,3-V-Logik",
+   "footprint": "Modul",
+   "image": "module-esp.svg",
+   "key": "mod-esp32-devkitc",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "ESP32 DevKitC",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "MB",
+     "value": "4"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "240M"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "WLAN, Bluetooth"
+    }
+   ],
+   "tags": [
+    "bluetooth",
+    "board",
+    "devkit",
+    "esp32",
+    "modul",
+    "wlan"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Entwicklungsboards",
+   "datasheet_hint": "NodeMCU v2",
+   "description": "ESP8266-Board mit ESP-12E, 4 MB Flash, USB-Seriell (CP2102), Micro-USB, 3,3-V-Logik",
+   "footprint": "Modul",
+   "image": "module-esp.svg",
+   "key": "mod-nodemcu-v2",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "NodeMCU v2",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "MB",
+     "value": "4"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "80M"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "WLAN"
+    }
+   ],
+   "tags": [
+    "board",
+    "esp8266",
+    "modul",
+    "nodemcu",
+    "wlan"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Entwicklungsboards",
+   "datasheet_hint": "Raspberry Pi Pico",
+   "description": "Board mit RP2040 (Dual-Core Cortex-M0+, 133 MHz), 2 MB Flash, 264 KB SRAM, Micro-USB",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-rpi-pico",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Raspberry Pi Pico",
+   "params": [
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "133M"
+    },
+    {
+     "name": "Flash",
+     "unit": "MB",
+     "value": "2"
+    },
+    {
+     "name": "RAM",
+     "unit": "KB",
+     "value": "264"
+    }
+   ],
+   "tags": [
+    "board",
+    "modul",
+    "pico",
+    "raspberry",
+    "rp2040"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Entwicklungsboards",
+   "datasheet_hint": "Raspberry Pi Pico W",
+   "description": "Wie Pico, zusätzlich WLAN 2,4 GHz und Bluetooth (CYW43439)",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-rpi-pico-w",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Raspberry Pi Pico W",
+   "params": [
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "133M"
+    },
+    {
+     "name": "Flash",
+     "unit": "MB",
+     "value": "2"
+    },
+    {
+     "name": "RAM",
+     "unit": "KB",
+     "value": "264"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "WLAN, Bluetooth"
+    }
+   ],
+   "tags": [
+    "board",
+    "modul",
+    "pico",
+    "raspberry",
+    "rp2040",
+    "wlan"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Entwicklungsboards",
+   "datasheet_hint": "STM32 \"Blue Pill\"",
+   "description": "Board mit STM32F103C8T6, 72 MHz, 64 KB Flash, 8-MHz-Quarz, Micro-USB (Programmierung per ST-Link)",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-stm32-bluepill",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "STM32 \"Blue Pill\"",
+   "params": [
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "72M"
+    },
+    {
+     "name": "Flash",
+     "unit": "KB",
+     "value": "64"
+    },
+    {
+     "name": "RAM",
+     "unit": "KB",
+     "value": "20"
+    }
+   ],
+   "tags": [
+    "arm",
+    "bluepill",
+    "board",
+    "modul",
+    "stm32"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Entwicklungsboards",
+   "datasheet_hint": "Wemos D1 mini",
+   "description": "Kompaktes ESP8266-Board, 4 MB Flash, CH340, 3,3-V-Logik, viele Aufsteck-Shields",
+   "footprint": "Modul",
+   "image": "module-esp.svg",
+   "key": "mod-wemos-d1-mini",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Wemos D1 mini",
+   "params": [
+    {
+     "name": "Flash",
+     "unit": "MB",
+     "value": "4"
+    },
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "80M"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "WLAN"
+    }
+   ],
+   "tags": [
+    "board",
+    "d1-mini",
+    "esp8266",
+    "modul",
+    "wlan"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Entwicklungsboards",
+   "datasheet_hint": "Seeed XIAO ESP32C3",
+   "description": "Daumengroßes Board mit ESP32-C3 (RISC-V, 160 MHz), 4 MB Flash, 400 KB SRAM, WLAN + BLE 5, USB-C",
+   "footprint": "Modul",
+   "image": "module-esp.svg",
+   "key": "mod-xiao-esp32c3",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Seeed XIAO ESP32C3",
+   "params": [
+    {
+     "name": "Takt",
+     "unit": "Hz",
+     "value": "160M"
+    },
+    {
+     "name": "Flash",
+     "unit": "MB",
+     "value": "4"
+    },
+    {
+     "name": "RAM",
+     "unit": "KB",
+     "value": "400"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "WLAN, Bluetooth LE"
+    }
+   ],
+   "tags": [
+    "board",
+    "esp32-c3",
+    "modul",
+    "risc-v",
+    "wlan",
+    "xiao"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Funk",
+   "datasheet_hint": "433-MHz-Sender/Empfänger-Set",
+   "description": "Einfaches 433-MHz-ASK-Set: Sender FS1000A + Empfänger XY-MK-5V",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-fs1000a-set",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "433-MHz-Sender/Empfänger-Set",
+   "params": [
+    {
+     "name": "Frequenz",
+     "unit": "Hz",
+     "value": "433M"
+    }
+   ],
+   "tags": [
+    "433mhz",
+    "ask",
+    "funk",
+    "modul"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Funk",
+   "datasheet_hint": "HC-05",
+   "description": "Bluetooth-2.0-Modul (SPP), UART, Master/Slave, 3,3-V-Logik",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-hc-05",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "HC-05",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "UART, Bluetooth"
+    }
+   ],
+   "tags": [
+    "bluetooth",
+    "funk",
+    "modul",
+    "uart"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Funk",
+   "datasheet_hint": "HC-06",
+   "description": "Bluetooth-2.0-Modul (SPP), UART, nur Slave, 3,3-V-Logik",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-hc-06",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "HC-06",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "UART, Bluetooth"
+    }
+   ],
+   "tags": [
+    "bluetooth",
+    "funk",
+    "modul",
+    "uart"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Funk",
+   "datasheet_hint": "nRF24L01+",
+   "description": "2,4-GHz-Funkmodul mit nRF24L01+, SPI, bis 2 Mbit/s, 1,9–3,6 V (nicht an 5 V!)",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-nrf24l01",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "nRF24L01+",
+   "params": [
+    {
+     "name": "Frequenz",
+     "unit": "Hz",
+     "value": "2.4G"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "SPI"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "1.9–3.6"
+    }
+   ],
+   "tags": [
+    "2.4ghz",
+    "funk",
+    "modul",
+    "nrf24"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Funk",
+   "datasheet_hint": "nRF24L01+ PA/LNA",
+   "description": "2,4-GHz-Funkmodul mit nRF24L01+, Leistungsverstärker und externer Antenne (größere Reichweite)",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-nrf24l01-pa",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "nRF24L01+ PA/LNA",
+   "params": [
+    {
+     "name": "Frequenz",
+     "unit": "Hz",
+     "value": "2.4G"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "SPI"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "1.9–3.6"
+    }
+   ],
+   "tags": [
+    "2.4ghz",
+    "antenne",
+    "funk",
+    "modul",
+    "nrf24"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Funk",
+   "datasheet_hint": "Ra-02 (SX1278)",
+   "description": "LoRa-Funkmodul 433 MHz mit Semtech SX1278, SPI, 3,3 V",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-ra-02",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Ra-02 (SX1278)",
+   "params": [
+    {
+     "name": "Frequenz",
+     "unit": "Hz",
+     "value": "433M"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "SPI"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3.3"
+    }
+   ],
+   "tags": [
+    "433mhz",
+    "funk",
+    "lora",
+    "modul",
+    "sx1278"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Funk",
+   "datasheet_hint": "RFM95W",
+   "description": "LoRa-Funkmodul 868/915 MHz (SX1276-kompatibel), SPI, 3,3 V",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-rfm95w",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "RFM95W",
+   "params": [
+    {
+     "name": "Frequenz",
+     "unit": "Hz",
+     "value": "868M"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "SPI"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3.3"
+    }
+   ],
+   "tags": [
+    "868mhz",
+    "funk",
+    "lora",
+    "modul",
+    "sx1276",
+    "ttn"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Funk",
+   "datasheet_hint": "SIM800L",
+   "description": "GSM/GPRS-Modul (Quad-Band, 2G), UART, 3,4–4,4 V, Spitzenstrom bis 2 A",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-sim800l",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "SIM800L",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "UART"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3.4–4.4"
+    }
+   ],
+   "tags": [
+    "2g",
+    "funk",
+    "gprs",
+    "gsm",
+    "modul",
+    "sms"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Motortreiber",
+   "description": "Schrittmotortreiber-Modul A4988 (StepStick), 8–35 V, bis 2 A mit Kühlung, bis 1/16-Schritt",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-a4988",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "A4988 Schrittmotortreiber",
+   "params": [
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "2"
+    },
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "35"
+    }
+   ],
+   "tags": [
+    "3d-drucker",
+    "a4988",
+    "modul",
+    "schrittmotor",
+    "stepstick"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Motortreiber",
+   "description": "Schrittmotortreiber-Modul DRV8825 (StepStick), 8,2–45 V, bis 2,2 A mit Kühlung, bis 1/32-Schritt",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-drv8825",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "DRV8825 Schrittmotortreiber",
+   "params": [
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "2.2"
+    },
+    {
+     "name": "Eingangsspannung max",
+     "unit": "V",
+     "value": "45"
+    }
+   ],
+   "tags": [
+    "3d-drucker",
+    "drv8825",
+    "modul",
+    "schrittmotor",
+    "stepstick"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Motortreiber",
+   "description": "Doppel-H-Brücke mit L298N und Kühlkörper, bis 2 A je Kanal, Motorspannung bis 35 V, 5-V-Regler an Bord",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-l298n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "L298N Motortreiber-Modul",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "2"
+    },
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "2"
+    }
+   ],
+   "tags": [
+    "h-brücke",
+    "l298n",
+    "modul",
+    "motortreiber"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Relais",
+   "description": "Relaismodul mit 1× SRD-05VDC-SL-C, 5-V-Spulen, Kontakte je 10 A / 250 V~, Ansteuerung über Transistor/Optokoppler",
+   "footprint": "Modul",
+   "image": "module-relay.svg",
+   "key": "mod-relay-1ch",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Relaismodul 1-Kanal 5 V",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "1"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "modul",
+    "relais",
+    "relaismodul",
+    "srd-05vdc"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Relais",
+   "description": "Relaismodul mit 2× SRD-05VDC-SL-C, 5-V-Spulen, Kontakte je 10 A / 250 V~, Ansteuerung über Transistor/Optokoppler",
+   "footprint": "Modul",
+   "image": "module-relay.svg",
+   "key": "mod-relay-2ch",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Relaismodul 2-Kanal 5 V",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "2"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "modul",
+    "relais",
+    "relaismodul",
+    "srd-05vdc"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Relais",
+   "description": "Relaismodul mit 4× SRD-05VDC-SL-C, 5-V-Spulen, Kontakte je 10 A / 250 V~, Ansteuerung über Transistor/Optokoppler",
+   "footprint": "Modul",
+   "image": "module-relay.svg",
+   "key": "mod-relay-4ch",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Relaismodul 4-Kanal 5 V",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "4"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "modul",
+    "relais",
+    "relaismodul",
+    "srd-05vdc"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Relais",
+   "description": "Relaismodul mit 8× SRD-05VDC-SL-C, 5-V-Spulen, Kontakte je 10 A / 250 V~, Ansteuerung über Transistor/Optokoppler",
+   "footprint": "Modul",
+   "image": "module-relay.svg",
+   "key": "mod-relay-8ch",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Relaismodul 8-Kanal 5 V",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "8"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "modul",
+    "relais",
+    "relaismodul",
+    "srd-05vdc"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Schnittstellen",
+   "description": "USB-zu-TTL-UART-Adapter mit CH340, umschaltbar 3,3/5 V",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-ch340-usb-ttl",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "USB-Seriell-Adapter CH340",
+   "params": [],
+   "tags": [
+    "ch340",
+    "ftdi",
+    "modul",
+    "uart",
+    "usb"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Schnittstellen",
+   "description": "USB-zu-TTL-UART-Adapter mit CP2102, 3,3-V-Logik (5-V-tolerant je nach Modul prüfen)",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-cp2102-usb-ttl",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "USB-Seriell-Adapter CP2102",
+   "params": [],
+   "tags": [
+    "cp2102",
+    "modul",
+    "uart",
+    "usb"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Schnittstellen",
+   "description": "USB-zu-TTL-UART-Adapter mit FTDI FT232RL, umschaltbar 3,3/5 V, mit DTR für Arduino-Reset",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-ft232rl-usb-ttl",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "USB-Seriell-Adapter FT232RL",
+   "params": [],
+   "tags": [
+    "ft232",
+    "ftdi",
+    "modul",
+    "uart",
+    "usb"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Schnittstellen",
+   "description": "Bidirektionaler Logikpegelwandler 3,3 V ↔ 5 V, 4 Kanäle (BSS138), für I²C/SPI geeignet",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-levelshifter-4ch",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "Pegelwandler 4-Kanal",
+   "params": [],
+   "tags": [
+    "bss138",
+    "i2c",
+    "level-shifter",
+    "modul",
+    "pegelwandler"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Module/Schnittstellen",
+   "description": "MicroSD-Kartenleser, SPI, mit 3,3-V-Regler und Pegelwandler für 5-V-Systeme",
+   "footprint": "Modul",
+   "image": "module-pcb.svg",
+   "key": "mod-microsd",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MicroSD-Kartenmodul",
+   "params": [],
+   "tags": [
+    "microsd",
+    "modul",
+    "sd",
+    "speicher",
+    "spi"
+   ],
+   "unit": "Stk"
+  }
+ ]
+}

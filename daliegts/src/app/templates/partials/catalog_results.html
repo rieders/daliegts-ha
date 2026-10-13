@@ -1,0 +1,27 @@
+{% from "partials/macros.html" import locpicker %}
+{% for p in results %}
+<div class="card">
+  <div class="row top">
+    <div class="thumb" style="width:72px;height:72px"><img src="/static/catalog/{{ p.image }}" alt=""></div>
+    <div class="grow">
+      <div class="row spread"><b>{{ p.name }}</b><span class="badge">{{ p.group }}</span></div>
+      <div>{{ p.description }}</div>
+      <div class="small muted">{{ p.category|replace('/', ' / ') }} · {{ p.footprint }}</div>
+      <div class="small">{% for prm in p.params %}<span class="badge">{{ prm.name }}: {{ prm.value }}{{ ' ' ~ prm.unit if prm.unit }}</span> {% endfor %}</div>
+      {% if p.equivalents %}<div class="small muted">Vergleichstypen: {{ p.equivalents|join(', ') }}</div>{% endif %}
+    </div>
+  </div>
+  {% if existing.get(p.key) %}
+    <p class="small">✔ Bereits im Lager: <a href="/artikel/{{ existing[p.key] }}">zum Artikel</a></p>
+  {% elif me.can('items', 3) %}
+  <form method="post" action="/katalog/uebernehmen" class="row" style="margin-top:8px">
+    <input type="hidden" name="key" value="{{ p.key }}">
+    <div class="grow" style="min-width:220px">{{ locpicker() }}</div>
+    <input type="number" name="quantity" step="any" min="0" placeholder="Menge" style="width:110px">
+    <button class="btn primary">Übernehmen</button>
+  </form>
+  {% endif %}
+</div>
+{% else %}
+{% if q %}<div class="card muted">Kein Katalogeintrag für „{{ q }}“. <a href="/artikel/neu">Artikel manuell anlegen →</a></div>{% endif %}
+{% endfor %}

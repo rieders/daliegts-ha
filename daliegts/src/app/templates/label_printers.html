@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Etikettendrucker{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/etiketten">Etiketten drucken</a></div>
+<h1>Etikettendrucker</h1>
+<p class="muted">Etikettendrucker direkt ansteuern – ohne Druckdialog: Brother QL, Zebra (ZPL), TSC/Xprinter/Munbyn (TSPL) im Netzwerk oder per USB am Server, alle anderen über CUPS. {{ APP_NAME }} zeichnet die Etiketten selbst in der Auflösung des Druckers.</p>
+
+<div class="cols-2">
+  <div>
+    {% for p in printers %}
+    <div class="card" x-data="{ping: '', img: 0}">
+      <div class="row spread">
+        <h2 class="mt0 mb0">{{ p.name }}{% if p.is_default %} <span class="small muted">★ Standard</span>{% endif %}{% if not p.enabled %} <span class="badge">deaktiviert</span>{% endif %}</h2>
+        {% if me.can('labels', 2) %}<a class="btn sm" href="/etiketten/drucker?id={{ p.id }}">Bearbeiten</a>{% endif %}
+      </div>
+      <div class="small muted" style="margin:4px 0 8px">{% if p.driver == 'brother_ql' %}{{ p.model }} · {{ p.host }}:{{ p.port }} · {{ media.get(p.media, p.media) }}{{ ' · Abschneiden nach jedem Etikett' if p.cut }}{% else %}{{ drivers[p.driver].split(' –')[0].split(' (')[0] }} · {% if p.driver == 'cups' %}Warteschlange {{ p.host }}{% elif p.host.startswith('usb:') or p.host.startswith('/dev/') %}{{ p.host }}{% else %}{{ p.host }}:{{ p.port }}{% endif %} · {{ p.dpi }} dpi{% if p.media_w_mm and p.media_h_mm %} · {{ '%g'|format(p.media_w_mm) }}×{{ '%g'|format(p.media_h_mm) }} mm{% endif %}{% endif %}</div>
+      {% if p.last_error %}<p class="note small" style="background:var(--err-bg);color:var(--err)">Letzter Fehler: {{ p.last_error }}</p>
+      {% elif p.last_ok %}<p class="small muted">Zuletzt erfolgreich gedruckt: {{ p.last_ok.strftime('%d.%m.%Y %H:%M') }}</p>{% endif %}
+      <div class="row">
+        <button type="button" class="btn sm" @click="ping = '…'; api('/etiketten/drucker/{{ p.id }}/verbindung').then(r => ping = r.ok ? '✓ erreichbar' : '✕ ' + r.error).catch(e => ping = '✕ ' + e.message)">Verbindung prüfen</button>
+        <span class="small" x-text="ping"></span>
+      </div>
+      <form method="post" action="/etiketten/drucker/{{ p.id }}/test" class="row" style="margin-top:8px">
+        <select name="art" @change="img = Date.now(); $refs.pv.src = lwUrl('/etiketten/drucker/{{ p.id }}/vorschau.png?art=' + $event.target.value + '&t=' + img)" style="width:auto">
+          <option value="muster">Messmuster (Rahmen + mm-Striche)</option>
+          <option value="location">Beispiel Lagerort-Etikett</option>
+          <option value="item">Beispiel Artikel-Etikett</option>
+          <option value="lot">Beispiel Bestands-Etikett</option>
+        </select>
+        <button class="btn primary">🖨 Testdruck</button>
+      </form>
+      <div class="small muted" style="margin-top:8px">So kommt es aus dem Drucker (Band quer, bedruckbare Fläche):</div>
+      <div class="lbl-preview" style="margin-top:4px"><img x-ref="pv" src="/etiketten/drucker/{{ p.id }}/vorschau.png?art=muster" alt="Druckbild" style="max-width:100%;height:auto;image-rendering:pixelated;max-height:220px;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.25)"></div>
+    </div>
+    {% else %}
+    <div class="card"><p class="mb0">Noch kein Drucker angelegt. Rechts die IP-Adresse des Brother-QL eintragen.</p></div>
+    {% endfor %}
+  </div>
+
+  <div>
+    {% if me.can('labels', 2) %}
+    <form method="post" action="/etiketten/drucker/speichern" class="card" x-data="{d: '{{ edit.driver if edit else 'brother_ql' }}'}">
+      <h2 class="mt0">{{ 'Drucker bearbeiten' if edit else 'Drucker hinzufügen' }}</h2>
+      <input type="hidden" name="id" value="{{ edit.id if edit else '' }}">
+      <div class="fields">
+        <div style="grid-column:span 2"><label>Druckersprache</label><select name="driver" x-model="d">{% for k, v in drivers.items() %}<option value="{{ k }}">{{ v }}</option>{% endfor %}</select></div>
+        <div><label>Name</label><input name="name" required value="{{ edit.name if edit else 'Etikettendrucker' }}"></div>
+        <div x-show="d === 'brother_ql'"><label>Modell</label><select name="model">{% for m in models %}<option {{ 'selected' if (edit.model if edit else 'QL-820NWB') == m }}>{{ m }}</option>{% endfor %}</select></div>
+        <div x-show="d !== 'brother_ql'"><label>Auflösung</label><select name="dpi">{% for v in (203, 300, 600) %}<option value="{{ v }}" {{ 'selected' if (edit.dpi if edit and edit.driver != 'brother_ql' else 203) == v }}>{{ v }} dpi</option>{% endfor %}</select></div>
+        <div><label x-text="d === 'cups' ? 'CUPS-Warteschlange' : 'IP-Adresse oder usb:/dev/usb/lp0'"></label>
+          <input name="host" required :placeholder="d === 'cups' ? 'z. B. DYMO_LabelWriter_450' : 'z. B. 192.168.178.50'" value="{{ edit.host if edit else '' }}"></div>
+        <div x-show="d !== 'cups'"><label>Port</label><input name="port" type="number" placeholder="9100" value="{{ edit.port if edit else '' }}"></div>
+        <div style="grid-column:span 2" x-show="d === 'brother_ql'"><label>Eingelegte Rolle</label><select name="media">{% for k, v in media.items() %}<option value="{{ k }}" {{ 'selected' if (edit.media if edit else '29') == k }}>{{ v }} ({{ k }})</option>{% endfor %}</select></div>
+        <div x-show="d !== 'brother_ql'"><label>Etikett Breite × Höhe (mm)</label>
+          <div class="row" style="flex-wrap:nowrap;gap:6px"><input name="media_w_mm" inputmode="decimal" placeholder="z. B. 57" value="{{ '%g'|format(edit.media_w_mm) if edit and edit.media_w_mm else '' }}"><span>×</span><input name="media_h_mm" inputmode="decimal" placeholder="32" value="{{ '%g'|format(edit.media_h_mm) if edit and edit.media_h_mm else '' }}"></div></div>
+        <div x-show="d === 'tspl'"><label>Lücke zwischen Etiketten (mm)</label><input name="gap_mm" inputmode="decimal" placeholder="2" value="{{ '%g'|format(edit.gap_mm) if edit and edit.gap_mm is not none else '' }}"></div>
+        <div><label x-text="d === 'brother_ql' ? 'Drehung auf dem Band' : 'Drehung'"></label>
+          <select name="rotate" x-show="d === 'brother_ql'" :disabled="d !== 'brother_ql'"><option value="90" {{ 'selected' if not edit or edit.rotate != 270 }}>90° (Text liest sich beim Herauskommen von unten)</option><option value="270" {{ 'selected' if edit and edit.rotate == 270 }}>270° (andersherum)</option></select>
+          <select name="rotate" x-show="d !== 'brother_ql'" :disabled="d === 'brother_ql'">{% for r in (0, 90, 180, 270) %}<option value="{{ r }}" {{ 'selected' if edit and edit.driver != 'brother_ql' and edit.rotate == r }}>{{ r }}°</option>{% endfor %}</select></div>
+        <div><label>Versatz (mm)</label><input name="offset_mm" type="number" step="0.5" min="-10" max="10" value="{{ '%g'|format(edit.offset_mm) if edit else 0 }}"></div>
+        <div><label>Schwärzung (Schwelle %)</label><input name="threshold" type="number" min="10" max="95" value="{{ edit.threshold if edit else 70 }}"></div>
+      </div>
+      <p class="small muted" x-show="d !== 'brother_ql'" style="margin:4px 0">Ohne Etikettengröße wird in Größe der Vorlage gedruckt. Mit Größe wird das Etikett darauf mittig platziert (und bei Bedarf verkleinert).</p>
+      <label class="inline" x-show="d === 'brother_ql'"><input type="checkbox" name="cut" value="1" {{ 'checked' if not edit or edit.cut }}> Nach jedem Etikett abschneiden</label>
+      <label class="inline" x-show="d === 'brother_ql'"><input type="checkbox" name="hq" value="1" {{ 'checked' if not edit or edit.hq }}> Hohe Qualität</label>
+      <label class="inline" x-show="d === 'tspl'"><input type="checkbox" name="invert" value="1" {{ 'checked' if edit and edit.invert }}> Farben umkehren (falls der Testdruck als Negativ kommt)</label>
+      <label class="inline"><input type="checkbox" name="is_default" value="1" {{ 'checked' if not edit or edit.is_default }}> Standarddrucker</label>
+      {% if edit %}<label class="inline"><input type="checkbox" name="enabled" value="1" {{ 'checked' if edit.enabled }}> aktiv</label>{% endif %}
+      <div class="row" style="margin-top:10px">
+        <button class="btn primary">Speichern</button>
+        {% if edit %}<a class="btn" href="/etiketten/drucker">Neuer Drucker</a>{% endif %}
+      </div>
+    </form>
+    {% if edit %}<form method="post" action="/etiketten/drucker/{{ edit.id }}/loeschen" class="row" style="margin:-4px 0 12px"><button class="btn sm ghost" data-confirm="Drucker „{{ edit.name }}“ löschen?">Drucker löschen</button></form>{% endif %}
+    {% endif %}
+
+    <div class="card small">
+      <h3 class="mt0">So klappt's</h3>
+      <ol style="padding-left:18px;margin:0">
+        <li><b>IP-Adresse:</b> am QL-820NWB/810W über das Menü bzw. die Taste „Info“ (druckt die Einstellungen), sonst in der Fritz!Box unter Heimnetz. Am besten dort eine feste IP vergeben.</li>
+        <li><b>Editor Lite aus:</b> Leuchtet die grüne „Editor Lite“-LED, die Taste gedrückt halten, bis sie ausgeht – sonst nimmt der Drucker keine Druckaufträge an.</li>
+        <li><b>Rolle:</b> genau die eingelegte Rolle wählen (z. B. DK-22210 = 29 mm Endlos, DK-22205 = 62 mm Endlos, DK-11209 = 62×29 mm). Passt sie nicht, blinkt der Drucker rot und druckt nicht.</li>
+        <li><b>Endlosband:</b> Die Etikettenhöhe der Vorlage (z. B. 16 mm) liegt quer auf dem Band, die Breite (55 mm) ist die Abschnittlänge. Ist das Band breiter, wird mittig gedruckt; ist es schmaler, wird verkleinert.</li>
+        <li><b>Zebra / TSPL:</b> Im Netzwerk Port 9100 (bei Zebra ab Werk an). Per USB am {{ APP_NAME }}-Server: Adresse <code>usb:/dev/usb/lp0</code>. Etikettengröße und Auflösung (203 oder 300 dpi, steht auf dem Typenschild) eintragen. Kommt der TSPL-Testdruck als Negativ, „Farben umkehren“ anhaken.</li>
+        <li><b>Andere Drucker</b> (z. B. DYMO LabelWriter am USB des Servers): in CUPS einrichten (<code>apt install cups printer-driver-dymo</code>, dann http://server:631) und hier den Namen der Warteschlange eintragen.</li>
+        <li><b>Testdruck</b> mit dem Messmuster: Der Rahmen sollte ringsum sichtbar sein, die Striche haben 5 mm Abstand. Sitzt es quer versetzt, „Versatz quer“ anpassen; ist es zu blass/zu fett, die Schwelle ändern.</li>
+      </ol>
+    </div>
+  </div>
+</div>
+{% endblock %}

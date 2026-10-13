@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Historie{% endblock %}
+{% block content %}
+<h1>Bestandshistorie</h1>
+<div class="card table-wrap"><table>
+  <tr><th>Zeit</th><th>Artikel</th><th>Vorgang</th><th class="num">Menge</th><th class="num">danach</th><th>von → nach</th><th>Wer</th><th>Notiz</th></tr>
+  {% for m in rows %}<tr><td class="small">{{ m.ts|dt }}</td><td><a href="/artikel/{{ m.item_id }}">{{ m.item.name }}</a></td><td>{{ MOVEMENT_KINDS.get(m.kind, m.kind) }}</td>
+    <td class="num">{{ m.delta|qty }}</td><td class="num">{{ m.quantity_after|qty if m.quantity_after is not none else '' }}</td>
+    <td class="small">{{ m.from_location.name if m.from_location else '' }}{% if m.from_location and m.to_location %} → {% endif %}{{ m.to_location.name if m.to_location else '' }}</td>
+    <td class="small">{{ m.user.label if m.user else '' }}</td><td class="small muted">{{ m.note[:90] }}</td></tr>
+  {% endfor %}
+</table></div>
+<div class="row">{% if seite > 1 %}<a class="btn" href="?seite={{ seite-1 }}">← neuer</a>{% endif %}{% if rows|length == 100 %}<a class="btn" href="?seite={{ seite+1 }}">älter →</a>{% endif %}</div>
+{% endblock %}

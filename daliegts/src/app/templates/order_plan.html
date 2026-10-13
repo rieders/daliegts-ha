@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block title %}Bestellplaner – {{ p.name }}{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/projekte">Projekte</a> › <a href="/projekte/{{ p.id }}?anzahl={{ prm.anzahl }}">{{ p.name }}</a></div>
+<div class="row spread">
+  <h1 class="mb0">🛒 Bestellplaner: {{ p.name }} × {{ prm.anzahl }}</h1>
+  {% if plan.groups %}<div class="row"><span class="small muted">{{ plan.groups|length }} Paket{{ 'e' if plan.groups|length != 1 }}</span><b style="font-size:1.15rem">{{ plan.total|euro }}</b><span class="small muted">inkl. Versand{% if unpriced %} · {{ unpriced|length }} Artikel noch ohne Preis{% endif %}</span></div>{% endif %}
+</div>
+<p class="muted">Fehlteile fürs Projekt, dazu auf Wunsch die offene Einkaufsliste und Standardteile unter Mindestbestand – so verteilt, dass Preis + Versand passen und möglichst wenige Pakete kommen.</p>
+
+<form method="get" class="card" id="planform">
+  <input type="hidden" name="f" value="1">
+  <div class="row" style="gap:14px;align-items:flex-end">
+    <div><label>Wie viele bauen?</label><input type="number" name="anzahl" min="1" value="{{ prm.anzahl }}" style="width:100px"></div>
+    <div><label>Ziel</label><select name="modus">{% for k, (label, pen) in modes.items() %}<option value="{{ k }}" {{ 'selected' if prm.modus == k }}>{{ label }}{% if pen and k != 'einer' %} (+{{ pen|int }} € je weiteres Paket gedacht){% endif %}</option>{% endfor %}</select></div>
+    <label class="inline" style="margin:0 0 8px"><input type="checkbox" name="liste" value="1" {{ 'checked' if prm.liste }}> offene Einkaufsliste mitbestellen</label>
+    <button class="btn primary" style="margin-bottom:2px">Neu berechnen</button>
+  </div>
+
+  {% if dm.unassigned %}
+  <div class="note" style="margin-top:12px;background:var(--warn-bg)">
+    <b>{{ dm.unassigned|length }} Bauteile sind noch keinem Lagerartikel zugeordnet</b> und können so nicht eingeplant werden:
+    <span class="small">{% for ln in dm.unassigned[:8] %}{{ ln.value }}{% if ln.mpn %} ({{ ln.mpn }}){% endif %}{{ ', ' if not loop.last }}{% endfor %}{% if dm.unassigned|length > 8 %} …{% endif %}</span>
+    <div class="row" style="margin-top:6px">
+      <a class="btn sm" href="/projekte/{{ p.id }}?anzahl={{ prm.anzahl }}">Im Projekt zuordnen</a>
+      {% if me.can('items', 3) %}<button class="btn sm" form="createform">Als neue Artikel anlegen</button>{% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  <h3 style="margin-bottom:4px">Was bestellt wird</h3>
+  {% if not dm.entries %}<p class="muted">Nichts – für {{ prm.anzahl }}× ist alles da{% if dm.covered %} bzw. schon bestellt/auf der Einkaufsliste{% endif %}.</p>{% endif %}
+  <div class="table-wrap"><table>
+    <tr><th></th><th>Artikel</th><th>Warum</th><th class="num">Menge</th></tr>
+    {% for e in dm.entries %}
+    <tr>
+      <td>{% if e.source == 'standard' %}<input type="checkbox" name="std" value="{{ e.item.id }}" checked onchange="this.form.submit()" title="Standardteil mitbestellen">{% endif %}</td>
+      <td><a href="/artikel/{{ e.item.id }}">{{ e.item.name }}</a>{% if e.item.mpn %} <span class="small muted mono">{{ e.item.mpn }}</span>{% endif %}</td>
+      <td class="small">{{ {'projekt': '🔧 Projekt', 'liste': '📝 Einkaufsliste', 'standard': '♻ Standardteil'}[e.source] }} <span class="muted">{{ e.detail }}</span></td>
+      <td class="num">{{ e.quantity|qty(e.item.unit) }}</td>
+    </tr>
+    {% endfor %}
+    {% set chosen = dm.entries|selectattr('source', 'equalto', 'standard')|map(attribute='item_id')|list %}
+    {% for it, q in dm.suggestions if it.id not in chosen %}
+    <tr class="muted">
+      <td><input type="checkbox" name="std" value="{{ it.id }}" onchange="this.form.submit()" title="Standardteil mitbestellen"></td>
+      <td>{{ it.name }}</td><td class="small">♻ Standardteil unter Mindestbestand – nicht ausgewählt</td><td class="num">{{ q|qty(it.unit) }}</td>
+    </tr>
+    {% endfor %}
+  </table></div>
+  {% if dm.covered %}<p class="small muted" style="margin-bottom:0">Schon bestellt oder auf der Einkaufsliste: {% for ln, q in dm.covered %}{{ ln.item.name }}{{ ', ' if not loop.last }}{% endfor %}.</p>{% endif %}
+</form>
+{% if dm.unassigned and me.can('items', 3) %}<form method="post" action="/projekte/{{ p.id }}/bestellen/anlegen" id="createform"><input type="hidden" name="qs" value="{{ qs }}"></form>{% endif %}
+
+{% if job %}
+<div class="card" x-data="{st: null}" x-init="const tick = async () => { const r = await fetch('/jobs/{{ job }}', {credentials: 'same-origin'}); if (!r.ok) return; st = await r.json(); if (st.finished) { setTimeout(() => location.href = location.href.replace(/&?job=[^&]*/, ''), 1200) } else setTimeout(tick, 1500) }; tick()">
+  <b>🔍 Händler werden abgefragt …</b>
+  <div class="small" x-show="st" x-text="st && (st.done + ' von ' + st.total + ' Artikeln' + (st.linked ? ' · ' + st.linked + ' neue Angebote' : '') + (st.asked ? ' · ' + st.asked + ' Rückfragen' : '') + (st.finished ? ' – fertig' : ''))"></div>
+  <progress style="width:100%" :max="st ? st.total : 1" :value="st ? st.done : 0"></progress>
+  <template x-if="st && st.messages.length"><ul class="small muted"><template x-for="m in st.messages.slice(-6)"><li x-text="m"></li></template></ul></template>
+</div>
+{% endif %}
+
+{% if dm.entries %}
+<div class="card">
+  <div class="row spread"><h2 class="mt0 mb0">Preise & Händler</h2>
+    {% if me.can('purchasing', 2) %}
+    <form method="post" action="/projekte/{{ p.id }}/bestellen/online" class="inline"><input type="hidden" name="qs" value="{{ qs }}">
+      <button class="btn {{ 'primary' if unpriced else '' }}" {{ 'disabled' if not providers }} title="Aktuelle Preise holen und bei allen eingeschalteten Händlern nach weiteren Angeboten suchen">🔍 Online suchen ({{ dm.entries|length }} Artikel)</button></form>
+    {% endif %}
+  </div>
+  <p class="small" style="margin:6px 0 0">
+    {% if providers %}Abgefragt werden: {{ providers|join(', ') }}.{% else %}<span style="color:var(--warn)">Noch kein Händler für die Online-Suche eingeschaltet</span> – <a href="/admin/info-provider">Verwaltung › Info-Provider</a> (LCSC geht ohne Schlüssel, Mouser/DigiKey/TME brauchen einen kostenlosen API-Schlüssel).{% endif %}
+    {% if unpriced %}<br><b>{{ unpriced|length }} Artikel ohne Preis:</b> {% for e in unpriced[:10] %}{{ e.item.name }}{{ ', ' if not loop.last }}{% endfor %}{% if unpriced|length > 10 %} …{% endif %}{% endif %}
+  </p>
+  {% if questions %}<div class="note small" style="margin-top:8px">❓ {{ questions }} Rückfrage(n): Bei mehreren passenden Treffern (z. B. „10k 0805“) einmal auswählen – danach merkt sich {{ APP_NAME }} die Zuordnung. <a href="/entscheidungen">Jetzt entscheiden</a></div>{% endif %}
+</div>
+
+{% if no_shipping and me.can('purchasing', 2) %}
+<div class="card">
+  <b>Versandkosten fehlen</b> <span class="small muted">– ohne sie kann {{ APP_NAME }} Pakete nicht richtig vergleichen (bis dahin zählt nur der gedachte Paket-Aufschlag). Stand im Shop nachsehen und eintragen:</span>
+  {% for s in no_shipping %}
+  <form method="post" action="/lieferanten/{{ s.id }}/versand" class="row" style="margin-top:6px;gap:6px">
+    <b style="min-width:110px">{{ s.name }}</b>
+    <input name="shipping_cost" placeholder="Versand €" inputmode="decimal" style="width:100px">
+    <input name="free_shipping_from" placeholder="frei ab €" inputmode="decimal" style="width:100px">
+    <input name="min_order_value" placeholder="Mindestbestellwert €" inputmode="decimal" style="width:160px">
+    <button class="btn sm">Speichern</button>
+  </form>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% if singles %}
+<div class="card table-wrap">
+  <h2 class="mt0">Vergleich</h2>
+  <table>
+    <tr><th>Variante</th><th class="num">Teile</th><th class="num">Ware</th><th class="num">Versand</th><th class="num">Summe</th><th></th></tr>
+    <tr style="{{ 'font-weight:600' if not variante }}">
+      <td>⭐ Empfohlen: {{ modes[prm.modus][0] }} <span class="small muted">({{ plan.groups|length }} Paket{{ 'e' if plan.groups|length != 1 }}: {{ plan.groups|map(attribute='supplier.name')|join(', ') }})</span></td>
+      <td class="num">{{ plan.groups|map(attribute='lines')|map('length')|sum }}/{{ dm.entries|length }}</td>
+      <td class="num">{{ (plan.groups|sum(attribute='subtotal'))|euro }}</td><td class="num">{{ (plan.groups|sum(attribute='shipping'))|euro }}</td>
+      <td class="num"><b>{{ plan.total|euro }}</b></td>
+      <td>{% if variante %}<a class="btn sm" href="?{{ qs_base }}">anzeigen</a>{% endif %}</td>
+    </tr>
+    {% for o in singles[:8] %}
+    <tr style="{{ 'font-weight:600' if variante == o.supplier.id|string }}">
+      <td>Alles bei <b>{{ o.supplier.name }}</b>
+        {% if o.missing %}<div class="small" style="color:var(--warn)">fehlt dort: {{ o.missing[:4]|join(', ') }}{% if o.missing|length > 4 %} … (+{{ o.missing|length - 4 }}){% endif %} – kommt dann woanders her</div>{% endif %}
+        {% if o.unpriced %}<div class="small muted">{{ o.unpriced }} ohne Preis</div>{% endif %}
+        {% if o.supplier.shipping_cost is none %}<div class="small muted">Versandkosten unbekannt</div>{% endif %}</td>
+      <td class="num">{{ o.covered }}/{{ dm.entries|length }}</td>
+      <td class="num">{{ o.subtotal|euro }}</td><td class="num">{{ o.shipping|euro }}</td><td class="num">{{ o.total|euro }}{% if o.missing %}<span class="small muted"> + Rest</span>{% endif %}</td>
+      <td><a class="btn sm" href="?{{ qs_base }}&variante={{ o.supplier.id }}">anzeigen</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endif %}
+
+{% for g in plan.groups %}
+<div class="card">
+  <div class="row spread">
+    <h2 class="mt0 mb0">📦 {{ g.supplier.name }}</h2>
+    <div class="row small"><span>Ware {{ g.subtotal|euro }}</span><span>Versand {{ g.shipping|euro }}{% if g.supplier.shipping_cost is none %} (?){% endif %}</span><b>= {{ g.total|euro }}</b>
+      {% if g.unpriced %}<span class="badge warn">{{ g.unpriced }} ohne Preis</span>{% endif %}</div>
+  </div>
+  {% if g.missing_for_free_shipping %}<div class="small muted">Noch {{ g.missing_for_free_shipping|euro }} bis versandkostenfrei – ein guter Moment für Standardteile.</div>{% endif %}
+  {% if g.below_min_order %}<div class="small" style="color:var(--warn)">Mindestbestellwert {{ g.supplier.min_order_value|euro }} nicht erreicht.</div>{% endif %}
+  <div class="table-wrap"><table>
+    <tr><th>Artikel</th><th>Bestellnr.</th><th class="num">Menge</th><th class="num">Einzel</th><th class="num">Summe</th><th>Alternativen</th></tr>
+    {% for ln in g.lines %}
+    <tr>
+      <td><a href="/artikel/{{ ln.entry.item.id }}">{{ ln.entry.item.name }}</a> <span class="small muted">{{ {'projekt': '🔧', 'liste': '📝', 'standard': '♻'}[ln.entry.source] }}</span></td>
+      <td class="mono small">{{ ln.part.sku }}</td>
+      <td class="num">{{ (ln.offer.order_qty if ln.offer else ln.entry.quantity)|qty }}{% if ln.offer and ln.offer.order_qty != ln.entry.quantity %}<div class="small muted">Bedarf {{ ln.entry.quantity|qty }}</div>{% endif %}</td>
+      <td class="num">{{ ln.offer.unit_price|price if ln.offer and ln.offer.priced else '–' }}</td>
+      <td class="num">{{ ln.offer.total|euro if ln.offer and ln.offer.priced else '–' }}</td>
+      <td class="small muted">{% for sp, of in ln.alternatives if sp.id != ln.part.id %}{{ sp.supplier.name }} {{ of.total|euro if of.priced else '–' }}{{ ' · ' if not loop.last }}{% endfor %}</td>
+    </tr>
+    {% endfor %}
+  </table></div>
+</div>
+{% endfor %}
+
+{% if plan.without_supplier %}
+<div class="card">
+  <h2 class="mt0">Ohne Händler</h2>
+  <p class="small muted">Für diese Artikel ist noch kein Händler bekannt. „🔍 Online suchen“ findet Angebote, oder auf der Artikelseite eine Bezugsquelle eintragen.</p>
+  <ul>{% for ln in plan.without_supplier %}<li><a href="/artikel/{{ ln.entry.item.id }}">{{ ln.entry.item.name }}</a> – {{ ln.entry.quantity|qty }}</li>{% endfor %}</ul>
+</div>
+{% endif %}
+
+{% if me.can('purchasing', 3) %}
+<form method="post" action="/projekte/{{ p.id }}/bestellen/uebernehmen" class="card row">
+  <input type="hidden" name="qs" value="{{ qs }}"><input type="hidden" name="variante" value="{{ variante }}">
+  <button class="btn primary">✓ Diese Aufteilung auf die Einkaufsliste übernehmen</button>
+  <span class="small muted">Dort gibt es je Händler den Warenkorb als CSV bzw. zum Einfügen in die Schnellbestellung; nach dem Bestellen „als bestellt markieren“ – dann erscheint überall „bestellt“.</span>
+</form>
+{% endif %}
+{% endif %}
+{% endblock %}

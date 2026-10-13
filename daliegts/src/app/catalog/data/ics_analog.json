@@ -1,0 +1,1019 @@
+{
+ "group": "Analog-, Schnittstellen- & Peripherie-ICs",
+ "parts": [
+  {
+   "category": "Elektronik/ICs/ADC & DAC",
+   "datasheet_hint": "ADS1115",
+   "description": "16-Bit-A/D-Wandler, 4 Kanäle, I²C, PGA; meist als Breakout-Modul genutzt, MSOP-10",
+   "equivalents": [
+    "ADS1015 (12 Bit)"
+   ],
+   "footprint": "MSOP-10",
+   "image": "tssop.svg",
+   "key": "ads1115",
+   "manufacturer": "Texas Instruments",
+   "mpn": "",
+   "name": "ADS1115",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "I²C"
+    },
+    {
+     "name": "Kanäle",
+     "value": "4"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–5.5"
+    }
+   ],
+   "tags": [
+    "a/d",
+    "adc",
+    "i2c",
+    "msop-10"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Audio",
+   "datasheet_hint": "LM386",
+   "description": "NF-Leistungsverstärker (Audio, ca. 0,3–1 W), 4–12 V (LM386N-1), DIP-8",
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "lm386",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LM386",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "4–12"
+    }
+   ],
+   "tags": [
+    "audio",
+    "dip-8",
+    "nf",
+    "verstärker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Audio",
+   "datasheet_hint": "TDA2030A",
+   "description": "NF-Leistungsverstärker (Audio, ca. 14–18 W), Pentawatt/TO-220-5",
+   "equivalents": [
+    "A2030 (DDR, Gehäuse prüfen)"
+   ],
+   "footprint": "TO-220-5",
+   "image": "to-220-5.svg",
+   "key": "tda2030a",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "TDA2030A",
+   "params": [],
+   "tags": [
+    "audio",
+    "endstufe",
+    "nf",
+    "to-220-5",
+    "verstärker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Komparatoren",
+   "datasheet_hint": "LM311",
+   "description": "Komparator mit Open-Collector-Ausgang, DIP-8",
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "lm311",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LM311",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "dip-8",
+    "komparator"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Komparatoren",
+   "datasheet_hint": "LM339",
+   "description": "Vierfach-Komparator, Open-Collector, 2–36 V, DIP-14",
+   "equivalents": [
+    "LM2901",
+    "LM393 (2-fach)"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "lm339",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LM339",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "4"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–36"
+    }
+   ],
+   "tags": [
+    "dip-14",
+    "komparator"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Komparatoren",
+   "datasheet_hint": "LM393",
+   "description": "Doppel-Komparator, Open-Collector, 2–36 V, DIP-8",
+   "equivalents": [
+    "LM2903",
+    "LM339 (4-fach)"
+   ],
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "lm393",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LM393",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "2"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–36"
+    }
+   ],
+   "tags": [
+    "dip-8",
+    "komparator"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Motortreiber",
+   "datasheet_hint": "L293D",
+   "description": "Doppel-H-Brücke 600 mA je Kanal mit Freilaufdioden, Motorspannung 4,5–36 V, DIP-16",
+   "footprint": "DIP-16",
+   "image": "dip-16.svg",
+   "key": "l293d",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "L293D",
+   "params": [
+    {
+     "name": "Ausgangsstrom",
+     "unit": "mA",
+     "value": "600"
+    },
+    {
+     "name": "Kanäle",
+     "value": "2"
+    }
+   ],
+   "tags": [
+    "dc-motor",
+    "dip-16",
+    "h-brücke",
+    "motortreiber",
+    "schrittmotor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Motortreiber",
+   "datasheet_hint": "L298N",
+   "description": "Doppel-H-Brücke 2 A je Kanal, bis 46 V, Multiwatt-15 (externe Freilaufdioden nötig)",
+   "footprint": "Multiwatt-15",
+   "image": "multiwatt.svg",
+   "key": "l298n",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "L298N",
+   "params": [
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "2"
+    },
+    {
+     "name": "Kanäle",
+     "value": "2"
+    }
+   ],
+   "tags": [
+    "dc-motor",
+    "h-brücke",
+    "motortreiber",
+    "multiwatt-15",
+    "schrittmotor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Motortreiber",
+   "datasheet_hint": "TB6612FNG",
+   "description": "Doppel-MOSFET-H-Brücke 1,2 A (Spitze 3,2 A), Motorspannung bis 13,5 V, SSOP-24; meist als Breakout-Board",
+   "footprint": "SSOP-24",
+   "image": "tssop.svg",
+   "key": "tb6612fng",
+   "manufacturer": "Toshiba",
+   "mpn": "",
+   "name": "TB6612FNG",
+   "params": [
+    {
+     "name": "Ausgangsstrom",
+     "unit": "A",
+     "value": "1.2"
+    },
+    {
+     "name": "Kanäle",
+     "value": "2"
+    }
+   ],
+   "tags": [
+    "dc-motor",
+    "h-brücke",
+    "motortreiber",
+    "ssop-24"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Operationsverstärker",
+   "datasheet_hint": "LM324",
+   "description": "Vierfach-Operationsverstärker, Single-Supply 3–32 V, Eingang bis GND",
+   "equivalents": [
+    "LM2902",
+    "LM358 (2-fach)"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "lm324",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LM324",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "4"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3–32"
+    }
+   ],
+   "tags": [
+    "dip-14",
+    "opamp",
+    "operationsverstärker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Operationsverstärker",
+   "datasheet_hint": "LM358",
+   "description": "Doppel-Operationsverstärker, Single-Supply 3–32 V, Eingang bis GND",
+   "equivalents": [
+    "LM2904",
+    "LM324 (4-fach)"
+   ],
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "lm358",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LM358",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "2"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3–32"
+    }
+   ],
+   "tags": [
+    "dip-8",
+    "opamp",
+    "operationsverstärker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Operationsverstärker",
+   "datasheet_hint": "LM741",
+   "description": "Klassischer Operationsverstärker (µA741), DIP-8",
+   "equivalents": [
+    "µA741",
+    "MAA741 (Tesla)"
+   ],
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "lm741",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LM741",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "dip-8",
+    "opamp",
+    "operationsverstärker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Operationsverstärker",
+   "datasheet_hint": "MCP6002",
+   "description": "Doppel-Operationsverstärker Rail-to-Rail, 1,8–6 V, 1 MHz, DIP-8",
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "mcp6002",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MCP6002",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "2"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "1.8–6"
+    }
+   ],
+   "tags": [
+    "dip-8",
+    "opamp",
+    "operationsverstärker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Operationsverstärker",
+   "datasheet_hint": "NE5532",
+   "description": "Doppel-Operationsverstärker, rauscharm, Audio, DIP-8",
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "ne5532",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "NE5532",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "2"
+    }
+   ],
+   "tags": [
+    "dip-8",
+    "opamp",
+    "operationsverstärker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Operationsverstärker",
+   "datasheet_hint": "OPA2134",
+   "description": "Doppel-Audio-Operationsverstärker (FET-Eingang), DIP-8",
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "opa2134",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "OPA2134",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "2"
+    }
+   ],
+   "tags": [
+    "dip-8",
+    "opamp",
+    "operationsverstärker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Operationsverstärker",
+   "datasheet_hint": "TL071",
+   "description": "JFET-Operationsverstärker, rauscharm, DIP-8",
+   "equivalents": [
+    "B081D (DDR, ähnlich TL081)",
+    "TL081"
+   ],
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "tl071",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "TL071",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "dip-8",
+    "opamp",
+    "operationsverstärker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Operationsverstärker",
+   "datasheet_hint": "TL072",
+   "description": "Doppel-JFET-Operationsverstärker, rauscharm, DIP-8",
+   "equivalents": [
+    "TL082",
+    "B082D (DDR, ≈ TL082)"
+   ],
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "tl072",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "TL072",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "2"
+    }
+   ],
+   "tags": [
+    "dip-8",
+    "opamp",
+    "operationsverstärker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Operationsverstärker",
+   "datasheet_hint": "TL074",
+   "description": "Vierfach-JFET-Operationsverstärker, rauscharm, DIP-14",
+   "equivalents": [
+    "TL084",
+    "B084D (DDR, ≈ TL084)"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "tl074",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "TL074",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "4"
+    }
+   ],
+   "tags": [
+    "dip-14",
+    "opamp",
+    "operationsverstärker"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/PWM-Controller",
+   "datasheet_hint": "TL494",
+   "description": "PWM-Controller für Schaltnetzteile, 7–40 V, DIP-16",
+   "footprint": "DIP-16",
+   "image": "dip-16.svg",
+   "key": "tl494",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "TL494",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "7–40"
+    }
+   ],
+   "tags": [
+    "dip-16",
+    "pwm",
+    "schaltnetzteil",
+    "smps"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Portexpander",
+   "datasheet_hint": "MCP23017",
+   "description": "16-Bit-I/O-Portexpander, I²C, 1,8–5,5 V, DIP-28 (schmal)",
+   "equivalents": [
+    "MCP23S17 (SPI)"
+   ],
+   "footprint": "DIP-28",
+   "image": "dip-28.svg",
+   "key": "mcp23017",
+   "manufacturer": "Microchip",
+   "mpn": "",
+   "name": "MCP23017",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "I²C"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "1.8–5.5"
+    },
+    {
+     "name": "Kanäle",
+     "value": "16"
+    }
+   ],
+   "tags": [
+    "dip-28",
+    "gpio",
+    "i2c",
+    "portexpander"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Portexpander",
+   "datasheet_hint": "PCF8574",
+   "description": "8-Bit-I/O-Portexpander, I²C, 2,5–6 V, DIP-16",
+   "equivalents": [
+    "PCF8574A (andere I²C-Adresse)"
+   ],
+   "footprint": "DIP-16",
+   "image": "dip-16.svg",
+   "key": "pcf8574",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "PCF8574",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "I²C"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2.5–6"
+    },
+    {
+     "name": "Kanäle",
+     "value": "8"
+    }
+   ],
+   "tags": [
+    "dip-16",
+    "gpio",
+    "i2c",
+    "portexpander"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/RTC",
+   "datasheet_hint": "DS1307",
+   "description": "I²C-Echtzeituhr (RTC), benötigt 32,768-kHz-Quarz, 5 V, DIP-8",
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "ds1307",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "DS1307",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "I²C"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "4.5–5.5"
+    }
+   ],
+   "tags": [
+    "dip-8",
+    "i2c",
+    "rtc",
+    "uhr"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/RTC",
+   "datasheet_hint": "DS3231",
+   "description": "Hochgenaue I²C-Echtzeituhr (RTC) mit temperaturkompensiertem Quarz, SO-16 breit",
+   "equivalents": [
+    "DS3231M (MEMS, SO-8)"
+   ],
+   "footprint": "SO-16",
+   "image": "so-16.svg",
+   "key": "ds3231",
+   "manufacturer": "Analog Devices (Maxim)",
+   "mpn": "",
+   "name": "DS3231SN",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "I²C"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2.3–5.5"
+    }
+   ],
+   "tags": [
+    "i2c",
+    "rtc",
+    "so-16",
+    "uhr"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Schnittstelle",
+   "datasheet_hint": "CH340G",
+   "description": "USB-zu-UART-Wandler, benötigt 12-MHz-Quarz, SO-16",
+   "equivalents": [
+    "CH340C (ohne Quarz)"
+   ],
+   "footprint": "SO-16",
+   "image": "so-16.svg",
+   "key": "ch340g",
+   "manufacturer": "WCH",
+   "mpn": "",
+   "name": "CH340G",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "USB/UART"
+    }
+   ],
+   "tags": [
+    "ch340",
+    "seriell",
+    "so-16",
+    "uart",
+    "usb"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Schnittstelle",
+   "datasheet_hint": "CP2102",
+   "description": "USB-zu-UART-Wandler mit integriertem Oszillator, QFN-28 (5 × 5 mm)",
+   "footprint": "QFN-28",
+   "image": "qfn.svg",
+   "key": "cp2102",
+   "manufacturer": "Silicon Labs",
+   "mpn": "",
+   "name": "CP2102",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "USB/UART"
+    }
+   ],
+   "tags": [
+    "cp2102",
+    "qfn-28",
+    "seriell",
+    "uart",
+    "usb"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Schnittstelle",
+   "datasheet_hint": "MAX232",
+   "description": "RS-232-Pegelwandler 5 V, 2 Sender/2 Empfänger, DIP-16",
+   "equivalents": [
+    "MAX3232 (3,3 V)"
+   ],
+   "footprint": "DIP-16",
+   "image": "dip-16.svg",
+   "key": "max232",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MAX232",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "RS-232"
+    }
+   ],
+   "tags": [
+    "dip-16",
+    "pegelwandler",
+    "rs232",
+    "seriell"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Schnittstelle",
+   "datasheet_hint": "MAX3232",
+   "description": "RS-232-Pegelwandler 3–5,5 V, 2 Sender/2 Empfänger, DIP-16",
+   "equivalents": [
+    "MAX232 (nur 5 V)"
+   ],
+   "footprint": "DIP-16",
+   "image": "dip-16.svg",
+   "key": "max3232",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MAX3232",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "3–5.5"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "RS-232"
+    }
+   ],
+   "tags": [
+    "3v3",
+    "dip-16",
+    "pegelwandler",
+    "rs232",
+    "seriell"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Schnittstelle",
+   "datasheet_hint": "MAX485",
+   "description": "RS-485/RS-422-Transceiver 5 V, Halbduplex, DIP-8",
+   "equivalents": [
+    "SN75176 (ähnlich)"
+   ],
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "max485",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MAX485",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    },
+    {
+     "name": "Schnittstelle",
+     "value": "RS-485"
+    }
+   ],
+   "tags": [
+    "dip-8",
+    "modbus",
+    "rs485",
+    "transceiver"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Speicher",
+   "datasheet_hint": "24C02",
+   "description": "Serielles EEPROM 2 kbit (256 × 8), I²C, DIP-8",
+   "equivalents": [
+    "AT24C02"
+   ],
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "24c02",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "24C02",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "I²C"
+    },
+    {
+     "name": "Typ",
+     "value": "EEPROM 2 kbit"
+    }
+   ],
+   "tags": [
+    "dip-8",
+    "eeprom",
+    "i2c",
+    "speicher"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Speicher",
+   "datasheet_hint": "24C256",
+   "description": "Serielles EEPROM 256 kbit (32 k × 8), I²C, DIP-8",
+   "equivalents": [
+    "AT24C256"
+   ],
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "24c256",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "24C256",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "I²C"
+    },
+    {
+     "name": "Typ",
+     "value": "EEPROM 256 kbit"
+    }
+   ],
+   "tags": [
+    "dip-8",
+    "eeprom",
+    "i2c",
+    "speicher"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Speicher",
+   "datasheet_hint": "93C46",
+   "description": "Serielles EEPROM 1 kbit, Microwire, DIP-8",
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "93c46",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "93C46",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "Microwire"
+    },
+    {
+     "name": "Typ",
+     "value": "EEPROM 1 kbit"
+    }
+   ],
+   "tags": [
+    "dip-8",
+    "eeprom",
+    "microwire",
+    "speicher"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Timer",
+   "datasheet_hint": "NE555",
+   "description": "Timer-IC (astabil/monostabil), 4,5–16 V, DIP-8",
+   "equivalents": [
+    "LM555",
+    "B555D (DDR)",
+    "TLC555/ICM7555 (CMOS)"
+   ],
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "ne555",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "NE555",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "4.5–16"
+    }
+   ],
+   "tags": [
+    "555",
+    "dip-8",
+    "timer"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Timer",
+   "datasheet_hint": "NE556",
+   "description": "Doppel-Timer-IC (2× 555), 4,5–16 V, DIP-14",
+   "equivalents": [
+    "LM556"
+   ],
+   "footprint": "DIP-14",
+   "image": "dip-14.svg",
+   "key": "ne556",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "NE556",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "4.5–16"
+    },
+    {
+     "name": "Kanäle",
+     "value": "2"
+    }
+   ],
+   "tags": [
+    "556",
+    "dip-14",
+    "timer"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Timer",
+   "datasheet_hint": "TLC555",
+   "description": "CMOS-Timer (stromsparender 555), 2–15 V, DIP-8",
+   "equivalents": [
+    "ICM7555 (ähnlich)",
+    "NE555 (bipolar)"
+   ],
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "tlc555",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "TLC555",
+   "params": [
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2–15"
+    }
+   ],
+   "tags": [
+    "555",
+    "cmos",
+    "dip-8",
+    "timer"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/ICs/Treiber",
+   "datasheet_hint": "MAX7219",
+   "description": "LED-Anzeigentreiber für 8 Stellen 7-Segment oder 8×8-Matrix, seriell (SPI-ähnlich), DIP-24",
+   "footprint": "DIP-24",
+   "image": "dip-24.svg",
+   "key": "max7219",
+   "manufacturer": "Analog Devices (Maxim)",
+   "mpn": "",
+   "name": "MAX7219",
+   "params": [
+    {
+     "name": "Schnittstelle",
+     "value": "SPI"
+    }
+   ],
+   "tags": [
+    "7-segment",
+    "dip-24",
+    "led-treiber",
+    "matrix"
+   ],
+   "unit": "Stk"
+  }
+ ]
+}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Inventur {{ loc.name }}{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/orte/{{ loc.id }}">← {{ tc.path(loc.id) }}</a></div>
+<h1>Inventur: {{ loc.name }}</h1>
+<p class="muted">Erwarteter Inhalt inkl. Unterorte. Bestätige, was stimmt, korrigiere Mengen oder lagere um. Unbekannte Platzhalter aus dem Import („Unbenannter Lagerartikel“) bitte öffnen und umbenennen bzw. zusammenführen. Am Handy geht's schneller im <a href="/scan?modus=inventur">Scanner</a>.</p>
+<div class="table-wrap card"><table>
+  <tr><th>Ort</th><th>Artikel</th><th class="num">Erwartet</th><th>Aktion</th></tr>
+  {% for lot in lots %}
+  <tr id="lot-{{ lot.id }}">
+    <td class="small">{{ lot.location.name }} {% if has_wled() and me.can('wled_show') %}<button class="btn sm btn-led" data-locate='{"location_id": {{ lot.location_id }}}'>💡</button>{% endif %}</td>
+    <td><a href="/artikel/{{ lot.item_id }}">{{ lot.item.name }}</a>{% if lot.needs_review %} <span class="badge">prüfen</span>{% else %} <span class="badge ok">✔</span>{% endif %}<div class="small muted">{{ lot.item.description[:60] }}</div></td>
+    <td class="num">{% if lot.item.stock_mode == 'coarse' %}<span class="amp {{ lot.coarse or 'empty' }}"></span>{% else %}{{ lot.quantity|qty(lot.item.unit) }}{% endif %}</td>
+    <td>
+      {% if me.can('inventory', 2) %}
+      <div class="row">
+        {% if lot.needs_review %}<form method="post" action="/lot/{{ lot.id }}/bestaetigen" class="inline"><button class="btn sm primary">✔ stimmt</button></form>{% endif %}
+        <form method="post" action="/lot/{{ lot.id }}/zaehlen" class="row"><input type="number" name="quantity" step="any" min="0" value="{{ lot.quantity|qty }}" style="width:80px"><button class="btn sm">setzen</button></form>
+      </div>{% endif %}
+    </td>
+  </tr>
+  {% else %}<tr><td colspan="4" class="muted">Kein erwarteter Inhalt.</td></tr>{% endfor %}
+</table></div>
+{% endblock %}

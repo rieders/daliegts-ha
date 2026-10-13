@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Verwaltung{% endblock %}
+{% block content %}
+<h1>Verwaltung</h1>
+{% if me.user %}
+<div class="card row spread">
+  <div><b>Admin-Modus</b><div class="small muted">Struktur ändern, Löschen, Einstellungen und Import sind nur im Admin-Modus sichtbar. Er schaltet sich nach 15 Minuten ohne Aktivität ab.</div></div>
+  <form method="post" action="/admin-mode"><input type="hidden" name="on" value="{{ 0 if me.admin_mode else 1 }}">
+    <button class="btn {{ 'warn' if me.admin_mode else 'primary' }}">{{ 'Admin-Modus beenden' if me.admin_mode else 'Admin-Modus einschalten' }}</button></form>
+</div>
+{% endif %}
+<div class="cols">
+  {% if me.has_right('users') %}<a class="card" href="/admin/benutzer" style="color:inherit"><h2 class="mt0">👥 Benutzer</h2><p class="small muted">Konten, Gruppen, PIN, Rechte pro Benutzer</p></a>
+  <a class="card" href="/admin/gruppen" style="color:inherit"><h2 class="mt0">🔐 Gruppen & Rechte</h2><p class="small muted">Rechte-Matrix: keine / lesen / bearbeiten / anlegen / löschen</p></a>{% endif %}
+  <a class="card" href="/drucker3d" style="color:inherit"><h2 class="mt0">🧵 3D-Drucker</h2><p class="small muted">Creality K1 verbinden – Filamentverbrauch automatisch abbuchen</p></a>
+  <a class="card" href="/admin/home-assistant" style="color:inherit"><h2 class="mt0">🏠 Home Assistant</h2><p class="small muted">„Wo ist …?“ per Sprache, Fach leuchtet auf – fertige Konfiguration zum Kopieren</p></a>
+  {% if me.has_right('system') %}<a class="card" href="/admin/einstellungen" style="color:inherit"><h2 class="mt0">⚙ Einstellungen</h2><p class="small muted">Gastzugang, PIN-Login, Scan-Regeln, Web-Suche</p></a>{% endif %}
+  {% if me.has_right('import_export') %}<a class="card" href="/admin/import" style="color:inherit"><h2 class="mt0">⤵ Import</h2><p class="small muted">Part-DB, InvenTree, {{ APP_NAME }}-Export</p></a>{% endif %}
+  {% if me.has_right('backup') %}<a class="card" href="/admin/backup" style="color:inherit"><h2 class="mt0">💾 Backup & Export</h2><p class="small muted">Sicherungen, offenes Exportformat</p></a>{% endif %}
+  {% if me.has_right('system') %}<a class="card" href="/admin/info-provider" style="color:inherit"><h2 class="mt0">🔌 Info-Provider</h2><p class="small muted">Reichelt, Pollin, LCSC, Mouser, DigiKey, TME: Preise und Bestellnummern automatisch</p></a>{% endif %}
+  {% if me.has_right('audit') %}<a class="card" href="/admin/audit" style="color:inherit"><h2 class="mt0">📜 Audit-Log</h2><p class="small muted">Wer hat was geändert – mit Rückgängig</p></a>{% endif %}
+  {% if me.has_right('system') %}{% set li = license_info() %}<a class="card" href="/admin/lizenz" style="color:inherit"><h2 class="mt0">🔑 Lizenz</h2><p class="small muted">{% if li.pro %}DaLiegt’s Pro – {{ li.name }}{% else %}Grundversion · Pro freischalten{% endif %}</p></a>{% endif %}
+  <a class="card" href="/api/docs" style="color:inherit"><h2 class="mt0">🔌 API</h2><p class="small muted">REST-API-Dokumentation (für Home Assistant & Skripte)</p></a>
+</div>
+{% if me.can('system', 2) %}<form method="post" action="/admin/suchindex"><button class="btn sm">Suchindex neu aufbauen</button></form>{% endif %}
+<p class="small muted">{{ APP_NAME }} {{ APP_VERSION }}</p>
+{% endblock %}

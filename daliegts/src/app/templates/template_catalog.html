@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Vorlagen-Katalog{% endblock %}
+{% block content %}
+<div class="row spread"><h1>Vorlagen-Katalog</h1><a class="btn sm" href="/orte">← Lagerorte</a></div>
+<p class="muted">Hier liegen Möbel- und Magazinvorlagen, die andere DaLiegt’s-Nutzer geteilt haben (Sortimentskästen, Regale …). Gewählte Vorlagen
+landen in der Vorlagen-Liste unter „Lagerorte“ und lassen sich dort in einen Ort ziehen. <b>Du wählst selbst aus, was du übernimmst</b> – nichts wird automatisch angelegt. Es werden nur Maße und Rasterdaten übernommen.
+Eigene Vorlagen schlägst du über „Mit anderen teilen …“ in der Vorschau vor; aufgenommen werden sie erst nach Prüfung. Bauteile gibt es in der
+<a href="/katalog/community">Community-Sammlung</a>.</p>
+{% if error %}<div class="note err">⚠ {{ error }}</div>{% endif %}
+{% if entries %}
+<form method="post" action="/vorlagen/katalog/import" x-data="{all: false, q: '', grp: '', n: 0}" @change="$nextTick(() => n = $el.querySelectorAll('input[name=name]:checked').length)">
+  <div class="card row"><input type="search" x-model="q" placeholder="Filtern (Name, Hersteller …)" class="grow">
+    <select x-model="grp"><option value="">Alle Rubriken</option>{% for g in groups %}<option>{{ g }}</option>{% endfor %}</select></div>
+  <div class="card table-wrap"><table>
+    <tr><th><input type="checkbox" x-model="all" @change="$el.closest('form').querySelectorAll('input[name=name]:not(:disabled)').forEach(c => c.checked = all)" title="Alle neuen auswählen"></th>
+      <th>Vorlage</th><th>Rubrik</th><th>Fächer</th><th>Maße</th><th>Von</th></tr>
+    {% for e in entries %}<tr x-show="(!grp || {{ (e.group or '')|tojson }} === grp) && (!q || {{ ((e.name ~ ' ' ~ e.notes)|lower)|tojson }}.includes(q.toLowerCase()))">
+      <td><input type="checkbox" name="name" value="{{ e.name }}" {{ 'disabled' if e.have }}></td>
+      <td>{{ e.name }}{% if e.have %} <span class="badge">schon vorhanden</span>{% endif %}{% if e.notes %}<div class="small muted">{{ e.notes }}</div>{% endif %}</td>
+      <td>{{ e.group or '–' }}</td><td>{{ e.cells }}</td>
+      <td>{% if e.definition.width_cm and e.definition.height_cm %}{{ e.definition.width_cm }} × {{ e.definition.height_cm }} cm{% else %}–{% endif %}</td>
+      <td class="small">{{ e.author or '–' }}</td></tr>{% endfor %}
+  </table></div>
+  <button class="btn primary" style="margin-top:8px">Gewählte importieren <span x-show="n" x-text="'(' + n + ')'"></span></button>
+</form>
+{% elif not error %}<p class="muted">Der Katalog ist noch leer.</p>{% endif %}
+<details class="card" style="margin-top:14px"><summary class="small"><b>Katalog-Adresse</b></summary>
+  <p class="small muted">Standard: <code>{{ default_url }}</code>. Die Datei wird nur beim Öffnen dieser Seite geladen (https, höchstens 1 MB), sonst verlässt nichts dein Netz.</p>
+  {% if me.can('locations', 4) %}<form method="post" action="/vorlagen/katalog/adresse" class="row"><input name="url" value="{{ url if url != default_url else '' }}" placeholder="{{ default_url }}" class="grow"><button class="btn sm">Speichern</button></form>
+  {% else %}<p class="small">Aktuell: <code>{{ url }}</code></p>{% endif %}
+</details>
+{% endblock %}

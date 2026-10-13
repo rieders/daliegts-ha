@@ -1,0 +1,2 @@
+{% macro render(nodes) %}<ul class="tree">{% for n in nodes %}<li><div class="node">{{ '📁' if n.children else '▫' }} {{ n.name }}</div>{% if n.children %}{{ render(n.children) }}{% endif %}</li>{% endfor %}</ul>{% endmacro %}
+{% if nodes %}{{ render(nodes) }}{% else %}<p class="muted small">Vorschau erscheint beim Tippen.</p>{% endif %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Audit-Log{% endblock %}
+{% block content %}
+<h1>Audit-Log</h1>
+<form class="row" method="get"><select name="entity" style="max-width:220px" onchange="this.form.submit()"><option value="">alle Bereiche</option>
+  {% for e in ['item','location','category','lot','user','group','settings','wled'] %}<option {{ 'selected' if entity == e }}>{{ e }}</option>{% endfor %}</select></form>
+<div class="card table-wrap"><table>
+  <tr><th>Zeit</th><th>Wer</th><th>Aktion</th><th>Was</th><th>Änderungen</th><th></th></tr>
+  {% for r in rows %}<tr>
+    <td class="small">{{ r.ts|dt }}</td><td class="small">{{ r.user.label if r.user else '' }}</td><td><span class="badge">{{ r.action }}</span></td>
+    <td>{{ r.summary }}{% if r.entity_id and r.entity == 'item' %} <a href="/artikel/{{ r.entity_id }}">→</a>{% elif r.entity_id and r.entity == 'location' %} <a href="/orte/{{ r.entity_id }}">→</a>{% endif %}</td>
+    <td class="small mono">{% if r.diff and r.action == 'update' %}{% for k, v in r.diff.items() %}{{ k }}: {{ v[0] }} → {{ v[1] }}<br>{% endfor %}{% endif %}</td>
+    <td>{% if r.action == 'update' and not r.undone and r.entity in ('item','location','category') and me.can('audit', 2) %}<form method="post" action="/admin/audit/{{ r.id }}/rueckgaengig" class="inline"><button class="btn sm" data-confirm="Diese Änderung rückgängig machen?">↶</button></form>{% elif r.undone %}<span class="badge">rückgängig</span>{% endif %}</td>
+  </tr>{% endfor %}
+</table></div>
+<div class="row">{% if seite > 1 %}<a class="btn" href="?seite={{ seite-1 }}&entity={{ entity }}">← neuer</a>{% endif %}{% if rows|length == 100 %}<a class="btn" href="?seite={{ seite+1 }}&entity={{ entity }}">älter →</a>{% endif %}</div>
+{% endblock %}

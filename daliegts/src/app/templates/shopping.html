@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import locpicker %}
+{% block title %}Einkaufsliste{% endblock %}
+{% block content %}
+<div class="row spread">
+  <h1 class="mb0">Einkaufsliste</h1>
+  <div class="row small">
+    {% if plan.groups %}<b style="font-size:1.1rem">Gesamt {{ (plan.total)|euro }}</b>{% endif %}
+    {% if online_active and me.can('purchasing', 2) and (plan.groups or plan.without_supplier) %}<form method="post" action="/einkauf/aktualisieren" class="inline"><button class="btn sm" title="Aktuelle Preise holen und bei anderen Shops nach günstigeren Angeboten suchen">🔄 Preise aktualisieren & vergleichen</button></form>{% endif %}
+    <a class="btn sm {{ 'primary' if opt }}" href="/einkauf?opt={{ 0 if opt else 1 }}" title="Artikel so auf Lieferanten verteilen, dass Preis + Versand am günstigsten sind">📦 Versand optimieren: {{ 'an' if opt else 'aus' }}</a>
+  </div>
+</div>
+{% if opt and plan.optimized and plan.saving > 0 %}<div class="flash">Durch Bündeln bei weniger Lieferanten sparst du {{ (plan.saving)|euro }} Versand/Preis gegenüber „jeder Artikel beim billigsten“.</div>{% endif %}
+
+{% if questions %}<div class="note" style="margin-bottom:10px">❓ {{ questions }} Rückfrage(n) zu Online-Treffern (mehrdeutig oder fehlende Hersteller-Nr.) – <a href="/entscheidungen">jetzt entscheiden</a></div>{% endif %}
+{% if job %}
+<div class="card" x-data="{st: null}" x-init="const tick = async () => { const r = await fetch('/jobs/{{ job }}', {credentials: 'same-origin'}); if (!r.ok) return; st = await r.json(); if (st.finished) { setTimeout(() => location.href = '/einkauf', 1500) } else setTimeout(tick, 1500) }; tick()">
+  <b>🔄 Preise werden aktualisiert und mit anderen Shops verglichen …</b>
+  <div class="small" x-show="st" x-text="st && (st.done + ' von ' + st.total + ' Artikeln' + (st.linked ? ' · ' + st.linked + ' neue Bezugsquellen' : '') + (st.asked ? ' · ' + st.asked + ' Rückfragen' : '') + (st.finished ? ' – fertig' : ''))"></div>
+  <progress style="width:100%" :max="st ? st.total : 1" :value="st ? st.done : 0"></progress>
+  <template x-if="st && st.messages.length"><ul class="small muted"><template x-for="m in st.messages.slice(-8)"><li x-text="m"></li></template></ul></template>
+</div>
+{% endif %}
+
+{% if me.can('purchasing', 3) %}
+<form method="post" action="/einkauf/neu" class="card row">
+  <input name="q" class="grow" placeholder="Artikel (Name, Code A-…, Barcode) oder freier Text, z. B. „Lötzinn 1 mm“" required style="min-width:220px">
+  <input name="quantity" placeholder="Menge" inputmode="decimal" style="width:90px">
+  <button class="btn primary">＋ Hinzufügen</button>
+</form>
+{% endif %}
+
+{% if suggestions and me.can('purchasing', 3) %}
+<details class="card" {{ 'open' if not plan.groups and not plan.without_supplier }}>
+  <summary><b>{{ suggestions|length }} Artikel unter Mindestbestand</b> <span class="small muted">– noch nicht auf der Liste</span></summary>
+  <form method="post" action="/einkauf/vorschlaege">
+    <div class="table-wrap"><table>
+      <tr><th><input type="checkbox" checked onclick="this.closest('table').querySelectorAll('input[name=item_id]').forEach(c => c.checked = this.checked)"></th><th>Artikel</th><th class="num">Bestand</th><th class="num">Mindestbestand</th><th class="num">Vorschlag</th></tr>
+      {% for it, q in suggestions %}
+      <tr><td><input type="checkbox" name="item_id" value="{{ it.id }}" checked></td><td><a href="/artikel/{{ it.id }}">{{ it.name }}</a></td>
+        <td class="num">{% if it.stock_mode == 'coarse' %}<span class="amp {{ it.coarse_level or 'empty' }}"></span>{% else %}{{ it.total_quantity|qty(it.unit) }}{% endif %}</td>
+        <td class="num">{{ it.min_stock|qty }}</td><td class="num">{{ q|qty(it.unit) }}</td></tr>
+      {% endfor %}
+    </table></div>
+    <button class="btn sm primary" style="margin-top:8px">Ausgewählte übernehmen</button>
+  </form>
+</details>
+{% endif %}
+
+{% for g in plan.groups %}
+<div class="card" x-data="{copied:false}">
+  <div class="row spread">
+    <h2 class="mt0 mb0">{{ g.supplier.name }}</h2>
+    <div class="row small">
+      <span>Waren {{ (g.subtotal)|euro }}</span><span>Versand {{ (g.shipping)|euro }}</span><b>= {{ (g.total)|euro }}</b>
+      {% if g.unpriced %}<span class="badge warn">{{ g.unpriced }} ohne Preis</span>{% endif %}
+    </div>
+  </div>
+  {% if g.missing_for_free_shipping %}<div class="small muted">Noch {{ (g.missing_for_free_shipping)|euro }} bis versandkostenfrei.</div>{% endif %}
+  {% if g.below_min_order %}<div class="small" style="color:var(--warn)">Mindestbestellwert {{ (g.supplier.min_order_value)|euro }} nicht erreicht.</div>{% endif %}
+  <div class="table-wrap"><table>
+    <tr><th>Artikel</th><th>Bestellnr.</th><th class="num">Menge</th><th>Lieferant</th><th class="num">Einzel</th><th class="num">Summe</th><th></th></tr>
+    {% for ln in g.lines %}{% set e = ln.entry %}
+    <tr>
+      <td>{% if e.item %}<a href="/artikel/{{ e.item.id }}">{{ e.item.name }}</a>{% else %}{{ e.text }}{% endif %}{% if e.order_id %} <a class="badge" href="/auftraege/{{ e.order_id }}" title="Fehlteil für einen Auftrag">📋 Auftrag</a>{% endif %}{% if e.note %}<div class="small muted">{{ e.note }}</div>{% endif %}</td>
+      <td class="mono small">{{ ln.part.sku }}</td>
+      {% if me.can('purchasing', 2) %}
+      <td class="num"><form method="post" action="/einkauf/{{ e.id }}/aendern"><input name="quantity" value="{{ e.quantity|qty }}" inputmode="decimal" style="width:80px;min-height:32px" onchange="this.form.submit()"><input type="hidden" name="supplier_part_id" value="{{ e.supplier_part_id or 'auto' }}"></form>
+        {% if ln.offer and ln.offer.order_qty != e.quantity %}<div class="small muted">bestellt {{ ln.offer.order_qty|qty }} (VPE)</div>{% endif %}</td>
+      <td><form method="post" action="/einkauf/{{ e.id }}/aendern"><select name="supplier_part_id" onchange="this.form.submit()" style="min-height:32px;font-size:.85rem">
+          <option value="auto" {{ 'selected' if not ln.fixed }}>automatisch (günstigste)</option>
+          {% for sp, of in ln.alternatives %}<option value="{{ sp.id }}" {{ 'selected' if ln.fixed and ln.part.id == sp.id }}>{{ sp.supplier.name }}{% if of.priced %} – {{ (of.total)|euro }}{% else %} – ohne Preis{% endif %}</option>{% endfor %}
+        </select></form></td>
+      {% else %}
+      <td class="num">{{ e.quantity|qty }}</td><td>{{ g.supplier.name }}</td>
+      {% endif %}
+      <td class="num">{{ ln.offer.unit_price|price if ln.offer and ln.offer.priced else '–' }}</td>
+      <td class="num">{{ (ln.offer.total)|euro if ln.offer and ln.offer.priced else '–' }}</td>
+      <td class="row" style="flex-wrap:nowrap">{% set link = shop_link(ln.part) %}{% if link %}<a class="btn sm" href="{{ link }}" target="_blank" rel="noopener noreferrer">↗</a>{% endif %}
+        {% if me.can('purchasing', 2) %}<form method="post" action="/einkauf/{{ e.id }}/loeschen" class="inline"><button class="btn sm ghost" title="Entfernen">✕</button></form>{% endif %}</td>
+    </tr>
+    {% endfor %}
+  </table></div>
+  <div class="row" style="margin-top:8px">
+    <a class="btn sm" href="/einkauf/lieferant/{{ g.supplier.id }}.csv?opt={{ 1 if opt else 0 }}">⤓ CSV</a>
+    {% set qo = quick_order(g) %}{% if qo %}
+    <button class="btn sm" type="button" @click="navigator.clipboard.writeText($refs.qo.value).then(() => { copied = true; toast('Kopiert – im Shop in die Schnellbestellung einfügen') })">📋 Schnellbestellung kopieren</button>
+    <textarea x-ref="qo" class="hide">{{ qo }}</textarea>{% endif %}
+    {% if g.supplier.website|safe_url %}<a class="btn sm" href="{{ g.supplier.website|safe_url }}" target="_blank" rel="noopener noreferrer">Shop ↗</a>{% endif %}
+    {% if me.can('purchasing', 2) %}
+    <form method="post" action="/einkauf/bestellt" class="row" style="margin-left:auto">
+      <input type="hidden" name="supplier_id" value="{{ g.supplier.id }}"><input type="hidden" name="opt" value="{{ 1 if opt else 0 }}">
+      <input name="order_ref" placeholder="Bestellnr. (optional)" style="width:170px;min-height:32px">
+      <button class="btn sm primary">✔ Bestellt</button>
+    </form>{% endif %}
+  </div>
+</div>
+{% endfor %}
+
+{% if plan.without_supplier %}
+<div class="card"><h2 class="mt0">Ohne Lieferant</h2>
+  <p class="small muted">Für diese Positionen ist noch keine Bezugsquelle hinterlegt. Am Artikel unter „Bezugsquellen & Nachbestellen“ Lieferant und Bestellnummer eintragen.</p>
+  <div class="table-wrap"><table>
+    {% for ln in plan.without_supplier %}{% set e = ln.entry %}
+    <tr><td>{% if e.item %}<a href="/artikel/{{ e.item.id }}#bezug">{{ e.item.name }}</a>{% else %}{{ e.text }}{% endif %}{% if e.order_id %} <a class="badge" href="/auftraege/{{ e.order_id }}" title="Fehlteil für einen Auftrag">📋 Auftrag</a>{% endif %}{% if e.note %}<div class="small muted">{{ e.note }}</div>{% endif %}</td>
+      <td class="num">{% if me.can('purchasing', 2) %}<form method="post" action="/einkauf/{{ e.id }}/aendern"><input name="quantity" value="{{ e.quantity|qty }}" inputmode="decimal" style="width:80px;min-height:32px" onchange="this.form.submit()"></form>{% else %}{{ e.quantity|qty }}{% endif %}</td>
+      <td class="row" style="flex-wrap:nowrap">
+        {% if me.can('purchasing', 2) %}<form method="post" action="/einkauf/{{ e.id }}/erhalten" class="inline"><button class="btn sm" title="Gekauft (z. B. im Baumarkt)">✔ Gekauft</button></form>
+        <form method="post" action="/einkauf/{{ e.id }}/loeschen" class="inline"><button class="btn sm ghost">✕</button></form>{% endif %}</td></tr>
+    {% endfor %}
+  </table></div>
+</div>
+{% endif %}
+
+{% if not plan.groups and not plan.without_supplier %}<p class="muted">Die Einkaufsliste ist leer.</p>{% endif %}
+
+{% if ordered %}
+<div class="card"><h2 class="mt0">Bestellt – Wareneingang</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Artikel</th><th>Lieferant</th><th>Bestellt</th><th>Einbuchen</th><th></th></tr>
+    {% for e in ordered %}
+    <tr><td>{% if e.item %}<a href="/artikel/{{ e.item.id }}">{{ e.item.name }}</a>{% else %}{{ e.text }}{% endif %}{% if e.order_id %} <a class="badge" href="/auftraege/{{ e.order_id }}" title="Fehlteil für einen Auftrag">📋 Auftrag</a>{% endif %}</td>
+      <td class="small">{{ e.supplier_part.supplier.name if e.supplier_part else '–' }}{% if e.order_ref %}<div class="mono">{{ e.order_ref }}</div>{% endif %}</td>
+      <td class="small">{{ e.ordered_at|dt }}</td>
+      <td>{% if me.can('purchasing', 2) %}
+        <form method="post" action="/einkauf/{{ e.id }}/erhalten" class="row" style="flex-wrap:nowrap">
+          <input name="quantity" value="{{ e.quantity|qty }}" inputmode="decimal" style="width:80px;min-height:32px">
+          {% if e.item %}<div style="min-width:180px">{{ locpicker(value=(tc.nodes[default_locs[e.id]].code if default_locs.get(e.id) else ''), placeholder="Lagerort") }}</div>{% endif %}
+          <button class="btn sm primary">📥 Erhalten</button>
+        </form>{% if e.item and default_locs.get(e.id) %}<div class="small muted">{{ tc.path(default_locs[e.id]) }}</div>{% endif %}{% endif %}</td>
+      <td>{% if me.can('purchasing', 2) %}<form method="post" action="/einkauf/{{ e.id }}/offen" class="inline"><button class="btn sm ghost" title="Zurück auf die Liste">↶</button></form>
+        <form method="post" action="/einkauf/{{ e.id }}/loeschen" class="inline"><button class="btn sm ghost" title="Stornieren" data-confirm="Position stornieren?">✕</button></form>{% endif %}</td></tr>
+    {% endfor %}
+  </table></div>
+</div>
+{% endif %}
+
+{% if done %}
+<details class="card more"><summary>Zuletzt erledigt</summary>
+  <div class="table-wrap"><table>
+    {% for e in done %}<tr><td>{% if e.item %}<a href="/artikel/{{ e.item.id }}">{{ e.item.name }}</a>{% else %}{{ e.text }}{% endif %}</td><td class="num">{{ e.quantity|qty }}</td>
+      <td class="small">{{ SHOPPING_STATUS.get(e.status) }} {{ (e.received_at or e.ordered_at)|dt }}</td>
+      <td class="small">{{ e.supplier_part.supplier.name if e.supplier_part else '' }}{% if e.unit_price %} · {{ e.unit_price|price }}{% endif %}</td></tr>{% endfor %}
+  </table></div>
+</details>
+{% endif %}
+{% endblock %}

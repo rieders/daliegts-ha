@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Projekte{% endblock %}
+{% block content %}
+<div class="row spread"><h1 class="mb0">Projekte &amp; Baugruppen</h1><a class="btn sm" href="/auftraege">Aufträge →</a></div>
+<p class="muted">Ein Projekt ist die gespeicherte Stückliste einer Platine oder Baugruppe – z. B. „Lichtschranke“. Übernimm sie direkt aus KiCad, dann siehst du jederzeit, was du für ein oder mehrere Exemplare brauchst, was da ist und wo es liegt. „Bauen“ macht daraus einen Auftrag.</p>
+
+{% if me.can('orders', 3) %}
+<details class="card" {{ 'open' if not projects }}>
+  <summary><b>＋ Neues Projekt</b></summary>
+  <form method="post" action="/projekte/neu" enctype="multipart/form-data" style="margin-top:8px">
+    <div class="fields">
+      <div style="grid-column:span 2"><label>Name *</label><input name="name" required placeholder="z. B. Lichtschranke"></div>
+      <div><label>Revision</label><input name="revision" placeholder="z. B. A oder 1.2"></div>
+    </div>
+    <label>Beschreibung</label><textarea name="description" rows="2"></textarea>
+    <label>Stückliste aus KiCad (optional)</label>
+    <input type="file" name="datei" accept=".kicad_sch,.xml,.net,.csv,.txt">
+    <p class="small muted" style="margin:4px 0">Am einfachsten den Schaltplan <code>.kicad_sch</code> hochladen. Ebenso möglich: Netzliste (<i>Datei › Exportieren › Netzliste</i>, .xml/.net) oder die CSV aus der Symbolfeld-Tabelle/BOM. Felder wie <code>MPN</code>, <code>LCSC</code> oder <code>DaLiegts</code> (Artikelcode) im Symbol machen die Zuordnung eindeutig.</p>
+    {% if me.can('items', 3) %}<label class="inline"><input type="checkbox" name="leiterplatte" value="1" checked> Leiterplatte selbst als Artikel anlegen (z. B. „Leiterplatte Lichtschranke Rev. A“)</label>{% endif %}
+    <div><button class="btn primary" style="margin-top:8px">Anlegen</button></div>
+  </form>
+</details>
+{% endif %}
+
+<div class="card table-wrap">
+  <table>
+    <tr><th>Projekt</th><th class="num">Bauteile</th><th>Zuordnung</th><th>Baubar mit freiem Bestand</th></tr>
+    {% for p in projects %}{% set i = info[p.id] %}
+    <tr><td><a href="/projekte/{{ p.id }}"><b>{{ p.name }}</b></a>{% if p.revision %} <span class="small muted">Rev. {{ p.revision }}</span>{% endif %} <span class="badge code">{{ p.code }}</span>
+        {% if p.description %}<div class="small muted">{{ p.description[:90] }}</div>{% endif %}</td>
+      <td class="num">{{ i.lines }}</td>
+      <td>{% if i.open %}<span class="badge warn">{{ i.open }} offen</span>{% else %}<span class="badge ok">✔ alle</span>{% endif %}</td>
+      <td>{% if i.open %}<span class="muted small">erst zuordnen</span>{% elif i.buildable >= 999 %}<span class="badge ok">beliebig</span>{% elif i.buildable %}<b>{{ i.buildable }}×</b>{% else %}<span class="badge warn">0 – Teile fehlen</span>{% endif %}</td></tr>
+    {% else %}<tr><td colspan="4" class="muted">Noch keine Projekte.</td></tr>{% endfor %}
+  </table>
+</div>
+{% endblock %}

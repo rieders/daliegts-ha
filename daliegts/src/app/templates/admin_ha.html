@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Home Assistant{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/admin">Verwaltung</a></div>
+<h1>🏠 Home Assistant</h1>
+<p class="muted">„Hey, wo ist der Lötkolben?“ – Home Assistant fragt {{ APP_NAME }}, sagt dir den Lagerort und das Fach leuchtet über WLED auf. Die Blöcke unten einfach kopieren.</p>
+
+<div class="card">
+  <h2 class="mt0">1. Token anlegen</h2>
+  <p>Unter <a href="/konto">Mein Konto › API-Tokens</a> ein Token „Home Assistant“ erstellen (am besten für einen eigenen Benutzer mit Lese-Rechten und „LEDs anzeigen“). In Home Assistant in die <code>secrets.yaml</code>:</p>
+  <pre class="code">lagerwerk_token: "Bearer lw_HIER_DAS_TOKEN"</pre>
+</div>
+
+<div class="card">
+  <h2 class="mt0">2. Sätze festlegen</h2>
+  <p>Datei <code>config/custom_sentences/de/lagerwerk.yaml</code> anlegen:</p>
+  <pre class="code">language: "de"
+intents:
+  LagerwerkWo:
+    data:
+      - sentences:
+          - "wo (ist|sind|liegt|liegen) {was}"
+          - "wo finde ich {was}"
+          - "wo hab ich {was} hingelegt"
+          - "(such|suche|finde) [mir] {was}"
+lists:
+  was:
+    wildcard: true</pre>
+</div>
+
+<div class="card">
+  <h2 class="mt0">3. Abfrage und Antwort</h2>
+  <p>In die <code>configuration.yaml</code>:</p>
+  <pre class="code">rest_command:
+  lagerwerk_wo:
+    url: "{{ BASE_URL }}/api/v1/wo?q={{ '{{' }} was | urlencode {{ '}}' }}"
+    method: GET
+    headers:
+      Authorization: !secret lagerwerk_token
+    verify_ssl: false
+    timeout: 10
+
+intent_script:
+  LagerwerkWo:
+    action:
+      - action: rest_command.lagerwerk_wo
+        data:
+          was: "{{ '{{' }} was {{ '}}' }}"
+        response_variable: antwort
+      - stop: ""
+        response_variable: antwort
+    speech:
+      text: >-
+        {{ '{%' }} if action_response.status == 200 {{ '%}' }}{{ '{{' }} action_response.content.speech {{ '}}' }}
+        {{ '{%' }} else {{ '%}' }}{{ APP_NAME }} ist gerade nicht erreichbar.{{ '{%' }} endif {{ '%}' }}</pre>
+  <p class="small muted">Danach Home Assistant neu starten (oder „YAML neu laden“ für Intent-Script und REST-Befehle). <code>verify_ssl: false</code> ist nötig, weil {{ APP_NAME }} im Heimnetz ein eigenes Zertifikat nutzt.</p>
+</div>
+
+<div class="card">
+  <h2 class="mt0">Optional: Sensoren fürs Dashboard</h2>
+  <p>Bestand unter Minimum, Einkaufsliste, Haltbarkeit und der 3D-Drucker (inkl. Warnung „Spule reicht nicht“) in einem Sensor:</p>
+  <pre class="code">rest:
+  - resource: "{{ BASE_URL }}/api/v1/summary"
+    headers:
+      Authorization: !secret lagerwerk_token
+    verify_ssl: false
+    scan_interval: 300
+    sensor:
+      - name: "Lager unter Minimum"
+        value_template: "{{ '{{' }} value_json.below_min {{ '}}' }}"
+      - name: "Lager abgelaufen"
+        value_template: "{{ '{{' }} value_json.expiry.expired {{ '}}' }}"
+      - name: "3D-Drucker Hinweis"
+        value_template: "{{ '{{' }} (value_json.printers3d | map(attribute='warning') | select | list | first) or 'ok' {{ '}}' }}"</pre>
+</div>
+
+<div class="card">
+  <h2 class="mt0">Ausprobieren</h2>
+  <form class="row" onsubmit="event.preventDefault(); api('/api/v1/wo?q=' + encodeURIComponent(this.frage.value), undefined, 'GET').then(r => { this.querySelector('output').textContent = r.speech }).catch(e => toast(e.message))">
+    <input name="frage" placeholder="z. B. Lötkolben" class="grow"><button class="btn">Fragen</button>
+    <output class="small" style="flex-basis:100%"></output>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Community-Bauteile{% endblock %}
+{% block content %}
+<div class="row spread"><h1>Community-Bauteile</h1><a class="btn sm" href="/katalog">← Bauteil-Katalog</a></div>
+<p class="muted">Bauteile, die andere DaLiegt’s-Nutzer geteilt haben und die vom Betreiber der Sammlung geprüft wurden. <b>Du suchst aus, was du übernimmst</b> – nichts wird
+automatisch angelegt. Übernommene Bauteile erscheinen ohne Bestand in deinem Lager (Stammdaten, Parameter, Gehäuse). Eigene Bauteile teilst du auf der Artikelseite über „Teilen …“.</p>
+{% if error %}<div class="note err">⚠ {{ error }}</div>{% endif %}
+{% if entries %}
+<form method="post" action="/katalog/community/import" x-data="{q:'', cat:'', n:0, count() { this.$nextTick(() => this.n = this.$el.querySelectorAll('input[name=name]:checked').length) }}" @change="count()">
+  <div class="card row"><input type="search" x-model="q" placeholder="Filtern (Name, Typnummer, Parameter …)" class="grow">
+    <select x-model="cat"><option value="">Alle Kategorien</option>{% for c in cats %}<option>{{ c }}</option>{% endfor %}</select></div>
+  <div class="card table-wrap"><table>
+    <tr><th></th><th>Bauteil</th><th>Kategorie</th><th>Gehäuse</th><th>Parameter</th><th>Von</th></tr>
+    {% for e in entries %}<tr x-show="(!cat || {{ e.category.split('/')[0]|tojson }} === cat) && (!q || {{ ((e.name ~ ' ' ~ e.mpn ~ ' ' ~ e.description ~ ' ' ~ e.tags|join(' '))|lower)|tojson }}.includes(q.toLowerCase()))">
+      <td><input type="checkbox" name="name" value="{{ e.name }}" {{ 'disabled' if e.have }}></td>
+      <td>{{ e.name }}{% if e.have %} <span class="badge">schon vorhanden</span>{% endif %}{% if e.warn %} <span class="badge" title="{{ e.warn|join(' ') }}">unvollständig</span>{% endif %}
+        {% if e.description %}<div class="small muted">{{ e.description }}</div>{% endif %}</td>
+      <td class="small">{{ e.category }}</td><td>{{ e.footprint or '–' }}</td>
+      <td class="small">{% for p in e.params[:4] %}{{ p.name }} {{ p.value }}{{ ' ' ~ p.unit if p.unit }}{{ ', ' if not loop.last }}{% endfor %}</td>
+      <td class="small">{{ e.author or '–' }}</td></tr>{% endfor %}
+  </table></div>
+  <button class="btn primary" style="margin-top:8px">Gewählte importieren <span x-show="n" x-text="'(' + n + ')'"></span></button>
+</form>
+{% elif not error %}<p class="muted">Die Sammlung ist noch leer.</p>{% endif %}
+<details class="card" style="margin-top:14px"><summary class="small"><b>Adresse der Sammlung</b></summary>
+  <p class="small muted">Standard: <code>{{ default_url }}</code>. Die Datei wird nur beim Öffnen dieser Seite geladen (https, höchstens 1 MB).</p>
+  {% if me.can('items', 4) %}<form method="post" action="/katalog/community/adresse" class="row"><input name="url" value="{{ url if url != default_url else '' }}" placeholder="{{ default_url }}" class="grow"><button class="btn sm">Speichern</button></form>
+  {% else %}<p class="small">Aktuell: <code>{{ url }}</code></p>{% endif %}
+</details>
+{% endblock %}

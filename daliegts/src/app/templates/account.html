@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Mein Konto{% endblock %}
+{% block content %}
+<h1>Mein Konto</h1>
+{% if me.user %}
+<div class="cols">
+  <div class="card">
+    <h2 class="mt0">Profil</h2>
+    <form method="post" action="/konto">
+      <label>Anzeigename</label><input name="display_name" value="{{ me.user.display_name }}">
+      <label>Altes Passwort</label><input type="password" name="old" autocomplete="current-password">
+      <label>Neues Passwort</label><input type="password" name="new" autocomplete="new-password" minlength="8">
+      <label>PIN für Schnellanmeldung (4–6 Ziffern)</label><input name="pin" inputmode="numeric" pattern="[0-9]{4,6}">
+      <button class="btn primary" style="margin-top:8px">Speichern</button>
+    </form>
+  </div>
+  <div class="card">
+    <h2 class="mt0">Darstellung & Gerät</h2>
+    <form method="post" action="/theme" class="row">
+      {% for k, v in {'auto':'automatisch','light':'hell','dark':'dunkel'}.items() %}<button name="theme" value="{{ k }}" class="btn sm {{ 'primary' if me.user.theme == k }}">{{ v }}</button>{% endfor %}
+    </form>
+    <form method="post" action="/trust-device" style="margin-top:10px"><input type="hidden" name="trust" value="{{ 0 if trusted else 1 }}">
+      <button class="btn sm">{{ 'PIN-Anmeldung auf diesem Gerät deaktivieren' if trusted else 'Dieses Gerät für PIN-Anmeldung freigeben' }}</button></form>
+    <p class="small muted">Z. B. für das Tablet an der Werkbank: Danach kann sich jede Person mit PIN schnell anmelden.</p>
+    <div class="row" style="margin-top:10px">
+      <form method="post" action="/logout" class="inline"><button class="btn">Abmelden</button></form>
+      <form method="post" action="/konto/ueberall-abmelden" class="inline"><button class="btn" data-confirm="Auf allen Geräten abmelden?">Überall abmelden</button></form>
+    </div>
+  </div>
+  <div class="card">
+    <h2 class="mt0">API-Tokens</h2>
+    {% if new_token %}<div class="flash warn">Neues Token (nur jetzt sichtbar): <code style="word-break:break-all">{{ new_token }}</code></div>{% endif %}
+    {% for t in tokens %}<div class="row spread small"><span>{{ t.name }} · erstellt {{ t.created_at|dt }}{% if t.last_used %} · zuletzt {{ t.last_used|dt }}{% endif %}</span>
+      <form method="post" action="/konto/token/{{ t.id }}/loeschen" class="inline"><button class="btn sm ghost" data-confirm="Token widerrufen?">✕</button></form></div>{% endfor %}
+    {% if me.can('api_tokens', 3) %}<form method="post" action="/konto/token" class="row" style="margin-top:8px"><input name="name" placeholder="z. B. Home Assistant" class="grow"><button class="btn sm">Token erstellen</button></form>{% endif %}
+    <p class="small muted">Verwendung: Header <code>Authorization: Bearer &lt;token&gt;</code>. Das Token hat deine Rechte.</p>
+  </div>
+</div>
+{% else %}<p>Als Gast unterwegs. <a href="/login">Anmelden</a></p>{% endif %}
+{% endblock %}

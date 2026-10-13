@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">
+<line x1="82" y1="94" x2="82" y2="146" stroke="#9aa0a8" stroke-width="4" stroke-linecap="round"/><line x1="100" y1="94" x2="100" y2="146" stroke="#9aa0a8" stroke-width="4" stroke-linecap="round"/><line x1="118" y1="94" x2="118" y2="146" stroke="#9aa0a8" stroke-width="4" stroke-linecap="round"/><path d="M58 60 Q58 30 100 30 Q142 30 142 60 V80 Q142 96 126 96 H74 Q58 96 58 80 Z" fill="#3b82c4" stroke="#1f5689" stroke-width="2"/><text x="100" y="70" font-family="monospace" font-size="11" fill="#e6eef7" text-anchor="middle">16M</text>
+</svg>

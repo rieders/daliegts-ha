@@ -1,0 +1,10 @@
+<div class="furniture" style="grid-template-columns: repeat({{ cols }}, minmax(44px, 1fr));">
+{% for c in cells %}
+  <div class="cell" style="grid-row: {{ c.row }} / span {{ c.rowspan }}; grid-column: {{ c.col }} / span {{ c.colspan }}; min-height:38px">
+    <div class="cn">{{ c.name }}</div>
+    {% if c.led %}<div class="ci">LED {{ c.led[0] }}–{{ c.led[0] + c.led[1] - 1 }}</div>{% endif %}
+    {% if spec.subdivision and spec.subdivision > 1 %}<div class="compartments">{% for i in range(spec.subdivision) %}<span></span>{% endfor %}</div>{% endif %}
+  </div>
+{% endfor %}
+</div>
+<p class="small muted">{{ cells|length }} Fächer{% if spec.subdivision and spec.subdivision > 1 %} mit je {{ spec.subdivision }} Abteilen ({{ cells|length * spec.subdivision }} Abteile){% endif %}{% set leds = cells|selectattr('led')|map(attribute='led')|map('sum')|list %}{% if leds %} · LEDs bis Nr. {{ leds|max - 1 }}{% endif %}</p>

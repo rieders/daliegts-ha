@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import thumb, loc_path %}
+{% block title %}Start{% endblock %}
+{% block content %}
+<div class="row spread"><h1>Hallo {{ me.name }}</h1>
+  <div class="row">
+    {% if me.can('items', 3) %}<a class="btn" href="/artikel/neu">＋ Artikel</a><a class="btn" href="/artikel/erkennen">📷 Erkennen</a>{% endif %}
+  </div>
+</div>
+<div class="stats">
+  <div class="card stat"><span class="muted small">Artikel</span><b>{{ stats['items'] }}</b></div>
+  <div class="card stat"><span class="muted small">Bestände</span><b>{{ stats['lots'] }}</b></div>
+  <div class="card stat"><span class="muted small">Lagerorte</span><b>{{ stats['locations'] }}</b></div>
+  {% if stats.get('value') is not none %}<a class="card stat" href="/statistik" style="color:inherit"><span class="muted small">Lagerwert</span><b>{{ stats['value']|euro }}</b></a>{% endif %}
+  <a class="card stat" href="/suche?pruefen=1" style="color:inherit"><span class="muted small">Inventur offen</span><b>{{ stats['review'] }}</b></a>
+  {% if stats.get('to_order') is not none %}<a class="card stat" href="/einkauf" style="color:inherit"><span class="muted small">🛒 zu bestellen</span><b>{{ stats['to_order'] }}</b></a>
+  <a class="card stat" href="/einkauf" style="color:inherit"><span class="muted small">📦 bestellt, unterwegs</span><b>{{ stats['ordered'] }}</b></a>{% endif %}
+  {% if exp.expired or exp.soon %}<a class="card stat" href="/ablauf" style="color:inherit"><span class="muted small">⏳ Haltbarkeit</span><b>{% if exp.expired %}<span style="color:var(--err)">{{ exp.expired }} abgelaufen</span>{% endif %}{% if exp.expired and exp.soon %} · {% endif %}{% if exp.soon %}{{ exp.soon }} bald{% endif %}</b></a>{% endif %}
+  {% if stats.get('orders') is not none %}<a class="card stat" href="/auftraege" style="color:inherit"><span class="muted small">Aufträge offen</span><b>{{ stats['orders'] }}</b></a>{% endif %}
+</div>
+{% if me.can('stock') %}{% for pr in printers3d_nav() %}
+<a class="card row spread" href="/drucker3d" style="color:inherit;{{ 'background:var(--warn-bg)' if pr.warning }}">
+  <span>🧵 <b>{{ pr.name }}</b> <span class="muted small">{{ {'printing': 'druckt', 'paused': 'pausiert', 'completed': 'fertig', 'idle': 'bereit', 'offline': 'nicht erreichbar', 'stopped': 'abgebrochen', 'processing': 'bereitet vor'}.get(pr.state, pr.state or '–') }}{% if pr.job %} · {{ pr.job }}{% endif %}</span></span>
+  <span class="small">{% if pr.warning %}⚠ {{ pr.warning }}{% elif pr.pending %}{{ pr.pending }} Druck(e) noch nicht abgebucht{% endif %}</span>
+</a>{% endfor %}{% endif %}
+<div class="cols">
+  <div class="card">
+    <h2>Nachkaufen</h2>
+    {% for i in low %}<div class="row spread"><a href="/artikel/{{ i.id }}">{{ i.name }}</a><span class="muted small">{{ i.total_quantity|qty(i.unit) }} / min. {{ i.min_stock|qty }}</span></div>
+    {% else %}<p class="muted">Alles ausreichend vorhanden.</p>{% endfor %}
+    {% if low %}<p><a href="/suche?unter_min=1">Alle anzeigen →</a></p>{% endif %}
+  </div>
+  <div class="card">
+    <h2>Verliehen</h2>
+    {% for l in loans %}<div class="row spread"><a href="/artikel/{{ l.item_id }}">{{ l.item.name }}</a>
+      <span class="small {{ 'badge err' if l.due and l.due < today else 'muted' }}">{{ l.borrower_name or 'Benutzer' }}{% if l.due %} · bis {{ l.due|dt }}{% endif %}</span></div>
+    {% else %}<p class="muted">Nichts verliehen.</p>{% endfor %}
+  </div>
+  <div class="card">
+    <h2>Favoriten</h2>
+    {% for i in favorites %}<a class="row" href="/artikel/{{ i.id }}" style="margin-bottom:6px">{{ thumb(i) }} {{ i.name }}</a>
+    {% else %}<p class="muted">Markiere Artikel mit ☆, um sie hier zu sehen.</p>{% endfor %}
+  </div>
+</div>
+<div class="card">
+  <h2>Letzte Buchungen</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Zeit</th><th>Artikel</th><th>Vorgang</th><th class="num">Menge</th><th>Ort</th><th>Wer</th></tr>
+    {% for m in recent %}
+    <tr><td class="small">{{ m.ts|dt }}</td><td><a href="/artikel/{{ m.item_id }}">{{ m.item.name }}</a></td><td>{{ MOVEMENT_KINDS.get(m.kind, m.kind) }}</td>
+      <td class="num">{{ m.delta|qty }}</td><td class="small">{{ (m.to_location or m.from_location).name if (m.to_location or m.from_location) else '' }}</td><td class="small">{{ m.user.label if m.user else '' }}</td></tr>
+    {% else %}<tr><td colspan="6" class="muted">Noch keine Buchungen.</td></tr>{% endfor %}
+  </table></div>
+</div>
+{% endblock %}

@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">
+<line x1="90" y1="96" x2="90" y2="146" stroke="#9aa0a8" stroke-width="4" stroke-linecap="round"/><line x1="110" y1="96" x2="110" y2="146" stroke="#9aa0a8" stroke-width="4" stroke-linecap="round"/><circle cx="100" cy="64" r="34" fill="#e6c229" stroke="#9c820f" stroke-width="2"/><text x="100" y="68" font-family="monospace" font-size="11" fill="#6b5a0a" text-anchor="middle">PTC</text>
+</svg>

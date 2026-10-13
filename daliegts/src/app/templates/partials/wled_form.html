@@ -1,0 +1,34 @@
+<form method="post" action="/wled/speichern">
+  <input type="hidden" name="id" value="{{ c.id if c else '' }}">
+  <div class="fields">
+    <div><label>Name</label><input name="name" value="{{ c.name if c else 'Lagerwand' }}" required></div>
+    <div><label>Host / IP</label><input name="host" value="{{ c.host if c else '' }}" placeholder="192.168.1.50" required></div>
+    <div><label>Port</label><input type="number" name="port" value="{{ c.port if c else 80 }}"></div>
+    <div><label>Anzahl LEDs</label><input type="number" name="led_count" value="{{ c.led_count if c else 300 }}"></div>
+    <div><label>Segment-ID</label><input type="number" name="segment_id" value="{{ c.segment_id if c else 0 }}"></div>
+    <div><label>Helligkeit (0–255)</label><input type="number" name="brightness" value="{{ c.brightness if c else 160 }}" min="1" max="255"></div>
+    <div><label>Farbe</label><input type="color" value="#{{ c.color if c else '00FF40' }}" oninput="this.nextElementSibling.value=this.value.slice(1)"><input type="hidden" name="color" value="{{ c.color if c else '00FF40' }}"></div>
+    <div><label>Anzeigedauer (s)</label><input type="number" name="timeout_s" value="{{ c.timeout_s if c else 30 }}"></div>
+    <div><label>Danach</label><select name="restore_mode">{% for k, v in {'off':'aus','preset':'Preset laden','previous':'vorherigen Zustand'}.items() %}<option value="{{ k }}" {{ 'selected' if c and c.restore_mode == k }}>{{ v }}</option>{% endfor %}</select></div>
+    <div><label>Preset-Nr. (für „Preset laden“)</label><input type="number" name="restore_preset" value="{{ c.restore_preset or '' if c else '' }}"></div>
+  </div>
+  <fieldset><legend>Ruhemodus (optional)</legend>
+    <div class="fields">
+      <div><label>Modus</label><select name="idle_mode">{% for k, v in {'off':'aus','preset':'WLED-Preset/Playlist','lowstock':'Bestandsampel (Fächer unter Mindestbestand rot)'}.items() %}<option value="{{ k }}" {{ 'selected' if c and c.idle_mode == k }}>{{ v }}</option>{% endfor %}</select></div>
+      <div><label>Effekt: Preset-/Playlist-Nr.</label><input type="number" name="idle_preset" value="{{ c.idle_preset or '' if c else '' }}" {% if c %}list="ps-{{ c.id }}"{% endif %} placeholder="z. B. 1"></div>
+      <div><label>Start nach … Minuten ohne Nutzung</label><input type="number" name="idle_after_min" min="0" max="1440" value="{{ c.idle_after_min if c else 5 }}"></div>
+      <div><label>Helligkeit Ruhemodus</label><input type="number" name="idle_brightness" value="{{ c.idle_brightness if c else 40 }}"></div>
+      <div><label>aktiv von</label><input type="time" name="idle_from" value="{{ c.idle_from if c else '07:00' }}"></div>
+      <div><label>bis</label><input type="time" name="idle_to" value="{{ c.idle_to if c else '22:00' }}"></div>
+    </div>
+    <p class="small muted">Effektwand: Effekt in der WLED-Oberfläche einstellen und dort als Preset (oder Playlist mehrerer Presets) speichern, dann hier die Nummer wählen. Sucht jemand ein Teil, unterbricht {{ APP_NAME }} den Effekt, zeigt das Fach und startet den Effekt danach wieder. Außerhalb der Uhrzeit bleibt die Wand aus. Home Assistant kann per <code>POST /api/v1/presence</code> Anwesenheit melden (niemand da = aus).</p>
+    {% if c %}
+    <datalist id="ps-{{ c.id }}"></datalist>
+    <div class="row">
+      <button type="button" class="btn sm" onclick="fetch('/wled/{{ c.id }}/presets').then(r => r.json()).then(p => { const dl = document.getElementById('ps-{{ c.id }}'); dl.innerHTML = ''; Object.entries(p).forEach(([k, n]) => { const o = document.createElement('option'); o.value = k; o.label = n; o.textContent = n; dl.appendChild(o); }); toast(Object.keys(p).length ? Object.keys(p).length + ' Presets geladen – im Feld auswählen' : 'Keine Presets auf dem WLED gefunden'); }).catch(() => toast('WLED nicht erreichbar'))">Presets vom WLED laden</button>
+      <button type="button" class="btn sm" onclick="const f = this.closest('form'); api('/wled/{{ c.id }}/ruhe-test', {preset: f.idle_preset.value, bri: f.idle_brightness.value}).then(r => toast(r.ok ? 'Effekt läuft – zum Beenden ein Fach anzeigen oder „Alle aus“' : 'WLED nicht erreichbar')).catch(e => toast(e.message))">▶ Effekt jetzt testen</button>
+    </div>{% endif %}
+  </fieldset>
+  <label class="inline"><input type="checkbox" name="enabled" value="1" {{ 'checked' if not c or c.enabled }}> aktiv</label>
+  <div><button class="btn primary" style="margin-top:8px">Speichern</button></div>
+</form>

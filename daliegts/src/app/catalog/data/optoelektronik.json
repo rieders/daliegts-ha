@@ -1,0 +1,484 @@
+{
+ "group": "Optoelektronik & Anzeigen",
+ "parts": [
+  {
+   "category": "Elektronik/Optoelektronik/Anzeigen",
+   "datasheet_hint": "5641BS",
+   "description": "7-Segment-Anzeige 4-stellig 0,56\", rot, gemeinsame Anode (gemultiplext)",
+   "footprint": "7-Segment",
+   "image": "seven-segment.svg",
+   "key": "7seg-056-4-ca",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "7-Segment 4-stellig 0,56\" CA",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "rot"
+    },
+    {
+     "name": "Typ",
+     "value": "gemeinsame Anode"
+    }
+   ],
+   "tags": [
+    "7-segment",
+    "anzeige",
+    "display",
+    "led"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/Anzeigen",
+   "datasheet_hint": "5641AS",
+   "description": "7-Segment-Anzeige 4-stellig 0,56\", rot, gemeinsame Kathode (gemultiplext)",
+   "footprint": "7-Segment",
+   "image": "seven-segment.svg",
+   "key": "7seg-056-4-cc",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "7-Segment 4-stellig 0,56\" CK",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "rot"
+    },
+    {
+     "name": "Typ",
+     "value": "gemeinsame Kathode"
+    }
+   ],
+   "tags": [
+    "7-segment",
+    "anzeige",
+    "display",
+    "led"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/Anzeigen",
+   "datasheet_hint": "5161BS",
+   "description": "7-Segment-Anzeige 1-stellig 0,56\" (14,2 mm), rot, gemeinsame Anode",
+   "footprint": "7-Segment",
+   "image": "seven-segment.svg",
+   "key": "7seg-056-ca",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "7-Segment 0,56\" rot CA",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "rot"
+    },
+    {
+     "name": "Typ",
+     "value": "gemeinsame Anode"
+    }
+   ],
+   "tags": [
+    "7-segment",
+    "anzeige",
+    "display",
+    "led"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/Anzeigen",
+   "datasheet_hint": "5161AS",
+   "description": "7-Segment-Anzeige 1-stellig 0,56\" (14,2 mm), rot, gemeinsame Kathode",
+   "footprint": "7-Segment",
+   "image": "seven-segment.svg",
+   "key": "7seg-056-cc",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "7-Segment 0,56\" rot CK",
+   "params": [
+    {
+     "name": "Farbe",
+     "value": "rot"
+    },
+    {
+     "name": "Typ",
+     "value": "gemeinsame Kathode"
+    }
+   ],
+   "tags": [
+    "7-segment",
+    "anzeige",
+    "display",
+    "led"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/Fotosensoren",
+   "datasheet_hint": "BPW34",
+   "description": "Silizium-PIN-Fotodiode, 7,5 mm² Fläche, 400–1100 nm, schnell",
+   "footprint": "THT radial",
+   "image": "photodiode.svg",
+   "key": "bpw34",
+   "manufacturer": "Vishay",
+   "mpn": "",
+   "name": "BPW34",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "PIN-Fotodiode"
+    },
+    {
+     "name": "U_R max",
+     "unit": "V",
+     "value": "60"
+    }
+   ],
+   "tags": [
+    "fotodiode",
+    "licht",
+    "photodiode",
+    "sensor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/Fotosensoren",
+   "datasheet_hint": "GL5528",
+   "description": "Fotowiderstand 5 mm, ca. 10–20 kΩ bei 10 lx, Dunkelwiderstand ≥ 1 MΩ",
+   "footprint": "THT radial",
+   "image": "ldr.svg",
+   "key": "gl5528",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "LDR GL5528",
+   "params": [
+    {
+     "name": "Widerstand",
+     "unit": "Ω",
+     "value": "10k–20k"
+    },
+    {
+     "name": "Durchmesser",
+     "unit": "mm",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "fotowiderstand",
+    "ldr",
+    "licht",
+    "sensor"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/Fotosensoren",
+   "datasheet_hint": "TCRT5000",
+   "description": "Reflexlichtschranke (IR-LED + Fototransistor), Arbeitsbereich ca. 0,2–15 mm",
+   "footprint": "Sonstiges",
+   "image": "reflex-sensor.svg",
+   "key": "tcrt5000",
+   "manufacturer": "Vishay",
+   "mpn": "",
+   "name": "TCRT5000",
+   "params": [
+    {
+     "name": "Typ",
+     "value": "Reflexkoppler"
+    }
+   ],
+   "tags": [
+    "ir",
+    "lichtschranke",
+    "linienfolger",
+    "reflex"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/Infrarot",
+   "description": "Infrarot-Sendediode 5 mm, 940 nm (z. B. für Fernbedienungen), U_F ca. 1,2–1,5 V",
+   "footprint": "LED 5mm",
+   "image": "led-5mm-ir.svg",
+   "key": "led-5mm-ir-940",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "IR-LED 5 mm 940 nm",
+   "params": [
+    {
+     "name": "Durchmesser",
+     "unit": "mm",
+     "value": "5"
+    },
+    {
+     "name": "Typ",
+     "value": "IR 940 nm"
+    },
+    {
+     "name": "U_F typ",
+     "unit": "V",
+     "value": "1.3"
+    }
+   ],
+   "tags": [
+    "5mm",
+    "940nm",
+    "infrarot",
+    "ir",
+    "led"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/Infrarot",
+   "description": "IR-Empfänger 38 kHz mit Demodulator für Fernbedienungen (RC5/NEC), 2,5–5,5 V",
+   "equivalents": [
+    "VS1838B (ähnlich, Pinbelegung prüfen)"
+   ],
+   "footprint": "Sonstiges",
+   "image": "ir-receiver.svg",
+   "key": "tsop4838",
+   "manufacturer": "Vishay",
+   "mpn": "",
+   "name": "TSOP4838",
+   "params": [
+    {
+     "name": "Frequenz",
+     "unit": "Hz",
+     "value": "38k"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "2.5–5.5"
+    }
+   ],
+   "tags": [
+    "empfänger",
+    "fernbedienung",
+    "infrarot",
+    "ir"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/Infrarot",
+   "description": "Günstiger IR-Empfänger 38 kHz mit Demodulator für Fernbedienungen",
+   "equivalents": [
+    "TSOP4838 (ähnlich, Pinbelegung prüfen)"
+   ],
+   "footprint": "Sonstiges",
+   "image": "ir-receiver.svg",
+   "key": "vs1838b",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "VS1838B",
+   "params": [
+    {
+     "name": "Frequenz",
+     "unit": "Hz",
+     "value": "38k"
+    }
+   ],
+   "tags": [
+    "empfänger",
+    "fernbedienung",
+    "infrarot",
+    "ir"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/Optokoppler",
+   "datasheet_hint": "4N25",
+   "description": "Optokoppler mit Fototransistor-Ausgang und Basisanschluss, DIP-6",
+   "equivalents": [
+    "4N35"
+   ],
+   "footprint": "DIP-6",
+   "image": "dip-6.svg",
+   "key": "4n25",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "4N25",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "dip-6",
+    "isolation",
+    "optokoppler"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/Optokoppler",
+   "datasheet_hint": "4N35",
+   "description": "Optokoppler mit Fototransistor-Ausgang und Basisanschluss, DIP-6",
+   "equivalents": [
+    "4N25"
+   ],
+   "footprint": "DIP-6",
+   "image": "dip-6.svg",
+   "key": "4n35",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "4N35",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "1"
+    }
+   ],
+   "tags": [
+    "dip-6",
+    "isolation",
+    "optokoppler"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/Optokoppler",
+   "datasheet_hint": "6N137",
+   "description": "Schneller Optokoppler 10 MBit/s mit Logikausgang, 5 V, DIP-8",
+   "footprint": "DIP-8",
+   "image": "dip-8.svg",
+   "key": "6n137",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "6N137",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "1"
+    },
+    {
+     "name": "Versorgungsspannung",
+     "unit": "V",
+     "value": "5"
+    }
+   ],
+   "tags": [
+    "dip-8",
+    "highspeed",
+    "midi",
+    "optokoppler"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/Optokoppler",
+   "datasheet_hint": "MOC3021",
+   "description": "Triac-Treiber-Optokoppler 400 V, ohne Nullspannungsschalter (für Phasenanschnitt), DIP-6",
+   "footprint": "DIP-6",
+   "image": "dip-6.svg",
+   "key": "moc3021",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MOC3021",
+   "params": [
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "400"
+    }
+   ],
+   "tags": [
+    "230v",
+    "dip-6",
+    "netz",
+    "optokoppler",
+    "triac"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/Optokoppler",
+   "datasheet_hint": "MOC3041",
+   "description": "Triac-Treiber-Optokoppler 400 V mit Nullspannungsschalter, DIP-6",
+   "footprint": "DIP-6",
+   "image": "dip-6.svg",
+   "key": "moc3041",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MOC3041",
+   "params": [
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "400"
+    }
+   ],
+   "tags": [
+    "230v",
+    "dip-6",
+    "netz",
+    "optokoppler",
+    "triac"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/Optokoppler",
+   "datasheet_hint": "MOC3063",
+   "description": "Triac-Treiber-Optokoppler 600 V mit Nullspannungsschalter, DIP-6",
+   "footprint": "DIP-6",
+   "image": "dip-6.svg",
+   "key": "moc3063",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "MOC3063",
+   "params": [
+    {
+     "name": "Spannung",
+     "unit": "V",
+     "value": "600"
+    }
+   ],
+   "tags": [
+    "230v",
+    "dip-6",
+    "netz",
+    "optokoppler",
+    "triac"
+   ],
+   "unit": "Stk"
+  },
+  {
+   "category": "Elektronik/Optoelektronik/Optokoppler",
+   "datasheet_hint": "PC817",
+   "description": "Optokoppler mit Fototransistor-Ausgang, 5 kV Isolation, CTR 50–600 %, DIP-4",
+   "equivalents": [
+    "EL817",
+    "LTV817"
+   ],
+   "footprint": "DIP-4",
+   "image": "dip-4.svg",
+   "key": "pc817",
+   "manufacturer": "",
+   "mpn": "",
+   "name": "PC817",
+   "params": [
+    {
+     "name": "Kanäle",
+     "value": "1"
+    },
+    {
+     "name": "U_CE max",
+     "unit": "V",
+     "value": "35"
+    }
+   ],
+   "tags": [
+    "dip-4",
+    "isolation",
+    "optokoppler"
+   ],
+   "unit": "Stk"
+  }
+ ]
+}

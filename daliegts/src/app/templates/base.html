@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="de" {% if me and me.user and me.user.theme != 'auto' %}data-theme="{{ me.user.theme }}"{% endif %}>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f7a5c">
+<title>{% block title %}{{ APP_NAME }}{% endblock %} · {{ APP_NAME }}</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/static/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/static/icons/icon-192.png">
+<link rel="stylesheet" href="/static/css/app.css?v={{ APP_VERSION }}">
+<script src="/static/vendor/htmx-2.0.11.min.js" defer></script>
+<script src="/static/js/app.js?v={{ APP_VERSION }}" defer></script>
+{% block head %}{% endblock %}
+<script src="/static/vendor/alpine-3.17.4.min.js" defer></script>
+</head>
+<body>
+<script>try { if (localStorage.getItem("lw-nav-collapsed") === "1") document.documentElement.classList.add("nav-collapsed"); } catch (_) {}</script>
+{% set path = request.url.path %}
+{% from "partials/icons.html" import icon %}
+{% set app_user = me and (me.user or me.levels.get('items')) %}
+{% set lic = license_info() if app_user else none %}
+{% macro navlink(href, ic, label, active, badge='', badge_cls='ok') -%}
+<a href="{{ href }}" class="{{ 'active' if active }}" title="{{ label }}"{% if active %} aria-current="page"{% endif %}>{{ icon(ic) }}<span class="nl">{{ label }}</span>{% if badge %}<span class="badge {{ badge_cls }}">{{ badge }}</span>{% endif %}</a>
+{%- endmacro %}
+{% if app_user %}
+<aside class="side" id="side" aria-label="Hauptmenü">
+  <div class="side-head">
+    <a class="brand" href="/">{% include "partials/logo.svg" %}<span class="nl">{{ APP_NAME }}</span></a>
+    <button type="button" class="side-collapse" onclick="lwNavCollapse()" title="Menü schmal/breit">{{ icon('collapse') }}</button>
+  </div>
+  <nav class="side-nav">
+    {{ navlink('/', 'home', 'Start', path == '/') }}
+    {{ navlink('/suche', 'box', 'Artikel', path.startswith('/suche') or path.startswith('/artikel')) }}
+
+    <div class="grp">Lager</div>
+    {{ navlink('/lager', 'grid', 'Lageransicht', path.endswith('/wand') or path.startswith('/lager')) }}
+    {{ navlink('/orte', 'pin', 'Lagerorte', path.startswith('/orte') and not path.endswith('/wand')) }}
+    {% if me.can('stock', 2) %}{{ navlink('/buchen', 'swap', 'Buchen', path.startswith('/buchen')) }}{% endif %}
+    {% if me.can('inventory') %}{{ navlink('/inventur', 'check', 'Inventur', path.startswith('/inventur')) }}{% endif %}
+    {{ navlink('/ablauf', 'hourglass', 'Haltbarkeit', path.startswith('/ablauf')) }}
+
+    {% if me.can('orders') or me.can('loans') %}<div class="grp">Projekte</div>{% endif %}
+    {% if me.can('orders') %}{{ navlink('/projekte', 'chip', 'Projekte', path.startswith('/projekte'), '' if lic.pro else 'Pro', 'pro') }}
+    {{ navlink('/auftraege', 'clipboard', 'Aufträge', path.startswith('/auftraege')) }}{% endif %}
+    {% if me.can('loans') %}{{ navlink('/verleih', 'lend', 'Verleih', path.startswith('/verleih')) }}{% endif %}
+
+    {% if me.can('purchasing') or me.can('suppliers') %}<div class="grp">Einkauf</div>{% endif %}
+    {% if me.can('purchasing') %}{% set osc = open_shopping_count() %}{{ navlink('/einkauf', 'cart', 'Einkaufsliste', path.startswith('/einkauf'), osc or '') }}{% endif %}
+    {% if me.can('suppliers') %}{{ navlink('/lieferanten', 'truck', 'Lieferanten', path.startswith('/lieferanten') or path.startswith('/hersteller')) }}{% endif %}
+
+    <div class="grp">Werkstatt</div>
+    {% if me.can('stock') %}{% set p3 = printers3d_nav() %}{{ navlink('/drucker3d', 'cube', '3D-Druck', path.startswith('/drucker3d'), ('!' if p3|selectattr('warning')|list else '') if lic.pro else 'Pro', 'warn' if lic.pro else 'pro') }}{% endif %}
+    {% if me.can('labels') %}{{ navlink('/etiketten', 'tag', 'Etiketten', path.startswith('/etiketten')) }}{% endif %}
+    {% if me.can('wled_show') %}{{ navlink('/wled', 'bulb', 'WLED', path.startswith('/wled')) }}{% endif %}
+
+    <div class="grp">Daten</div>
+    {% if me.can('items') %}{{ navlink('/katalog', 'book', 'Katalog', path.startswith('/katalog')) }}{% endif %}
+    {% if me.can('categories') %}{{ navlink('/kategorien', 'layers', 'Kategorien', path.startswith('/kategorien')) }}{% endif %}
+    {% if me.can('items') %}{{ navlink('/statistik', 'chart', 'Statistik', path.startswith('/statistik')) }}{% endif %}
+    {% if me.can('stock') %}{{ navlink('/historie', 'clock', 'Historie', path.startswith('/historie')) }}{% endif %}
+  </nav>
+  <div class="side-foot">
+    {{ navlink('/admin', 'settings', 'Verwaltung', path.startswith('/admin')) }}
+    {% if me.user %}{{ navlink('/konto', 'user', me.name, path.startswith('/konto')) }}{% else %}{{ navlink('/login', 'user', 'Anmelden', false) }}{% endif %}
+    <div class="side-ver small muted nl">v{{ APP_VERSION }}</div>
+  </div>
+</aside>
+<div class="side-backdrop" onclick="lwNav(false)"></div>
+{% endif %}
+<div class="shell">
+<header class="topbar">
+  <div class="topbar-inner">
+    {% if app_user %}
+    <button type="button" class="btn ghost icon-btn only-mobile" onclick="lwNav(true)" aria-label="Menü öffnen">{{ icon('menu') }}</button>
+    <a class="brand only-mobile" href="/">{% include "partials/logo.svg" %}</a>
+    <form class="topsearch" action="/suche" method="get" role="search">
+      {{ icon('search') }}
+      <input type="search" name="q" placeholder="Suchen: Name, Wert, MPN, Code …" value="{{ request.query_params.get('q','') if path == '/suche' else '' }}" autocomplete="off" id="topq">
+      <kbd class="hide-sm">/</kbd>
+    </form>
+    {% if me.can('items', 3) %}
+    <details class="dropdown hide-sm">
+      <summary class="btn">{{ icon('plus') }}<span>Neu</span></summary>
+      <div class="menu">
+        <a href="/artikel/neu">{{ icon('box') }} Artikel anlegen</a>
+        <a href="/katalog">{{ icon('book') }} Aus Katalog</a>
+        <a href="/artikel/erkennen">{{ icon('camera') }} Foto erkennen</a>
+        {% if me.can('orders', 3) %}<a href="/projekte">{{ icon('chip') }} Projekt / KiCad</a>{% endif %}
+      </div>
+    </details>
+    {% endif %}
+    {% if has_wled() %}<button class="btn ghost icon-btn" title="Alle LEDs aus" hx-post="/wled/aus" hx-swap="none" onclick="toast('LEDs aus')">{{ icon('bulboff') }}</button>{% endif %}
+    <a class="btn primary" href="/scan" title="Scannen">{{ icon('scan') }}<span class="hide-sm">Scannen</span></a>
+    {% else %}
+    <a class="brand" href="/">{% include "partials/logo.svg" %}<span>{{ APP_NAME }}</span></a>
+    {% endif %}
+  </div>
+</header>
+{% if me and me.admin_mode %}
+<div class="adminbar"><div class="inner"><span>⚠ Admin-Modus aktiv – Struktur ändern, Löschen und Einstellungen sind freigeschaltet.</span>
+  <form method="post" action="/admin-mode" class="inline"><input type="hidden" name="on" value="0"><button class="btn sm warn">Beenden</button></form></div></div>
+{% endif %}
+<main>
+  {% for kind, msg in flashes %}<div class="flash {{ kind }}">{{ msg }}</div>{% endfor %}
+  {% block content %}{% endblock %}
+</main>
+</div>
+{% if app_user %}
+<nav class="tabbar" aria-label="Schnellzugriff">
+  <a href="/" class="{{ 'active' if path == '/' }}">{{ icon('home') }}<span>Start</span></a>
+  <a href="/suche" class="{{ 'active' if path.startswith('/suche') or path.startswith('/artikel') }}">{{ icon('search') }}<span>Suchen</span></a>
+  <a href="/scan" class="scan {{ 'active' if path.startswith('/scan') }}">{{ icon('scan') }}<span>Scannen</span></a>
+  {% if me.can('stock', 2) %}<a href="/buchen" class="{{ 'active' if path.startswith('/buchen') }}">{{ icon('swap') }}<span>Buchen</span></a>
+  {% else %}<a href="/lager" class="{{ 'active' if path.startswith('/lager') }}">{{ icon('grid') }}<span>Lager</span></a>{% endif %}
+  <button type="button" onclick="lwNav(true)">{{ icon('menu') }}<span>Menü</span></button>
+</nav>
+{% endif %}
+<div id="toast" class="toast hide"></div>
+{% block scripts %}{% endblock %}
+</body>
+</html>

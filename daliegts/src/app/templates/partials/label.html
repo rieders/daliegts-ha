@@ -1,0 +1,18 @@
+{# Etikett nach Vorlage (v0.12) – gemeinsam für Druckseite und Designer-Vorschau #}
+{% macro label_css(s) -%}
+.{{ s.key }}.lbl { width: {{ '%g'|format(s.width_mm) }}mm; height: {{ '%g'|format(s.height_mm) }}mm; box-sizing: border-box; padding: {{ [s.height_mm * 0.05, 0.6]|max|round(2) }}mm {{ [s.height_mm * 0.06, 0.8]|max|round(2) }}mm; align-items: center; }
+.{{ s.key }}.lbl.right { flex-direction: row-reverse; }
+.{{ s.key }} .q { width: {{ (s.height_mm - [s.height_mm * 0.1, 1.2]|max)|round(2) }}mm; height: {{ (s.height_mm - [s.height_mm * 0.1, 1.2]|max)|round(2) }}mm; max-width: 45%; }
+.{{ s.key }} .tx { font-size: {{ s.base_font }}mm; }
+.{{ s.key }} .b { height: {{ (s.height_mm * 0.26)|round(2) }}mm; width: 100%; flex: none; }
+{%- endmacro %}
+
+{% macro label(l, s) -%}
+<div class="lbl {{ s.key }} {{ 'right' if s.code_pos == 'right' }}">
+  {% if l.qr %}<div class="q">{{ l.qr|safe }}</div>{% endif %}
+  <div class="tx">
+    {% for r in l.rows %}<div class="s-{{ r.size }} f-{{ r.f }}{{ ' b-on' if r.bold }}{{ ' w-%d'|format(r.wrap) if r.wrap and r.wrap > 1 }}">{{ r.v }}</div>{% endfor %}
+    {% if l.bar %}<div class="b">{{ l.bar|safe }}</div>{% endif %}
+  </div>
+</div>
+{%- endmacro %}

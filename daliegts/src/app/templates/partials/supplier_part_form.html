@@ -1,0 +1,19 @@
+<form method="post" action="/artikel/{{ item.id }}/bezugsquelle" style="margin-top:6px">
+  <input type="hidden" name="id" value="{{ spx.id if spx else '' }}">
+  <div class="fields">
+    <div><label>Lieferant</label><input name="supplier" list="suppliers-dl" value="{{ spx.supplier.name if spx else '' }}" placeholder="z. B. Reichelt" required></div>
+    <div><label>Bestellnummer beim Lieferanten{% if online_active %} <a href="/artikel/{{ item.id }}/online" class="small">🔎 online suchen</a>{% endif %}</label><input name="sku" value="{{ spx.sku if spx else '' }}" placeholder="z. B. BC 547C"></div>
+    <div><label>Verpackungseinheit (Stück je Packung)</label><input name="pack_qty" value="{{ spx.pack_qty|qty if spx else '1' }}" inputmode="decimal"></div>
+    {% if me.can('prices', 2) %}
+    <div style="grid-column:1/-1"><label>Preis je {{ item.unit }} – einfach „0,12“ oder Staffel „1: 0,12; 10: 0,08; 100: 0,05“</label>
+      <input name="prices" value="{{ format_tiers(spx.prices) if spx else '' }}" placeholder="1: 0,12; 10: 0,08"></div>
+    {% endif %}
+    <div style="grid-column:1/-1"><label>Produkt-Link (optional – sonst wird im Shop nach der Bestellnummer gesucht)</label>
+      <input name="url" type="url" value="{{ spx.url if spx else '' }}" placeholder="https://…"></div>
+    <div style="grid-column:1/-1"><label>Notiz</label><input name="notes" value="{{ spx.notes if spx else '' }}"></div>
+  </div>
+  <label class="inline"><input type="checkbox" name="preferred" value="1" {{ 'checked' if spx and spx.preferred }}> bevorzugt</label>
+  <label class="inline"><input type="checkbox" name="obsolete" value="1" {{ 'checked' if spx and spx.obsolete }}> nicht mehr lieferbar</label>
+  <div><button class="btn primary sm" style="margin-top:8px">Speichern</button></div>
+</form>
+<datalist id="suppliers-dl">{% for s in suppliers %}<option value="{{ s.name }}">{% endfor %}</datalist>

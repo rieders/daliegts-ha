@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Aufträge{% endblock %}
+{% block content %}
+<div class="row spread">
+  <h1 class="mb0">Aufträge</h1>
+  <div class="pill-group">{% for k, v in [('aktiv', 'aktiv'), ('offen', 'offen'), ('in_arbeit', 'in Arbeit'), ('erledigt', 'erledigt'), ('storniert', 'storniert'), ('alle', 'alle')] %}
+    <a class="btn sm {{ 'primary' if status == k }}" href="?status={{ k }}">{{ v }}</a>{% endfor %}</div>
+</div>
+<p class="muted">Ein Auftrag sammelt die Bauteile für ein Projekt oder eine Reparatur. Sie werden sofort <b>reserviert</b>, Fehlendes landet auf der Einkaufsliste, entnommen wird nach und nach.</p>
+
+{% if me.can('orders', 3) %}
+<details class="card" {{ 'open' if not orders }}>
+  <summary><b>＋ Neuer Auftrag</b></summary>
+  <form method="post" action="/auftraege/neu" style="margin-top:8px">
+    <div class="fields">
+      <div style="grid-column:span 2"><label>Titel *</label><input name="title" required placeholder="z. B. Verstärker-Platine Rev. B, Reparatur Waschmaschine"></div>
+      <div><label>Für / Kunde / Anlage</label><input name="requester" placeholder="optional"></div>
+      <div><label>Fällig am</label><input type="date" name="due"></div>
+    </div>
+    <label>Beschreibung</label><textarea name="description" rows="2"></textarea>
+    <button class="btn primary" style="margin-top:8px">Anlegen</button>
+  </form>
+</details>
+{% endif %}
+
+<div class="card table-wrap">
+  <table>
+    <tr><th>Auftrag</th><th>Status</th><th>Fällig</th><th class="num">Positionen</th><th>Fortschritt</th><th></th></tr>
+    {% for o in orders %}{% set s = states[o.id] %}
+    <tr>
+      <td><a href="/auftraege/{{ o.id }}"><b>{{ o.title }}</b></a> <span class="badge code">{{ o.code }}</span>
+        {% if o.requester %}<div class="small muted">{{ o.requester }}</div>{% endif %}</td>
+      <td><span class="badge st-{{ o.status }}">{{ ORDER_STATUS[o.status] }}</span></td>
+      <td class="small {{ 'overdue' if o.due and o.active and o.due < today }}">{{ o.due.strftime('%d.%m.%Y') if o.due else '' }}</td>
+      <td class="num">{{ o.lines|length }}</td>
+      <td style="min-width:140px"><div class="progress" title="{{ s.progress }} % entnommen"><span style="width:{{ s.progress }}%"></span></div><span class="small muted">{{ s.progress }} %</span></td>
+      <td>{% if s.short_lines %}<span class="badge warn">{{ s.short_lines }} fehlt</span>{% elif o.active and o.lines %}<span class="badge ok">alles da</span>{% endif %}
+        {% set b = buy.get(o.id) %}{% if b and b.open %}<span class="badge buy-open">🛒 {{ b.open }} zu bestellen</span>{% endif %}{% if b and b.ordered %}<span class="badge buy-ordered">📦 {{ b.ordered }} bestellt</span>{% endif %}</td>
+    </tr>
+    {% else %}<tr><td colspan="6" class="muted">Keine Aufträge{% if status != 'alle' %} mit diesem Status{% endif %}.</td></tr>{% endfor %}
+  </table>
+</div>
+{% endblock %}

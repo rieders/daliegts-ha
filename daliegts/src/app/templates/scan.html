@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% block title %}Scannen{% endblock %}
+{% block head %}<script src="/static/js/scan.js?v={{ APP_VERSION }}" defer></script>{% endblock %}
+{% block content %}
+<div x-data='scanApp({{ {'mode': modus, 'unknown': unbekannt, 'furniture': moebel, 'canStock': me.can('stock', 2), 'canInv': me.can('inventory', 2), 'canCreate': me.can('items', 3), 'canAlias': me.can('locations', 2), 'canLed': me.can('wled_show'), 'canShop': me.can('purchasing', 3)}|tojson }})'>
+
+  <div class="modes">
+    <template x-for="m in modes" :key="m.id">
+      <button class="btn" :class="{active: mode===m.id, primary: mode===m.id}" @click="setMode(m.id)" x-show="m.show">
+        <span x-text="m.icon" style="font-size:1.3rem"></span><span x-text="m.label"></span>
+      </button>
+    </template>
+  </div>
+
+  <div class="card" style="margin-top:10px">
+    <div class="row spread"><b x-text="prompt()"></b>
+      <div class="row">
+        <button class="btn sm" @click="toggleCamera()" x-text="camOn ? '⏹ Kamera' : '📷 Kamera'"></button>
+        <button class="btn sm" x-show="camOn && torchAvailable" @click="toggleTorch()">🔦</button>
+      </div>
+    </div>
+    <div class="scanner" x-show="camOn" style="margin-top:8px">
+      <video x-ref="video" playsinline muted></video><div class="frame"></div>
+      <div class="hint" x-text="engine ? 'Scanner: ' + engine : 'Starte Kamera …'"></div>
+    </div>
+    <p class="small err" x-show="camError" x-text="camError" style="color:var(--err)"></p>
+    <form class="row" style="margin-top:8px" @submit.prevent="manual()">
+      <input x-ref="manualInput" x-model="manualCode" class="grow" placeholder="Code eingeben/scannen oder Name suchen" autocomplete="off" style="flex:1">
+      <button class="btn">OK</button>
+    </form>
+    <div x-show="searchResults.length" class="itemlist" style="margin-top:8px">
+      <template x-for="it in searchResults" :key="it.id">
+        <button type="button" class="itemrow" @click="useItem(it)" style="text-align:left">
+          <div class="thumb"><img :src="it.image || ''" x-show="it.image"></div>
+          <div><div class="t" x-text="it.name"></div><div class="s" x-text="(it.description||'') + ' · ' + it.lots.map(l=>l.location||'ohne Ort').join('; ')"></div></div>
+          <div class="qty" x-text="it.stock_mode==='exact' ? fmt(it.total)+' '+it.unit : ''"></div>
+        </button>
+      </template>
+    </div>
+  </div>
+
+  <!-- Status der aktuellen Aufgabe -->
+  <div class="card" x-show="item || loc || lot || unknownCode" x-cloak>
+    <template x-if="unknownCode">
+      <div>
+        <template x-if="unknownLabel">
+          <div class="note" style="margin-bottom:8px">📦 Etikett einer Lieferantentüte erkannt:
+            <b x-text="unknownLabel.mpn || unknownLabel.sku"></b><span x-show="unknownLabel.supplier" x-text="' · ' + unknownLabel.supplier"></span><span x-show="unknownLabel.qty" x-text="' · ' + unknownLabel.qty + ' Stk'"></span>
+            <div class="small muted">Diesen Artikel gibt es noch nicht.</div>
+            <a class="btn primary" style="margin-top:6px" x-show="caps.canCreate" :href="'/artikel/erkennen?code=' + encodeURIComponent(unknownCode) + (loc ? '&ort=' + encodeURIComponent(loc.code) : '')">＋ Bauteil aus Etikett anlegen</a>
+          </div>
+        </template>
+        <p x-show="!unknownLabel">Unbekannter Code <code x-text="unknownCode"></code></p>
+        <div class="row">
+          <button class="btn" x-show="caps.canCreate" @click="startQuickCreate(unknownCode)">＋ Neuer Artikel mit diesem Code</button>
+          <button class="btn" x-show="loc && caps.canAlias" @click="assignAliasToLoc(unknownCode)">Als Etikett für <span x-text="loc && loc.name"></span></button>
+          <button class="btn" x-show="lot && caps.canStock" @click="assignAliasToLot(unknownCode)">Code nur für diesen Bestand (<span x-text="lot && lot.location"></span>)</button>
+          <button class="btn" x-show="item" @click="assignAliasToItem(unknownCode)">Code zu <span x-text="item && item.name"></span></button>
+          <button class="btn ghost" @click="unknownCode=null">Verwerfen</button>
+        </div>
+        <p class="small muted">Tipp: Erst Lagerort, Artikel oder Bestand (z. B. die Spule) wählen, dann das fremde Etikett scannen – dann kannst du es direkt zuordnen.</p>
+      </div>
+    </template>
+
+    <template x-if="loc && !unknownCode">
+      <div>
+        <div class="row spread"><div><div class="small muted">Lagerort</div><b x-text="loc.path"></b> <span class="badge code" x-text="loc.code"></span></div>
+          <div class="row"><button class="btn btn-led" x-show="loc.has_lights && caps.canLed" @click="led({location_id: loc.id})">💡</button><a class="btn sm" :href="loc.url">Öffnen</a></div></div>
+        <div x-show="mode==='info' || mode==='inventur' || mode==='entnehmen'">
+          <template x-for="l in loc.lots" :key="l.id">
+            <div class="row spread" style="border-bottom:1px solid var(--border);padding:6px 0">
+              <div class="grow"><a :href="'/artikel/'+l.item_id" x-text="l.item"></a> <span class="badge" x-show="l.needs_review">prüfen</span><span class="badge ok" x-show="checked[l.id]">✔</span>
+                <div class="small muted" x-text="l.location"></div></div>
+              <div class="row">
+                <b x-show="l.stock_mode==='exact'" x-text="fmt(l.quantity)+' '+l.unit"></b>
+                <template x-if="mode==='entnehmen' && caps.canStock"><button class="btn sm" @click="pickLot(l)">Entnehmen</button></template>
+                <template x-if="mode==='inventur' && caps.canInv"><div class="row">
+                  <button class="btn sm primary" @click="confirmLot(l)">✔</button>
+                  <input type="number" step="any" min="0" :value="l.quantity" style="width:70px" @change="countLot(l, $event.target.value)"></div></template>
+              </div>
+            </div>
+          </template>
+          <p class="muted small" x-show="!loc.lots.length">Leer.</p>
+        </div>
+        <div class="row" x-show="mode==='umlagern' && caps.canStock && !item" style="margin-top:8px">
+          <p class="small">Ganzen Lagerort „<span x-text="loc.name"></span>“ inkl. Inhalt verschieben? Dann jetzt den Ziel-Ort scannen.</p>
+          <button class="btn sm" @click="moveWhole=loc; loc=null; toast('Ziel-Lagerort scannen')">Ja, ganzen Ort verschieben</button>
+        </div>
+      </div>
+    </template>
+
+    <template x-if="item && !unknownCode">
+      <div style="margin-top:8px">
+        <div class="row spread"><div class="row"><div class="thumb"><img :src="item.image||''" x-show="item.image"></div>
+          <div><div class="small muted">Artikel</div><b x-text="item.name"></b><div class="small muted" x-text="item.description"></div></div></div>
+          <div class="row"><button class="btn btn-led" x-show="caps.canLed && item.lots.length" @click="led({item_id: item.id})">💡</button>
+            <button class="btn sm" x-show="caps.canShop" title="Auf die Einkaufsliste" @click="api('/api/v1/shopping', {item_id: item.id}).then(r => toast('🛒 ' + r.quantity + ' × ' + r.name + ' auf der Einkaufsliste')).catch(e => toast(e.message))">🛒</button>
+            <a class="btn sm" :href="item.url">Öffnen</a></div></div>
+        <template x-for="l in item.lots" :key="l.id">
+          <div class="row spread" style="padding:4px 0">
+            <span class="small" x-text="(l.location||'ohne Ort') + (l.serial ? ' · SN '+l.serial : '')"></span>
+            <div class="row"><a class="btn sm" x-show="l.wall" :href="'/orte/' + l.wall + '/wand?artikel=' + l.item_id" title="In der Lageransicht zeigen">📍</a><b x-show="l.stock_mode==='exact'" x-text="fmt(l.quantity)+' '+l.unit"></b>
+              <button class="btn sm" x-show="(mode==='entnehmen' || mode==='umlagern') && caps.canStock" @click="pickLot(l)" :class="{primary: lot && lot.id===l.id}">wählen</button></div>
+          </div>
+        </template>
+      </div>
+    </template>
+
+    <!-- Menge / Abschluss -->
+    <div x-show="needsQty()" style="margin-top:12px">
+      <template x-if="lot && lot.stock_mode==='coarse' && mode==='entnehmen'">
+        <div class="row"><span>Füllstand:</span>
+          <button class="btn" @click="coarse('ok')"><span class="amp ok"></span> genug</button>
+          <button class="btn" @click="coarse('low')"><span class="amp low"></span> wenig</button>
+          <button class="btn" @click="coarse('empty')"><span class="amp empty"></span> leer</button></div>
+      </template>
+      <div class="row" x-show="!(lot && lot.stock_mode==='coarse' && mode==='entnehmen')">
+        <div class="stepper"><button class="btn" @click="qty=Math.max(0, +qty-1)">−</button><input type="number" x-model="qty" step="any" min="0" inputmode="decimal"><button class="btn" @click="qty=+qty+1">＋</button></div>
+        <span class="small muted" x-show="mode==='umlagern'">leer = alles</span>
+        <button class="btn primary big" @click="commit()" x-text="commitLabel()"></button>
+      </div>
+    </div>
+    <div class="row" style="margin-top:10px"><button class="btn sm ghost" @click="reset()">Neu beginnen</button></div>
+  </div>
+
+  <!-- Schnell-Neuanlage -->
+  <div class="card" x-show="mode==='neu'" x-cloak>
+    <h2 class="mt0">Schnell neu anlegen</h2>
+    <label>Foto</label><input type="file" accept="image/*" capture="environment" x-ref="photo">
+    <label>Name oder Katalog-Suche</label>
+    <input x-model="qc.name" @input.debounce.300ms="catalogSearch()" placeholder="z. B. BC547 oder Akkuschrauber">
+    <div x-show="qc.catalog.length" class="small" style="margin:6px 0">
+      <template x-for="p in qc.catalog" :key="p.key"><button type="button" class="btn sm" :class="{primary: qc.key===p.key}" @click="qc.key=p.key; qc.name=p.name" style="margin:2px"><span x-text="p.name + ' – ' + p.description.slice(0,40)"></span></button></template>
+    </div>
+    <label>Kategorie (wenn nicht aus Katalog)</label>
+    <select x-model="qc.category"><option value="">–</option>{% for id, p in cats %}<option value="{{ id }}">{{ p }}</option>{% endfor %}</select>
+    <label>Lagerort</label><div class="row"><input x-model="qc.location" placeholder="Etikett scannen oder Code" class="grow"><span class="small muted" x-text="qc.locationPath"></span></div>
+    <label>Menge</label><input type="number" x-model="qc.qty" step="any" min="0">
+    <label>Barcode</label><input x-model="qc.barcode">
+    <button class="btn primary big" style="margin-top:10px;width:100%" @click="quickCreate()">Anlegen</button>
+  </div>
+
+  <!-- Etiketten zuordnen -->
+  <div class="card" x-show="mode==='zuordnen'" x-cloak>
+    <h2 class="mt0">Vorhandene Etiketten zuordnen</h2>
+    <div x-show="!assign.furniture">
+      <p class="small">1. Lagermöbel wählen (z. B. Kleinteilemagazin 2). Danach scannst du die Etiketten Fach für Fach in Rasterreihenfolge.</p>
+      <input placeholder="Möbel suchen …" @input.debounce.300ms="furnitureSearch($event.target.value)">
+      <template x-for="f in assign.options" :key="f.id"><button class="btn sm" style="margin:3px" @click="loadFurniture(f)" x-text="f.path + ' (' + f.children + ')'"></button></template>
+    </div>
+    <div x-show="assign.furniture">
+      <div class="row spread"><b x-text="assign.furniture && assign.furniture.path"></b><button class="btn sm ghost" @click="assign.furniture=null">anderes Möbel</button></div>
+      <p>Nächstes Fach: <b style="font-size:1.3rem" x-text="assign.cells[assign.idx] ? assign.cells[assign.idx].name : 'fertig 🎉'"></b>
+        <span class="small muted" x-text="(assign.idx+1) + ' / ' + assign.cells.length"></span></p>
+      <div class="row">
+        <button class="btn sm" @click="assign.idx=Math.max(0,assign.idx-1); ledCell()">← zurück</button>
+        <button class="btn sm" @click="assign.idx++; ledCell()">überspringen →</button>
+        <button class="btn sm" x-show="assign.last" @click="undoAssign()">↶ letzte Zuordnung</button>
+      </div>
+      <div class="row" style="margin-top:6px;flex-wrap:wrap">
+        <template x-for="(c, i) in assign.cells" :key="c.id"><button class="btn sm" :class="{primary: i===assign.idx}" @click="assign.idx=i; ledCell()" x-text="c.name + (c.aliases.length ? ' ✔' : '')"></button></template>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
