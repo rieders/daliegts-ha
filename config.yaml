@@ -1,5 +1,5 @@
 name: "DaLiegt’s"
-version: "0.25.0"
+version: "0.30.0"
 slug: daliegts
 description: "Lager für Bauteile & Werkzeug – das Fach leuchtet per WLED, Suche per Sprache"
 url: "https://daliegts.de"
@@ -22,4 +22,3 @@ options:
   base_url: ""
 schema:
   base_url: "str?"
-image: "ghcr.io/rieders/daliegts-{arch}"
