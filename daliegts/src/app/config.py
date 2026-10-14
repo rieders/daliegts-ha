@@ -6,7 +6,7 @@ import secrets
 from dataclasses import dataclass, field
 from pathlib import Path
 
-APP_VERSION = "0.32.0"
+APP_VERSION = "0.32.1"
 APP_RELEASE_DATE = "2026-10-02"  # Erscheinungstag – für „Updates bis“ der Lizenz
 APP_NAME = "DaLiegt’s"  # Anzeigename (technisch bleibt es „lagerwerk“: Paket, /opt/lagerwerk, Datenbank)
 EXPORT_FORMAT_VERSION = 1

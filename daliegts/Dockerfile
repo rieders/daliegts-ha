@@ -1,5 +1,5 @@
-ARG BUILD_FROM=python:3.11-slim
-FROM ${BUILD_FROM}
+# Basis-Image fest eingetragen: Home Assistant würde sonst sein eigenes Alpine-Basisimage (ohne apt-get) einsetzen.
+FROM docker.io/library/python:3.11-slim
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 LAGERWERK_DATA_DIR=/data LAGERWERK_HA_INGRESS=1
 RUN apt-get update \
  && apt-get install -y --no-install-recommends fonts-dejavu-core fonts-liberation cups-client \
