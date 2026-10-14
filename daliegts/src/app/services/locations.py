@@ -242,6 +242,8 @@ class FurnitureSpec:
     xy_rows_reverse: bool = False  # Zeilen-LEDs von unten nach oben nummeriert
     xy_cols_reverse: bool = False  # Spalten-LEDs von rechts nach links nummeriert
     xy_gap: int = 0  # LEDs (Kabelbrücke) zwischen den beiden Gruppen
+    xy_share_rows: bool = False  # Zeilen-LEDs des vorherigen Moduls der Kette mitbenutzen (Magazine nebeneinander, gleiche Zeilen)
+    xy_share_cols: bool = False  # Spalten-LEDs des vorherigen Moduls mitbenutzen (Magazine übereinander, gleiche Spalten)
 
     def __post_init__(self) -> None:
         # Grenzen schützen vor versehentlich riesigen Rastern (Pi Zero!)
@@ -256,6 +258,7 @@ class FurnitureSpec:
         self.xy_cols_side = self.xy_cols_side if self.xy_cols_side in ("top", "bottom") else "top"
         self.xy_first = self.xy_first if self.xy_first in ("rows", "cols") else "rows"
         self.xy_rows_reverse, self.xy_cols_reverse = bool(self.xy_rows_reverse), bool(self.xy_cols_reverse)
+        self.xy_share_rows, self.xy_share_cols = bool(self.xy_share_rows), bool(self.xy_share_cols)
         self.xy_gap = max(0, min(int(self.xy_gap or 0), 500))
 
     def to_template(self) -> dict:
@@ -403,19 +406,40 @@ def led_mapping(spec: FurnitureSpec, cells: list[dict]) -> dict[tuple[int, int],
     return out
 
 
-def xy_layout(spec: FurnitureSpec, rows: int, cols: int, start: int) -> tuple[list[int], list[int], int]:
-    """Kreuz-Modus: (LED-Nummer je Zeile, LED-Nummer je Spalte, benutzte LEDs). Zeile 1 = oben, Spalte 1 = links."""
+def xy_layout(spec: FurnitureSpec, rows: int, cols: int, start: int, prev: tuple[list[int], list[int]] | None = None) -> tuple[list[int], list[int], int]:
+    """Kreuz-Modus: (LED-Nummer je Zeile, LED-Nummer je Spalte, neu benutzte LEDs). Zeile 1 = oben, Spalte 1 = links.
+
+    prev = (Zeilen-LEDs, Spalten-LEDs) des vorherigen Moduls der Kette. Mit xy_share_rows/xy_share_cols werden diese
+    LEDs mitbenutzt (nur wenn das vorherige Modul mindestens so viele Zeilen/Spalten hat) und nicht neu vergeben.
+    """
     def group(n: int, first: int, reverse: bool) -> list[int]:
         idx = [first + i for i in range(n)]
         return idx[::-1] if reverse else idx
 
-    if spec.xy_first == "rows":
-        row_leds = group(rows, start, spec.xy_rows_reverse)
-        col_leds = group(cols, start + rows + spec.xy_gap, spec.xy_cols_reverse)
-    else:
-        col_leds = group(cols, start, spec.xy_cols_reverse)
-        row_leds = group(rows, start + cols + spec.xy_gap, spec.xy_rows_reverse)
-    return row_leds, col_leds, rows + cols + spec.xy_gap
+    fixed_rows = prev[0][:rows] if spec.xy_share_rows and prev and len(prev[0]) >= rows else None
+    fixed_cols = prev[1][:cols] if spec.xy_share_cols and prev and len(prev[1]) >= cols else None
+    order = ("rows", "cols") if spec.xy_first == "rows" else ("cols", "rows")
+    pos, used = start, 0
+    row_leds, col_leds = fixed_rows, fixed_cols
+    allocated = 0
+    for kind in order:
+        if kind == "rows" and fixed_rows is None:
+            if allocated:
+                pos += spec.xy_gap
+                used += spec.xy_gap
+            row_leds = group(rows, pos, spec.xy_rows_reverse)
+            pos += rows
+            used += rows
+            allocated += 1
+        elif kind == "cols" and fixed_cols is None:
+            if allocated:
+                pos += spec.xy_gap
+                used += spec.xy_gap
+            col_leds = group(cols, pos, spec.xy_cols_reverse)
+            pos += cols
+            used += cols
+            allocated += 1
+    return row_leds, col_leds, used
 
 
 def xy_cell_ranges(row_leds: list[int], col_leds: list[int], cell: dict) -> list[tuple[int, int]]:
@@ -434,6 +458,10 @@ SUBDIV_WORDS = {2: ["links", "rechts"], 3: ["links", "mitte", "rechts"]}
 SUBDIV_WORDS_DEPTH = {2: ["vorne", "hinten"], 3: ["vorne", "mitte", "hinten"]}
 
 
+LED_SPEC_KEYS = ("leds_per_cell", "led_gap", "led_row_gap", "serpentine", "led_start_corner", "led_direction", "led_mode", "xy_rows_side",
+                 "xy_cols_side", "xy_first", "xy_rows_reverse", "xy_cols_reverse", "xy_gap", "xy_share_rows", "xy_share_cols")
+
+
 def create_furniture(db: Session, spec: FurnitureSpec, parent_id: int | None) -> Location:
     furniture = create_location(db, spec.name, parent_id, spec.type, structural=True)
     furniture.grid_rows = spec.rows
@@ -442,15 +470,23 @@ def create_furniture(db: Session, spec: FurnitureSpec, parent_id: int | None) ->
     # Benennung und Verkabelung merken (für späteres Umbauen und LED-Ketten in der Wandansicht)
     furniture.layout = {"naming": spec.naming, "prefix": spec.prefix, "bottom_up": spec.bottom_up, "count_direction": spec.count_direction}
     if spec.controller_id:
-        furniture.led_spec = {k: getattr(spec, k) for k in ("leds_per_cell", "led_gap", "led_row_gap", "serpentine", "led_start_corner", "led_direction")}
+        furniture.led_spec = {k: getattr(spec, k) for k in LED_SPEC_KEYS}
     cells = order_cells(spec, _cells(spec)) if spec.count_direction != "rows" else _cells(spec)
-    leds = led_mapping(spec, cells) if spec.controller_id else {}
+    xy = spec.controller_id and spec.led_mode == "xy"
+    if xy:
+        row_leds, col_leds, _used = xy_layout(spec, spec.rows, grid_width(spec), spec.led_start)
+        leds = {}
+    else:
+        leds = led_mapping(spec, cells) if spec.controller_id else {}
     for seq, cell in enumerate(cells, start=1):
         loc = create_location(
             db, _cell_name(spec, cell, seq), furniture.id, "fach", sort_order=seq,
             grid_row=cell["row"], grid_col=cell["col"], grid_rowspan=cell["rowspan"], grid_colspan=cell["colspan"],
         )
-        if spec.controller_id and (cell["row"], cell["col"]) in leds:
+        if xy:
+            for start, count in xy_cell_ranges(row_leds, col_leds, cell):
+                db.add(LocationLight(location_id=loc.id, controller_id=spec.controller_id, led_start=start, led_count=count))
+        elif spec.controller_id and (cell["row"], cell["col"]) in leds:
             start, count = leds[(cell["row"], cell["col"])]
             db.add(LocationLight(location_id=loc.id, controller_id=spec.controller_id, led_start=start, led_count=count))
         if spec.subdivision and spec.subdivision > 1:

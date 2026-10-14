@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi.responses import Response
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -9,6 +10,7 @@ from ..db import get_db
 from ..models import Item, Location, StorageTemplate, WledController
 from ..security import check, require
 from ..services import audit
+from ..services import edges as edgesvc
 from ..services import locations as locsvc
 from ..services import walls
 from ..web import flash, redirect, render
@@ -212,6 +214,16 @@ async def wall_action(loc_id: int, request: Request, db: Session = Depends(get_d
             starts = walls.apply_chains(db, wall)
             audit.log(db, ctx.user_id, "update", "location", wall.id, f"LED-Ketten für {len(starts)} Module in {wall.name} neu berechnet")
             msg = f"LED-Nummern für {len(starts)} Module neu berechnet."
+        elif act == "edges":
+            check(ctx, "wled_config", 2)
+            edgesvc.clear_edges(db, wall)  # bisherige Zuordnungen weg, bevor sich Bereiche ändern
+            layout = dict(wall.layout or {})
+            layout["edges"] = edgesvc.clean_edges(db, wall, body.get("edges") or [])
+            wall.layout = layout
+            db.flush()
+            counts = edgesvc.apply_edges(db, wall)
+            audit.log(db, ctx.user_id, "update", "location", wall.id, f"Kantenleisten in {wall.name}: {sum(counts.values())} LEDs neu berechnet")
+            msg = f"{len(counts)} Kantenleiste(n) mit {sum(counts.values())} LEDs berechnet." if counts else "Keine Kantenleiste (mehr) eingerichtet."
         else:
             raise ValueError("Unbekannte Aktion.")
     except ValueError as e:
@@ -248,3 +260,25 @@ async def reshape(loc_id: int, request: Request, db: Session = Depends(get_db), 
     flash(request, f"Umgebaut: {len(res.added)} Fächer neu ({', '.join(res.added[:8])}{' …' if len(res.added) > 8 else ''}), "
                    f"{len(res.removed)} entfernt. Bestehende Fächer und Etiketten bleiben unverändert.")
     return redirect(f"/orte/{loc_id}")
+
+
+@router.get("/orte/{loc_id}/wand/leiste/{edge_id}.{ext}")
+def edge_holder(loc_id: int, edge_id: str, ext: str, request: Request, db: Session = Depends(get_db), ctx=Depends(require("locations", 1))):
+    """3D-Druck-Halterung einer Kantenleiste: OpenSCAD-Quelltext (.scad) oder fertige STL-Datei (.stl, falls OpenSCAD installiert ist)."""
+    if ext not in ("scad", "stl"):
+        raise HTTPException(404, "Format nicht bekannt")
+    wall = _loc(db, loc_id)
+    data = {e["id"]: e for e in edgesvc.edge_data(wall)}
+    e = data.get(edge_id)
+    if e is None:
+        raise HTTPException(404, "Leiste nicht gefunden")
+    title = f"{wall.name} {e['side']}"
+    try:
+        src = edgesvc.scad_source(e, e["pos"], e["nums"], title, dict(request.query_params))
+        body, media = (src.encode("utf-8"), "text/plain; charset=utf-8") if ext == "scad" else (edgesvc.scad_to_stl(src), "model/stl")
+    except ValueError as exc:
+        raise HTTPException(400, str(exc))
+    except RuntimeError as exc:
+        raise HTTPException(501, str(exc))
+    name = "".join(ch if ch.isalnum() else "_" for ch in title).strip("_") or "leiste"
+    return Response(body, media_type=media, headers={"Content-Disposition": f'attachment; filename="{name}.{ext}"'})

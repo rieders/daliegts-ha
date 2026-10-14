@@ -19,6 +19,7 @@ from sqlalchemy.orm import Session
 
 from ..config import settings
 from ..models import Location, LocationLight, WledController
+from .power import power
 
 log = logging.getLogger("lagerwerk.wled")
 
@@ -259,8 +260,27 @@ class WledManager:
         return {k: v.get("n", f"Preset {k}") for k, v in data.items() if k != "0" and isinstance(v, dict)}
 
     # ---------------------------------------------------------- Anzeige
+    async def wake(self, info: CtrlInfo | None) -> None:
+        """Schaltet bei Bedarf die WiFi-Steckdose ein und wartet, bis der Controller antwortet (echte Nutzung, kein Ruhemodus)."""
+        if not power.enabled:
+            return
+        if info is None:
+            power.touch()
+            return
+
+        async def _up() -> bool:
+            try:
+                r = await self.client.get(f"{info.url}/json/info", timeout=1.5)
+                return r.status_code == 200
+            except Exception:  # noqa: BLE001
+                return False
+
+        await power.ensure_on(_up)
+
     async def show(self, infos: dict[int, CtrlInfo], targets: list[LightTarget], duration: float | None = None, exclusive: bool = True) -> int:
         """Zeigt Ziele an. exclusive=True ersetzt bisherige Anzeigen auf den betroffenen Controllern."""
+        if power.enabled and targets:
+            await self.wake(next((infos[t.controller_id] for t in targets if t.controller_id in infos), None))
         self._token += 1
         token = self._token
         by_ctrl: dict[int, list[LightTarget]] = {}
@@ -401,6 +421,7 @@ class WledManager:
 
     async def count_through(self, info: CtrlInfo, step: int = 10) -> None:
         """Lauflicht: jede step-te LED weiß, Rest aus – hilft beim Zählen/Zuordnen."""
+        await self.wake(info)
         ranges = [(i, i + 1, "FFFFFF" if i % step == 0 else "202020") for i in range(0, info.led_count)]
         await self.post_state(info, payload(info, ranges))
 

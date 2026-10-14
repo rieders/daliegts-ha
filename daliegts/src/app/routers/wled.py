@@ -9,6 +9,7 @@ from ..db import get_db
 from ..models import Location, LocationLight, WledController
 from ..security import require
 from ..services import audit
+from ..services import power as power_svc
 from ..services import locations as locsvc
 from ..services.wled import CtrlInfo, LightTarget, clean_color, controller_infos, manager
 from ..web import back, flash, redirect, render
@@ -33,8 +34,39 @@ def _ctrl(db: Session, cid: int) -> WledController:
 def page(request: Request, db: Session = Depends(get_db), ctx=Depends(require("wled_show", 1))):
     ctrls = list(db.scalars(select(WledController).order_by(WledController.name)))
     counts = {c.id: len(list(db.scalars(select(LocationLight.id).where(LocationLight.controller_id == c.id)))) for c in ctrls}
+    pcfg = power_svc.load(db)
     return render(request, "wled.html", {"ctrls": ctrls, "status": manager.status(), "counts": counts,
-                                         "paused": manager.paused_idle, "presence": manager.presence})
+                                         "paused": manager.paused_idle, "presence": manager.presence,
+                                         "pcfg": power_svc.public(pcfg), "pkinds": power_svc.KINDS, "pstatus": power_svc.power.status()})
+
+
+@router.post("/wled/strom/speichern")
+async def power_save(request: Request, db: Session = Depends(get_db), ctx=Depends(require("wled_config", 2))):
+    f = dict(await request.form())
+    cfg = power_svc.save(db, f)
+    power_svc.power.configure(cfg)
+    audit.log(db, ctx.user_id, "update", "wled", None, "Steckdosen-Steuerung gespeichert")
+    db.commit()
+    flash(request, "Steckdosen-Steuerung gespeichert." + (" Sie ist eingeschaltet." if cfg["enabled"] else " Sie ist ausgeschaltet."))
+    return redirect("/wled")
+
+
+@router.post("/wled/strom/{action}")
+async def power_test(action: str, request: Request, db: Session = Depends(get_db), ctx=Depends(require("wled_config", 2))):
+    if action not in ("an", "aus"):
+        raise HTTPException(404, "Unbekannte Aktion")
+    saved = power_svc.power.cfg
+    f = await request.form()
+    if f.get("kind"):  # Test mit den Werten aus dem Formular, auch ungespeichert
+        old = power_svc.load(db)
+        cfg = power_svc.clean({**f})
+        for k in power_svc.SECRET_KEYS:
+            cfg[k] = cfg[k] or old.get(k, "")
+        power_svc.power.cfg = {**cfg, "enabled": True}
+    ok, err = await power_svc.power.switch(action == "an")
+    power_svc.power.cfg = saved
+    flash(request, f"Steckdose {'eingeschaltet' if action == 'an' else 'ausgeschaltet'}." if ok else f"Schalten fehlgeschlagen: {err}", "ok" if ok else "err")
+    return redirect("/wled")
 
 
 @router.post("/wled/speichern")
@@ -186,6 +218,7 @@ async def idle_test(cid: int, request: Request, db: Session = Depends(get_db), c
         raise HTTPException(400, "Preset-Nummer fehlt.")
     if preset <= 0:
         raise HTTPException(400, "Bitte eine Preset-Nummer eintragen.")
+    await manager.wake(CtrlInfo.of(c))
     ok = await manager.post_state(CtrlInfo.of(c), {"ps": preset, "bri": bri})
     return {"ok": bool(ok)}
 

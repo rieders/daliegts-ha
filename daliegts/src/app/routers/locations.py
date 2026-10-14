@@ -332,6 +332,9 @@ def _spec_from_form(f) -> locsvc.FurnitureSpec:
         light_mode=f.get("light_mode", "both"), controller_id=_i("controller_id", 0) or None, led_start=_i("led_start", 0),
         leds_per_cell=max(1, _i("leds_per_cell", 3)), led_gap=_i("led_gap", 0), led_row_gap=_i("led_row_gap", 0),
         serpentine=bool(f.get("serpentine")), led_start_corner=f.get("led_start_corner", "top_left"), led_direction=f.get("led_direction", "rows"),
+        led_mode=f.get("led_mode", "cell"), xy_rows_side=f.get("xy_rows_side", "left"), xy_cols_side=f.get("xy_cols_side", "top"),
+        xy_first=f.get("xy_first", "rows"), xy_gap=_i("xy_gap", 0), xy_rows_reverse=bool(f.get("xy_rows_reverse")),
+        xy_cols_reverse=bool(f.get("xy_cols_reverse")), xy_share_rows=bool(f.get("xy_share_rows")), xy_share_cols=bool(f.get("xy_share_cols")),
     )
 
 
@@ -379,6 +382,10 @@ async def wizard_create(parent_id: int, request: Request, db: Session = Depends(
         from ..services import walls
 
         walls.place(db, parent, furniture)  # Wandansicht vorhanden -> rechts anfügen
+    if spec.controller_id and parent is not None and f.get("append_chain"):
+        from ..services import walls
+
+        walls.append_to_chain(db, parent, furniture, spec.controller_id, spec.led_start)
     if f.get("save_template") and f.get("template_name"):
         name = f["template_name"].strip()
         if not db.scalar(select(StorageTemplate).where(StorageTemplate.name == name)):

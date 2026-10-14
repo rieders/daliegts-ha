@@ -526,3 +526,11 @@ pre.code { background: var(--surface-2); border: 1px solid var(--border); border
 .wmod-head .calib-no + .chk-dot + span, .wmod-head .chk-dot + span { flex: 1; overflow: hidden; text-overflow: ellipsis; }
 .calib-card { border-left: 4px solid #12a150; }
 .badge.pro { background: #6b4fd8; color: #fff; font-size: .62rem; letter-spacing: .02em; }
+.wled-dot.shared { opacity: .45; border-style: dashed; box-shadow: none; }
+.wled-dot.shared.on { opacity: 1; }
+.wled-dot.k-edge { background: #ff4dd2; border-color: #5c004a; box-shadow: 0 0 5px rgba(255,77,210,.9); z-index: 3; }
+.wled-dot.k-edge.on { background: #00e676; border-color: #00391b; box-shadow: 0 0 8px #00e676, 0 0 14px #00e676; }
+.wled-dot.k-edge span { top: -4px; left: 11px; }
+.wled-dot.k-edge.right span { left: auto; right: 11px; }
+.wled-dot.k-edge.top span, .wled-dot.k-edge.bottom span { top: 10px; left: -6px; }
+.wled-dot.k-edge.bottom span { top: -12px; }

@@ -9,7 +9,7 @@ function wallEditor(cfg) {
     q: "", hits: { cells: [], locations: [], count: 0 }, hitSet: new Set(),
     size: { w: 0, h: 0 },
     add: { open: false, side: null, kind: "template", template_id: "", type: "magazin", rows: 4, cols: 4, subdivision: 0, row_counts: "", name: "", w: 30, h: 20 },
-    chains: [], specs: {}, chainsDirty: false, calib: null, checkColors: null, showLeds: false,
+    chains: [], edges: [], edgesDirty: false, specs: {}, chainsDirty: false, calib: null, checkColors: null, showLeds: false, holder: { board_w: 10, board_l: 10, board_t: 2, bar_w: 16, bar_t: 8, seg_mm: 200 },
     gridForm: { template_id: "", rows: 8, cols: 4, merges: "", count_direction: "rows" },
 
     async init() {
@@ -28,6 +28,8 @@ function wallEditor(cfg) {
     setData(d) {
       this.data = d;
       this.chains = JSON.parse(JSON.stringify(d.chains || []));
+      this.edges = JSON.parse(JSON.stringify(d.edges || []));
+      this.edgesDirty = false;
       this.specs = {};
       d.modules.forEach((m) => { this.specs[m.id] = { ...m.led_spec }; });
       this.chainsDirty = false;
@@ -346,43 +348,67 @@ function wallEditor(cfg) {
     spec(id) {
       if (!this.specs[id]) this.specs[id] = { leds_per_cell: 3, led_gap: 0, led_row_gap: 0, serpentine: true, led_start_corner: "top_left", led_direction: "rows" };
       const s = this.specs[id];
-      for (const [k, v] of Object.entries({ led_mode: "cell", xy_rows_side: "left", xy_cols_side: "top", xy_first: "rows", xy_rows_reverse: false, xy_cols_reverse: false, xy_gap: 0 })) if (s[k] === undefined) s[k] = v;
+      for (const [k, v] of Object.entries({ led_mode: "cell", xy_rows_side: "left", xy_cols_side: "top", xy_first: "rows", xy_rows_reverse: false, xy_cols_reverse: false, xy_gap: 0, xy_share_rows: false, xy_share_cols: false })) if (s[k] === undefined) s[k] = v;
       return s;
     },
     ledsOf(id) {
-      // Schätzung im Browser (exakt rechnet der Server beim Speichern)
+      // Schätzung im Browser ohne Nachbarn (exakt rechnet der Server beim Speichern)
       const m = this.data.modules.find((m) => m.id === id);
       if (!m) return 0;
       const s = this.spec(id), orig = m.led_spec || {};
-      const same = ["leds_per_cell", "led_gap", "led_row_gap", "led_direction", "led_mode", "xy_gap"].every((k) => s[k] === orig[k]);
+      const same = ["leds_per_cell", "led_gap", "led_row_gap", "led_direction", "led_mode", "xy_gap", "xy_share_rows", "xy_share_cols"].every((k) => s[k] === orig[k]);
       if (same) return m.leds;
       if (!m.rows) return s.leds_per_cell;
       if (s.led_mode === "xy") return m.rows + m.cols + (s.xy_gap || 0);
       const lines = s.led_direction === "rows" ? m.rows : m.cols, along = s.led_direction === "rows" ? m.cols : m.rows;
       return lines * along * (s.leds_per_cell + s.led_gap) - s.led_gap + (lines - 1) * s.led_row_gap;
     },
+    xyCalc(m, start, prev) {
+      // Kreuz-Modus wie auf dem Server: Gruppen der Reihe nach vergeben, geteilte Gruppen vom Vorgänger übernehmen
+      const s = this.spec(m.id);
+      const grp = (n, first, rev) => { const a = Array.from({ length: n }, (_, i) => first + i); return rev ? a.reverse() : a; };
+      let rows = s.xy_share_rows && prev && prev.rows.length >= m.rows ? prev.rows.slice(0, m.rows) : null;
+      let cols = s.xy_share_cols && prev && prev.cols.length >= m.cols ? prev.cols.slice(0, m.cols) : null;
+      const rsh = !!rows, csh = !!cols;
+      let pos = start, used = 0, n = 0;
+      for (const kind of (s.xy_first === "cols" ? ["cols", "rows"] : ["rows", "cols"])) {
+        if (kind === "rows" && !rows) { if (n) { pos += s.xy_gap || 0; used += s.xy_gap || 0; } rows = grp(m.rows, pos, s.xy_rows_reverse); pos += m.rows; used += m.rows; n++; }
+        if (kind === "cols" && !cols) { if (n) { pos += s.xy_gap || 0; used += s.xy_gap || 0; } cols = grp(m.cols, pos, s.xy_cols_reverse); pos += m.cols; used += m.cols; n++; }
+      }
+      return { rows, cols, used, rsh, csh };
+    },
+    chainLayout(ch) {
+      // Start, benötigte LEDs und (im Kreuz-Modus) LED-Nummern je Modul der Kette – live, auch ungespeichert
+      const out = []; let pos = ch.start || 0, prev = null;
+      for (const e of ch.modules) {
+        const m = this.data.modules.find((x) => x.id === e.id), s = m ? this.spec(m.id) : null;
+        let used, xy = null;
+        if (m && m.rows && s.led_mode === "xy") { xy = this.xyCalc(m, pos, prev); used = xy.used; prev = xy; }
+        else used = this.ledsOf(e.id);
+        out.push({ start: pos, used, xy });
+        pos += used + (e.gap || 0);
+      }
+      return out;
+    },
     // ---------------------------------------------------------- LEDs in der Ansicht (v0.30)
     moduleStart(m) {
-      for (const ch of this.chains) { const i = ch.modules.findIndex((e) => e.id === m.id); if (i >= 0) return { start: this.chainStart(ch, i), placed: true }; }
-      return { start: m.led_start || 0, placed: !!m.led_placed };
+      for (const ch of this.chains) { const i = ch.modules.findIndex((e) => e.id === m.id); if (i >= 0) return { start: this.chainStart(ch, i), placed: true, xy: this.chainLayout(ch)[i].xy }; }
+      return { start: m.led_start || 0, placed: !!m.led_placed, xy: null };
     },
     xyOf(m) {
       // Kreuz-Modus: LED-Nummer je Zeile / je Spalte (live aus den Einstellungen, auch ungespeichert)
       const s = this.spec(m.id);
       if (!m.rows || s.led_mode !== "xy") return null;
-      const { start, placed } = this.moduleStart(m);
-      const grp = (n, first, rev) => { const a = Array.from({ length: n }, (_, i) => first + i); return rev ? a.reverse() : a; };
-      let rows, cols;
-      if (s.xy_first === "cols") { cols = grp(m.cols, start, s.xy_cols_reverse); rows = grp(m.rows, start + m.cols + (s.xy_gap || 0), s.xy_rows_reverse); }
-      else { rows = grp(m.rows, start, s.xy_rows_reverse); cols = grp(m.cols, start + m.rows + (s.xy_gap || 0), s.xy_cols_reverse); }
-      return { rows, cols, rs: s.xy_rows_side, cs: s.xy_cols_side, placed };
+      const { start, placed, xy } = this.moduleStart(m);
+      const r = xy || this.xyCalc(m, start, null);
+      return { rows: r.rows, cols: r.cols, rs: s.xy_rows_side, cs: s.xy_cols_side, placed, rsh: !!r.rsh, csh: !!r.csh };
     },
     ledDots(m) {
       if (!this.showLeds || !m.rows) return [];
       const dots = [], xy = this.xyOf(m), c = this.cell && m.cells.find((x) => x.id === this.cell.id);
       if (xy) {
-        xy.rows.forEach((n, i) => dots.push({ k: "r" + i, x: xy.rs === "left" ? 0 : 100, y: (i + 0.5) / m.rows * 100, n: xy.placed ? n : "", on: !!c && i + 1 >= c.r && i + 1 < c.r + c.rs, kind: "k-row" }));
-        xy.cols.forEach((n, i) => dots.push({ k: "c" + i, x: (i + 0.5) / m.cols * 100, y: xy.cs === "top" ? 0 : 100, n: xy.placed ? n : "", on: !!c && i + 1 >= c.c && i + 1 < c.c + c.cs, kind: "k-col" }));
+        xy.rows.forEach((n, i) => dots.push({ k: "r" + i, x: xy.rs === "left" ? 0 : 100, y: (i + 0.5) / m.rows * 100, n: xy.placed ? n : "", on: !!c && i + 1 >= c.r && i + 1 < c.r + c.rs, kind: "k-row" + (xy.rsh ? " shared" : "") }));
+        xy.cols.forEach((n, i) => dots.push({ k: "c" + i, x: (i + 0.5) / m.cols * 100, y: xy.cs === "top" ? 0 : 100, n: xy.placed ? n : "", on: !!c && i + 1 >= c.c && i + 1 < c.c + c.cs, kind: "k-col" + (xy.csh ? " shared" : "") }));
         return dots;
       }
       m.cells.forEach((cl) => {
@@ -391,13 +417,9 @@ function wallEditor(cfg) {
       });
       return dots;
     },
-    chainStart(ch, idx) {
-      let pos = ch.start || 0;
-      for (let i = 0; i < idx; i++) pos += this.ledsOf(ch.modules[i].id) + (ch.modules[i].gap || 0);
-      return pos;
-    },
-    rangeText(ch, idx) { const s = this.chainStart(ch, idx), n = this.ledsOf(ch.modules[idx].id); return `LED ${s}–${s + n - 1}`; },
-    chainEnd(ch) { const n = ch.modules.length; return n ? this.chainStart(ch, n - 1) + this.ledsOf(ch.modules[n - 1].id) : ch.start || 0; },
+    chainStart(ch, idx) { return this.chainLayout(ch)[idx].start; },
+    rangeText(ch, idx) { const l = this.chainLayout(ch)[idx]; return `LED ${l.start}–${l.start + l.used - 1}`; },
+    chainEnd(ch) { const l = this.chainLayout(ch); return l.length ? l[l.length - 1].start + l[l.length - 1].used : ch.start || 0; },
     ctrlLeds(ch) { const c = this.controllers.find((c) => c.id === ch.controller_id); return c ? c.leds : 0; },
     moveInChain(ch, i, d) { const j = i + d; if (j < 0 || j >= ch.modules.length) return; const t = ch.modules[i]; ch.modules[i] = ch.modules[j]; ch.modules[j] = t; ch.modules = [...ch.modules]; this.chainsDirty = true; },
     autoOrder(ch) {
@@ -430,7 +452,7 @@ function wallEditor(cfg) {
       if (!ch) return;
       const last = ch.modules[ch.modules.length - 1];
       this.calib.pos = this.chainEnd(ch) + (last ? last.gap || 0 : 0);  // Lücke nach dem letzten Modul zählt mit
-      const done = ch.modules.map((e, i) => [this.chainStart(ch, i), this.ledsOf(e.id)]);
+      const lay = this.chainLayout(ch), done = ch.modules.map((e, i) => [lay[i].start, lay[i].used]);
       try {
         const r = await api(`/wled/${ch.controller_id}/einmessen`, { pos: this.calib.pos, n: 2, done });
         this.calib.error = r.ok ? "" : (r.error || "Fehler");
@@ -476,7 +498,7 @@ function wallEditor(cfg) {
     async checkChain(ci) {
       const ch = this.chains[ci];
       if (!ch || !ch.modules.length) return;
-      const ranges = ch.modules.map((e, i) => [this.chainStart(ch, i), this.ledsOf(e.id)]);
+      const lay = this.chainLayout(ch), ranges = ch.modules.map((e, i) => [lay[i].start, lay[i].used]);
       try {
         const r = await api(`/wled/${ch.controller_id}/kette-pruefen`, { ranges });
         if (r.ok) this.checkColors = { ci, colors: r.colors };
@@ -486,6 +508,44 @@ function wallEditor(cfg) {
       if (!this.checkColors) return "";
       const ch = this.chains[this.checkColors.ci], i = ch ? ch.modules.findIndex((e) => e.id === id) : -1;
       return i < 0 ? "" : "#" + this.checkColors.colors[i % this.checkColors.colors.length];
+    },
+    // ---------------------------------------------------------- Kantenleisten (v0.31)
+    edgeInfo(e) { return (this.data.edges || []).find((x) => x.id === e.id) || null; },
+    addEdge(axis) {
+      const cid = this.controllers[0] ? this.controllers[0].id : 0;
+      const end = Math.max(0, ...this.edges.filter((e) => e.controller_id === cid).map((e) => { const i = this.edgeInfo(e); return i ? i.end : e.start; }));
+      this.edges.push({ id: "n" + Date.now() % 100000, axis, side: axis === "rows" ? "left" : "top", controller_id: cid, start: end, mode: "cells", pitch_mm: 16.7,
+        offset_cm: 0, merge_mm: 15, positions: "", reverse: false });
+      this.edgesDirty = true;
+    },
+    async saveEdges() {
+      await this.act({ action: "edges", edges: this.edges.map((e) => ({ id: e.id, axis: e.axis, side: e.side, controller_id: e.controller_id, start: e.start, mode: e.mode,
+        pitch_mm: e.pitch_mm, offset_cm: e.offset_cm, merge_mm: e.merge_mm, positions: e.positions, reverse: e.reverse })) });
+    },
+    holderUrl(e, ext) {
+      const q = new URLSearchParams(this.holder || {}).toString();
+      return `/orte/${this.id}/wand/leiste/${e.id}.${ext}` + (q ? "?" + q : "");
+    },
+    edgeDots() {
+      // LED-Positionen der Kantenleisten, am Rand der Magazine eingezeichnet (cm → Pixel)
+      const ms = this.data.modules.filter((m) => m.rows);
+      if (!this.showLeds || !ms.length || !(this.data.edges || []).length) return [];
+      const minX = Math.min(...ms.map((m) => m.x)), maxX = Math.max(...ms.map((m) => m.x + m.w));
+      const minY = Math.min(...ms.map((m) => m.y)), maxY = Math.max(...ms.map((m) => m.y + m.h));
+      const sm = this.cell && ms.find((m) => m.cells.some((c) => c.id === this.cell.id)), cc = sm && sm.cells.find((c) => c.id === this.cell.id);
+      const out = [];
+      this.data.edges.forEach((e) => {
+        let lo = 0, hi = 0;
+        if (cc) {
+          if (e.axis === "rows") { lo = sm.y + (cc.r - 1) / sm.rows * sm.h; hi = sm.y + (cc.r - 1 + cc.rs) / sm.rows * sm.h; }
+          else { lo = sm.x + (cc.c - 1) / sm.cols * sm.w; hi = sm.x + (cc.c - 1 + cc.cs) / sm.cols * sm.w; }
+        }
+        e.pos.forEach((p, i) => {
+          const x = e.axis === "rows" ? (e.side === "left" ? minX + 1 : maxX - 1) : p, y = e.axis === "rows" ? p : (e.side === "top" ? minY + 1 : maxY - 1);
+          out.push({ k: e.id + "_" + i, x: x * this.scale, y: y * this.scale, n: e.nums[i], on: !!cc && p >= lo - 0.01 && p <= hi + 0.01, side: e.side });
+        });
+      });
+      return out;
     },
     async saveChains() {
       const specs = {};

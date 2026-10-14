@@ -64,6 +64,18 @@
       <div><label>Start-Ecke</label><select name="led_start_corner"><option value="top_left">oben links</option><option value="top_right">oben rechts</option><option value="bottom_left">unten links</option><option value="bottom_right">unten rechts</option></select></div>
     </div>
     <label class="inline"><input type="checkbox" name="serpentine" value="1" {{ 'checked' if spec.serpentine }}> Schlangenlinie</label>
+    <div class="fields" style="margin-top:10px">
+      <div><label>Ansteuerung</label><select name="led_mode" title="Voll: LEDs je Fach. Zeile + Spalte: je Reihe eine LED am Rand und je Spalte eine LED oben/unten – das Fach liegt am Kreuzungspunkt, das spart sehr viele LEDs">
+        <option value="cell" {{ 'selected' if spec.led_mode != 'xy' }}>Voll – eine LED (oder mehr) je Fach</option><option value="xy" {{ 'selected' if spec.led_mode == 'xy' }}>Zeile + Spalte – LEDs nur an den Außenkanten</option></select></div>
+      <div><label>Zeilen-LEDs sitzen</label><select name="xy_rows_side"><option value="left">links</option><option value="right">rechts</option></select></div>
+      <div><label>Spalten-LEDs sitzen</label><select name="xy_cols_side"><option value="top">oben</option><option value="bottom">unten</option></select></div>
+    </div>
+    <p class="small muted">„Zeile + Spalte“ ignoriert Verlauf, Start-Ecke und LEDs pro Fach. Für ein 4×8-Magazin sind das 12 statt 32 LEDs.</p>
+    {% if parent and parent.type == 'lagerwand' %}
+    <label class="inline"><input type="checkbox" name="append_chain" value="1"> an die LED-Kette dieser Wand anhängen (LED-Nummern setzt DaLiegt’s fortlaufend)</label><br>
+    <label class="inline"><input type="checkbox" name="xy_share_rows" value="1"> Zeilen-LEDs des vorherigen Magazins mitbenutzen (Magazine nebeneinander, gleiche Zeilen)</label><br>
+    <label class="inline"><input type="checkbox" name="xy_share_cols" value="1"> Spalten-LEDs des vorherigen Magazins mitbenutzen (Magazine übereinander, gleiche Spalten)</label>
+    {% endif %}
     {% else %}<p class="small muted">Noch kein WLED-Controller angelegt – geht auch später über „LED-Zuordnung“ am Möbel.</p>{% endif %}
   </div>
 </div>

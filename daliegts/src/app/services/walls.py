@@ -12,6 +12,7 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from ..models import COARSE_LEVELS, Location, LocationLight, StockLot, StorageTemplate, WledController
+from . import edges as edgesvc
 from . import locations as locsvc
 
 SIDES = ("right", "left", "above", "below")
@@ -322,7 +323,8 @@ def row_counts_of(furniture: Location) -> list[int]:
 
 # ------------------------------------------------------------------ LED-Ketten über mehrere Module
 LED_KEYS = ("leds_per_cell", "led_gap", "led_row_gap", "serpentine", "led_start_corner", "led_direction",
-            "led_mode", "xy_rows_side", "xy_cols_side", "xy_first", "xy_rows_reverse", "xy_cols_reverse", "xy_gap")
+            "led_mode", "xy_rows_side", "xy_cols_side", "xy_first", "xy_rows_reverse", "xy_cols_reverse", "xy_gap",
+            "xy_share_rows", "xy_share_cols")
 
 
 def led_spec_from(spec: locsvc.FurnitureSpec) -> dict:
@@ -340,26 +342,48 @@ def module_spec(m: Location) -> locsvc.FurnitureSpec:
     return spec
 
 
-def module_mapping(m: Location, start: int) -> tuple[dict[int, list[tuple[int, int]]], int]:
-    """(location_id -> [(led_start, led_count), …]), Anzahl benutzter LEDs ab start.
+def module_layout(m: Location, start: int, prev: tuple[list[int], list[int]] | None = None):
+    """(location_id -> [(led_start, led_count), …]), neu benutzte LEDs, (Zeilen-LEDs, Spalten-LEDs) oder None.
 
     Im Modus „cell“ hat jedes Fach einen LED-Bereich, im Modus „xy“ zwei (Zeilen- und Spalten-LED).
+    prev: Zeilen-/Spalten-LEDs des vorherigen xy-Moduls der Kette (für gemeinsame Kanten-LEDs).
     """
     spec = module_spec(m)
     if not m.grid_rows:
         n = spec.leds_per_cell
-        return {m.id: [(start, n)]}, n
+        return {m.id: [(start, n)]}, n, None
     cells = [c for c in m.children if c.grid_row]
     if spec.led_mode == "xy":
-        row_leds, col_leds, used = locsvc.xy_layout(spec, m.grid_rows, m.grid_cols or spec.cols, start)
+        row_leds, col_leds, used = locsvc.xy_layout(spec, m.grid_rows, m.grid_cols or spec.cols, start, prev)
         out = {c.id: locsvc.xy_cell_ranges(row_leds, col_leds, {"row": c.grid_row, "col": c.grid_col, "rowspan": c.grid_rowspan, "colspan": c.grid_colspan})
                for c in cells}
-        return out, used
+        return out, used, (row_leds, col_leds)
     spec.led_start = start
     mp = locsvc.led_mapping(spec, [{"row": c.grid_row, "col": c.grid_col, "rowspan": c.grid_rowspan, "colspan": c.grid_colspan} for c in cells])
     out = {c.id: [mp[(c.grid_row, c.grid_col)]] for c in cells if (c.grid_row, c.grid_col) in mp}
     end = max((s + n for rs in out.values() for s, n in rs), default=start)
-    return out, end - start
+    return out, end - start, None
+
+
+def module_mapping(m: Location, start: int, prev=None) -> tuple[dict[int, list[tuple[int, int]]], int]:
+    mapping, used, _ = module_layout(m, start, prev)
+    return mapping, used
+
+
+def walk_chains(db: Session, wall: Location):
+    """Geht alle Ketten durch: liefert (controller_id, Modul, Start-LED, Zuordnung, benutzte LEDs, (Zeilen-LEDs, Spalten-LEDs) | None)."""
+    for ch in chains_of(wall):
+        pos, cid = ch["start"], ch["controller_id"]
+        prev = None
+        for entry in ch["modules"]:
+            m = db.get(Location, entry["id"])
+            if m is None:
+                continue
+            mapping, used, ctx = module_layout(m, pos, prev)
+            if ctx is not None:
+                prev = ctx
+            yield cid, m, pos, mapping, used, ctx
+            pos += used + entry["gap"]
 
 
 def chains_of(wall: Location) -> list[dict]:
@@ -383,27 +407,38 @@ def clean_chains(db: Session, wall: Location, chains: list[dict]) -> list[dict]:
     return out
 
 
+def append_to_chain(db: Session, wall: Location, module: Location, controller_id: int, start: int = 0) -> None:
+    """Hängt ein Modul ans Ende der LED-Kette des Controllers (legt die Kette an, falls es noch keine gibt) und berechnet die LED-Nummern neu.
+
+    Im Kreuz-Modus mit „Zeilen/Spalten-LEDs mitbenutzen“ werden die LEDs des Vorgängers übernommen.
+    """
+    chains = [dict(c, modules=list(c["modules"])) for c in chains_of(wall)]
+    ch = next((c for c in chains if c["controller_id"] == controller_id), None)
+    if ch is None:
+        ch = {"controller_id": controller_id, "start": max(0, int(start or 0)), "modules": []}
+        chains.append(ch)
+    if all(e["id"] != module.id for e in ch["modules"]):
+        ch["modules"].append({"id": module.id, "gap": 0})
+    wall.layout = {**(wall.layout or {}), "chains": chains}
+    db.flush()
+    apply_chains(db, wall)
+
+
 def apply_chains(db: Session, wall: Location) -> dict[int, int]:
     """Berechnet die LED-Nummern aller Module der Ketten fortlaufend neu. Rückgabe: Modul-ID -> Start-LED."""
     starts: dict[int, int] = {}
-    for ch in chains_of(wall):
-        pos, cid = ch["start"], ch["controller_id"]
-        for entry in ch["modules"]:
-            m = db.get(Location, entry["id"])
-            if m is None:
-                continue
-            mapping, used = module_mapping(m, pos)
-            targets = {t.id: t for t in [m, *[c for c in m.children if c.grid_row]]}
-            for t in targets.values():
-                for lt in list(t.lights):
-                    if lt.controller_id == cid:
-                        t.lights.remove(lt)  # delete-orphan
-            db.flush()
-            for lid, ranges in mapping.items():
-                for s, n in ranges:
-                    targets[lid].lights.append(LocationLight(controller_id=cid, led_start=s, led_count=n))
-            starts[m.id] = pos
-            pos += used + entry["gap"]
+    eranges = edgesvc.edge_ranges(wall)
+    for cid, m, pos, mapping, _used, _ctx in walk_chains(db, wall):
+        targets = {t.id: t for t in [m, *[c for c in m.children if c.grid_row]]}
+        for t in targets.values():
+            for lt in list(t.lights):
+                if lt.controller_id == cid and not edgesvc.owned_by_edge(eranges, cid, lt.led_start):  # Kantenleisten-LEDs bleiben
+                    t.lights.remove(lt)  # delete-orphan
+        db.flush()
+        for lid, ranges in mapping.items():
+            for s, n in ranges:
+                targets[lid].lights.append(LocationLight(controller_id=cid, led_start=s, led_count=n))
+        starts[m.id] = pos
     db.flush()
     return starts
 
@@ -411,6 +446,7 @@ def apply_chains(db: Session, wall: Location) -> dict[int, int]:
 # ------------------------------------------------------------------ Daten für die Oberfläche
 def wall_data(db: Session, wall: Location) -> dict:
     tc = locsvc.TreeCache(db)
+    layouts = {m.id: (pos, used, ctx) for _cid, m, pos, _mp, used, ctx in walk_chains(db, wall)}
     all_ids = tc.descendants(wall.id)
     lots = list(db.scalars(select(StockLot).where(StockLot.location_id.in_(all_ids)))) if all_ids else []
     shown: dict[int, dict] = {}
@@ -440,13 +476,17 @@ def wall_data(db: Session, wall: Location) -> dict:
                   "items": [], "n": 0, "low": False, "lit": bool(c.lights), "leds": [[lt.led_start, lt.led_count] for lt in c.lights], "comps": sum(1 for k in c.children if k.type == "abteil")}
             cells.append(cd)
             shown[c.id] = cd
-        _, leds = module_mapping(m, 0)
         mspec = module_spec(m)
+        chained = layouts.get(m.id)
+        leds = chained[1] if chained else module_mapping(m, 0)[1]
         lights = [lt for c in m.children for lt in c.lights]
         led_start = min((lt.led_start for lt in lights), default=0)
         xy = None
         if mspec.led_mode == "xy" and m.grid_rows:
-            rl, cl, _used = locsvc.xy_layout(mspec, m.grid_rows, m.grid_cols or mspec.cols, led_start)
+            if chained and chained[2]:
+                rl, cl = chained[2]
+            else:
+                rl, cl, _used = locsvc.xy_layout(mspec, m.grid_rows, m.grid_cols or mspec.cols, led_start)
             xy = {"rows": rl, "cols": cl, "rows_side": mspec.xy_rows_side, "cols_side": mspec.xy_cols_side}
         md = {"id": m.id, "name": m.name, "code": m.code, "type": m.type, "x": m.wall_x, "y": m.wall_y, "w": m.wall_w or 40, "h": m.wall_h or 30,
               "rows": rows, "cols": cols, "virtual": virtual, "count": len(kids), "cells": cells, "items": [], "n": 0, "low": False,
@@ -479,7 +519,7 @@ def wall_data(db: Session, wall: Location) -> dict:
     cells_total = sum(len(m["cells"]) or 1 for m in modules)
     cells_free = sum(m["free"] if m["cells"] else (0 if m["n"] else 1) for m in modules)
     return {"wall": {"id": wall.id, "name": wall.name}, "modules": modules, "unplaced": unplaced, "width": width, "height": height,
-            "overlap": sorted(overlapping(wall)), "chains": chains_of(wall), "cells_total": cells_total, "cells_free": cells_free,
+            "overlap": sorted(overlapping(wall)), "chains": chains_of(wall), "edges": edgesvc.edge_data(wall), "cells_total": cells_total, "cells_free": cells_free,
             "areas": [area_summary(db, a) for a in areas_of(wall)]}
 
 

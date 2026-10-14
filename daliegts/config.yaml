@@ -1,5 +1,5 @@
 name: "DaLiegt’s"
-version: "0.30.0"
+version: "0.32.0"
 slug: daliegts
 description: "Lager für Bauteile & Werkzeug – das Fach leuchtet per WLED, Suche per Sprache"
 url: "https://daliegts.de"
@@ -7,6 +7,7 @@ arch:
   - amd64
   - aarch64
 init: false
+homeassistant_api: true
 startup: application
 boot: auto
 ingress: true

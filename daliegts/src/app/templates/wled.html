@@ -26,6 +26,39 @@
 {% if me.can('wled_config', 2) %}
 <details class="card" {{ 'open' if not ctrls }}><summary><b>＋ Controller hinzufügen</b></summary>{% with c=None %}{% include "partials/wled_form.html" %}{% endwith %}</details>
 {% else %}<p class="note">Zum Einrichten von Controllern bitte den Admin-Modus einschalten.</p>{% endif %}
+{% if me.can('wled_config', 2) %}
+<details class="card" {{ 'open' if pcfg.enabled }} x-data="{ kind: '{{ pcfg.kind }}' }">
+  <summary class="row spread"><b>⚡ Strom: WiFi-Steckdose für WLED</b>
+    <span class="small">{% if pcfg.enabled %}<span class="badge {{ 'ok' if pstatus.on else '' }}">{{ 'an' if pstatus.on else ('aus' if pstatus.on is false else 'Zustand unbekannt') }}</span>{% if pstatus.error %} <span class="badge err" title="{{ pstatus.error }}">Fehler</span>{% endif %}{% else %}<span class="badge">aus</span>{% endif %}</span></summary>
+  <p class="small muted">Die Steckdose geht an, sobald du das Lagersystem benutzt (ein Fach leuchten lassen), und nach der eingestellten Zeit ohne Nutzung wieder aus. WLED hängt an dieser Steckdose.</p>
+  {% if pstatus.error %}<p class="flash err small">{{ pstatus.error }}</p>{% endif %}
+  <form method="post" action="/wled/strom/speichern" id="powerform">
+    <div class="fields">
+      <div><label class="inline"><input type="checkbox" name="enabled" value="1" {{ 'checked' if pcfg.enabled }}> Steckdosen-Steuerung aktiv</label></div>
+      <div><label>Steckdose</label><select name="kind" x-model="kind">{% for k, v in pkinds.items() %}<option value="{{ k }}" {{ 'selected' if pcfg.kind == k }}>{{ v }}</option>{% endfor %}</select></div>
+      <template x-if="['shelly1','shelly2','tasmota'].includes(kind)"><div><label>Adresse der Steckdose</label><input name="host" value="{{ pcfg.host }}" placeholder="z. B. 192.168.1.50"></div></template>
+      <template x-if="['shelly1','shelly2','tasmota'].includes(kind)"><div><label>Kanal / Relais (0 = erstes)</label><input type="number" name="channel" min="0" max="15" value="{{ pcfg.channel }}"></div></template>
+      <template x-if="['shelly1','shelly2','tasmota'].includes(kind)"><div><label>Benutzer (falls Passwort gesetzt)</label><input name="user" value="{{ pcfg.user }}" autocomplete="off"></div></template>
+      <template x-if="['shelly1','shelly2','tasmota'].includes(kind)"><div><label>Passwort {% if pcfg.has_password %}<span class="muted">(gespeichert, leer lassen = behalten)</span>{% endif %}</label><input type="password" name="password" autocomplete="new-password"></div></template>
+      <template x-if="kind === 'homeassistant'"><div><label>Entität</label><input name="entity_id" value="{{ pcfg.entity_id }}" placeholder="switch.lagersteckdose"></div></template>
+      <template x-if="kind === 'homeassistant'"><div><label>Home-Assistant-Adresse <span class="muted">(in der HA-App leer lassen)</span></label><input name="ha_url" value="{{ pcfg.ha_url }}" placeholder="http://homeassistant.local:8123"></div></template>
+      <template x-if="kind === 'homeassistant'"><div><label>Zugriffstoken {% if pcfg.has_ha_token %}<span class="muted">(gespeichert, leer lassen = behalten)</span>{% endif %}<span class="muted"> (in der HA-App nicht nötig)</span></label><input type="password" name="ha_token" autocomplete="new-password"></div></template>
+      <template x-if="kind === 'webhook'"><div><label>Adresse zum Einschalten</label><input name="on_url" value="{{ pcfg.on_url }}" placeholder="http://…"></div></template>
+      <template x-if="kind === 'webhook'"><div><label>Adresse zum Ausschalten</label><input name="off_url" value="{{ pcfg.off_url }}" placeholder="http://…"></div></template>
+      <template x-if="kind === 'webhook'"><div><label>Methode</label><select name="method"><option value="GET" {{ 'selected' if pcfg.method == 'GET' }}>GET</option><option value="POST" {{ 'selected' if pcfg.method == 'POST' }}>POST</option></select></div></template>
+      <div><label>Ausschalten nach (Minuten ohne Nutzung)</label><input type="number" name="idle_min" min="1" max="1440" value="{{ pcfg.idle_min }}"></div>
+      <div><label>Wartezeit nach dem Einschalten (Sekunden)</label><input type="number" name="boot_wait_s" min="0" max="120" value="{{ pcfg.boot_wait_s }}" title="So lange wartet DaLiegt’s, bis WLED hochgefahren ist"></div>
+      <div><label class="inline"><input type="checkbox" name="wake_on_pages" value="1" {{ 'checked' if pcfg.wake_on_pages }}> schon beim Öffnen von Suche und Orten einschalten</label></div>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <button class="btn primary">Speichern</button>
+      <button class="btn" type="submit" formaction="/wled/strom/an" title="Schaltet mit den Werten oben ein (ungespeichert möglich)">Testen: einschalten</button>
+      <button class="btn" type="submit" formaction="/wled/strom/aus">Testen: ausschalten</button>
+    </div>
+  </form>
+  <p class="small muted">Hinweis: Beim Ausschalten verliert WLED seinen Zustand. Nach dem Einschalten startet es mit seinem gespeicherten Standard (in WLED unter „LED Preferences › Turn on after power up“ festlegen).{% if pcfg.enabled and pstatus.idle_left_s is not none %} Ausschalten in ca. {{ (pstatus.idle_left_s // 60) + 1 }} Min., wenn nichts benutzt wird.{% endif %}</p>
+</details>
+{% endif %}
 <div class="card small">
   <h2 class="mt0">So funktioniert's</h2>
   <ol>

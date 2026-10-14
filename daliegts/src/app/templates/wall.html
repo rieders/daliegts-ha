@@ -89,6 +89,7 @@
             </template>
           </div>
         </template>
+        <template x-for="d in edgeDots()" :key="d.k"><i class="wled-dot k-edge" :class="(d.on ? 'on ' : '') + d.side" :style="`left:${d.x}px;top:${d.y}px`" :title="'LED ' + d.n"><span x-text="d.n" x-show="d.on || scale >= 6"></span></i></template>
         <div class="wspot" x-show="spot && !edit" x-cloak :style="spot ? `left:${spot.x}px;top:${spot.y}px;width:${spot.w}px;height:${spot.h}px` : ''"></div>
         <template x-if="edit && data.modules.length"><div class="wall-floor" :style="`top:${data.height * scale}px;width:${(data.width + 20) * scale}px`"></div></template>
         <div class="wall-empty" x-show="!data.modules.length && !(data.areas && data.areas.length)">
@@ -327,7 +328,11 @@
                     <div class="row small" style="gap:6px;flex-wrap:wrap"><span>Ansteuerung</span>
                       <select x-model="spec(e.id).led_mode" @change="chainsDirty = true" style="width:auto;min-height:30px" title="Voll: LEDs je Fach. Zeile + Spalte: je Reihe eine LED am Rand und je Spalte eine LED oben/unten – das Fach liegt am Kreuzungspunkt">
                         <option value="cell">Voll – LEDs je Fach</option><option value="xy">Zeile + Spalte (spart LEDs)</option></select>
-                      <span class="muted" x-show="spec(e.id).led_mode === 'xy'" x-text="'→ ' + ledsOf(e.id) + ' statt ' + ((data.modules.find(m => m.id === e.id) || {}).count || '?') * (spec(e.id).leds_per_cell) + ' LEDs'"></span></div>
+                      <span class="muted" x-show="spec(e.id).led_mode === 'xy'" x-text="'→ ' + chainLayout(ch)[ei].used + ' statt ' + ((data.modules.find(m => m.id === e.id) || {}).count || '?') * (spec(e.id).leds_per_cell) + ' LEDs'"></span></div>
+                    <div class="small" x-show="spec(e.id).led_mode === 'xy' && ei > 0" style="display:flex;flex-wrap:wrap;gap:4px 14px">
+                      <label class="inline" title="Magazine nebeneinander mit gleich hohen Zeilen: die Zeilen-LEDs am Rand der Reihe gelten für alle"><input type="checkbox" x-model="spec(e.id).xy_share_rows" @change="chainsDirty = true"> Zeilen-LEDs vom Vorgänger mitbenutzen</label>
+                      <label class="inline" title="Magazine übereinander mit gleichen Spalten: die Spalten-LEDs oben gelten für alle"><input type="checkbox" x-model="spec(e.id).xy_share_cols" @change="chainsDirty = true"> Spalten-LEDs vom Vorgänger mitbenutzen</label>
+                    </div>
                     <div class="row small" style="gap:6px"><span>Lücke danach</span><input type="number" min="0" x-model.number="e.gap" @input="chainsDirty = true" style="width:70px;min-height:30px"></div>
                     <template x-if="e.open && spec(e.id).led_mode === 'xy'">
                       <div class="fields small">
@@ -368,6 +373,54 @@
           <div class="row" style="margin-top:8px">
             <button class="btn sm" @click="chains.push({controller_id: controllers[0].id, start: 0, modules: []}); chainsDirty = true">＋ Kette</button>
             <button class="btn sm primary" @click="saveChains()" :disabled="busy">LED-Nummern berechnen & speichern</button>
+          </div>
+        </details>
+      </div>
+
+      <!-- Kantenleisten (v0.31) -->
+      <div class="card" x-show="canWled && data.modules.length" x-cloak>
+        <details :open="edgesDirty || edges.length > 0">
+          <summary><b>📏 Kantenleisten über die ganze Wand</b></summary>
+          <p class="small muted">Eine <b>senkrechte</b> Leiste an der Seite (je Zeile) und eine <b>waagerechte</b> oben oder unten (je Spalte): das Fach liegt am Kreuzungspunkt. Die LEDs sitzen an festen Positionen – „eine LED je Fach“ setzt sie genau neben jedes Fach (z. B. für eine selbst gedruckte Leiste mit Pixelplatinen), „gleichmäßiger Abstand“ passt zu einem durchgehenden LED-Streifen. Fächer an anderer Stelle leuchten über die LEDs in ihrer Höhe bzw. Breite. Die Start-LED so wählen, dass sich die Nummern nicht mit einer LED-Kette über Module auf demselben Controller überschneiden (Vorschlag beim Hinzufügen: direkt hinter der letzten Leiste).</p>
+          <template x-for="(e, ei) in edges" :key="e.id">
+            <div class="chain">
+              <div class="fields small">
+                <div><label>Richtung</label><select x-model="e.axis" @change="e.side = e.axis === 'rows' ? 'left' : 'top'; edgesDirty = true"><option value="rows">senkrecht (Zeilen)</option><option value="cols">waagerecht (Spalten)</option></select></div>
+                <div><label>Seite</label><select x-model="e.side" @change="edgesDirty = true"><template x-if="e.axis === 'rows'"><optgroup label=""><option value="left">links</option><option value="right">rechts</option></optgroup></template><template x-if="e.axis === 'cols'"><optgroup label=""><option value="top">oben</option><option value="bottom">unten</option></optgroup></template></select></div>
+                <div><label>Controller</label><select x-model.number="e.controller_id" @change="edgesDirty = true"><template x-for="c in controllers" :key="c.id"><option :value="c.id" x-text="c.name" :selected="c.id === e.controller_id"></option></template></select></div>
+                <div><label>Start-LED</label><input type="number" min="0" x-model.number="e.start" @input="edgesDirty = true"></div>
+                <div><label>LED-Positionen</label><select x-model="e.mode" @change="edgesDirty = true"><option value="cells">eine LED je Fach</option><option value="pitch">gleichmäßiger Abstand</option><option value="manual">eigene Positionen</option></select></div>
+                <div x-show="e.mode === 'cells'"><label>Mindestabstand LEDs (mm)</label><input type="number" min="0" step="1" x-model.number="e.merge_mm" @input="edgesDirty = true" title="Fächer, deren Mitten näher beieinanderliegen, teilen sich eine LED"></div>
+                <div x-show="e.mode === 'pitch'"><label>Abstand (mm)</label><input type="number" min="3" step="0.1" x-model.number="e.pitch_mm" @input="edgesDirty = true" title="z. B. 16,7 bei 60 LEDs pro Meter"></div>
+                <div x-show="e.mode !== 'manual'"><label>Verschiebung (cm)</label><input type="number" step="0.1" x-model.number="e.offset_cm" @input="edgesDirty = true"></div>
+                <div x-show="e.mode === 'manual'" style="grid-column:1/-1"><label>Positionen in cm (in der Wandansicht, von oben bzw. links, durch Komma getrennt)</label><input x-model="e.positions" @input="edgesDirty = true" placeholder="z. B. 5, 15, 25.5"></div>
+                <div><label class="inline"><input type="checkbox" x-model="e.reverse" @change="edgesDirty = true"> Strip läuft von unten/rechts</label></div>
+              </div>
+<template x-if="edgeInfo(e)"><div>
+              <p class="small" x-show="edgeInfo(e)"><b x-text="edgeInfo(e).count"></b> LEDs, Nr. <span x-text="edgeInfo(e).start"></span>–<span x-text="edgeInfo(e).end - 1"></span>
+                <span class="badge err" x-show="edgeInfo(e).min_gap_mm !== null && edgeInfo(e).min_gap_mm < 12" x-text="'engste LEDs nur ' + edgeInfo(e).min_gap_mm + ' mm auseinander'" title="Für einzelne Pixelplatinen zu eng: Mindestabstand erhöhen"></span></p>
+              <details class="small" x-show="edgeInfo(e).count">
+                <summary>🖨 Halterung für den 3D-Druck</summary>
+                <p class="muted">Erzeugt eine Leiste mit einer Tasche je LED-Position (Maße der Pixelplatine bitte nachmessen), Kabelrinne und Schraublöchern. Lange Leisten werden in Stücke fürs Druckbett geteilt.</p>
+                <div class="fields small">
+                  <div><label>Platine Breite (mm)</label><input type="number" step="0.1" x-model.number="holder.board_w"></div>
+                  <div><label>Platine Länge (mm)</label><input type="number" step="0.1" x-model.number="holder.board_l"></div>
+                  <div><label>Platine Dicke (mm)</label><input type="number" step="0.1" x-model.number="holder.board_t"></div>
+                  <div><label>Leiste Breite (mm)</label><input type="number" step="0.5" x-model.number="holder.bar_w"></div>
+                  <div><label>Leiste Dicke (mm)</label><input type="number" step="0.5" x-model.number="holder.bar_t"></div>
+                  <div><label>Max. Stücklänge (mm)</label><input type="number" step="10" x-model.number="holder.seg_mm"></div>
+                </div>
+                <div class="row"><a class="btn sm" :href="holderUrl(e, 'stl')">STL herunterladen</a><a class="btn sm" :href="holderUrl(e, 'scad')">OpenSCAD-Datei</a></div>
+              </details>
+</div></template>
+              <button class="btn sm ghost" @click="edges.splice(ei, 1); edgesDirty = true">Leiste entfernen</button>
+            </div>
+          </template>
+          <p class="small muted" x-show="!edges.length">Noch keine Kantenleiste. Lege zuerst einen Controller an (WLED) und füge eine senkrechte und eine waagerechte Leiste hinzu.</p>
+          <div class="row" style="margin-top:8px">
+            <button class="btn sm" @click="addEdge('rows')" :disabled="!controllers.length">＋ senkrechte Leiste</button>
+            <button class="btn sm" @click="addEdge('cols')" :disabled="!controllers.length">＋ waagerechte Leiste</button>
+            <button class="btn sm primary" @click="saveEdges()" :disabled="busy || (!edgesDirty && !edges.length)">LEDs berechnen & speichern</button>
           </div>
         </details>
       </div>

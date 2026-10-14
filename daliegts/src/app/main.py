@@ -97,6 +97,15 @@ async def _idle_loop() -> None:
                 await manager.idle_tick(infos)
         except Exception:  # noqa: BLE001
             log.exception("Ruhemodus-Prüfung fehlgeschlagen")
+        try:  # WiFi-Steckdose nach Inaktivität ausschalten (nicht, solange noch etwas leuchtet)
+            from .services.power import power
+
+            busy = any(st.highlights for st in manager.states.values())
+            if await power.idle_tick(busy=busy):
+                for st in manager.states.values():
+                    st.idle_active, st.saved_state = False, None
+        except Exception:  # noqa: BLE001
+            log.exception("Steckdosen-Prüfung fehlgeschlagen")
 
 
 @asynccontextmanager
@@ -111,6 +120,16 @@ async def lifespan(app: FastAPI):
             db.close()
 
     manager.lowstock_provider = _lowstock
+    try:  # WiFi-Steckdose für die WLED-Controller
+        from .services import power as power_svc
+
+        _pdb = dbmod.SessionLocal()
+        try:
+            power_svc.power.configure(power_svc.load(_pdb))
+        finally:
+            _pdb.close()
+    except Exception:  # noqa: BLE001
+        log.exception("Steckdosen-Einstellung konnte nicht gelesen werden")
     try:  # „Ruhemodus pausiert“ überlebt Neustarts
         from .security import get_setting
 
@@ -138,6 +157,19 @@ async def lifespan(app: FastAPI):
 def create_app(background_jobs: bool = True) -> FastAPI:
     app = FastAPI(title="DaLiegt’s", version=APP_VERSION, lifespan=lifespan, docs_url="/api/docs", openapi_url="/api/openapi.json")
     app.state.background_jobs = background_jobs
+
+    @app.middleware("http")
+    async def wake_power(request: Request, call_next):
+        """Optional: WiFi-Steckdose schon beim Öffnen von Suche/Orten einschalten, damit WLED bereit ist, wenn das Fach leuchten soll."""
+        from .services.power import WAKE_PREFIXES, power
+
+        if (power.enabled and power.cfg.get("wake_on_pages") and request.method == "GET" and request.url.path.startswith(WAKE_PREFIXES)
+                and "text/html" in request.headers.get("accept", "") and request.cookies.get("daliegts_ha" if settings.ha_ingress else "lagerwerk")):
+            if power.is_on:
+                power.touch()
+            elif power.is_on is not True:
+                asyncio.create_task(power.ensure_on())
+        return await call_next(request)
 
     @app.middleware("http")
     async def origin_check(request: Request, call_next):
