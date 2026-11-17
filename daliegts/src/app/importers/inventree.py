@@ -20,7 +20,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from ..models import Category, Item, Location, StockLot, StockMovement
-from ..services.codes import add_item_code, add_location_alias, next_code
+from ..services.codes import CodeConflict, add_item_code, add_location_alias, check_free, next_code, normalize
 from ..services.items import store_upload
 from ..services.locations import create_location, guess_type
 from ..services.search import index_item
@@ -30,6 +30,44 @@ SRC = "inventree"
 STATUS = {10: "ok", 50: "attention", 55: "damaged", 60: "defect", 65: "defect", 70: "lost", 75: "attention", 85: "ok"}
 TRACKING = {1: "created", 10: "counted", 11: "added", 12: "removed", 20: "moved", 25: "edited", 40: "split", 42: "split", 45: "merged"}
 UNKNOWN_ROOT = "InvenTree (unbekannte Lagerorte)"
+
+
+# ------------------------------------------------------------------ Verknüpfen (auch vom Import-Assistenten genutzt)
+def _code_free(db: Session, raw: str, kind: str, target_id: int, strict: bool, report: Report | None) -> bool:
+    """strict=False: wie bisher – vorhandene Codes werden umgehängt. strict=True: Code, der schon zu etwas anderem
+    gehört, bleibt dort; das wird als Warnung im Bericht gemeldet."""
+    if not strict:
+        return True
+    try:
+        check_free(db, raw, kind, target_id)
+        return True
+    except CodeConflict as e:
+        if report is not None:
+            report.warnings.append(f"InvenTree-Code {normalize(raw)} nicht übernommen: {e}")
+        return False
+
+
+def link_location(db: Session, loc_id: int, inv_id: int, barcode_data: str = "", strict: bool = False,
+                  report: Report | None = None) -> None:
+    """InvenTree-Lagerort <-> Ort: external_ids und Etiketten-Aliase ({"stocklocation": pk}, ggf. barcode_data)."""
+    ext_set(db, SRC, "stocklocation", inv_id, "location", loc_id)
+    for raw in (barcode_data, json.dumps({"stocklocation": inv_id})):
+        if raw and _code_free(db, raw, "location", loc_id, strict, report):
+            add_location_alias(db, loc_id, raw, "inventree")
+
+
+def link_part(db: Session, item_id: int, part_id: int, strict: bool = False, report: Report | None = None) -> None:
+    ext_set(db, SRC, "part", part_id, "item", item_id)
+    raw = json.dumps({"part": part_id})
+    if _code_free(db, raw, "item", item_id, strict, report):
+        add_item_code(db, item_id, raw, "altsystem", "inventree")
+
+
+def link_stockitem(db: Session, lot_id: int, item_id: int, stockitem_id: int, strict: bool = False, report: Report | None = None) -> None:
+    ext_set(db, SRC, "stockitem", stockitem_id, "lot", lot_id)
+    raw = json.dumps({"stockitem": stockitem_id})
+    if _code_free(db, raw, "lot", lot_id, strict, report):  # Scan findet über die Bewegung (ref) genau diesen Bestand
+        add_item_code(db, item_id, raw, "altsystem", "inventree")
 
 
 def _rows(con: sqlite3.Connection | None, table: str) -> list[sqlite3.Row]:
@@ -134,8 +172,6 @@ def import_inventree(db: Session, sqlite_path: Path | None = None, tracking_csv:
                 report.inc("Platzhalter-Lagerorte benannt")
             else:
                 report.inc("Lagerorte vorhanden (unverändert)")
-            if "barcode_data" in r.keys() and r["barcode_data"]:
-                add_location_alias(db, loc.id, r["barcode_data"], "inventree")
         elif loc is None:
             root_id = ext_get(db, SRC, "unknown_root", 0)
             root = db.get(Location, root_id) if root_id else None
@@ -147,8 +183,7 @@ def import_inventree(db: Session, sqlite_path: Path | None = None, tracking_csv:
             loc = create_location(db, f"InvenTree-Lagerort {inv_id}", root.id, "fach")
             report.inc("Lagerorte als Platzhalter")
         loc_map[inv_id] = loc.id
-        ext_set(db, SRC, "stocklocation", inv_id, "location", loc.id)
-        add_location_alias(db, loc.id, json.dumps({"stocklocation": inv_id}), "inventree")
+        link_location(db, loc.id, inv_id, (r["barcode_data"] or "") if r is not None and "barcode_data" in r.keys() else "")
         return loc.id
 
     for inv_id in sorted(locs):
@@ -212,8 +247,7 @@ def import_inventree(db: Session, sqlite_path: Path | None = None, tracking_csv:
                 item.image = store_upload(data, r["image"])
                 report.inc("Bilder übernommen")
         part_map[pid] = item.id
-        ext_set(db, SRC, "part", pid, "item", item.id)
-        add_item_code(db, item.id, json.dumps({"part": pid}), "altsystem", "inventree")
+        link_part(db, item.id, pid)
     for pid, r in parts.items():
         if "variant_of_id" in r.keys() and r["variant_of_id"] not in (None, "") and int(r["variant_of_id"]) in part_map:
             db.get(Item, part_map[pid]).variant_of_id = part_map[int(r["variant_of_id"])]
@@ -281,10 +315,9 @@ def import_inventree(db: Session, sqlite_path: Path | None = None, tracking_csv:
             if not hist.get(sid):
                 db.add(StockMovement(item_id=part_item, lot_id=lot.id, kind="imported", delta=qty, quantity_after=qty, to_location_id=loc_id,
                                      user_id=user_id, note="Import aus InvenTree", ref=f"inventree:stockitem:{sid}"))
-            ext_set(db, SRC, "stockitem", sid, "lot", lot.id)
         else:
             report.inc("Bestände vorhanden (unverändert)")
-        add_item_code(db, part_item, json.dumps({"stockitem": sid}), "altsystem", "inventree")
+        link_stockitem(db, lot.id, part_item, sid)
         if loc_id is None:
             report.warnings.append(f"Lagerartikel #{sid}: ohne Lagerort.")
     if placeholders:

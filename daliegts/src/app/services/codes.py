@@ -143,6 +143,14 @@ def resolve(db: Session, raw: str) -> Resolved:
     ic = db.scalar(select(ItemCode).where(ItemCode.code == key))
     if ic:
         return Resolved("item", ic.item_id, key, raw)
+    digits = re.sub(r"[^0-9Xx]", "", raw)
+    if len(digits) == 10:  # ISBN-10 gescannt/getippt -> als ISBN-13 gespeichertes Buch finden
+        from .collection import normalize_isbn
+
+        isbn13 = normalize_isbn(digits)[0]
+        ic = db.scalar(select(ItemCode).where(ItemCode.code == isbn13)) if isbn13 else None
+        if ic:
+            return Resolved("item", ic.item_id, isbn13, raw)
     if key.startswith("inventree:stockitem:"):
         ic = db.scalar(select(ItemCode).where(ItemCode.code == key))
         if ic:
@@ -236,7 +244,7 @@ def check_free(db: Session, raw: str, kind: str, target_id: int) -> str:
     key = normalize(raw)
     if not key:
         raise CodeConflict("Der Code ist leer.")
-    r = resolve(db, key)
+    r = resolve(db, raw)  # resolve normalisiert selbst; normalize(key) ist für InvenTree-Schlüssel nicht idempotent
     if r.kind in ("unknown", "label"):
         return key
     if r.kind == kind and r.id == target_id:

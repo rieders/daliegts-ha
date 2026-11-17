@@ -293,7 +293,7 @@ def _load_job(job: str):
     if not _JOB_RE.match(job) or not p.exists():
         return None
     d = json.loads(p.read_text(encoding="utf-8"))
-    return assistant.Table(d["columns"], d["rows"], d.get("kind", "tabelle"), d.get("notes", [])), d.get("filename", "")
+    return assistant.Table(d["columns"], d["rows"], d.get("kind", "tabelle"), d.get("notes", []), d.get("extra", {})), d.get("filename", "")
 
 
 def _profiles(db: Session) -> dict:
@@ -323,7 +323,7 @@ async def assistant_upload(request: Request, file: UploadFile = File(...), db: S
             return redirect("/admin/import")
     job = uuid.uuid4().hex
     (_jobs_dir() / f"{job}.json").write_text(json.dumps({"columns": table.columns, "rows": table.rows, "kind": table.kind, "notes": table.notes,
-                                                         "filename": p.name}, ensure_ascii=False), encoding="utf-8")
+                                                         "extra": table.extra, "filename": p.name}, ensure_ascii=False), encoding="utf-8")
     return redirect(f"/admin/import/assistent/{job}")
 
 

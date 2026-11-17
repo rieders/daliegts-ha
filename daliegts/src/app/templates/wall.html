@@ -311,30 +311,34 @@
               <div class="fields">
                 <div><label>Controller</label><select x-model.number="ch.controller_id" @change="chainsDirty = true">
                   <template x-for="c in controllers" :key="c.id"><option :value="c.id" x-text="c.name" :selected="c.id === ch.controller_id"></option></template></select></div>
-                <div><label>Start-LED</label><input type="number" min="0" x-model.number="ch.start" @input="chainsDirty = true"></div>
+                <div><label>Modus</label><select x-model="ch.mode" @change="chainsDirty = true">
+                  <option value="">Streifen (Reihe für Reihe)</option><option value="xy">xy (Reihen- + Spaltenleiste)</option></select></div>
+                <div x-show="ch.mode !== 'xy'"><label>Start-LED</label><input type="number" min="0" x-model.number="ch.start" @input="chainsDirty = true"></div>
+                <div x-show="ch.mode === 'xy'"><label>Reihen ab LED</label><input type="number" min="0" x-model.number="ch.rows_start" placeholder="0" @input="chainsDirty = true"></div>
+                <div x-show="ch.mode === 'xy'"><label>Spalten ab LED</label><input type="number" min="0" x-model.number="ch.cols_start" :placeholder="xyInfo(ch).rs + xyInfo(ch).rows" @input="chainsDirty = true"></div>
               </div>
               <ol class="chain-list">
                 <template x-for="(e, ei) in ch.modules" :key="e.id">
                   <li>
                     <div class="row spread">
-                      <span><b x-text="modName(e.id)"></b> <span class="small muted" x-text="rangeText(ch, ei)"></span></span>
+                      <span><b x-text="modName(e.id)"></b> <span class="small muted" x-text="ch.mode === 'xy' ? xyColText(ch, ei) : rangeText(ch, ei)"></span></span>
                       <span class="row" style="gap:2px">
                         <button class="btn sm ghost" @click="moveInChain(ch, ei, -1)" :disabled="ei === 0">↑</button>
                         <button class="btn sm ghost" @click="moveInChain(ch, ei, 1)" :disabled="ei === ch.modules.length - 1">↓</button>
-                        <button class="btn sm ghost" @click="e.open = !e.open">⚙</button>
+                        <button class="btn sm ghost" @click="e.open = !e.open" x-show="ch.mode !== 'xy'">⚙</button>
                         <button class="btn sm ghost" @click="ch.modules.splice(ei, 1); chainsDirty = true">✕</button>
                       </span>
                     </div>
-                    <div class="row small" style="gap:6px;flex-wrap:wrap"><span>Ansteuerung</span>
+                    <div class="row small" style="gap:6px;flex-wrap:wrap" x-show="ch.mode !== 'xy'"><span>Ansteuerung</span>
                       <select x-model="spec(e.id).led_mode" @change="chainsDirty = true" style="width:auto;min-height:30px" title="Voll: LEDs je Fach. Zeile + Spalte: je Reihe eine LED am Rand und je Spalte eine LED oben/unten – das Fach liegt am Kreuzungspunkt">
                         <option value="cell">Voll – LEDs je Fach</option><option value="xy">Zeile + Spalte (spart LEDs)</option></select>
                       <span class="muted" x-show="spec(e.id).led_mode === 'xy'" x-text="'→ ' + chainLayout(ch)[ei].used + ' statt ' + ((data.modules.find(m => m.id === e.id) || {}).count || '?') * (spec(e.id).leds_per_cell) + ' LEDs'"></span></div>
-                    <div class="small" x-show="spec(e.id).led_mode === 'xy' && ei > 0" style="display:flex;flex-wrap:wrap;gap:4px 14px">
+                    <div class="small" x-show="ch.mode !== 'xy' && spec(e.id).led_mode === 'xy' && ei > 0" style="display:flex;flex-wrap:wrap;gap:4px 14px">
                       <label class="inline" title="Magazine nebeneinander mit gleich hohen Zeilen: die Zeilen-LEDs am Rand der Reihe gelten für alle"><input type="checkbox" x-model="spec(e.id).xy_share_rows" @change="chainsDirty = true"> Zeilen-LEDs vom Vorgänger mitbenutzen</label>
                       <label class="inline" title="Magazine übereinander mit gleichen Spalten: die Spalten-LEDs oben gelten für alle"><input type="checkbox" x-model="spec(e.id).xy_share_cols" @change="chainsDirty = true"> Spalten-LEDs vom Vorgänger mitbenutzen</label>
                     </div>
-                    <div class="row small" style="gap:6px"><span>Lücke danach</span><input type="number" min="0" x-model.number="e.gap" @input="chainsDirty = true" style="width:70px;min-height:30px"></div>
-                    <template x-if="e.open && spec(e.id).led_mode === 'xy'">
+                    <div class="row small" style="gap:6px" x-show="ch.mode !== 'xy'"><span>Lücke danach</span><input type="number" min="0" x-model.number="e.gap" @input="chainsDirty = true" style="width:70px;min-height:30px"></div>
+                    <template x-if="e.open && ch.mode !== 'xy' && spec(e.id).led_mode === 'xy'">
                       <div class="fields small">
                         <div><label>Zeilen-LEDs sitzen</label><select x-model="spec(e.id).xy_rows_side" @change="chainsDirty = true"><option value="left">links</option><option value="right">rechts</option></select></div>
                         <div><label>Spalten-LEDs sitzen</label><select x-model="spec(e.id).xy_cols_side" @change="chainsDirty = true"><option value="top">oben</option><option value="bottom">unten</option></select></div>
@@ -344,7 +348,7 @@
                         <div><label class="inline"><input type="checkbox" x-model="spec(e.id).xy_cols_reverse" @change="chainsDirty = true"> Spalten von rechts nach links</label></div>
                       </div>
                     </template>
-                    <template x-if="e.open && spec(e.id).led_mode !== 'xy'">
+                    <template x-if="e.open && ch.mode !== 'xy' && spec(e.id).led_mode !== 'xy'">
                       <div class="fields small">
                         <div><label>LEDs pro Fach</label><input type="number" min="1" x-model.number="spec(e.id).leds_per_cell" @input="chainsDirty = true"></div>
                         <div><label>Lücke zw. Fächern</label><input type="number" min="0" x-model.number="spec(e.id).led_gap" @input="chainsDirty = true"></div>
@@ -362,12 +366,14 @@
                   <option value="">＋ Modul anhängen …</option>
                   <template x-for="m in data.modules.filter(m => !ch.modules.some(e => e.id === m.id))" :key="m.id"><option :value="m.id" x-text="m.name"></option></template>
                 </select>
-                <button class="btn sm" @click="startCalib(ci)" :disabled="!!calib" title="Module nacheinander antippen, während die LEDs zeigen, wo der nächste Abschnitt beginnt">🧭 Einmessen</button>
-                <button class="btn sm ghost" @click="checkChain(ci)" x-show="ch.modules.length && !chainsDirty" title="Jedes Modul in eigener Farbe leuchten lassen">🎨 Prüfen</button>
-                <button class="btn sm ghost" @click="autoOrder(ch)" title="Nach Position sortieren (Schlangenlinie von unten links)">⇄ nach Position</button>
+                <button class="btn sm" @click="startCalib(ci)" :disabled="!!calib" x-show="ch.mode !== 'xy'" title="Module nacheinander antippen, während die LEDs zeigen, wo der nächste Abschnitt beginnt">🧭 Einmessen</button>
+                <button class="btn sm ghost" @click="checkChain(ci)" x-show="ch.mode !== 'xy' && ch.modules.length && !chainsDirty" title="Jedes Modul in eigener Farbe leuchten lassen">🎨 Prüfen</button>
+                <button class="btn sm ghost" @click="autoOrder(ch)" x-show="ch.mode !== 'xy'" title="Nach Position sortieren (Schlangenlinie von unten links)">⇄ nach Position</button>
                 <button class="btn sm ghost" @click="chains.splice(ci, 1); chainsDirty = true">Kette entfernen</button>
               </div>
-              <div class="small" :style="chainEnd(ch) > ctrlLeds(ch) ? 'color:var(--err)' : ''" x-text="'belegt LED ' + ch.start + '–' + (chainEnd(ch) - 1) + ' von ' + ctrlLeds(ch)"></div>
+              <div class="small" x-show="ch.mode !== 'xy'" :style="chainEnd(ch) > ctrlLeds(ch) ? 'color:var(--err)' : ''" x-text="'belegt LED ' + ch.start + '–' + (chainEnd(ch) - 1) + ' von ' + ctrlLeds(ch)"></div>
+              <div class="small" x-show="ch.mode === 'xy'" :style="xyInfo(ch).end > ctrlLeds(ch) || xyInfo(ch).mixed ? 'color:var(--err)' : ''"
+                   x-text="'benötigt ' + xyInfo(ch).needed + ' LEDs (' + xyInfo(ch).rows + ' Reihen + ' + xyInfo(ch).cols + ' Spalten), Reihen ab ' + xyInfo(ch).rs + ', Spalten ab ' + xyInfo(ch).cs + ' – Controller hat ' + ctrlLeds(ch) + (xyInfo(ch).mixed ? ' · Achtung: Module mit unterschiedlicher Reihenzahl oder ohne Raster' : '')"></div>
             </div>
           </template>
           <div class="row" style="margin-top:8px">

@@ -53,6 +53,8 @@
         <p x-show="!unknownLabel">Unbekannter Code <code x-text="unknownCode"></code></p>
         <div class="row">
           <button class="btn" x-show="caps.canCreate" @click="startQuickCreate(unknownCode)">＋ Neuer Artikel mit diesem Code</button>
+          <a class="btn" x-show="caps.canCreate && /^97[89]\d{10}$|^\d{9}[\dXx]$/.test(unknownCode)" :href="lwUrl('/sammlung/buecher/neu?isbn=' + encodeURIComponent(unknownCode) + (loc ? '&ort=' + encodeURIComponent(loc.code) : ''))">＋ Als Buch erfassen</a>
+          <a class="btn" x-show="caps.canCreate && /^\d{12,13}$/.test(unknownCode) && !/^97[89]/.test(unknownCode)" :href="lwUrl('/sammlung/tontraeger/neu?barcode=' + encodeURIComponent(unknownCode) + (loc ? '&ort=' + encodeURIComponent(loc.code) : ''))">＋ Als Tonträger erfassen</a>
           <button class="btn" x-show="loc && caps.canAlias" @click="assignAliasToLoc(unknownCode)">Als Etikett für <span x-text="loc && loc.name"></span></button>
           <button class="btn" x-show="lot && caps.canStock" @click="assignAliasToLot(unknownCode)">Code nur für diesen Bestand (<span x-text="lot && lot.location"></span>)</button>
           <button class="btn" x-show="item" @click="assignAliasToItem(unknownCode)">Code zu <span x-text="item && item.name"></span></button>

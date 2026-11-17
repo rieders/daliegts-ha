@@ -57,11 +57,38 @@ def _furniture_of(loc: Location) -> Location | None:
     return None
 
 
+def _xy_module_targets(db: Session, loc: Location, color: str | None) -> list[LightTarget]:
+    """Modul (Magazin) in einer xy-Kette seiner Wand: alle seine Spalten-LEDs – aus der Kette berechnet, nicht gespeichert."""
+    wall = loc.parent
+    chains = [ch for ch in (wall.layout or {}).get("chains", []) if ch.get("mode") == "xy"] if wall is not None else []
+    if not chains:
+        return []
+    from .walls import xy_layout
+
+    out = []
+    for ch in chains:
+        if not any(e.get("id") == loc.id for e in ch.get("modules", [])):
+            continue
+        ctrl = db.get(WledController, ch["controller_id"])
+        if ctrl is None or not ctrl.enabled:
+            continue
+        try:
+            info = xy_layout(db, ch)
+        except ValueError:  # Kette passt gerade nicht (z. B. Raster geändert) – dann wie bisher ohne LEDs
+            continue
+        out.append(LightTarget(ctrl.id, info["module_col"][loc.id], loc.grid_cols or 1, (color or ctrl.color).upper(),
+                               location_id=loc.id, note=f"Spalten von {loc.name}"))
+    return out
+
+
 def resolve_targets(db: Session, loc: Location, color: str | None = None) -> list[LightTarget]:
     """Ermittelt die LEDs für einen Lagerort inkl. Vererbung und Abteil-Darstellung."""
     own = [lt for lt in loc.lights if lt.controller and lt.controller.enabled]
     if own:
         return [LightTarget(lt.controller_id, lt.led_start, lt.led_count, (color or lt.color or lt.controller.color).upper(), location_id=loc.id) for lt in own]
+    xy = _xy_module_targets(db, loc, color)
+    if xy:
+        return xy
     # Vorfahren mit LEDs suchen
     anc, depth = loc.parent, 0
     while anc is not None and not [lt for lt in anc.lights if lt.controller and lt.controller.enabled]:
@@ -81,7 +108,10 @@ def resolve_targets(db: Session, loc: Location, color: str | None = None) -> lis
     idx, cnt = loc.compartment_index, loc.compartment_count
     for lt in lights:
         col = (color or lt.color or lt.controller.color).upper()
-        can_segment = loc.compartment_layout in ("row", "grid", None) and lt.led_count >= cnt and mode in ("segment", "both")
+        # Fach mit mehreren Bereichen auf einem Controller (xy-Kette: Reihe + Spalte): nicht aufteilen, nur blinken
+        multi = sum(1 for x in lights if x.controller_id == lt.controller_id) > 1
+        can_segment = (not multi and loc.compartment_layout in ("row", "grid", None) and lt.led_count >= cnt
+                       and mode in ("segment", "both"))
         if can_segment:
             s, c = split_range(lt.led_start, lt.led_count, cnt, idx)
             targets.append(LightTarget(lt.controller_id, s, c, col, blink=idx if mode == "both" else 0, pulse=mode == "segment",

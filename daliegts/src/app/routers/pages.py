@@ -76,7 +76,7 @@ def search_page(request: Request, q: str = "", kategorie: str = "", ort: str = "
     if q.strip() and not any([kategorie, ort, art, unter_min, pfs]):
         r = resolve(db, q)
         if r.kind != "unknown" and r.code and (r.code[:2] in ("L-", "A-", "S-") or r.code.startswith(("INVENTREE", "AU-", "PR-"))):
-            return redirect(_url_for_resolved(r))
+            return redirect(_url_for_resolved(r, db))
     items, total = search(db, sq)  # ohne Suchbegriff: alle Artikel (A–Z, seitenweise)
     tc = TreeCache(db)
     cats = _category_options(db)
@@ -84,7 +84,13 @@ def search_page(request: Request, q: str = "", kategorie: str = "", ort: str = "
                                            "param_names": parameter_names(db)[:80], "seite": seite, "pfs": pfs})
 
 
-def _url_for_resolved(r) -> str:
+def _url_for_resolved(r, db: Session | None = None) -> str:
+    if r.kind == "item" and db is not None:
+        from ..services.collection import detail_url
+
+        cu = detail_url(db, db.get(Item, r.id))
+        if cu:
+            return cu
     return {"location": f"/orte/{r.id}", "item": f"/artikel/{r.id}", "lot": f"/lot/{r.id}", "order": f"/auftraege/{r.id}", "project": f"/projekte/{r.id}"}.get(r.kind, f"/suche?q={r.raw}")
 
 
@@ -94,7 +100,7 @@ def short_code(code: str, request: Request, db: Session = Depends(get_db), ctx=D
     if r.kind == "unknown":
         flash(request, f"Code „{code}“ ist unbekannt. Du kannst ihn einem Lagerort oder Artikel zuordnen.", "warn")
         return redirect(f"/scan?unbekannt={code}")
-    return redirect(_url_for_resolved(r))
+    return redirect(_url_for_resolved(r, db))
 
 
 @router.get("/historie")

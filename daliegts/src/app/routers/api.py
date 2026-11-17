@@ -60,7 +60,14 @@ def api_resolve(code: str, db: Session = Depends(get_db), ctx=Depends(require("i
     if r.kind == "location":
         return {"kind": "location", "location": _loc_json(db, db.get(Location, r.id), tc)}
     if r.kind == "item":
-        return {"kind": "item", "item": _item_json(db.get(Item, r.id), tc)}
+        from ..services.collection import detail_url
+
+        it = db.get(Item, r.id)
+        d = _item_json(it, tc)
+        cu = detail_url(db, it)
+        if cu:  # Sammlung (v0.33): Platte/Buch -> Detailseite der Sammlung
+            d["url"] = d["collection_url"] = cu
+        return {"kind": "item", "item": d}
     if r.kind == "lot":
         lot = db.get(StockLot, r.id)
         return {"kind": "lot", "lot": _lot_json(lot, tc), "item": _item_json(lot.item, tc)}
@@ -476,6 +483,9 @@ def _printers3d(db: Session) -> list[dict]:
 def api_summary(db: Session = Depends(get_db), ctx=Depends(require("items", 1))):
     items = list(db.scalars(select(Item).where((Item.min_stock > 0) | (Item.stock_mode == "coarse"))).unique())
     loans = list(db.scalars(select(Loan).where(Loan.returned_at.is_(None))))
+    from ..services.collection import totals
+
+    coll = totals(db)
     return {
         "items": db.scalar(select(func.count(Item.id))),
         "locations": db.scalar(select(func.count(Location.id))),
@@ -487,6 +497,9 @@ def api_summary(db: Session = Depends(get_db), ctx=Depends(require("items", 1)))
         "expiry": _expiry_counts(db),
         "printers3d": _printers3d(db),
         "wled": manager.status(),
+        # Sammlung (v0.33): Anzahl und Summe Marktwert – für Home-Assistant-Sensoren
+        "collection": {"count": coll["records"]["count"], "value": coll["records"]["value"], "currency": coll["records"]["currency"]},
+        "books": {"count": coll["books"]["count"], "value": coll["books"]["value"]},
     }
 
 

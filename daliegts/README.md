@@ -21,6 +21,17 @@ unter **Netzwerk** Port 8000 freigeben und in den Optionen **Adresse für QR-Cod
 z. B. `http://homeassistant.local:8000`. Über diesen Port meldet man sich mit Benutzername und Passwort an
 (Passwort unter „Konto“ setzen).
 
+## Sammlung (Platten, CDs, Bücher)
+
+Unter **Sammlung** in der Seitenleiste. „＋ Tonträger“ sucht per Barcode, Katalognummer oder Interpret/Album
+bei MusicBrainz und – mit einem persönlichen Discogs-Token – bei Discogs; „Bücher scannen“ fragt per ISBN die Deutsche
+Nationalbibliothek, Open Library und Google Books ab. Mit dem Handy-Scanner öffnet der Barcode einer
+erfassten Platte bzw. die ISBN eines Buchs direkt die Detailseite.
+
+Discogs-Token, Reihenfolge der Buchquellen und den nächtlichen Abgleich der Marktwerte stellst du unter
+Verwaltung › Sammlung ein. Für das Dashboard liefert `/api/v1/summary` Anzahl und Marktwert
+(Beispiel unter Verwaltung › Home Assistant).
+
 ## Datensicherung
 
 Alle Daten liegen im App-Ordner und sind in den Home-Assistant-Backups enthalten. Zusätzlich legt DaLiegt’s

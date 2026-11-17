@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Tonträger bearbeiten' if rec else 'Neuer Tonträger' }}{% endblock %}
+{% block head %}<script src="/static/js/scan.js?v={{ APP_VERSION }}" defer></script><script src="/static/js/collection.js?v={{ APP_VERSION }}" defer></script>{% endblock %}
+{% block content %}
+{% from "partials/macros.html" import locpicker %}
+<div class="breadcrumb"><a href="/sammlung?art=tontraeger">Sammlung</a>{% if rec %} › <a href="/sammlung/tontraeger/{{ rec.id }}">{{ rec.album }}</a>{% endif %}</div>
+<h1>{{ 'Tonträger bearbeiten' if rec else 'Neuer Tonträger' }}</h1>
+
+<div x-data='recordForm({{ {"data": data, "id": rec.id if rec else none, "covers": covers}|tojson }})' x-init="init()">
+  <div class="card">
+    <h2 class="mt0">Online suchen</h2>
+    <p class="small muted">Interpret + Album oder Barcode / Katalognummer. Quellen: MusicBrainz{{ ' und Discogs' if has_discogs_token else ' (Discogs-Suche braucht ein Token, siehe Verwaltung › Sammlung)' }}.</p>
+    <form class="coll-filters" @submit.prevent="search()">
+      <div><label>Interpret</label><input x-model="s.artist" autocomplete="off"></div>
+      <div><label>Album</label><input x-model="s.album" autocomplete="off"></div>
+      <div><label>Barcode</label><input x-model="s.barcode" inputmode="numeric" autocomplete="off"></div>
+      <div><label>Katalognummer</label><input x-model="s.catno" autocomplete="off"></div>
+      <div class="row"><button class="btn primary" :disabled="busy">Suchen</button>
+        <button type="button" class="btn" @click="toggleCamera()" x-text="camOn ? 'Kamera aus' : '📷 Barcode scannen'"></button></div>
+    </form>
+    <div class="scanner" x-show="camOn" x-cloak style="margin-top:8px"><video x-ref="video" playsinline muted></video><div class="frame"></div></div>
+    <p class="small" x-show="camError" x-text="camError" style="color: var(--err)"></p>
+    <p class="small muted" x-show="busy" x-cloak>Suche läuft …</p>
+    <template x-for="n in notes"><p class="small" style="color: var(--warn)" x-text="n"></p></template>
+    <div class="hits" x-show="hits.length" x-cloak style="margin-top:8px">
+      <template x-for="h in hits" :key="h.source + h.id">
+        <button type="button" class="hit" @click="pick(h)">
+          <template x-if="h.thumb"><img :src="h.thumb" alt="" loading="lazy" referrerpolicy="no-referrer"></template>
+          <template x-if="!h.thumb"><span class="noimg"></span></template>
+          <span class="grow"><b x-text="h.artist + ' – ' + h.album"></b><br>
+            <span class="small muted" x-text="[h.year, h.country, h.format || h.medium, h.label, h.catalog_no].filter(Boolean).join(' · ')"></span></span>
+          <span class="badge" x-text="h.source === 'discogs' ? 'Discogs' : 'MusicBrainz'"></span>
+        </button>
+      </template>
+    </div>
+    <p class="small muted" x-show="searched && !busy && !hits.length" x-cloak>Keine Treffer – Angaben unten von Hand eintragen.</p>
+  </div>
+
+  <form x-ref="form" @submit.prevent="save()" enctype="multipart/form-data">
+    <div class="card">
+      <h2 class="mt0">Angaben</h2>
+      <div class="fields">
+        <div><label>Interpret *</label><input name="artist" x-model="d.artist" required></div>
+        <div><label>Album *</label><input name="album" x-model="d.album" required></div>
+        <div><label>Jahr</label><input name="year" x-model="d.year" inputmode="numeric" maxlength="4"></div>
+        <div><label>Medium</label><select name="medium" x-model="d.medium">{% for k, v in MEDIA_MEDIUMS.items() %}<option value="{{ k }}">{{ v }}</option>{% endfor %}</select></div>
+        <div><label>Genre</label><input name="genre" x-model="d.genre"></div>
+        <div><label>Label</label><input name="label" x-model="d.label"></div>
+        <div><label>Katalognummer</label><input name="catalog_no" x-model="d.catalog_no"></div>
+        <div><label>Land</label><input name="country" x-model="d.country"></div>
+        <div><label>Barcode</label><input name="barcode" x-model="d.barcode" inputmode="numeric"></div>
+        <div><label>Zustand Platte/Medium</label><select name="media_condition" x-model="d.media_condition"><option value="">–</option>{% for k, v in GRADES.items() %}<option value="{{ k }}">{{ k }} – {{ v }}</option>{% endfor %}</select></div>
+        <div><label>Zustand Hülle</label><select name="sleeve_condition" x-model="d.sleeve_condition"><option value="">–</option>{% for k, v in GRADES.items() %}<option value="{{ k }}">{{ k }} – {{ v }}</option>{% endfor %}</select></div>
+        <div><label>Lagerort</label>{{ locpicker(value=preset_location) }}</div>
+      </div>
+      <label class="inline" style="margin-top:8px"><input type="checkbox" x-model="d.digitized"> digitalisiert</label>
+      <div x-show="d.digitized" x-cloak><label>Ablage der Digitalisierung (Pfad/Ordner)</label><input name="digitized_path" x-model="d.digitized_path" placeholder="z. B. /musik/Kraftwerk/Autobahn"></div>
+      <details style="margin-top:8px" {{ 'open' if data.musicbrainz_id or data.discogs_id }}><summary class="small">Verknüpfungen (MusicBrainz / Discogs)</summary>
+        <div class="fields">
+          <div><label>MusicBrainz-Release-ID</label><input name="musicbrainz_id" x-model="d.musicbrainz_id" placeholder="xxxxxxxx-xxxx-…"></div>
+          <div><label>Discogs-Release-ID (für den Marktwert)</label><input name="discogs_id" x-model="d.discogs_id" inputmode="numeric"></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="card" id="cover">
+      <h2 class="mt0">Hüllenbilder</h2>
+      <p class="small muted">Am Handy öffnet „Foto“ direkt die Kamera. Ein eigenes Foto ersetzt das Bild aus der Online-Suche.</p>
+      <div class="cover-pick">
+        {% for role, label in COVER_ROLES.items() %}
+        <div class="slot">
+          <div class="small"><b>{{ label }}</b></div>
+          <template x-if="preview.{{ role }}"><img :src="preview.{{ role }}" alt="{{ label }}" referrerpolicy="no-referrer"></template>
+          <label class="btn sm" style="margin-top:6px">📷 Foto<input type="file" name="cover_{{ role }}" accept="image/*" capture="environment" hidden @change="fileChosen('{{ role }}', $event)"></label>
+          <template x-if="urls.{{ role }} && !files.{{ role }}"><div class="small muted">aus Online-Suche</div></template>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="mt0">Titelliste</h2>
+      <div class="small muted track-edit"><span>Seite</span><span>Nr.</span><span>Titel</span><span class="tl">Länge</span><span></span></div>
+      <template x-for="(t, i) in d.tracks" :key="i">
+        <div class="track-edit">
+          <input x-model="t.side" maxlength="4" aria-label="Seite">
+          <input x-model.number="t.position" inputmode="numeric" aria-label="Position">
+          <input x-model="t.title" aria-label="Titel">
+          <input class="tl" :value="fmtLen(t.length_seconds)" @change="t.length_seconds = parseLen($event.target.value)" placeholder="m:ss" aria-label="Länge">
+          <button type="button" class="btn ghost sm" @click="d.tracks.splice(i, 1)" title="Titel entfernen">✕</button>
+        </div>
+      </template>
+      <button type="button" class="btn sm" @click="addTrack()">＋ Titel</button>
+    </div>
+
+    <div class="row" style="margin-bottom: 30px">
+      <button class="btn primary" :disabled="saving" x-text="saving ? 'Speichert …' : 'Speichern'"></button>
+      <a class="btn ghost" href="{{ '/sammlung/tontraeger/' ~ rec.id if rec else '/sammlung?art=tontraeger' }}">Abbrechen</a>
+      <span class="small muted" x-show="d.musicbrainz_id || (d.artist && d.album)">Gibt es den Tonträger schon (gleiche MusicBrainz-ID oder Interpret + Album + Jahr), wird er aktualisiert statt doppelt angelegt.</span>
+    </div>
+  </form>
+</div>
+{% endblock %}

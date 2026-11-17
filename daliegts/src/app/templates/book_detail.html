@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}{{ b.title }}{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/sammlung?art=buecher">Sammlung</a>{% if b.author_sort %} › <a href="/sammlung?art=buecher&q={{ (b.authors.split(';')[0])|urlencode }}">{{ b.author_sort }}</a>{% endif %}</div>
+<div class="coll-head">
+  <div>
+    <h1>{{ b.title or '–' }}</h1>
+    {% if b.subtitle %}<div>{{ b.subtitle }}</div>{% endif %}
+    <div class="muted">{{ b.authors.replace(';', ',') }}{% if b.year %} · {{ b.year }}{% endif %}</div>
+  </div>
+  <div class="row">
+    {% if me.can('items', 2) %}
+    <form method="post" action="/sammlung/buecher/{{ b.id }}/gelesen" class="inline"><button class="btn">{{ '✓ gelesen' if b.read else 'Als gelesen markieren' }}</button></form>
+    <a class="btn" href="/sammlung/buecher/{{ b.id }}/bearbeiten">Bearbeiten</a>{% endif %}
+    <a class="btn ghost" href="/artikel/{{ item.id }}">Artikel {{ item.code }}</a>
+  </div>
+</div>
+
+<div class="row top" style="align-items: stretch">
+  <div class="card" style="min-width: 220px; flex: 0 1 320px">
+    {% if covers %}
+    <div class="gallery">{% for role in ('front', 'back') if covers[role] %}<figure><a href="{{ covers[role] }}" target="_blank" rel="noopener"><img src="{{ covers[role] }}" alt="{{ 'Cover' if role == 'front' else 'Rückseite' }}"></a><figcaption>{{ 'Cover' if role == 'front' else 'Rückseite' }}</figcaption></figure>{% endfor %}</div>
+    {% else %}<p class="muted">Kein Cover. {% if me.can('items', 2) %}<a href="/sammlung/buecher/{{ b.id }}/bearbeiten">Fotografieren</a>{% endif %}</p>{% endif %}
+  </div>
+  <div class="grow" style="min-width: 280px">
+    <div class="card">
+      <h2 class="mt0">Angaben</h2>
+      <table>
+        {% if b.publisher %}<tr><th>Verlag</th><td>{{ b.publisher }}</td></tr>{% endif %}
+        {% if b.edition %}<tr><th>Auflage</th><td>{{ b.edition }}</td></tr>{% endif %}
+        {% if b.isbn13 %}<tr><th>ISBN</th><td><code>{{ b.isbn13 }}</code>{% if b.isbn10 %} <span class="small muted">({{ b.isbn10 }})</span>{% endif %}</td></tr>{% endif %}
+        {% if b.series %}<tr><th>Reihe</th><td>{{ b.series }}{% if b.series_number %}, Band {{ b.series_number }}{% endif %}</td></tr>{% endif %}
+        {% if b.genre %}<tr><th>Genre</th><td>{{ b.genre }}</td></tr>{% endif %}
+        {% if b.language %}<tr><th>Sprache</th><td>{{ b.language }}</td></tr>{% endif %}
+        {% if b.pages %}<tr><th>Seiten</th><td>{{ b.pages }}</td></tr>{% endif %}
+        {% if b.binding %}<tr><th>Einband</th><td>{{ b.binding }}</td></tr>{% endif %}
+        {% if b.condition %}<tr><th>Zustand</th><td>{{ b.condition }}</td></tr>{% endif %}
+        <tr><th>Gelesen</th><td>{{ 'ja' if b.read else 'nein' }}{% if b.signed %} · ✍ signiert{% endif %}</td></tr>
+        <tr><th>Marktwert</th><td>{% if b.market_value is not none %}<b>{{ b.market_value|euro if b.market_currency == 'EUR' else b.market_value ~ ' ' ~ b.market_currency }}</b>{% if b.market_checked_at %} <span class="small muted">Stand {{ b.market_checked_at|dt }}</span>{% endif %}{% else %}<span class="muted">nicht erfasst</span>{% endif %}
+          {% if market_provider and me.can('items', 2) %}<button class="btn sm" style="margin-left:6px" onclick="api('/api/v1/collection/books/{{ b.id }}/market').then(r => { toast(r.message); if (r.ok) location.reload() }).catch(e => toast(e.message))">Aktualisieren</button>{% endif %}</td></tr>
+      </table>
+      {% if b.isbn13 %}<div class="row" style="margin-top:8px">
+        <a class="btn sm" href="https://portal.dnb.de/opac.htm?method=simpleSearch&query={{ b.isbn13 }}" target="_blank" rel="noopener noreferrer">DNB ↗</a>
+        <a class="btn sm" href="https://openlibrary.org/isbn/{{ b.isbn13 }}" target="_blank" rel="noopener noreferrer">Open Library ↗</a>
+      </div>{% endif %}
+    </div>
+    <div class="card">
+      <h2 class="mt0">Lagerort</h2>
+      {% if loc %}<p><a href="/orte/{{ loc.id }}">{{ loc_path }}</a> <span class="badge code">{{ loc.code }}</span></p>
+        {% if has_lights and me.can('wled_show') %}<button class="btn primary" onclick='locate({"item_id": {{ item.id }}})'>💡 Fach leuchten lassen</button>{% endif %}
+      {% else %}<p class="muted">Kein Lagerort.</p>{% endif %}
+    </div>
+    {% if same_series|length > 1 %}
+    <div class="card">
+      <h2 class="mt0">Reihe „{{ b.series }}“</h2>
+      {% for s in same_series %}<a class="coll-row" href="/sammlung/buecher/{{ s.id }}" {% if s.id == b.id %}aria-current="page" style="font-weight:700"{% endif %}>
+        <span class="yr">{{ s.series_number or '' }}</span><span class="grow">{{ s.title }}</span><span class="small muted">{{ '✓' if s.read }}</span></a>{% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -21,15 +21,17 @@ from pathlib import Path
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from ..models import Item, ItemCode, Location
+from ..models import Item, ItemCode, Location, StockLot
 from ..services import stock as stocksvc
 from ..services.codes import add_item_code
 from ..services.items import (create_item, ensure_category_path, ensure_footprint, ensure_manufacturer, reindex, set_parameter)
 from ..services.locations import create_location, guess_type
-from .common import Report
+from .common import Report, ext_get
+from .inventree import SRC as INVENTREE, link_location, link_part, link_stockitem
 
 MAX_ROWS = 100_000
 SAMPLE_VALUES = 3
+INV_PART, INV_STOCKITEM = "InvenTree-ID", "InvenTree-Lagerartikel-ID"  # Spalten der InvenTree-Tabelle (Teil, Lagerartikel)
 TARGETS = [  # (Schlüssel, Beschriftung)
     ("", "– ignorieren –"), ("name", "Name / Bezeichnung"), ("description", "Beschreibung"), ("category", "Kategorie (Pfad)"),
     ("location", "Lagerort (Pfad)"), ("quantity", "Menge"), ("min_stock", "Mindestbestand"), ("manufacturer", "Hersteller"),
@@ -92,6 +94,7 @@ class Table:
     rows: list[list[str]]
     kind: str = "tabelle"
     notes: list[str] = field(default_factory=list)
+    extra: dict = field(default_factory=dict)  # Zusatzdaten der Quelle, z. B. alle InvenTree-Lagerorte (auch ohne Bestand)
 
     def dicts(self):
         for r in self.rows:
@@ -117,13 +120,16 @@ def read_table(path: Path) -> Table:
         return flatten_partdb(load_dump(path))
     if suffix in (".sqlite", ".sqlite3", ".db") or raw[:15] == b"SQLite format 3":
         con = sqlite3.connect(path)
-        con.row_factory = sqlite3.Row
-        names = {r[0] for r in con.execute("SELECT name FROM sqlite_master WHERE type='table'")}
-        if "part_part" in names:
-            return flatten_inventree(con)
-        if "parts" in names:
-            return flatten_partdb(con)
-        raise ValueError("Diese Datenbank kenne ich nicht (erwartet: InvenTree oder Part-DB).")
+        try:  # Verbindung immer schließen – sonst bleibt die Datei (unter Windows) gesperrt
+            con.row_factory = sqlite3.Row
+            names = {r[0] for r in con.execute("SELECT name FROM sqlite_master WHERE type='table'")}
+            if "part_part" in names:
+                return flatten_inventree(con)
+            if "parts" in names:
+                return flatten_partdb(con)
+            raise ValueError("Diese Datenbank kenne ich nicht (erwartet: InvenTree oder Part-DB).")
+        finally:
+            con.close()
     for enc in ("utf-8-sig", "cp1252"):
         try:
             text = raw.decode(enc)
@@ -208,7 +214,7 @@ def flatten_inventree(con: sqlite3.Connection) -> Table:
     for r in _tab(con, "stock_stockitem"):
         stock.setdefault(r.get("part_id"), []).append(r)
     cols = ["Name", "IPN", "Beschreibung", "Kategorie", "Schlüsselwörter", "Einheit", "Mindestbestand", "Notizen", "Hersteller", "MPN",
-            "Lagerort", "Menge", "Charge", "Seriennummer", "InvenTree-ID"] + [f"Param: {n}" for n in pnames]
+            "Lagerort", "Menge", "Charge", "Seriennummer", INV_PART, INV_STOCKITEM] + [f"Param: {n}" for n in pnames]
     rows = []
     for pid, p in parts.items():
         k = p.keys()
@@ -220,10 +226,18 @@ def flatten_inventree(con: sqlite3.Connection) -> Table:
         items = stock.get(pid) or [None]
         for s in items:
             if s is None:
-                rows.append(base + ["", "", "", "", _s(pid)] + tail)
+                rows.append(base + ["", "", "", "", _s(pid), ""] + tail)
             else:
-                rows.append(base + [_path(locs, s.get("location_id")), _s(s.get("quantity")), _s(s.get("batch")), _s(s.get("serial")), _s(pid)] + tail)
-    return Table(cols, rows[:MAX_ROWS], "InvenTree", ["Eine Zeile je Lagerartikel; Teile ohne Bestand stehen mit leerer Menge da."])
+                rows.append(base + [_path(locs, s.get("location_id")), _s(s.get("quantity")), _s(s.get("batch")), _s(s.get("serial")), _s(pid),
+                                    _s(s.get("id"))] + tail)
+    # Alle Lagerorte (auch leere Fächer) für external_ids und Etiketten-Aliase wie beim klassischen Import
+    extra = {"inventree_locations": []}
+    for r in locs.values():
+        k = r.keys()
+        extra["inventree_locations"].append({"id": r["id"], "parent_id": r["parent_id"] if "parent_id" in k else None, "name": r["name"],
+                                             "barcode_data": r["barcode_data"] if "barcode_data" in k else ""})
+    return Table(cols, rows[:MAX_ROWS], "InvenTree", ["Eine Zeile je Lagerartikel; Teile ohne Bestand stehen mit leerer Menge da.",
+                                                      "Alle Lagerorte werden mit ihren InvenTree-Etiketten übernommen."], extra)
 
 
 # ------------------------------------------------------------------ Umwandeln
@@ -360,8 +374,12 @@ class RowResult:
     note: str = ""
 
 
+def _location_key(path: str, root: str = "") -> str:
+    return split_path((root + " / " if root else "") + path) if (path or root) else ""
+
+
 def ensure_location_path(db: Session, path: str, create: bool, cache: dict, root: str = "") -> int | None:
-    full = split_path((root + " / " if root else "") + path) if (path or root) else ""
+    full = _location_key(path, root)
     if not full:
         return None
     if full in cache:
@@ -383,6 +401,35 @@ def ensure_location_path(db: Session, path: str, create: bool, cache: dict, root
         cache[key] = parent = loc.id
     cache[full] = parent
     return parent
+
+
+def _link_inventree_locations(db: Session, table: Table, cfg: dict, report: Report, create: bool, root: str, cache: dict) -> None:
+    """Alle InvenTree-Lagerorte wie beim klassischen Import verknüpfen (external_ids + Etiketten {"stocklocation": pk}).
+
+    Ort finden: zuerst über external_ids (auch wenn er inzwischen umbenannt/verschoben wurde), sonst über den Pfad –
+    mit denselben Ersetzungen und demselben Wurzelort wie die Zeilen. Der Cache sorgt dafür, dass die Zeilen genau
+    diesen Ort verwenden. Etiketten, die schon zu einem anderen Ort gehören, werden nicht umgehängt (Warnung)."""
+    locs = {int(r["id"]): {**r, "parent_id": int(r["parent_id"]) if r.get("parent_id") not in (None, "") else None}
+            for r in table.extra.get("inventree_locations", [])}
+    lmap = (cfg.get("maps") or {}).get("location") or {}
+    for pk in sorted(locs):
+        path = split_path(_path(locs, pk))
+        if lmap.get(path):
+            path = split_path(lmap[path])
+        existing = ext_get(db, INVENTREE, "stocklocation", pk)
+        loc = db.get(Location, existing) if existing else None
+        if loc is not None:
+            cache[_location_key(path, root)] = loc.id
+            report.inc("InvenTree-Lagerorte vorhanden")
+        else:
+            loc_id = ensure_location_path(db, path, create, cache, root)
+            if loc_id is None:
+                report.inc("InvenTree-Lagerorte nicht angelegt (Neuanlage aus)")
+                continue
+            loc = db.get(Location, loc_id)
+            report.inc("InvenTree-Lagerorte verknüpft")
+        link_location(db, loc.id, pk, locs[pk].get("barcode_data") or "", strict=True, report=report)
+    db.flush()
 
 
 def _find_existing(db: Session, f: dict, by: str) -> Item | None:
@@ -418,6 +465,9 @@ def run(db: Session, table: Table, cfg: dict, user_id: int | None = None, dry_ru
     loc_cache: dict = {}
     seen_in_file: dict[str, Item] = {}
     touched: set[int] = set()
+    inventree = table.kind == "InvenTree"
+    if inventree and table.extra.get("inventree_locations"):
+        _link_inventree_locations(db, table, cfg, report, create_locs, loc_root, loc_cache)
     for n, row in enumerate(table.dicts(), start=1):
         f, skip = transform(row, cfg)
         label = f.get("name") or f"Zeile {n}"
@@ -437,7 +487,12 @@ def run(db: Session, table: Table, cfg: dict, user_id: int | None = None, dry_ru
             report.warnings.append(f"Zeile {n} „{label}“: Menge „{f['quantity']}“ nicht lesbar.")
         qty = qty or 0.0
         params = json.loads(f["_params"]) if f.get("_params") else {}
-        existing = seen_in_file.get(f["name"].lower()) or _find_existing(db, f, by)
+        # InvenTree: Teil/Lagerartikel zuerst über external_ids wiederfinden (erneuter Lauf -> keine Duplikate)
+        part_id = int(row[INV_PART]) if inventree and str(row.get(INV_PART) or "").isdigit() else None
+        stockitem_id = int(row[INV_STOCKITEM]) if inventree and str(row.get(INV_STOCKITEM) or "").isdigit() else None
+        known_id = ext_get(db, INVENTREE, "part", part_id) if part_id else None
+        known = db.get(Item, known_id) if known_id else None
+        existing = known or seen_in_file.get(f["name"].lower()) or _find_existing(db, f, by)
         loc_id = ensure_location_path(db, f.get("location", ""), create_locs, loc_cache, loc_root) if (f.get("location") or loc_root and qty) else None
         if f.get("location") and loc_id is None:
             report.warnings.append(f"Zeile {n} „{label}“: Lagerort „{f['location']}“ gibt es nicht (Neuanlage aus).")
@@ -476,6 +531,8 @@ def run(db: Session, table: Table, cfg: dict, user_id: int | None = None, dry_ru
                 if changed:
                     note.append(", ".join(changed))
         touched.add(item.id)
+        if part_id:
+            link_part(db, item.id, part_id, strict=True, report=report)
         for pname, pval in params.items():
             if fields_mode != "skip" or existing is None:
                 set_parameter(db, item, pname[:80], pval[:100], "")
@@ -488,17 +545,24 @@ def run(db: Session, table: Table, cfg: dict, user_id: int | None = None, dry_ru
                     add_item_code(db, item.id, code.strip(), "altsystem", "import")
                 except ValueError as e:
                     report.warnings.append(f"Zeile {n} „{label}“: Code {code.strip()} nicht übernommen ({e}).")
-        if qty > 0 and stock_mode != "ignore":
+        known_lot = ext_get(db, INVENTREE, "stockitem", stockitem_id) if stockitem_id else None
+        if qty > 0 and stock_mode != "ignore" and known_lot and db.get(StockLot, known_lot) is not None:
+            note.append("Bestand schon importiert")
+            report.inc("Bestände schon importiert (InvenTree)")
+        elif qty > 0 and stock_mode != "ignore":
+            ref = f"inventree:stockitem:{stockitem_id}" if stockitem_id else ""  # wie klassischer Import: Scan findet den Bestand
             if existing is not None and stock_mode == "set":
                 lot = stocksvc.find_lot(db, item.id, loc_id)
                 if lot is None:
-                    lot = stocksvc.add_stock(db, item, loc_id, qty, user_id, note="Import")
+                    lot = stocksvc.add_stock(db, item, loc_id, qty, user_id, note="Import", ref=ref)
                 elif lot.quantity != qty:
                     stocksvc.count_stock(db, lot, qty, user_id, note="Import (Bestand gesetzt)")
             else:
-                lot = stocksvc.add_stock(db, item, loc_id, qty, user_id, note="Import")
+                lot = stocksvc.add_stock(db, item, loc_id, qty, user_id, note="Import", ref=ref)
             if review:
                 lot.needs_review = True
+            if stockitem_id:
+                link_stockitem(db, lot.id, item.id, stockitem_id, strict=True, report=report)
             note.append(f"Bestand {qty:g}" + (f" in {f['location']}" if f.get("location") else ""))
             report.inc("Bestände gebucht")
         add(action, "; ".join(note))

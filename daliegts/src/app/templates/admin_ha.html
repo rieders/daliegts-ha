@@ -58,7 +58,7 @@ intent_script:
 
 <div class="card">
   <h2 class="mt0">Optional: Sensoren fürs Dashboard</h2>
-  <p>Bestand unter Minimum, Einkaufsliste, Haltbarkeit und der 3D-Drucker (inkl. Warnung „Spule reicht nicht“) in einem Sensor:</p>
+  <p>Bestand unter Minimum, Einkaufsliste, Haltbarkeit, der 3D-Drucker (inkl. Warnung „Spule reicht nicht“) und die Sammlung (Anzahl, Marktwert) in einem Sensor:</p>
   <pre class="code">rest:
   - resource: "{{ BASE_URL }}/api/v1/summary"
     headers:
@@ -71,7 +71,15 @@ intent_script:
       - name: "Lager abgelaufen"
         value_template: "{{ '{{' }} value_json.expiry.expired {{ '}}' }}"
       - name: "3D-Drucker Hinweis"
-        value_template: "{{ '{{' }} (value_json.printers3d | map(attribute='warning') | select | list | first) or 'ok' {{ '}}' }}"</pre>
+        value_template: "{{ '{{' }} (value_json.printers3d | map(attribute='warning') | select | list | first) or 'ok' {{ '}}' }}"
+      - name: "Sammlung Tonträger"
+        value_template: "{{ '{{' }} value_json.collection.count {{ '}}' }}"
+      - name: "Sammlung Marktwert"
+        unit_of_measurement: "EUR"
+        device_class: monetary
+        value_template: "{{ '{{' }} value_json.collection.value | round(2) {{ '}}' }}"
+      - name: "Sammlung Bücher"
+        value_template: "{{ '{{' }} value_json.books.count {{ '}}' }}"</pre>
 </div>
 
 <div class="card">

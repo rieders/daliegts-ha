@@ -250,6 +250,8 @@ ITEM_KINDS = {
     "geraet": "Gerät",
     "verbrauch": "Verbrauchsmaterial",
     "filament": "Filament",
+    "tontraeger": "Tonträger",
+    "buch": "Buch",
     "sonstiges": "Sonstiges",
 }
 STOCK_MODES = {"exact": "exakt", "coarse": "grob (Ampel)", "unknown": "unbekannt"}
@@ -560,6 +562,8 @@ class LocationLight(Base):
     led_start: Mapped[int] = mapped_column(Integer)
     led_count: Mapped[int] = mapped_column(Integer, default=1)
     color: Mapped[str | None] = mapped_column(String(6), nullable=True)
+    # Von Hand gesetzt (Ortsseite): bleibt beim Neuberechnen der LED-Ketten erhalten und ersetzt dort die berechneten LEDs
+    manual: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
     location: Mapped[Location] = relationship(back_populates="lights")
     controller: Mapped[WledController] = relationship(lazy="joined")
 
@@ -754,3 +758,88 @@ class PrintModel(Base):
     def need_g(self) -> float | None:
         """Bedarf für den nächsten Druck: zuletzt tatsächlich verbraucht, sonst Slicer-Angabe."""
         return self.last_g if self.last_g else self.expected_g
+
+
+# ------------------------------------------------------------------ Sammlung: Tonträger und Bücher (v0.33)
+MEDIA_MEDIUMS = {"LP": "LP", "Single": "Single", "Maxi": "Maxi", "CD": "CD", "Kassette": "Kassette", "Sonstiges": "Sonstiges"}
+# Discogs-Zustandsstufen (Goldmine) – Schlüssel = Kürzel
+GRADES = {"M": "Mint", "NM": "Near Mint", "VG+": "Very Good Plus", "VG": "Very Good", "G+": "Good Plus", "G": "Good", "F": "Fair", "P": "Poor"}
+BOOK_BINDINGS = {"Hardcover": "Hardcover", "Taschenbuch": "Taschenbuch", "Heft": "Heft", "Sonstiges": "Sonstiges"}
+COVER_ROLES = {"front": "Vorderseite", "back": "Rückseite", "inlay": "Innenhülle/Inlay", "label": "Label"}
+
+
+class MediaRecord(Base, TimestampMixin):
+    """Tonträger (LP, CD, Kassette …) – 1:1 zu einem Artikel; Lagerort/Bestand über den Artikel."""
+    __tablename__ = "media_records"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    item_id: Mapped[int] = mapped_column(ForeignKey("items.id", ondelete="CASCADE"), unique=True)
+    artist: Mapped[str] = mapped_column(String(255), default="", server_default="")
+    artist_sort: Mapped[str] = mapped_column(String(255), default="", server_default="", index=True)
+    album: Mapped[str] = mapped_column(String(255), default="", server_default="")
+    year: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    genre: Mapped[str] = mapped_column(String(120), default="", server_default="")
+    label: Mapped[str] = mapped_column(String(200), default="", server_default="")
+    catalog_no: Mapped[str] = mapped_column(String(80), default="", server_default="")
+    medium: Mapped[str] = mapped_column(String(20), default="LP", server_default="LP")
+    country: Mapped[str] = mapped_column(String(60), default="", server_default="")
+    musicbrainz_id: Mapped[str | None] = mapped_column(String(36), nullable=True, index=True)
+    discogs_id: Mapped[str | None] = mapped_column(String(20), nullable=True, index=True)
+    media_condition: Mapped[str] = mapped_column(String(4), default="", server_default="")
+    sleeve_condition: Mapped[str] = mapped_column(String(4), default="", server_default="")
+    digitized: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
+    digitized_path: Mapped[str] = mapped_column(String(500), default="", server_default="")
+    market_lowest: Mapped[float | None] = mapped_column(Float, nullable=True)
+    market_suggested: Mapped[float | None] = mapped_column(Float, nullable=True)
+    market_currency: Mapped[str] = mapped_column(String(3), default="EUR", server_default="EUR")
+    market_for_sale: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    market_checked_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    market_error: Mapped[str] = mapped_column(String(300), default="", server_default="")  # letzte Meldung beim Abruf
+    item: Mapped[Item] = relationship(lazy="joined")
+    tracks: Mapped[list["MediaTrack"]] = relationship(back_populates="record", cascade="all, delete-orphan",
+                                                      order_by="MediaTrack.side, MediaTrack.position, MediaTrack.id")
+
+    @property
+    def market_value(self) -> float | None:
+        """Sammlerwert: Preisvorschlag zum Zustand, sonst niedrigstes Angebot."""
+        return self.market_suggested if self.market_suggested is not None else self.market_lowest
+
+
+class MediaTrack(Base):
+    __tablename__ = "media_tracks"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    record_id: Mapped[int] = mapped_column(ForeignKey("media_records.id", ondelete="CASCADE"), index=True)
+    side: Mapped[str] = mapped_column(String(4), default="A", server_default="A")
+    position: Mapped[int] = mapped_column(Integer, default=1)
+    title: Mapped[str] = mapped_column(String(255), default="")
+    artist: Mapped[str] = mapped_column(String(255), default="", server_default="")
+    length_seconds: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    record: Mapped[MediaRecord] = relationship(back_populates="tracks")
+
+
+class BookRecord(Base, TimestampMixin):
+    """Buch – 1:1 zu einem Artikel; die ISBN liegt zusätzlich als Artikel-Code (der normale Scan findet das Buch)."""
+    __tablename__ = "book_records"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    item_id: Mapped[int] = mapped_column(ForeignKey("items.id", ondelete="CASCADE"), unique=True)
+    title: Mapped[str] = mapped_column(String(300), default="", server_default="")
+    subtitle: Mapped[str] = mapped_column(String(300), default="", server_default="")
+    authors: Mapped[str] = mapped_column(String(500), default="", server_default="")  # „Vorname Nachname; Vorname Nachname“
+    author_sort: Mapped[str] = mapped_column(String(255), default="", server_default="", index=True)
+    publisher: Mapped[str] = mapped_column(String(200), default="", server_default="")
+    year: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    edition: Mapped[str] = mapped_column(String(80), default="", server_default="")
+    isbn13: Mapped[str | None] = mapped_column(String(13), nullable=True, index=True)
+    isbn10: Mapped[str | None] = mapped_column(String(10), nullable=True)
+    language: Mapped[str] = mapped_column(String(20), default="", server_default="")
+    pages: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    series: Mapped[str] = mapped_column(String(200), default="", server_default="")
+    series_number: Mapped[str] = mapped_column(String(20), default="", server_default="")
+    genre: Mapped[str] = mapped_column(String(120), default="", server_default="")
+    binding: Mapped[str] = mapped_column(String(20), default="", server_default="")
+    condition: Mapped[str] = mapped_column(String(40), default="", server_default="")
+    signed: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
+    read: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
+    market_value: Mapped[float | None] = mapped_column(Float, nullable=True)
+    market_currency: Mapped[str] = mapped_column(String(3), default="EUR", server_default="EUR")
+    market_checked_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    item: Mapped[Item] = relationship(lazy="joined")

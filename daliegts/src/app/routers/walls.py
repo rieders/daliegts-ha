@@ -213,7 +213,7 @@ async def wall_action(loc_id: int, request: Request, db: Session = Depends(get_d
             db.flush()
             starts = walls.apply_chains(db, wall)
             audit.log(db, ctx.user_id, "update", "location", wall.id, f"LED-Ketten für {len(starts)} Module in {wall.name} neu berechnet")
-            msg = f"LED-Nummern für {len(starts)} Module neu berechnet."
+            msg = " ".join([f"LED-Nummern für {len(starts)} Module neu berechnet.", *walls.chain_warnings(db, wall)])
         elif act == "edges":
             check(ctx, "wled_config", 2)
             edgesvc.clear_edges(db, wall)  # bisherige Zuordnungen weg, bevor sich Bereiche ändern
@@ -253,7 +253,12 @@ async def reshape(loc_id: int, request: Request, db: Session = Depends(get_db), 
         return redirect(f"/orte/{loc_id}")
     parent = furniture.parent
     if parent is not None and parent.layout and parent.layout.get("chains"):
-        walls.apply_chains(db, parent)  # LED-Nummern der Kette passen sich an
+        try:
+            walls.apply_chains(db, parent)  # LED-Nummern der Kette passen sich an
+        except ValueError as e:  # z. B. xy-Kette mit jetzt unterschiedlicher Reihenzahl
+            db.rollback()
+            flash(request, f"Nicht umgebaut – {e}", "err")
+            return redirect(f"/orte/{loc_id}")
     audit.log(db, ctx.user_id, "update", "location", furniture.id,
               f"{furniture.name} umgebaut: +{len(res.added)} / −{len(res.removed)} Fächer")
     db.commit()

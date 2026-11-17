@@ -298,7 +298,7 @@ def set_lights(loc_id: int, request: Request, controller_id: int = Form(...), le
         if db.get(WledController, controller_id) is None:
             raise HTTPException(404, "Controller nicht gefunden")
         db.add(LocationLight(location_id=loc.id, controller_id=controller_id, led_start=max(0, led_start), led_count=min(led_count, 500),
-                             color=clean_color(color)))
+                             color=clean_color(color), manual=True))
     db.commit()
     if request.headers.get("hx-request"):
         return {"ok": True}

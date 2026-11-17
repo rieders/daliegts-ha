@@ -233,6 +233,7 @@ function scanApp(cfg) {
         }
         return;
       }
+      if (m === "info" && item.collection_url) { lwGo(item.collection_url); return; }  // Platte/Buch -> Sammlung
       this.item = item;
       if (m === "info" && item.lots.length && this.caps.canLed) this.led({ item_id: item.id });
       if ((m === "entnehmen" || m === "umlagern") && item.lots.length === 1) this.pickLot(item.lots[0]);

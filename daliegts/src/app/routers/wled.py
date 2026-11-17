@@ -262,18 +262,21 @@ async def map_furniture(loc_id: int, request: Request, db: Session = Depends(get
     cells = [c for c in furniture.children if c.grid_row]
     spec.merges = [(c.grid_row, c.grid_col, c.grid_rowspan, c.grid_colspan) for c in cells if c.grid_rowspan > 1 or c.grid_colspan > 1]
     mapping = locsvc.led_mapping(spec, [{"row": c.grid_row, "col": c.grid_col, "rowspan": c.grid_rowspan, "colspan": c.grid_colspan} for c in cells])
-    n = 0
+    n = kept = 0
     for c in cells:
         for lt in list(c.lights):
-            if lt.controller_id == spec.controller_id:
+            if lt.controller_id == spec.controller_id and not lt.manual:
                 db.delete(lt)
+        if any(lt.manual and lt.controller_id == spec.controller_id for lt in c.lights):
+            kept += 1
+            continue  # von Hand gesetzt (Ortsseite) – bleibt und ersetzt die berechneten LEDs
         if (c.grid_row, c.grid_col) in mapping:
             s, cnt = mapping[(c.grid_row, c.grid_col)]
             db.add(LocationLight(location_id=c.id, controller_id=spec.controller_id, led_start=s, led_count=cnt))
             n += 1
     furniture.light_mode = f.get("light_mode", furniture.light_mode)
     furniture.led_spec = {k: getattr(spec, k) for k in ("leds_per_cell", "led_gap", "led_row_gap", "serpentine", "led_start_corner", "led_direction")}
-    audit.log(db, ctx.user_id, "update", "location", furniture.id, f"LED-Mapping für {n} Fächer neu berechnet")
+    audit.log(db, ctx.user_id, "update", "location", furniture.id, f"LED-Mapping für {n} Fächer neu berechnet, {kept} mit Handzuordnung beibehalten")
     db.commit()
-    flash(request, f"LED-Zuordnung für {n} Fächer gesetzt. Tipp: einzelne Fächer im Raster antippen und mit +/− justieren.")
+    flash(request, f"LED-Zuordnung für {n} Fächer gesetzt" + (f", {kept} mit Handzuordnung beibehalten" if kept else "") + ". Tipp: einzelne Fächer im Raster antippen und mit +/− justieren.")
     return redirect(f"/orte/{loc_id}")

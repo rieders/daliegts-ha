@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Buch bearbeiten' if book else 'Bücher erfassen' }}{% endblock %}
+{% block head %}<script src="/static/js/scan.js?v={{ APP_VERSION }}" defer></script><script src="/static/js/collection.js?v={{ APP_VERSION }}" defer></script>{% endblock %}
+{% block content %}
+{% from "partials/macros.html" import locpicker %}
+<div class="breadcrumb"><a href="/sammlung?art=buecher">Sammlung</a>{% if book %} › <a href="/sammlung/buecher/{{ book.id }}">{{ book.title }}</a>{% endif %}</div>
+<h1>{{ 'Buch bearbeiten' if book else 'Bücher erfassen' }}</h1>
+
+<div x-data='bookForm({{ {"data": data, "id": book.id if book else none, "covers": covers}|tojson }})' x-init="init()">
+  {% if not book %}
+  <div class="pill-group" style="margin-bottom: var(--gap)">
+    <a href="#" :class="mode === 'scan' && 'on'" @click.prevent="mode = 'scan'">📷 ISBN scannen</a>
+    <a href="#" :class="mode === 'search' && 'on'" @click.prevent="mode = 'search'; stopCamera()">🔎 Ohne ISBN suchen</a>
+    <a href="#" :class="mode === 'form' && 'on'" @click.prevent="mode = 'form'; stopCamera()">✍ Von Hand</a>
+  </div>
+
+  <div class="card" x-show="mode === 'scan'">
+    <p class="small muted mt0">ISBN-Barcode hinten auf dem Buch scannen → Daten und Cover werden geholt → Lagerort prüfen → speichern. Danach gleich das nächste Buch scannen; die Seite bleibt offen und der Lagerort bleibt stehen.</p>
+    <div class="row">
+      <button type="button" class="btn primary" @click="toggleCamera()" x-text="camOn ? 'Kamera aus' : '📷 Kamera starten'"></button>
+      <button type="button" class="btn ghost" x-show="camOn && torchAvailable" @click="toggleTorch()">🔦</button>
+      <form class="row grow" @submit.prevent="lookup(isbnInput); isbnInput = ''">
+        <input class="grow" x-model="isbnInput" inputmode="numeric" placeholder="ISBN tippen oder Handscanner" autocomplete="off" style="min-width: 160px">
+        <button class="btn">Holen</button>
+      </form>
+    </div>
+    <label class="inline small" style="margin-top:6px"><input type="checkbox" x-model="autoSave"> Gefundene Bücher sofort speichern (schnelles Serien-Scannen)</label>
+    <div class="scanner" x-show="camOn" x-cloak style="margin-top:8px"><video x-ref="video" playsinline muted></video><div class="frame"></div></div>
+    <p class="small" x-show="camError" x-text="camError" style="color: var(--err)"></p>
+  </div>
+
+  <div class="card" x-show="mode === 'search'" x-cloak>
+    <p class="small muted mt0">Für ältere Bücher und DDR-Ausgaben ohne ISBN: Titel und/oder Autor eingeben. Die Deutsche Nationalbibliothek kennt auch Bücher aus der DDR.</p>
+    <form class="coll-filters" @submit.prevent="search()">
+      <div><label>Titel</label><input x-model="s.title" autocomplete="off"></div>
+      <div><label>Autor</label><input x-model="s.author" autocomplete="off"></div>
+      <div class="row"><button class="btn primary" :disabled="busy">Suchen</button></div>
+    </form>
+    <div class="hits" x-show="hits.length" style="margin-top:8px">
+      <template x-for="(h, i) in hits" :key="i">
+        <button type="button" class="hit" @click="pick(h)">
+          <template x-if="h.cover_url"><img :src="h.cover_url" alt="" loading="lazy" referrerpolicy="no-referrer" @error="$el.remove()"></template>
+          <template x-if="!h.cover_url"><span class="noimg"></span></template>
+          <span class="grow"><b x-text="h.title"></b><span class="muted" x-show="h.subtitle" x-text="' – ' + h.subtitle"></span><br>
+            <span class="small muted" x-text="[(h.authors || []).join(', '), h.publisher, h.year, h.isbn13].filter(Boolean).join(' · ')"></span></span>
+          <span class="badge" x-text="{dnb: 'DNB', openlibrary: 'Open Library', google: 'Google'}[h.source] || h.source"></span>
+        </button>
+      </template>
+    </div>
+    <p class="small muted" x-show="searched && !busy && !hits.length">Keine Treffer – „Von Hand“ eintragen und das Cover fotografieren.</p>
+  </div>
+  {% endif %}
+
+  <p class="small muted" x-show="busy" x-cloak>Suche läuft …</p>
+  <template x-for="n in notes"><p class="small" style="color: var(--warn)" x-text="n"></p></template>
+  <div class="card" x-show="existing" x-cloak style="border-color: var(--warn)">
+    <b>Dieses Buch ist schon in der Sammlung</b> (<a :href="existing && existing.url" x-text="existing && existing.title"></a><span x-show="existing && existing.location" x-text="existing && (' · ' + existing.location)"></span>). Speichern aktualisiert es, statt es doppelt anzulegen.
+  </div>
+
+  <form x-ref="form" @submit.prevent="save()" x-show="mode !== 'search' || d.title" enctype="multipart/form-data">
+    <div class="card">
+      <div class="row" style="justify-content: space-between"><h2 class="mt0">Buch</h2>
+        <span class="small muted" x-show="sources.length" x-text="'Daten von: ' + sources.map(s => ({dnb: 'DNB', openlibrary: 'Open Library', google: 'Google Books'}[s] || s)).join(', ')"></span></div>
+      <div class="row top">
+        <div style="width: 110px; flex: none">
+          <div class="cover-tile book"><div class="cv"><template x-if="preview.front"><img :src="preview.front" alt="Cover" referrerpolicy="no-referrer" @error="imgBroken('front')"></template><span x-show="!preview.front">📖</span></div></div>
+        </div>
+        <div class="grow fields">
+          <div><label>Titel *</label><input name="title" x-model="d.title" required></div>
+          <div><label>Untertitel</label><input name="subtitle" x-model="d.subtitle"></div>
+          <div><label>Autor(en) <span class="small muted">– mehrere mit ;</span></label><input name="authors" x-model="d.authors" placeholder="Vorname Nachname; …"></div>
+          <div><label>ISBN</label><input name="isbn13" x-model="d.isbn13" inputmode="numeric"></div>
+        </div>
+      </div>
+      <div class="fields" style="margin-top:8px">
+        <div><label>Verlag</label><input name="publisher" x-model="d.publisher"></div>
+        <div><label>Jahr</label><input name="year" x-model="d.year" inputmode="numeric" maxlength="4"></div>
+        <div><label>Auflage</label><input name="edition" x-model="d.edition"></div>
+        <div><label>Sprache</label><input name="language" x-model="d.language" placeholder="de"></div>
+        <div><label>Seiten</label><input name="pages" x-model="d.pages" inputmode="numeric"></div>
+        <div><label>Reihe</label><input name="series" x-model="d.series"></div>
+        <div><label>Band</label><input name="series_number" x-model="d.series_number" inputmode="decimal"></div>
+        <div><label>Genre</label><input name="genre" x-model="d.genre"></div>
+        <div><label>Einband</label><select name="binding" x-model="d.binding"><option value="">–</option>{% for k, v in BOOK_BINDINGS.items() %}<option value="{{ k }}">{{ v }}</option>{% endfor %}</select></div>
+        <div><label>Zustand</label><input name="condition" x-model="d.condition" placeholder="z. B. sehr gut, leichte Gebrauchsspuren"></div>
+        <div><label>Marktwert (€, von Hand)</label><input name="market_value" x-model="d.market_value" inputmode="decimal"></div>
+        <div><label>Lagerort</label>{{ locpicker(value=preset_location) }}</div>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <label class="inline"><input type="checkbox" x-model="d.read"> gelesen</label>
+        <label class="inline"><input type="checkbox" x-model="d.signed"> signiert</label>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <label class="btn sm">📷 Cover vorn<input type="file" name="cover_front" accept="image/*" capture="environment" hidden @change="fileChosen('front', $event)"></label>
+        <label class="btn sm">📷 Rückseite<input type="file" name="cover_back" accept="image/*" capture="environment" hidden @change="fileChosen('back', $event)"></label>
+        <template x-if="preview.back"><img :src="preview.back" alt="Rückseite" style="height: 48px; border-radius: 4px" referrerpolicy="no-referrer" @error="imgBroken('back')"></template>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 20px">
+      <button class="btn primary" :disabled="saving" x-text="saving ? 'Speichert …' : ({{ 'true' if book else 'false' }} ? 'Speichern' : 'Speichern & nächstes')"></button>
+      {% if book %}<a class="btn ghost" href="/sammlung/buecher/{{ book.id }}">Abbrechen</a>{% else %}<button type="button" class="btn ghost" @click="resetBook()">Leeren</button>{% endif %}
+    </div>
+  </form>
+
+  {% if not book %}
+  <div class="card" x-show="saved.length" x-cloak>
+    <h2 class="mt0">In dieser Runde erfasst (<span x-text="saved.length"></span>)</h2>
+    <ul class="saved-list"><template x-for="(b, i) in saved" :key="i"><li><a :href="b.url" x-text="b.title"></a> <span class="small muted" x-text="(b.created ? 'neu' : 'aktualisiert') + (b.location ? ' · ' + b.location : '')"></span></li></template></ul>
+    <a class="btn sm" href="/sammlung?art=buecher">Zur Sammlung</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

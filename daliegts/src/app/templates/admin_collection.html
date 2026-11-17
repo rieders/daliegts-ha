@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Sammlung – Einstellungen{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/admin">Verwaltung</a></div>
+<h1>Sammlung: Online-Daten & Marktwert</h1>
+<p class="muted">Woher {{ APP_NAME }} Angaben, Titellisten und Cover für <a href="/sammlung">Tonträger und Bücher</a> holt. Zugangsdaten werden nur hier gespeichert und <b>nicht</b> in Backups/Exporte übernommen.</p>
+{% set can_edit = me.can('system', 2) %}
+<form method="post" action="/admin/sammlung">
+  <div class="card">
+    <h2 class="mt0">💿 Tonträger</h2>
+    <label class="inline"><input type="checkbox" name="musicbrainz" value="1" {{ 'checked' if conf.musicbrainz }} {{ 'disabled' if not can_edit }}> MusicBrainz + Cover Art Archive (frei, ohne Konto; höchstens 1 Anfrage pro Sekunde)</label><br>
+    <label class="inline"><input type="checkbox" name="discogs" value="1" {{ 'checked' if conf.discogs }} {{ 'disabled' if not can_edit }}> Discogs (Suche, Titellisten, Bilder und Marktwert)</label>
+    <div class="fields" style="margin-top:8px">
+      <div><label>Discogs – persönliches Token</label>
+        <input type="password" name="discogs_token" autocomplete="off" placeholder="{{ 'gespeichert' if has_token else 'optional' }}" {{ 'disabled' if not can_edit }}>
+        <div class="small"><a href="https://www.discogs.com/settings/developers" target="_blank" rel="noopener noreferrer">Token erzeugen ↗</a> (Discogs-Konto › Einstellungen › Entwickler)
+          {% if has_token and can_edit %} · <label class="inline small"><input type="checkbox" name="discogs_token.clear" value="1"> Token löschen</label>{% endif %}</div></div>
+      <div><label>Kontakt im User-Agent (Webseite oder Mail-Adresse)</label><input name="contact" value="{{ conf.contact }}" maxlength="120" {{ 'disabled' if not can_edit }}>
+        <div class="small muted">MusicBrainz verlangt eine Kontaktmöglichkeit in jeder Anfrage.</div></div>
+    </div>
+    <table class="small" style="margin-top:8px">
+      <tr><th>Ohne Token</th><td>MusicBrainz-Suche, Titellisten und Cover; bei Discogs-verknüpften Tonträgern das <b>niedrigste Angebot</b> und die Zahl der Angebote.</td></tr>
+      <tr><th>Mit Token</th><td>zusätzlich Discogs-Suche (Barcode, Katalognummer …) und der <b>Preisvorschlag für den eingetragenen Zustand</b> der Platte. Discogs gibt diesen in der Währung deines Verkäuferprofils aus.</td></tr>
+    </table>
+    {% if ratelimit is not none %}<p class="small muted">Discogs-Restkontingent zuletzt: {{ ratelimit }} Anfragen in der laufenden Minute.</p>{% endif %}
+  </div>
+
+  <div class="card" x-data='{order: {{ conf.book_order|tojson }}, names: {{ sources|tojson }}, src: {{ conf.book_sources|tojson }}, move(i, d) { const j = i + d; if (j < 0 || j >= this.order.length) return; const o = [...this.order]; [o[i], o[j]] = [o[j], o[i]]; this.order = o; }}'>
+    <h2 class="mt0">📖 Bücher</h2>
+    <p class="small muted mt0">Reihenfolge der Quellen: Die erste liefert die Angaben, fehlende Felder werden aus der jeweils nächsten ergänzt.</p>
+    <input type="hidden" name="book_order" :value="order.join(',')">
+    <ol>
+      <template x-for="(k, i) in order" :key="k">
+        <li class="row" style="margin-bottom:4px">
+          <label class="inline grow"><input type="checkbox" :name="'src.' + k" value="1" :checked="src[k]" {{ 'disabled' if not can_edit }}> <span x-text="names[k]"></span></label>
+          {% if can_edit %}<button type="button" class="btn ghost sm" @click="move(i, -1)" :disabled="i === 0" title="nach oben">▲</button>
+          <button type="button" class="btn ghost sm" @click="move(i, 1)" :disabled="i === order.length - 1" title="nach unten">▼</button>{% endif %}
+        </li>
+      </template>
+    </ol>
+    <div class="fields">
+      <div><label>Google Books – API-Schlüssel (optional, höhere Abruf-Grenze)</label>
+        <input type="password" name="google_key" autocomplete="off" placeholder="{{ 'gespeichert' if has_google else 'optional' }}" {{ 'disabled' if not can_edit }}>
+        {% if has_google and can_edit %}<label class="inline small"><input type="checkbox" name="google_key.clear" value="1"> Schlüssel löschen</label>{% endif %}</div>
+      <div><label>Marktwert für Bücher automatisch</label>
+        <select name="book_market" {{ 'disabled' if not can_edit }}><option value="">keiner – Wert von Hand pflegen</option>
+          {% for k, cls in market_providers.items() %}<option value="{{ k }}" {{ 'selected' if conf.book_market == k }}>{{ cls.name }}</option>{% endfor %}</select>
+        <div class="small muted">{% if market_providers %}Eigene Provider sind registriert.{% else %}Es ist bewusst keine Quelle fest eingebaut. Ein Provider lässt sich als Erweiterung nachrüsten (siehe Dokumentation, „BookMarketProvider“).{% endif %}</div></div>
+      {% if conf.book_market and market_providers.get(conf.book_market) %}{% for fld, label in market_providers[conf.book_market].fields %}
+      <div><label>{{ label }}</label><input type="password" name="bm.{{ fld }}" autocomplete="off" placeholder="{{ 'gespeichert' if conf.book_market_conf.get(fld) else '' }}" {{ 'disabled' if not can_edit }}></div>
+      {% endfor %}{% endif %}
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 class="mt0">Nächtliche Aktualisierung</h2>
+    <label class="inline"><input type="checkbox" name="nightly_market" value="1" {{ 'checked' if conf.nightly_market }} {{ 'disabled' if not can_edit }}> Marktwerte jede Nacht (03:47 Uhr, zusammen mit den Info-Providern) aktualisieren – ältester Stand zuerst</label>
+    <div class="fields" style="margin-top:6px"><div><label>Tonträger pro Nacht</label><input type="number" name="market_budget" value="{{ conf.market_budget }}" min="1" max="500" {{ 'disabled' if not can_edit }}></div></div>
+    {% if last_run %}<p class="small muted">Letzter Lauf: {{ last_run.started|dt }} – {{ last_run.records }} Tonträger geprüft ({{ last_run.ok }} ok, {{ last_run.errors }} ohne Ergebnis){% if last_run.books %}, {{ last_run.books }} Bücher{% endif %}.</p>{% endif %}
+  </div>
+  {% if can_edit %}<div class="row"><button class="btn primary">Speichern</button><button class="btn" formaction="/admin/sammlung/test">Verbindung testen</button></div>
+  {% else %}<p class="small muted">Zum Ändern den Admin-Modus einschalten.</p>{% endif %}
+</form>
+{% endblock %}

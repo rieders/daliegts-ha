@@ -17,6 +17,10 @@ def _extra_text(db: Session, item: Item) -> str:
              item.manufacturer.name if item.manufacturer else "", item.origin, item.historic_manufacturer, item.notes or "", item.code]
     parts += [f"{p.name} {p.value_text}{p.unit}" for p in item.parameters]
     parts += [c.code for c in item.codes]
+    if item.kind in ("tontraeger", "buch"):  # Sammlung (v0.33): Interpret, Titel, Autoren, Reihe …
+        from .collection import search_text
+
+        parts += search_text(db, item)
     names = {item.name, item.mpn} - {""}
     for eq in db.scalars(select(Equivalent).where(or_(Equivalent.type_a.in_(names), Equivalent.type_b.in_(names)))):
         parts += [eq.type_a, eq.type_b]

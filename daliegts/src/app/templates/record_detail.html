@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}{{ rec.artist }} – {{ rec.album }}{% endblock %}
+{% block content %}
+{% macro mins(s) %}{% if s %}{{ s // 60 }}:{{ '%02d'|format(s % 60) }}{% endif %}{% endmacro %}
+{% macro money(v) %}{{ v|euro if rec.market_currency == 'EUR' else ('%.2f'|format(v)).replace('.', ',') ~ ' ' ~ rec.market_currency }}{% endmacro %}
+<div class="breadcrumb"><a href="/sammlung?art=tontraeger">Sammlung</a> › <a href="/sammlung?art=tontraeger&q={{ rec.artist|urlencode }}">{{ rec.artist }}</a></div>
+<div class="coll-head">
+  <div>
+    <h1>{{ rec.album or '–' }}</h1>
+    <div class="muted">{{ rec.artist }}{% if rec.year %} · {{ rec.year }}{% endif %} · {{ rec.medium }}{% if rec.country %} · {{ rec.country }}{% endif %}</div>
+  </div>
+  <div class="row">
+    {% if me.can('items', 2) %}<a class="btn" href="/sammlung/tontraeger/{{ rec.id }}/bearbeiten">Bearbeiten</a>{% endif %}
+    <a class="btn ghost" href="/artikel/{{ item.id }}" title="Artikelseite mit Historie, Etikett und Verleih">Artikel {{ item.code }}</a>
+  </div>
+</div>
+
+<div class="row top" style="align-items: stretch">
+  <div class="card grow" style="min-width: 280px">
+    {% if covers %}
+    <div class="gallery">
+      {% for role in ('front', 'back') if covers[role] %}<figure><a href="{{ covers[role] }}" target="_blank" rel="noopener"><img src="{{ covers[role] }}" alt="{{ COVER_ROLES[role] }}"></a><figcaption>{{ COVER_ROLES[role] }}</figcaption></figure>{% endfor %}
+    </div>
+    {% set extra = [] %}{% for role in ('inlay', 'label') if covers[role] %}{% set _ = extra.append(role) %}{% endfor %}
+    {% if extra %}<div class="gallery small-imgs" style="margin-top:10px">
+      {% for role in extra %}<figure><a href="{{ covers[role] }}" target="_blank" rel="noopener"><img src="{{ covers[role] }}" alt="{{ COVER_ROLES[role] }}"></a><figcaption>{{ COVER_ROLES[role] }}</figcaption></figure>{% endfor %}
+    </div>{% endif %}
+    {% else %}<p class="muted">Noch keine Hüllenbilder. {% if me.can('items', 2) %}<a href="/sammlung/tontraeger/{{ rec.id }}/bearbeiten#cover">Fotografieren oder hochladen</a>{% endif %}</p>{% endif %}
+  </div>
+
+  <div class="grow" style="min-width: 280px; max-width: 460px">
+    <div class="card">
+      <h2 class="mt0">Angaben</h2>
+      <table>
+        {% if rec.label or rec.catalog_no %}<tr><th>Label</th><td>{{ rec.label }}{% if rec.catalog_no %} · <code>{{ rec.catalog_no }}</code>{% endif %}</td></tr>{% endif %}
+        {% if rec.genre %}<tr><th>Genre</th><td>{{ rec.genre }}</td></tr>{% endif %}
+        {% if item.codes %}<tr><th>Barcode</th><td>{% for c in item.codes %}<code>{{ c.code }}</code> {% endfor %}</td></tr>{% endif %}
+        <tr><th>Zustand Platte</th><td>{% if rec.media_condition %}<span class="grade">{{ rec.media_condition }}</span> <span class="small muted">{{ GRADES[rec.media_condition] }}</span>{% else %}<span class="muted">nicht erfasst</span>{% endif %}</td></tr>
+        <tr><th>Zustand Hülle</th><td>{% if rec.sleeve_condition %}<span class="grade">{{ rec.sleeve_condition }}</span> <span class="small muted">{{ GRADES[rec.sleeve_condition] }}</span>{% else %}<span class="muted">nicht erfasst</span>{% endif %}</td></tr>
+        <tr><th>Digitalisiert</th><td>{% if rec.digitized %}ja{% if rec.digitized_path %}<br><code class="small">{{ rec.digitized_path }}</code>{% endif %}{% else %}nein{% endif %}</td></tr>
+      </table>
+      <div class="row" style="margin-top:8px">
+        {% if rec.discogs_id %}<a class="btn sm" href="https://www.discogs.com/release/{{ rec.discogs_id }}" target="_blank" rel="noopener noreferrer">Discogs ↗</a>{% endif %}
+        {% if rec.musicbrainz_id %}<a class="btn sm" href="https://musicbrainz.org/release/{{ rec.musicbrainz_id }}" target="_blank" rel="noopener noreferrer">MusicBrainz ↗</a>{% endif %}
+      </div>
+    </div>
+
+    <div class="card" id="markt">
+      <h2 class="mt0">Marktwert</h2>
+      {% if rec.market_checked_at %}
+        {% if rec.market_suggested is not none %}<div class="stat"><b>{{ money(rec.market_suggested) }}</b><span class="small muted">Preisvorschlag für Zustand {{ rec.media_condition }} (Discogs)</span></div>{% endif %}
+        {% if rec.market_lowest is not none %}<div class="{{ 'small' if rec.market_suggested is not none else 'stat' }}" style="margin-top:6px">{% if rec.market_suggested is none %}<b>{{ money(rec.market_lowest) }}</b><span class="small muted">niedrigstes Angebot bei Discogs</span>{% else %}niedrigstes Angebot: <b>{{ money(rec.market_lowest) }}</b>{% endif %}</div>{% endif %}
+        {% if rec.market_lowest is none and rec.market_suggested is none %}<p class="muted">Derzeit kein Angebot bei Discogs.</p>{% endif %}
+        <p class="small muted">{% if rec.market_for_sale is not none %}{{ rec.market_for_sale }} Angebot(e) · {% endif %}Stand {{ rec.market_checked_at|dt }}</p>
+      {% else %}<p class="muted">Noch nicht abgefragt.</p>{% endif %}
+      {% if rec.market_error %}<p class="small" style="color: var(--warn)">{{ rec.market_error }}</p>{% endif %}
+      {% if me.can('items', 2) %}
+        {% if rec.discogs_id %}<form method="post" action="/sammlung/tontraeger/{{ rec.id }}/marktwert"><button class="btn sm primary">Marktwert jetzt aktualisieren</button></form>
+        {% else %}<p class="small muted">Für den Marktwert braucht der Tonträger eine Discogs-ID – <a href="/sammlung/tontraeger/{{ rec.id }}/bearbeiten">bearbeiten</a> und über die Suche verknüpfen.</p>{% endif %}
+        {% if not has_token %}<p class="small muted">Ohne Discogs-Token gibt es nur das niedrigste Angebot; den Preisvorschlag zum Zustand liefert Discogs nur mit Token (<a href="/admin/sammlung">Verwaltung › Sammlung</a>).</p>{% endif %}
+      {% endif %}
+    </div>
+
+    <div class="card">
+      <h2 class="mt0">Lagerort</h2>
+      {% if loc %}<p><a href="/orte/{{ loc.id }}">{{ loc_path }}</a> <span class="badge code">{{ loc.code }}</span></p>
+        {% if has_lights and me.can('wled_show') %}<button class="btn primary" onclick='locate({"item_id": {{ item.id }}})'>💡 Fach leuchten lassen</button>{% endif %}
+      {% else %}<p class="muted">Kein Lagerort. {% if me.can('items', 2) %}<a href="/sammlung/tontraeger/{{ rec.id }}/bearbeiten">Lagerort wählen</a>{% endif %}</p>{% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h2 class="mt0">Titelliste</h2>
+  {% if sides %}
+    {% for side, tracks in sides.items() %}
+    <h3 style="margin: 10px 0 4px">{{ ('Seite ' ~ side) if side is string and side.isalpha() else ('CD ' ~ side if rec.medium == 'CD' else 'Teil ' ~ side) }}</h3>
+    <table class="tracklist">
+      {% for t in tracks %}<tr><td class="pos">{{ side if side.isalpha() else '' }}{{ t.position }}</td><td>{{ t.title }}{% if t.artist %} <span class="small muted">– {{ t.artist }}</span>{% endif %}</td><td class="len">{{ mins(t.length_seconds) }}</td></tr>{% endfor %}
+    </table>
+    {% endfor %}
+    {% set total = rec.tracks|map(attribute='length_seconds')|select|sum %}
+    {% if total %}<p class="small muted">Gesamtlaufzeit {{ mins(total) }}</p>{% endif %}
+  {% else %}<p class="muted">Keine Titelliste erfasst.</p>{% endif %}
+</div>
+{% endblock %}

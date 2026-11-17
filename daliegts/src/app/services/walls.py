@@ -373,6 +373,8 @@ def module_mapping(m: Location, start: int, prev=None) -> tuple[dict[int, list[t
 def walk_chains(db: Session, wall: Location):
     """Geht alle Ketten durch: liefert (controller_id, Modul, Start-LED, Zuordnung, benutzte LEDs, (Zeilen-LEDs, Spalten-LEDs) | None)."""
     for ch in chains_of(wall):
+        if ch.get("mode") == "xy":  # xy-Ketten rechnet apply_chains/xy_layout gesondert
+            continue
         pos, cid = ch["start"], ch["controller_id"]
         prev = None
         for entry in ch["modules"]:
@@ -403,7 +405,13 @@ def clean_chains(db: Session, wall: Location, chains: list[dict]) -> list[dict]:
             if mid in child_ids and (cid, mid) not in seen:
                 seen.add((cid, mid))
                 mods.append({"id": mid, "gap": max(0, min(int(m.get("gap") or 0), 500))})
-        out.append({"controller_id": cid, "start": max(0, min(int(ch.get("start") or 0), 5000)), "modules": mods})
+        clean = {"controller_id": cid, "start": max(0, min(int(ch.get("start") or 0), 5000)), "modules": mods}
+        if ch.get("mode") == "xy":  # Reihen-/Spaltenleisten statt Streifen (strip = ohne "mode", wie bisher)
+            clean["mode"] = "xy"
+            clean["rows_start"] = max(0, min(int(ch.get("rows_start") or 0), 5000))
+            if ch.get("cols_start") not in (None, ""):
+                clean["cols_start"] = max(0, min(int(ch["cols_start"]), 5000))
+        out.append(clean)
     return out
 
 
@@ -424,20 +432,88 @@ def append_to_chain(db: Session, wall: Location, module: Location, controller_id
     apply_chains(db, wall)
 
 
+def xy_layout(db: Session, ch: dict) -> dict:
+    """xy-Kette: eine Reihenleiste (oben -> unten) für alle Module und eine Spaltenleiste (links -> rechts in
+    Kettenreihenfolge, je Modul grid_cols Spalten). Wirft ValueError, wenn die Module nicht zusammenpassen."""
+    mods = [m for e in ch.get("modules", []) if (m := db.get(Location, e["id"])) is not None]
+    no_grid = [m.name for m in mods if not m.grid_rows]
+    if no_grid:
+        raise ValueError(f"xy-Kette: {', '.join(no_grid)} hat noch kein Raster – bitte zuerst ein Raster bzw. eine Vorlage zuweisen.")
+    if len({m.grid_rows for m in mods}) > 1:
+        raise ValueError("xy-Kette: Alle Module brauchen dieselbe Reihenzahl ("
+                         + ", ".join(f"{m.name}: {m.grid_rows}" for m in mods) + "). Nichts gespeichert.")
+    rows = mods[0].grid_rows if mods else 0
+    rows_start = int(ch.get("rows_start") or 0)
+    cols_start = rows_start + rows if ch.get("cols_start") is None else int(ch["cols_start"])
+    module_col, col = {}, cols_start
+    for m in mods:
+        module_col[m.id] = col
+        col += m.grid_cols or 1
+    return {"modules": mods, "rows": rows, "cols": col - cols_start, "rows_start": rows_start, "cols_start": cols_start,
+            "module_col": module_col}
+
+
+def xy_cell_ranges(info: dict, module: Location, cell: Location) -> list[tuple[int, int]]:
+    """(led_start, led_count) eines Fachs: alle Reihen-LEDs und alle Spalten-LEDs, die es überdeckt."""
+    return [(info["rows_start"] + cell.grid_row - 1, cell.grid_rowspan),
+            (info["module_col"][module.id] + cell.grid_col - 1, cell.grid_colspan)]
+
+
+def chain_warnings(db: Session, wall: Location) -> list[str]:
+    """Hinweise zu xy-Ketten: zu wenige LEDs am Controller, Reihen- und Spaltenleiste überschneiden sich."""
+    out = []
+    for ch in chains_of(wall):
+        ctrl = db.get(WledController, ch["controller_id"])
+        if ch.get("mode") != "xy" or ctrl is None:
+            continue
+        info = xy_layout(db, ch)
+        needed = info["rows"] + info["cols"]
+        end = max(info["rows_start"] + info["rows"], info["cols_start"] + info["cols"])
+        if max(needed, end) > ctrl.led_count:
+            out.append(f"{ctrl.name}: Die xy-Kette braucht {needed} LEDs (bis LED {end - 1}), der Controller hat nur {ctrl.led_count}.")
+        if info["rows_start"] < info["cols_start"] + info["cols"] and info["cols_start"] < info["rows_start"] + info["rows"]:
+            out.append(f"{ctrl.name}: Reihen-LEDs ({info['rows_start']}–{info['rows_start'] + info['rows'] - 1}) und Spalten-LEDs "
+                       f"({info['cols_start']}–{info['cols_start'] + info['cols'] - 1}) überschneiden sich.")
+    return out
+
+
+def _clear_computed(db: Session, locs: list[Location], cid: int, eranges=None) -> None:
+    """Berechnete LEDs eines Controllers entfernen – von Hand gesetzte (manual) und Kantenleisten-LEDs bleiben."""
+    for t in locs:
+        for lt in list(t.lights):
+            if lt.controller_id == cid and not lt.manual and not (eranges and edgesvc.owned_by_edge(eranges, cid, lt.led_start)):
+                t.lights.remove(lt)  # delete-orphan
+    db.flush()
+
+
+def _has_manual(loc: Location, cid: int) -> bool:
+    return any(lt.manual and lt.controller_id == cid for lt in loc.lights)
+
+
 def apply_chains(db: Session, wall: Location) -> dict[int, int]:
-    """Berechnet die LED-Nummern aller Module der Ketten fortlaufend neu. Rückgabe: Modul-ID -> Start-LED."""
+    """Berechnet die LED-Nummern aller Module der Ketten fortlaufend neu. Rückgabe: Modul-ID -> Start-LED
+    (bei xy-Ketten: erste Spalten-LED des Moduls). Von Hand gesetzte LEDs bleiben und ersetzen die berechneten."""
+    chains = chains_of(wall)
+    xy = {i: xy_layout(db, ch) for i, ch in enumerate(chains) if ch.get("mode") == "xy"}  # erst alles prüfen, dann schreiben
     starts: dict[int, int] = {}
     eranges = edgesvc.edge_ranges(wall)
-    for cid, m, pos, mapping, _used, _ctx in walk_chains(db, wall):
+    for i, info in xy.items():  # xy-Ketten: gemeinsame Reihen- und Spaltenleiste für alle Module der Kette
+        cid = chains[i]["controller_id"]
+        for m in info["modules"]:
+            cells = [c for c in m.children if c.grid_row]
+            _clear_computed(db, [m, *cells], cid, eranges)
+            for c in cells:
+                if not _has_manual(c, cid):
+                    for s, n in xy_cell_ranges(info, m, c):
+                        c.lights.append(LocationLight(controller_id=cid, led_start=s, led_count=n))
+            starts[m.id] = info["module_col"][m.id]
+    for cid, m, pos, mapping, _used, _ctx in walk_chains(db, wall):  # Ketten ohne xy-Modus (Ansteuerung je Modul)
         targets = {t.id: t for t in [m, *[c for c in m.children if c.grid_row]]}
-        for t in targets.values():
-            for lt in list(t.lights):
-                if lt.controller_id == cid and not edgesvc.owned_by_edge(eranges, cid, lt.led_start):  # Kantenleisten-LEDs bleiben
-                    t.lights.remove(lt)  # delete-orphan
-        db.flush()
+        _clear_computed(db, list(targets.values()), cid, eranges)
         for lid, ranges in mapping.items():
-            for s, n in ranges:
-                targets[lid].lights.append(LocationLight(controller_id=cid, led_start=s, led_count=n))
+            if not _has_manual(targets[lid], cid):
+                for s, n in ranges:
+                    targets[lid].lights.append(LocationLight(controller_id=cid, led_start=s, led_count=n))
         starts[m.id] = pos
     db.flush()
     return starts
@@ -668,6 +744,10 @@ EXTRA_TEMPLATES = {
     "Magazin groß/2×klein/groß + breit unten (17 Fächer)": (
         {"rows": 9, "cols": 3, "type": "magazin", "naming": "number", "prefix": "Fach", "count_direction": "bands",
          "merges": [(r, c, 2, 1) for r in (1, 3, 5, 7) for c in (1, 3)] + [(9, 1, 1, 3)]}, (None, None)),
+    # z. B. Parkside Kleinteilemagazin 33 Fächer (30,5 × 41,5 × 13,5 cm): 8 Reihen à 4 Schubladen, unten eine breite (33 Fächer)
+    "Magazin 4×8 + breit unten (33 Fächer)": (
+        {"rows": 9, "cols": 4, "type": "magazin", "naming": "number", "prefix": "Fach", "count_direction": "rows",
+         "merges": [(9, 1, 1, 4)]}, (30.5, 41.5)),
 }
 
 

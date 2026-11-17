@@ -39,6 +39,7 @@
     {% if me.can('stock', 2) %}{{ navlink('/buchen', 'swap', 'Buchen', path.startswith('/buchen')) }}{% endif %}
     {% if me.can('inventory') %}{{ navlink('/inventur', 'check', 'Inventur', path.startswith('/inventur')) }}{% endif %}
     {{ navlink('/ablauf', 'hourglass', 'Haltbarkeit', path.startswith('/ablauf')) }}
+    {% if me.can('items') %}{{ navlink('/sammlung', 'disc', 'Sammlung', path.startswith('/sammlung')) }}{% endif %}
 
     {% if me.can('orders') or me.can('loans') %}<div class="grp">Projekte</div>{% endif %}
     {% if me.can('orders') %}{{ navlink('/projekte', 'chip', 'Projekte', path.startswith('/projekte'), '' if lic.pro else 'Pro', 'pro') }}

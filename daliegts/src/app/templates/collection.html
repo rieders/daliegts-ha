@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block title %}Sammlung{% endblock %}
+{% block content %}
+{% from "partials/icons.html" import icon %}
+{% set rec_mode = art == 'tontraeger' %}
+{% macro qs() -%}
+{%- set p = {'art': art, 'ansicht': ansicht, 'q': q, 'medium': filters.medium, 'genre': filters.genre, 'jahr': filters.jahr,
+             'digital': filters.digital, 'ort': filters.ort, 'reihe': filters.reihe, 'sprache': filters.sprache, 'gelesen': filters.gelesen} -%}
+{%- set _ = p.update(kwargs) -%}
+/sammlung?{% for k, v in p.items() if v %}{{ k }}={{ v|urlencode }}{{ '&' if not loop.last }}{% endfor %}
+{%- endmacro %}
+{% macro cover(item, book=False) -%}
+{%- if item.image %}<img src="{{ item.image|img }}" alt="" loading="lazy">{% else %}<span>{{ '📖' if book else '💿' }}</span>{% endif -%}
+{%- endmacro %}
+
+<div class="coll-head">
+  <div>
+    <h1>Sammlung</h1>
+    <div class="small muted">
+      {% if rec_mode %}{{ totals.records.count }} Tonträger · Marktwert {{ totals.records.value|euro if totals.records.currency in ('EUR', 'gemischt') else totals.records.value ~ ' ' ~ totals.records.currency }}{% if totals.records.currency == 'gemischt' %} (gemischte Währungen){% endif %}
+        {% if totals.records.with_value < totals.records.count %}<span title="Nur Tonträger mit ermitteltem Marktwert zählen mit"> · {{ totals.records.with_value }} mit Wert</span>{% endif %}
+      {% else %}{{ totals.books.count }} Bücher · Marktwert {{ totals.books.value|euro }}{% if totals.books.with_value < totals.books.count %} · {{ totals.books.with_value }} mit Wert{% endif %}{% endif %}
+      {% if rows|length != (totals.records.count if rec_mode else totals.books.count) %} · gefiltert: {{ rows|length }} ({{ shown_value|euro }}){% endif %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="pill-group" role="tablist" aria-label="Art der Sammlung">
+      <a href="/sammlung?art=tontraeger&ansicht={{ ansicht }}" class="{{ 'on' if rec_mode }}" role="tab" aria-selected="{{ 'true' if rec_mode else 'false' }}">💿 Tonträger</a>
+      <a href="/sammlung?art=buecher&ansicht={{ ansicht }}" class="{{ 'on' if not rec_mode }}" role="tab" aria-selected="{{ 'false' if rec_mode else 'true' }}">📖 Bücher</a>
+    </div>
+    {% if me.can('items', 3) %}
+      {% if rec_mode %}<a class="btn primary" href="/sammlung/tontraeger/neu">{{ icon('plus') }} Tonträger</a>
+      {% else %}<a class="btn primary" href="/sammlung/buecher/neu">{{ icon('scan') }} Bücher scannen</a>{% endif %}
+    {% endif %}
+  </div>
+</div>
+
+{% if job %}
+<div class="card" x-data="{st: null}" x-init="const tick = async () => { try { st = await api('/api/v1/collection/records/market/{{ job }}', undefined, 'GET'); } catch (e) { return; } if (!st.finished) setTimeout(tick, 2000); else setTimeout(() => lwGo('{{ qs(job='') }}'), 1500) }; tick()">
+  <b>Marktwerte werden aktualisiert …</b>
+  <div class="small" x-text="st ? (st.done + ' von ' + st.total + (st.errors ? ' · ' + st.errors + ' ohne Ergebnis' : '') + (st.finished ? ' – fertig' : ' …')) : 'startet …'"></div>
+  <template x-if="st && st.messages && st.messages.length"><ul class="small muted"><template x-for="m in st.messages.slice(-5)"><li x-text="m"></li></template></ul></template>
+</div>
+{% endif %}
+
+<form class="card" method="get" action="/sammlung">
+  <input type="hidden" name="art" value="{{ art }}"><input type="hidden" name="ansicht" value="{{ ansicht }}">
+  <div class="coll-filters">
+    <div style="grid-column: span 2"><label>Suche</label><input type="search" name="q" value="{{ q }}" placeholder="{{ 'Interpret, Album, Titel, Label, Barcode' if rec_mode else 'Titel, Autor, Reihe, Verlag, ISBN' }}"></div>
+    {% if rec_mode %}
+    <div><label>Medium</label><select name="medium"><option value="">alle</option>{% for k, v in MEDIA_MEDIUMS.items() %}<option value="{{ k }}" {{ 'selected' if filters.medium == k }}>{{ v }}</option>{% endfor %}</select></div>
+    <div><label>Genre</label><select name="genre"><option value="">alle</option>{% for g in genres %}<option {{ 'selected' if filters.genre == g }}>{{ g }}</option>{% endfor %}</select></div>
+    <div><label>Jahr</label><select name="jahr"><option value="">alle</option>{% for y in years %}<option {{ 'selected' if filters.jahr == y|string }}>{{ y }}</option>{% endfor %}</select></div>
+    <div><label>Digitalisiert</label><select name="digital"><option value="">egal</option><option value="ja" {{ 'selected' if filters.digital == 'ja' }}>ja</option><option value="nein" {{ 'selected' if filters.digital == 'nein' }}>nein</option></select></div>
+    {% else %}
+    <div><label>Genre</label><select name="genre"><option value="">alle</option>{% for g in genres %}<option {{ 'selected' if filters.genre == g }}>{{ g }}</option>{% endfor %}</select></div>
+    <div><label>Reihe</label><select name="reihe"><option value="">alle</option>{% for s in series %}<option {{ 'selected' if filters.reihe == s }}>{{ s }}</option>{% endfor %}</select></div>
+    <div><label>Sprache</label><select name="sprache"><option value="">alle</option>{% for l in languages %}<option {{ 'selected' if filters.sprache == l }}>{{ l }}</option>{% endfor %}</select></div>
+    <div><label>Gelesen</label><select name="gelesen"><option value="">egal</option><option value="ja" {{ 'selected' if filters.gelesen == 'ja' }}>ja</option><option value="nein" {{ 'selected' if filters.gelesen == 'nein' }}>nein</option></select></div>
+    {% endif %}
+    <div><label>Lagerort</label><select name="ort"><option value="">alle</option>{% for lid, path in locations %}<option value="{{ lid }}" {{ 'selected' if filters.ort == lid|string }}>{{ path }}</option>{% endfor %}</select></div>
+    <div class="row"><button class="btn primary">Filtern</button>{% if q or filters.values()|select|list %}<a class="btn ghost" href="/sammlung?art={{ art }}&ansicht={{ ansicht }}">Zurücksetzen</a>{% endif %}</div>
+  </div>
+</form>
+
+<div class="row" style="justify-content: space-between; margin-bottom: 6px">
+  <div class="pill-group" aria-label="Ansicht">
+    {% for k, v in views.items() %}<a href="{{ qs(ansicht=k) }}" class="{{ 'on' if ansicht == k }}">{{ v }}</a>{% endfor %}
+  </div>
+  {% if rec_mode and me.can('items', 2) and totals.records.count %}
+  <form method="post" action="/sammlung/tontraeger/marktwerte" class="inline"><button class="btn sm" title="Discogs: niedrigstes Angebot und Preisvorschlag zum Zustand">Marktwerte jetzt aktualisieren</button></form>
+  {% endif %}
+</div>
+
+{% if not rows %}
+  <div class="card muted">{% if q or filters.values()|select|list %}Nichts gefunden.{% elif rec_mode %}Noch keine Tonträger. Über „＋ Tonträger“ nach Interpret und Album oder Barcode suchen und übernehmen.{% else %}Noch keine Bücher. Über „Bücher scannen“ einfach die ISBN-Barcodes nacheinander scannen.{% endif %}</div>
+
+{% elif ansicht == 'gruppen' %}
+  {% set have = groups|map(attribute=0)|list %}
+  <nav class="az-bar" aria-label="A bis Z">
+    {% for l in "ABCDEFGHIJKLMNOPQRSTUVWXYZ#"|list %}{% if l in have %}<a href="#az-{{ 'x' if l == '#' else l }}">{{ l }}</a>{% else %}<span>{{ l }}</span>{% endif %}{% endfor %}
+  </nav>
+  {% for letter, people in groups %}
+  <h2 class="az-letter" id="az-{{ 'x' if letter == '#' else letter }}">{{ letter }}</h2>
+  {% for who, entries in people %}
+  <div class="coll-group">
+    <h3>{{ who }} <span class="small muted">({{ entries|length }})</span></h3>
+    {% if rec_mode %}
+      {% for r in entries %}
+      <a class="coll-row" href="/sammlung/tontraeger/{{ r.id }}">
+        <div class="thumb">{{ cover(r.item) }}</div><span class="yr">{{ r.year or '' }}</span>
+        <span class="grow"><b>{{ r.album or '–' }}</b><br><span class="small muted">{{ r.medium }}{% if r.label %} · {{ r.label }}{% endif %}{% if r.digitized %} · 💾 digitalisiert{% endif %}</span></span>
+        <span class="val small">{% if r.market_value is not none %}{{ r.market_value|euro if r.market_currency == 'EUR' else r.market_value ~ ' ' ~ r.market_currency }}{% endif %}</span>
+      </a>
+      {% endfor %}
+    {% else %}
+      {% set ns = namespace(series=None) %}
+      {% for b in entries %}
+        {% if b.series and b.series != ns.series %}{% if ns.series %}</div>{% endif %}<div class="series-band"><div class="small muted">Reihe: <b>{{ b.series }}</b></div>{% set ns.series = b.series %}
+        {% elif not b.series and ns.series %}</div>{% set ns.series = None %}{% endif %}
+        <a class="coll-row" href="/sammlung/buecher/{{ b.id }}">
+          <div class="thumb">{{ cover(b.item, True) }}</div><span class="yr">{{ ('Bd. ' ~ b.series_number) if b.series and b.series_number else (b.year or '') }}</span>
+          <span class="grow"><b>{{ b.title or '–' }}</b>{% if b.subtitle %}<span class="muted"> – {{ b.subtitle }}</span>{% endif %}<br>
+            <span class="small muted">{{ b.publisher }}{% if b.year and b.series %} · {{ b.year }}{% endif %}{% if b.binding %} · {{ b.binding }}{% endif %}{% if b.read %} · ✓ gelesen{% endif %}{% if b.signed %} · ✍ signiert{% endif %}</span></span>
+          <span class="val small">{% if b.market_value is not none %}{{ b.market_value|euro }}{% endif %}</span>
+        </a>
+      {% endfor %}
+      {% if ns.series %}</div>{% endif %}
+    {% endif %}
+  </div>
+  {% endfor %}
+  {% endfor %}
+
+{% elif ansicht == 'kacheln' %}
+  <div class="cover-grid">
+  {% for r in rows %}
+    {% if rec_mode %}
+    <a class="cover-tile" href="/sammlung/tontraeger/{{ r.id }}" title="{{ r.artist }} – {{ r.album }}">
+      <div class="cv">{{ cover(r.item) }}</div><b class="small">{{ r.album }}</b><span class="small muted">{{ r.artist }}{% if r.year %} · {{ r.year }}{% endif %}</span>
+    </a>
+    {% else %}
+    <a class="cover-tile book" href="/sammlung/buecher/{{ r.id }}" title="{{ r.title }}">
+      <div class="cv">{{ cover(r.item, True) }}</div><b class="small">{{ r.title }}</b><span class="small muted">{{ r.authors.split(';')[0] }}{% if r.series_number %} · Bd. {{ r.series_number }}{% endif %}</span>
+    </a>
+    {% endif %}
+  {% endfor %}
+  </div>
+
+{% else %}
+  <div class="card table-wrap"><table>
+  {% if rec_mode %}
+    <tr><th></th><th>Interpret</th><th>Album</th><th>Jahr</th><th>Medium</th><th>Label / Kat.-Nr.</th><th>Zustand</th><th>Lagerort</th><th style="text-align:right">Marktwert</th></tr>
+    {% for r in rows %}{% set loc = r.item.lots[0].location if r.item.lots else none %}
+    <tr><td><div class="thumb" style="width:36px;height:36px">{{ cover(r.item) }}</div></td>
+      <td>{{ r.artist }}</td><td><a href="/sammlung/tontraeger/{{ r.id }}">{{ r.album or '–' }}</a>{% if r.digitized %} 💾{% endif %}</td><td>{{ r.year or '' }}</td><td>{{ r.medium }}</td>
+      <td class="small">{{ r.label }}{% if r.catalog_no %}<br><span class="muted">{{ r.catalog_no }}</span>{% endif %}</td>
+      <td class="small">{{ r.media_condition or '–' }} / {{ r.sleeve_condition or '–' }}</td>
+      <td class="small">{{ tc.path(loc.id) if loc else '' }}</td>
+      <td style="text-align:right; white-space:nowrap">{% if r.market_value is not none %}{{ r.market_value|euro if r.market_currency == 'EUR' else r.market_value ~ ' ' ~ r.market_currency }}{% endif %}</td></tr>
+    {% endfor %}
+  {% else %}
+    <tr><th></th><th>Autor</th><th>Titel</th><th>Reihe</th><th>Jahr</th><th>Verlag</th><th>ISBN</th><th>Lagerort</th><th>gelesen</th><th style="text-align:right">Wert</th></tr>
+    {% for b in rows %}{% set loc = b.item.lots[0].location if b.item.lots else none %}
+    <tr><td><div class="thumb" style="width:30px;height:40px">{{ cover(b.item, True) }}</div></td>
+      <td>{{ b.author_sort }}</td><td><a href="/sammlung/buecher/{{ b.id }}">{{ b.title or '–' }}</a></td>
+      <td class="small">{{ b.series }}{% if b.series_number %} {{ b.series_number }}{% endif %}</td><td>{{ b.year or '' }}</td><td class="small">{{ b.publisher }}</td>
+      <td class="small"><code>{{ b.isbn13 or '' }}</code></td><td class="small">{{ tc.path(loc.id) if loc else '' }}</td><td>{{ '✓' if b.read }}</td>
+      <td style="text-align:right; white-space:nowrap">{% if b.market_value is not none %}{{ b.market_value|euro }}{% endif %}</td></tr>
+    {% endfor %}
+  {% endif %}
+  </table></div>
+{% endif %}
+{% endblock %}

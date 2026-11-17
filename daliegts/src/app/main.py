@@ -80,6 +80,14 @@ async def _provider_loop() -> None:
             log.info("Datenblätter offline: %s", await datasheets.nightly())
         except Exception:  # noqa: BLE001
             log.exception("Datenblätter-Nachtlauf fehlgeschlagen")
+        try:
+            from .services import collection_market
+
+            summary = await collection_market.nightly()
+            if summary is not None:
+                log.info("Sammlung-Marktwerte: %s", summary)
+        except Exception:  # noqa: BLE001
+            log.exception("Sammlung-Nachtlauf fehlgeschlagen")
 
 
 async def _idle_loop() -> None:
@@ -286,10 +294,10 @@ def create_app(background_jobs: bool = True) -> FastAPI:
         return JSONResponse({"ok": ok, "schema": cur, "head": head, "status": status, "version": APP_VERSION, "counts": counts},
                             status_code=200 if ok else 503)
 
-    from .routers import admin, api, auth, items, labels, locations, orders, pages, printers3d, projects, providers, purchasing, recognize, scan, spotcheck, stats, walls, wled
+    from .routers import admin, api, auth, collection, collection_api, items, labels, locations, orders, pages, printers3d, projects, providers, purchasing, recognize, scan, spotcheck, stats, walls, wled
 
     for r in (auth.router, pages.router, stats.router, spotcheck.router, orders.router, projects.router, recognize.router, items.router, purchasing.router, providers.router, locations.router, walls.router, scan.router, labels.router, printers3d.router,
-              wled.router, admin.router, api.router):
+              collection.router, collection_api.router, wled.router, admin.router, api.router):
         app.include_router(r)
     return app
 

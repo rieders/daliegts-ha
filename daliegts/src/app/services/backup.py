@@ -22,6 +22,7 @@ EXPORT_TABLES = [
     "external_ids", "manufacturers", "suppliers", "parameter_templates", "footprints", "categories", "locations",
     "location_aliases", "items", "item_parameters", "item_codes", "stock_lots", "stock_movements", "supplier_parts",
     "price_infos", "shopping_items", "provider_candidates", "attachments", "equivalents", "loans", "wled_controllers", "location_lights", "storage_templates",
+    "media_records", "media_tracks", "book_records",
     "audit_log",
 ]
 SELF_REFERENCING = {"locations": "parent_id", "categories": "parent_id", "footprints": "parent_id", "items": "variant_of_id"}

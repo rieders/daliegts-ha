@@ -421,6 +421,23 @@ function wallEditor(cfg) {
     rangeText(ch, idx) { const l = this.chainLayout(ch)[idx]; return `LED ${l.start}–${l.start + l.used - 1}`; },
     chainEnd(ch) { const l = this.chainLayout(ch); return l.length ? l[l.length - 1].start + l[l.length - 1].used : ch.start || 0; },
     ctrlLeds(ch) { const c = this.controllers.find((c) => c.id === ch.controller_id); return c ? c.leds : 0; },
+    chainsPayload() {
+      return this.chains.map((ch) => ({ controller_id: ch.controller_id, start: ch.start, modules: ch.modules.map((e) => ({ id: e.id, gap: e.gap || 0 })),
+        ...(ch.mode === "xy" ? { mode: "xy", rows_start: ch.rows_start, cols_start: ch.cols_start } : {}) }));
+    },
+    // xy-Kette: eine Reihenleiste für alle Module + Spaltenleiste links -> rechts (Schätzung, exakt rechnet der Server)
+    xyInfo(ch) {
+      const mods = ch.modules.map((e) => this.data.modules.find((m) => m.id === e.id)).filter(Boolean);
+      const rows = mods.length ? mods[0].rows : 0, cols = mods.reduce((a, m) => a + (m.cols || 0), 0);
+      const rs = ch.rows_start || 0, cs = ch.cols_start === "" || ch.cols_start == null ? rs + rows : ch.cols_start;
+      return { rows, cols, rs, cs, needed: rows + cols, end: Math.max(rs + rows, cs + cols), mixed: mods.some((m) => m.virtual || m.rows !== rows) };
+    },
+    xyColText(ch, idx) {
+      let c = this.xyInfo(ch).cs;
+      for (let i = 0; i < idx; i++) { const m = this.data.modules.find((m) => m.id === ch.modules[i].id); c += m ? m.cols : 0; }
+      const m = this.data.modules.find((m) => m.id === ch.modules[idx].id), n = m ? m.cols : 1;
+      return `Spalten-LED ${c}–${c + n - 1}`;
+    },
     moveInChain(ch, i, d) { const j = i + d; if (j < 0 || j >= ch.modules.length) return; const t = ch.modules[i]; ch.modules[i] = ch.modules[j]; ch.modules[j] = t; ch.modules = [...ch.modules]; this.chainsDirty = true; },
     autoOrder(ch) {
       // Reihen von unten nach oben, abwechselnd links->rechts / rechts->links (typische Verkabelung über gestapelte Magazine)
@@ -491,7 +508,7 @@ function wallEditor(cfg) {
       if (!ch.modules.length) { toast("Noch kein Modul angetippt"); return; }
       const ci = this.calib.ci;
       this.calib = null;
-      const r = await this.act({ action: "chains", chains: this.chains.map((c) => ({ controller_id: c.controller_id, start: c.start, modules: c.modules.map((e) => ({ id: e.id, gap: e.gap || 0 })) })),
+      const r = await this.act({ action: "chains", chains: this.chainsPayload(),
         specs: Object.fromEntries(this.chains.flatMap((c) => c.modules.map((e) => [e.id, this.spec(e.id)]))) });
       if (r) this.checkChain(ci);
     },
@@ -550,8 +567,7 @@ function wallEditor(cfg) {
     async saveChains() {
       const specs = {};
       this.chains.forEach((ch) => ch.modules.forEach((e) => { specs[e.id] = this.spec(e.id); }));
-      const chains = this.chains.map((ch) => ({ controller_id: ch.controller_id, start: ch.start, modules: ch.modules.map((e) => ({ id: e.id, gap: e.gap || 0 })) }));
-      await this.act({ action: "chains", chains, specs });
+      await this.act({ action: "chains", chains: this.chainsPayload(), specs });
     },
   };
 }
