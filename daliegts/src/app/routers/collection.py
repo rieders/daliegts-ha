@@ -91,6 +91,13 @@ def record_new(request: Request, barcode: str = "", ort: str = "", db: Session =
                                                 "has_discogs_token": bool(conf.get("discogs_token")), "covers": {}})
 
 
+@router.get("/sammlung/tontraeger/scannen")
+def records_scan_page(request: Request, ort: str = "", db: Session = Depends(get_db), ctx=Depends(require("items", 3))):
+    """Platten scannen: Barcodes nacheinander (Handykamera oder USB-Handscanner), Lagerort/Medium/Zustand für die Serie."""
+    return render(request, "record_scan.html", {"preset_location": ort, "MEDIA_MEDIUMS": MEDIA_MEDIUMS, "GRADES": GRADES,
+                                                "has_discogs_token": bool(cfg.load(db).get("discogs_token"))})
+
+
 @router.get("/sammlung/tontraeger/{record_id}")
 def record_detail(record_id: int, request: Request, db: Session = Depends(get_db), ctx=Depends(require("items", 1))):
     rec = _record(db, record_id)

@@ -195,3 +195,100 @@ function bookForm(cfg) {
     },
   };
 }
+
+// ------------------------------------------------------------------ Platten scannen (Serien-Scan, v0.34)
+// Jeder Scan landet in einer Warteschlange und wird nacheinander abgearbeitet (MusicBrainz: 1 Anfrage/s), damit ein
+// USB-Handscanner ohne Warten weiterscannen kann. Mehrere/keine Treffer bleiben als offene Karte stehen.
+const RS_SETTINGS = "lw-record-scan";
+const RS_DONE = "lw-record-scan-done";
+function rsIsBarcode(code) { const d = String(code || "").replace(/[\s-]/g, ""); return /^\d+$/.test(d) && [8, 12, 13, 14].includes(d.length); }
+
+function recordScan(cfg) {
+  return {
+    ...cameraMixin(),
+    set: { location: "", medium: "", media_condition: "", sleeve_condition: "", auto_save: true },
+    input: "", queue: [], working: false, pending: [], done: [], seq: 0,
+    init() {
+      try { Object.assign(this.set, JSON.parse(localStorage.getItem(RS_SETTINGS) || "{}")); } catch (_) { /* egal */ }
+      if (cfg.location) this.set.location = cfg.location;
+      try { this.done = JSON.parse(sessionStorage.getItem(RS_DONE) || "[]"); } catch (_) { this.done = []; }
+      this.$watch("set", (v) => { try { localStorage.setItem(RS_SETTINGS, JSON.stringify(v)); } catch (_) { /* egal */ } });
+      this.$watch("done", (v) => { try { sessionStorage.setItem(RS_DONE, JSON.stringify(v.slice(0, 300))); } catch (_) { /* egal */ } });
+      this.focusScan();
+    },
+    focusScan() {
+      this.$nextTick(() => {
+        const a = document.activeElement;
+        // Nicht wegspringen, während jemand in einem anderen Feld tippt (Lagerort, Kat.-Nr. …)
+        if (a && a !== this.$refs.scan && a !== document.body && a.matches("input, select, textarea")) return;
+        if (this.$refs.scan) this.$refs.scan.focus();
+      });
+    },
+    handle(code) { this.enqueue({ code }); },  // Kamera
+    submitInput() {
+      const v = this.input.trim();
+      this.input = "";
+      if (v) this.enqueue({ code: v });
+      if (this.$refs.scan) this.$refs.scan.focus();
+    },
+    label(body) {
+      if (body.code && rsIsBarcode(body.code)) return "Barcode " + body.code;
+      const parts = [body.catno || (body.code && !rsIsBarcode(body.code) ? body.code : ""), body.artist, body.album].filter(Boolean);
+      return parts.length ? "Suche: " + parts.join(" · ") : "Scan";
+    },
+    enqueue(body) {
+      this.queue.push(body);
+      if (!this.working) this.work();
+    },
+    async work() {
+      this.working = true;
+      while (this.queue.length) {
+        const body = this.queue.shift();
+        await this.run(body);
+      }
+      this.working = false;
+      this.focusScan();
+    },
+    async run(body) {
+      const barcode = body.scanned || (rsIsBarcode(body.code) ? body.code.trim() : "");
+      const base = { key: ++this.seq, label: this.label(body), barcode, notes: [] };
+      try {
+        const r = await api("/api/v1/collection/records/scan", { ...this.set, ...body, scanned: barcode });
+        const notes = r.notes || [];
+        if (r.status === "location") {
+          this.set.location = r.location;
+          toast("📍 Lagerort für die Serie: " + r.path);
+        } else if (r.status === "saved") {
+          this.done.unshift({ ...r.record, status: "neu" });
+          beep();
+          toast("💿 Gespeichert: " + [r.record.artist, r.record.album].filter(Boolean).join(" – "));
+          notes.forEach((n) => toast(n, 4000));
+        } else if (r.status === "duplicate") {
+          this.done.unshift({ ...r.record, status: "dup" });
+          toast("⚠ Schon in der Sammlung: " + [r.record.artist, r.record.album].filter(Boolean).join(" – "), 4000);
+        } else if (r.status === "choose") {
+          this.pending.unshift({ ...base, kind: "choose", hits: r.hits, notes });
+        } else {
+          this.pending.unshift({ ...base, kind: "none", notes, variants: (r.query && r.query.variants) || [], catno: "", artist: "", album: "" });
+        }
+      } catch (e) {
+        this.pending.unshift({ ...base, kind: "error", message: "Fehler: " + e.message, body });
+      }
+      this.focusScan();
+    },
+    drop(p) { this.pending = this.pending.filter((x) => x !== p); this.focusScan(); },
+    pick(p, h) {
+      this.drop(p);
+      this.enqueue({ mbid: h.musicbrainz_id || "", discogs_id: h.discogs_id || "", scanned: p.barcode });
+      if (this.$refs.scan) this.$refs.scan.focus();
+    },
+    retry(p) {
+      if (!String(p.catno || p.artist || p.album || "").trim()) { toast("Katalognummer oder Interpret/Album eingeben."); return; }
+      this.drop(p);
+      this.enqueue({ catno: p.catno, artist: p.artist, album: p.album, scanned: p.barcode });
+      if (this.$refs.scan) this.$refs.scan.focus();
+    },
+    again(p) { this.drop(p); this.enqueue(p.body); },
+    clearDone() { this.done = []; },
+  };
+}

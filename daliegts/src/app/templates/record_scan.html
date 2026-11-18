@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block title %}Platten scannen{% endblock %}
+{% block head %}<script src="/static/js/scan.js?v={{ APP_VERSION }}" defer></script><script src="/static/js/collection.js?v={{ APP_VERSION }}" defer></script>{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/sammlung?art=tontraeger">Sammlung</a></div>
+<h1>Platten scannen</h1>
+
+<div x-data='recordScan({{ {"location": preset_location}|tojson }})'>
+  <div class="card">
+    <h2 class="mt0">Für diese Serie</h2>
+    <div class="fields">
+      <div><label>Lagerort</label><input type="text" data-locpicker x-model="set.location" @change="$refs.scan.focus()" @keydown.enter.prevent="$refs.scan.focus()" placeholder="Lagerort: Code scannen oder Name tippen" autocomplete="off"></div>
+      <div><label>Medium</label><select @change="$refs.scan.focus()" x-model="set.medium"><option value="">automatisch (aus dem Treffer)</option>{% for k, v in MEDIA_MEDIUMS.items() %}<option value="{{ k }}">{{ v }}</option>{% endfor %}</select></div>
+      <div><label>Zustand Platte</label><select @change="$refs.scan.focus()" x-model="set.media_condition"><option value="">–</option>{% for k, v in GRADES.items() %}<option value="{{ k }}">{{ k }} – {{ v }}</option>{% endfor %}</select></div>
+      <div><label>Zustand Hülle</label><select @change="$refs.scan.focus()" x-model="set.sleeve_condition"><option value="">–</option>{% for k, v in GRADES.items() %}<option value="{{ k }}">{{ k }} – {{ v }}</option>{% endfor %}</select></div>
+    </div>
+    <label class="inline small" style="margin-top:6px"><input type="checkbox" x-model="set.auto_save" @change="$refs.scan.focus()"> automatisch speichern, wenn es genau einen Treffer gibt</label>
+    <p class="small muted" style="margin-bottom:0">Die Einstellungen bleiben für die ganze Serie stehen (auch nach dem Neuladen der Seite).</p>
+  </div>
+
+  <div class="card">
+    <p class="small muted mt0">Barcode hinten auf der Hülle scannen – mit der Handykamera oder einem USB-Handscanner (tippt den Code und Enter). Ohne Barcode: Katalognummer ins Feld tippen.
+      {% if not has_discogs_token %}<br>Gesucht wird bei MusicBrainz; für Discogs ein Token unter Verwaltung › Sammlung eintragen.{% endif %}</p>
+    <div class="row">
+      <button type="button" class="btn primary" @click="toggleCamera()" x-text="camOn ? 'Kamera aus' : '📷 Kamera starten'"></button>
+      <button type="button" class="btn ghost" x-show="camOn && torchAvailable" @click="toggleTorch()">🔦</button>
+      <form class="row grow" @submit.prevent="submitInput()">
+        <input x-ref="scan" class="grow book-input" x-model="input" placeholder="Barcode scannen oder Katalognummer tippen" autocomplete="off" autofocus style="min-width: 160px">
+        <button class="btn">Suchen</button>
+      </form>
+    </div>
+    <div class="scanner" x-show="camOn" x-cloak style="margin-top:8px"><video x-ref="video" playsinline muted></video><div class="frame"></div></div>
+    <p class="small" x-show="camError" x-text="camError" style="color: var(--err)"></p>
+    <p class="small muted" x-show="working" x-cloak x-text="'Suche läuft …' + (queue.length ? ' (' + queue.length + ' in der Warteschlange)' : '')"></p>
+  </div>
+
+  <template x-for="p in pending" :key="p.key">
+    <div class="card" :style="p.kind === 'choose' ? '' : 'border-color: var(--warn)'">
+      <div class="row" style="justify-content: space-between">
+        <b x-text="p.label"></b>
+        <button type="button" class="btn sm ghost" @click="drop(p)">Verwerfen</button>
+      </div>
+      <template x-for="n in p.notes"><p class="small" style="color: var(--warn); margin: 4px 0" x-text="n"></p></template>
+
+      <template x-if="p.kind === 'choose'">
+        <div>
+          <p class="small muted" x-text="p.hits.length === 1 ? 'Ein Treffer – zum Übernehmen antippen:' : p.hits.length + ' Treffer – welche Pressung ist es?'"></p>
+          <div class="hits">
+            <template x-for="(h, i) in p.hits" :key="i">
+              <button type="button" class="hit" @click="pick(p, h)">
+                <template x-if="h.thumb"><img :src="h.thumb" alt="" loading="lazy" referrerpolicy="no-referrer" @error="$el.remove()"></template>
+                <template x-if="!h.thumb"><span class="noimg"></span></template>
+                <span class="grow"><b x-text="[h.artist, h.album].filter(Boolean).join(' – ')"></b><br>
+                  <span class="small muted" x-text="[h.country, h.year, h.label, h.catalog_no, h.format || h.medium].filter(Boolean).join(' · ')"></span></span>
+                <span class="badge" x-text="(h.sources || [h.source]).map(s => ({musicbrainz: 'MB', discogs: 'Discogs'}[s] || s)).join(' + ')"></span>
+              </button>
+            </template>
+          </div>
+        </div>
+      </template>
+
+      <template x-if="p.kind === 'none'">
+        <div>
+          <p class="small" x-text="'Nichts gefunden' + (p.variants && p.variants.length > 1 ? ' (gesucht: ' + p.variants.join(', ') + ')' : '') + '. Katalognummer (steht meist auf dem Rücken oder dem Label) oder Interpret/Album eingeben:'"></p>
+          <form class="coll-filters" @submit.prevent="retry(p)">
+            <div><label>Katalognummer</label><input x-model="p.catno" autocomplete="off" placeholder="z. B. 8 55 497"></div>
+            <div><label>Interpret</label><input x-model="p.artist" autocomplete="off"></div>
+            <div><label>Album</label><input x-model="p.album" autocomplete="off"></div>
+            <div class="row"><button class="btn primary">Suchen</button>
+              <a class="btn ghost" :href="'/sammlung/tontraeger/neu?' + new URLSearchParams({barcode: p.barcode || '', ort: set.location || ''})">Von Hand</a></div>
+          </form>
+        </div>
+      </template>
+
+      <template x-if="p.kind === 'error'">
+        <div class="row"><span class="small" style="color: var(--err)" x-text="p.message"></span><button type="button" class="btn sm" @click="again(p)">Nochmal</button></div>
+      </template>
+    </div>
+  </template>
+
+  <div class="card" x-show="done.length" x-cloak>
+    <div class="row" style="justify-content: space-between">
+      <h2 class="mt0">In dieser Serie erfasst (<span x-text="done.filter(d => d.status === 'neu').length"></span>)</h2>
+      <button type="button" class="btn sm ghost" @click="clearDone()">Liste leeren</button>
+    </div>
+    <div class="saved-records">
+      <template x-for="(r, i) in done" :key="i">
+        <a class="coll-row" :href="r.url">
+          <div class="thumb"><template x-if="r.thumb"><img :src="r.thumb" alt="" loading="lazy"></template><span x-show="!r.thumb">💿</span></div>
+          <span class="yr" x-text="r.year || ''"></span>
+          <span class="grow"><b x-text="r.album || '–'"></b> <span class="muted" x-text="r.artist"></span><br>
+            <span class="small muted" x-text="[r.medium, r.label, r.catalog_no, r.location].filter(Boolean).join(' · ')"></span></span>
+          <span class="badge" :style="r.status === 'dup' && 'background: var(--warn); color: #000'" x-text="r.status === 'dup' ? 'schon vorhanden' : 'neu'"></span>
+        </a>
+      </template>
+    </div>
+    <a class="btn sm" href="/sammlung?art=tontraeger" style="margin-top:8px">Zur Sammlung</a>
+  </div>
+</div>
+{% endblock %}

@@ -28,6 +28,11 @@ bei MusicBrainz und – mit einem persönlichen Discogs-Token – bei Discogs; �
 Nationalbibliothek, Open Library und Google Books ab. Mit dem Handy-Scanner öffnet der Barcode einer
 erfassten Platte bzw. die ISBN eines Buchs direkt die Detailseite.
 
+„Platten scannen“ erfasst einen ganzen Stapel am Stück: Lagerort, Medium und Zustand einmal oben einstellen,
+dann die Barcodes nacheinander scannen (Handykamera oder USB-Handscanner). Bei genau einem Treffer wird die
+Platte mit Titelliste und Cover sofort gespeichert, bei mehreren tippst du die richtige Pressung an; ohne Treffer
+hilft die Katalognummer. Schon vorhandene Platten werden gemeldet statt doppelt angelegt.
+
 Discogs-Token, Reihenfolge der Buchquellen und den nächtlichen Abgleich der Marktwerte stellst du unter
 Verwaltung › Sammlung ein. Für das Dashboard liefert `/api/v1/summary` Anzahl und Marktwert
 (Beispiel unter Verwaltung › Home Assistant).

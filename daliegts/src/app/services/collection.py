@@ -228,19 +228,67 @@ RECORD_FIELDS = ("artist", "album", "year", "genre", "label", "catalog_no", "med
                  "media_condition", "sleeve_condition", "digitized", "digitized_path")
 
 
-def find_record_duplicate(db: Session, data: dict) -> MediaRecord | None:
-    mbid = _str(data.get("musicbrainz_id"), 36)
+def barcode_variants(raw: str | None) -> list[str]:
+    """UPC-A (12 Stellen) und EAN-13 mit führender 0 sind derselbe Code – beide Schreibweisen.
+
+    „075678164224“ -> [„075678164224“, „0075678164224“]; „0075678164224“ -> [„0075678164224“, „075678164224“].
+    """
+    d = re.sub(r"[^0-9]", "", raw or "")
+    if not d:
+        return []
+    out = [d]
+    if len(d) == 12:
+        out.append("0" + d)
+    elif len(d) == 13 and d.startswith("0"):
+        out.append(d[1:])
+    return out
+
+
+def _barcode_list(v) -> list[str]:
+    return [str(b) for b in (v if isinstance(v, (list, tuple)) else [v]) if b]
+
+
+def find_record_by_ids(db: Session, barcodes: list[str] | tuple = (), mbid: str = "", discogs_id: str = "") -> MediaRecord | None:
+    """Gleiche Platte über MusicBrainz-ID, Discogs-ID oder Barcode (alle Schreibweisen)."""
     if mbid:
-        r = db.scalar(select(MediaRecord).where(MediaRecord.musicbrainz_id == mbid))
+        r = db.scalar(select(MediaRecord).where(MediaRecord.musicbrainz_id == mbid).limit(1))
         if r:
             return r
+    if discogs_id:
+        r = db.scalar(select(MediaRecord).where(MediaRecord.discogs_id == str(discogs_id)).limit(1))
+        if r:
+            return r
+    codes = {normalize(v) for b in barcodes for v in barcode_variants(b)}
+    if codes:
+        r = db.scalar(select(MediaRecord).join(ItemCode, ItemCode.item_id == MediaRecord.item_id)
+                      .join(Item, Item.id == MediaRecord.item_id)
+                      .where(ItemCode.code.in_(codes), Item.kind == "tontraeger").limit(1))
+        if r:
+            return r
+    return None
+
+
+def find_handmade_twin(db: Session, data: dict) -> MediaRecord | None:
+    """Platte ohne MusicBrainz- und Discogs-ID (von Hand erfasst) mit gleichem Interpret, Album und Jahr.
+
+    Hat die vorhandene Platte eine ID, ist eine Platte mit gleichem Titel eine andere Pressung (= neue Platte).
+    """
     artist, album = _str(data.get("artist")).lower(), _str(data.get("album")).lower()
     if not artist or not album:
         return None
-    q = select(MediaRecord).where(func.lower(MediaRecord.artist) == artist, func.lower(MediaRecord.album) == album)
+    q = select(MediaRecord).where(func.lower(MediaRecord.artist) == artist, func.lower(MediaRecord.album) == album,
+                                  func.coalesce(MediaRecord.musicbrainz_id, "") == "", func.coalesce(MediaRecord.discogs_id, "") == "")
     year = _int(data.get("year"))
     q = q.where(MediaRecord.year == year) if year is not None else q.where(MediaRecord.year.is_(None))
     return db.scalar(q.limit(1))
+
+
+def find_record_duplicate(db: Session, data: dict) -> MediaRecord | None:
+    """Dubletten-Regel für alle Wege (Formular, REST-API, Platten-Scan, Vinyl2MP3):
+    gleiche MusicBrainz-ID, Discogs-ID oder Barcode = dieselbe Platte; Interpret + Album + Jahr nur, wenn die
+    vorhandene Platte weder MusicBrainz- noch Discogs-ID hat. Andere Pressung = neue Platte."""
+    return (find_record_by_ids(db, _barcode_list(data.get("barcode")), _str(data.get("musicbrainz_id"), 36), _str(data.get("discogs_id"), 20))
+            or find_handmade_twin(db, data))
 
 
 def detail_url(db: Session, item: Item | None) -> str | None:
@@ -260,10 +308,10 @@ def record_name(rec: MediaRecord) -> str:
 
 def upsert_record(db: Session, data: dict, user_id: int | None, location_id: int | None = None, covers: dict | None = None,
                   record_id: int | None = None, category_id: int | None = None) -> tuple[MediaRecord, bool]:
-    """Tonträger anlegen oder (gleiche MusicBrainz-ID bzw. Interpret+Album+Jahr, oder record_id) aktualisieren.
+    """Tonträger anlegen oder – Dublette nach find_record_duplicate bzw. record_id – aktualisieren.
 
     data: Feldwerte als Strings/Zahlen (nur übergebene Felder werden geändert), optional „tracks“ (Liste/JSON)
-    und „barcode“. covers: {Rolle: Pfad unter media/}.
+    und „barcode“ (Text oder Liste von Schreibweisen). covers: {Rolle: Pfad unter media/}.
     """
     rec = db.get(MediaRecord, record_id) if record_id else find_record_duplicate(db, data)
     if record_id and rec is None:
@@ -308,8 +356,10 @@ def upsert_record(db: Session, data: dict, user_id: int | None, location_id: int
     item.name = record_name(rec)[:255]
     item.description = " · ".join(str(p) for p in (rec.medium, rec.year, rec.label, rec.catalog_no) if p)
     item.tags = ", ".join(p for p in ("Sammlung", "Tonträger", rec.genre) if p)
-    if data.get("barcode"):
-        add_item_code(db, item.id, str(data["barcode"]), "barcode", "sammlung")
+    bcs = data.get("barcode")
+    for bc in _barcode_list(bcs):
+        if bc:
+            add_item_code(db, item.id, str(bc), "barcode", "sammlung")
     for role, path in (covers or {}).items():
         set_cover(db, item, role, path)
     db.flush()

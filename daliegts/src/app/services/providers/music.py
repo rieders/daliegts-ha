@@ -177,12 +177,22 @@ class MusicBrainz(_Client):
                          barcode=rel.get("barcode") or "", musicbrainz_id=rel.get("id", ""),
                          url=f"https://musicbrainz.org/release/{rel.get('id', '')}")
 
-    async def search(self, artist: str = "", album: str = "", barcode: str = "", catno: str = "", limit: int = 10) -> list[RecordHit]:
+    @staticmethod
+    def _any(values: list[str]) -> str:
+        """barcode:1 bzw. (barcode:1 OR barcode:2) – mehrere Schreibweisen in einer Anfrage (1 Anfrage/s!)."""
+        vals = list(dict.fromkeys(v for v in values if v))
+        return vals[0] if len(vals) == 1 else "(" + " OR ".join(vals) + ")"
+
+    async def search(self, artist: str = "", album: str = "", barcode: str = "", catno: str = "", limit: int = 10,
+                     barcodes: list[str] | None = None, catnos: list[str] | None = None) -> list[RecordHit]:
+        """barcodes/catnos: mehrere Schreibweisen (UPC-A mit/ohne führende 0, Kat.-Nr. mit/ohne Leerzeichen), ODER-verknüpft."""
         parts = []
-        if barcode:
-            parts.append(f"barcode:{re.sub(r'[^0-9]', '', barcode)}")
-        if catno:
-            parts.append(f"catno:{self._q(catno)}")
+        bcs = [re.sub(r"[^0-9]", "", b) for b in [barcode, *(barcodes or [])] if b]
+        if any(bcs):
+            parts.append(self._any([f"barcode:{b}" for b in bcs if b]))
+        cns = [c for c in [catno, *(catnos or [])] if c and c.strip()]
+        if cns:
+            parts.append(self._any([f"catno:{self._q(c)}" for c in cns]))
         if artist:
             parts.append(f"artist:{self._q(artist)}")
         if album:

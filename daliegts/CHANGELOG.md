@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.34.0 – 2026-11-18
+
+- **Platten scannen** (Sammlung › Tonträger, Knopf neben „＋ Tonträger“): Serien-Erfassung wie „Bücher scannen“ – per Handykamera oder USB-Handscanner (Code + Enter), das Eingabefeld behält nach jedem Scan den Fokus; Scans landen in einer Warteschlange, man kann also ohne Warten weiterscannen.
+  - Je Scan Suche bei **MusicBrainz** und – mit Token – **Discogs**. Treffer beider Quellen zur selben Pressung werden zusammengelegt. **Genau ein Treffer**: wird automatisch mit Titelliste, Cover, Label, Katalognummer und Discogs-ID gespeichert. **Mehrere Treffer**: kurze Auswahl (Land, Jahr, Label, Kat.-Nr., Format), ein Tipp übernimmt. **Kein Treffer**: Hinweis mit Feldern für Katalognummer bzw. Interpret/Album (der gescannte Barcode wird trotzdem mitgespeichert) oder „Von Hand“.
+  - **Barcode-Varianten**: UPC-A (12 Stellen) und EAN-13 mit führender 0 werden beide gesucht und beide am Artikel gespeichert – der normale Scanner findet die Platte danach mit jeder Schreibweise. **Katalognummern** werden mit und ohne Leerzeichen gesucht („8 55 497“ / „855497“). Codes, die kein Barcode sind, gelten als Katalognummer.
+  - Oben einstellbar und für die Serie gemerkt (im Browser): **Lagerort, Medium** („automatisch“ = aus dem Treffer), **Zustand Platte/Hülle**, **automatisch speichern** an/aus. Ein gescanntes Lagerort-Etikett setzt den Lagerort der Serie.
+  - **Dubletten** (Regel siehe unten) werden beim Scannen nicht angelegt und nicht verändert, sondern mit Link zur Detailseite gemeldet.
+  - Unten die Liste der in dieser Serie erfassten Platten mit Cover-Miniatur, Lagerort und Link (bleibt beim Neuladen der Seite erhalten).
+  - REST-API: `POST /api/v1/collection/records/scan`.
+- **Eine Dubletten-Regel für alle Wege** – Platten-Scan, Formular „＋ Tonträger“, `POST /api/v1/collection/records` (ohne `id`) und damit auch Vinyl2MP3: Gleiche MusicBrainz-ID, Discogs-ID oder gleicher Barcode (12 oder 13 Stellen) = dieselbe Platte, sie wird aktualisiert. Interpret + Album + Jahr zählt nur noch, wenn die vorhandene Platte weder MusicBrainz- noch Discogs-ID hat (von Hand erfasst). **Geändert gegenüber 0.33**: Eine zweite Pressung mit gleichem Titel und Jahr, aber anderer ID, überschreibt die vorhandene nicht mehr, sondern wird neu angelegt.
+
 ## v0.33.0 – 2026-11-17
 
 - **Sammlung** (neuer Menüpunkt unter „Lager“): Schallplatten, CDs, Kassetten und Bücher mit eigenen Feldern – Interpret, Album, Jahr, Label, Katalognummer, Medium, Zustand (Goldmine-Skala für Platte und Hülle), Titelliste mit Seiten, Digitalisiert-Vermerk; bei Büchern Autoren, Verlag, ISBN-10/13, Reihe mit Band, Sprache, Einband, signiert, gelesen. Ansichten nach Interpret/Autor gruppiert (A–Z), als Cover-Kacheln oder Tabelle, Filter nach Medium, Genre, Jahr, Ort, Reihe, Sprache und „gelesen“. Jeder Eintrag ist zugleich ein normaler Artikel mit Lagerort, Code und Etikett.

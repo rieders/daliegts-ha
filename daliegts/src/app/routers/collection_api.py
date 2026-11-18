@@ -8,13 +8,16 @@ from __future__ import annotations
 import asyncio
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
+from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from ..db import get_db
-from ..models import BookRecord, MediaRecord
+from ..models import BookRecord, Location, MediaRecord
 from ..security import check, require
 from ..services import collection as col
 from ..services import collection_market as market
+from ..services import record_scan as rscan
+from ..services.codes import resolve
 from ..services.locations import TreeCache
 from ..services.providers import ProviderError
 from ..services.providers import books as bookprov
@@ -92,6 +95,83 @@ async def records_release(source: str, id: str, db: Session = Depends(get_db), c
         raise HTTPException(502, str(e)) from e
 
 
+class RecordScanIn(BaseModel):
+    """Ein Scan der Seite „Platten scannen“. Suche: code (Barcode oder Kat.-Nr.), catno, artist/album.
+    Auswahl übernehmen: mbid und/oder discogs_id. scanned = ursprünglich gescannter Barcode (wird mitgespeichert,
+    auch wenn danach über die Katalognummer gesucht wurde). Dazu die Serien-Einstellungen."""
+    code: str = ""
+    scanned: str = ""
+    catno: str = ""
+    artist: str = ""
+    album: str = ""
+    mbid: str = ""
+    discogs_id: str = ""
+    location: str = ""
+    medium: str = ""
+    media_condition: str = ""
+    sleeve_condition: str = ""
+    auto_save: bool = True
+
+
+def _scan_dup(db: Session, rec: MediaRecord, tc: TreeCache, hint: str) -> dict:
+    return {"status": "duplicate", "record": rscan.record_summary(db, rec, tc), "message": hint, "hits": [], "notes": []}
+
+
+async def _scan_save(db: Session, ctx, body: RecordScanIn, client, tc: TreeCache) -> dict:
+    """Release-Daten holen, auf Dublette prüfen, mit den Serien-Einstellungen anlegen."""
+    check(ctx, "items", 3)
+    scanned = list(dict.fromkeys(c.strip() for c in (body.code, body.scanned) if rscan.is_barcode(c)))
+    try:
+        details, notes = await rscan.release(cfg.load(db), client, mbid=body.mbid.strip(), discogs_id=body.discogs_id.strip())
+    except ProviderError as e:
+        raise HTTPException(502, str(e)) from e
+    dup = col.find_record_duplicate(db, {**details, "barcode": [*scanned, details.get("barcode") or ""]})
+    if dup is not None:
+        return {**_scan_dup(db, dup, tc, "Diese Platte ist schon in der Sammlung."), "notes": notes}
+    loc_id = _location_id(db, body.location)
+    data = rscan.record_data(details, rscan.series_settings(body.model_dump()), scanned)
+    covers = await _covers({}, {"front": details.get("cover_front"), "back": details.get("cover_back")})
+    rec, created = col.upsert_record(db, data, ctx.user_id, loc_id, covers)
+    db.commit()
+    return {"status": "saved", "created": created, "record": rscan.record_summary(db, rec, tc), "hits": [], "notes": notes}
+
+
+@router.post("/records/scan")
+async def records_scan(body: RecordScanIn, db: Session = Depends(get_db), ctx=Depends(require("items", 1))):
+    """Platten scannen (Serien-Erfassung). Antwort „status“:
+    saved (angelegt) · duplicate (schon vorhanden, mit Link) · choose (Treffer zur Auswahl) · none (nichts gefunden)
+    · location (Lagerort-Etikett gescannt: gilt ab jetzt für die Serie)."""
+    tc = TreeCache(db)
+    _location_id(db, body.location)  # falschen Lagerort sofort melden, nicht erst nach der Online-Suche
+    async with market.new_client() as client:
+        if body.mbid or body.discogs_id:
+            return await _scan_save(db, ctx, body, client, tc)
+        code = body.code.strip()
+        barcode = code if rscan.is_barcode(code) else ""
+        if code and not barcode:
+            r = resolve(db, code)
+            if r.kind == "location":  # Lagerort-Etikett gescannt -> Lagerort der Serie
+                loc = db.get(Location, r.id)
+                return {"status": "location", "location": loc.code, "path": tc.path(loc.id), "hits": [], "notes": []}
+        catno = body.catno.strip() or ("" if barcode else code)
+        if not (barcode or catno or body.artist.strip() or body.album.strip()):
+            raise HTTPException(400, "Barcode, Katalognummer oder Interpret/Album angeben.")
+        if barcode or rscan.is_barcode(body.scanned):
+            dup = rscan.find_existing(db, [b for b in (barcode, body.scanned) if rscan.is_barcode(b)])
+            if dup is not None:
+                return _scan_dup(db, dup, tc, "Diese Platte ist schon in der Sammlung.")
+        hits, notes = await rscan.search(cfg.load(db), client, barcode=barcode, catno=catno, artist=body.artist, album=body.album)
+        query = {"barcode": barcode, "catno": catno, "variants": rscan.barcode_variants(barcode) or rscan.catno_variants(catno)}
+        if not hits:
+            return {"status": "none", "hits": [], "notes": notes, "query": query}
+        if len(hits) == 1 and body.auto_save:
+            h = hits[0]
+            pick = body.model_copy(update={"mbid": h.get("musicbrainz_id") or "", "discogs_id": h.get("discogs_id") or "", "code": barcode})
+            res = await _scan_save(db, ctx, pick, client, tc)
+            return {**res, "notes": list(dict.fromkeys(notes + res["notes"])), "query": query}
+        return {"status": "choose", "hits": hits, "notes": notes, "query": query}
+
+
 @router.post("/records/market")
 def records_market_all(db: Session = Depends(get_db), ctx=Depends(require("items", 2))):
     """Marktwert für die ganze Sammlung im Hintergrund aktualisieren (ältester Stand zuerst)."""
@@ -130,7 +210,8 @@ async def record_save(
     cover_front_url: str | None = Form(None), cover_back_url: str | None = Form(None),
     db: Session = Depends(get_db), ctx=Depends(require("items", 2)),
 ):
-    """Tonträger anlegen oder – bei gleicher MusicBrainz-ID bzw. gleichem Interpret+Album+Jahr (oder id) – aktualisieren."""
+    """Tonträger anlegen oder – bei Dublette (oder id) – aktualisieren. Dublette: gleiche MusicBrainz-ID, Discogs-ID oder
+    Barcode (12/13 Stellen); Interpret + Album + Jahr nur, wenn die vorhandene Platte keine dieser IDs hat."""
     data = {k: v for k, v in dict(artist=artist, album=album, year=year, genre=genre, label=label, catalog_no=catalog_no, medium=medium,
                                    country=country, musicbrainz_id=musicbrainz_id, discogs_id=discogs_id, media_condition=media_condition,
                                    sleeve_condition=sleeve_condition, digitized=digitized, digitized_path=digitized_path, barcode=barcode,

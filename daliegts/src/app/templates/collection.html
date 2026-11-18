@@ -30,6 +30,7 @@
     </div>
     {% if me.can('items', 3) %}
       {% if rec_mode %}<a class="btn primary" href="/sammlung/tontraeger/neu">{{ icon('plus') }} Tonträger</a>
+        <a class="btn" href="/sammlung/tontraeger/scannen">{{ icon('scan') }} Platten scannen</a>
       {% else %}<a class="btn primary" href="/sammlung/buecher/neu">{{ icon('scan') }} Bücher scannen</a>{% endif %}
     {% endif %}
   </div>
