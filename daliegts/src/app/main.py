@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import mimetypes
 from contextlib import asynccontextmanager
 from urllib.parse import urlparse
 
@@ -20,6 +21,27 @@ from .services.seed import seed
 from .services.wled import lowstock_targets, manager
 
 log = logging.getLogger("lagerwerk")
+
+# Feste Dateitypen: Im HA-Container (python:3.11-slim, ohne /etc/mime.types) kennt mimetypes z. B. ".webp"
+# nicht – Starlette schickt dann text/plain, und mit "nosniff" zeigt der Browser das Bild als Text an.
+MEDIA_TYPES = {
+    ".webp": "image/webp", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
+    ".gif": "image/gif", ".bmp": "image/bmp", ".pdf": "application/pdf",
+}
+STATIC_TYPES = {
+    ".svg": "image/svg+xml", ".css": "text/css", ".js": "text/javascript", ".mjs": "text/javascript",
+    ".json": "application/json", ".wasm": "application/wasm", ".webmanifest": "application/manifest+json",
+    ".ico": "image/x-icon", ".woff2": "font/woff2",
+}
+
+
+def register_mime_types() -> None:
+    """Absicherung für StaticFiles/FileResponse, die den Typ über mimetypes raten."""
+    for suffix, media_type in (MEDIA_TYPES | STATIC_TYPES).items():
+        mimetypes.add_type(media_type, suffix)
+
+
+register_mime_types()
 
 
 def startup_checks() -> None:
@@ -163,6 +185,7 @@ async def lifespan(app: FastAPI):
 
 
 def create_app(background_jobs: bool = True) -> FastAPI:
+    register_mime_types()
     app = FastAPI(title="DaLiegt’s", version=APP_VERSION, lifespan=lifespan, docs_url="/api/docs", openapi_url="/api/openapi.json")
     app.state.background_jobs = background_jobs
 
@@ -262,14 +285,13 @@ def create_app(background_jobs: bool = True) -> FastAPI:
             return PlainTextResponse("Nicht gefunden", status_code=404)
         headers = {"X-Content-Type-Options": "nosniff", "Content-Security-Policy": "default-src 'none'; img-src 'self'; style-src 'unsafe-inline'"}
         suffix = target.suffix.lower()
-        if suffix in (".webp", ".png", ".jpg", ".jpeg", ".gif", ".bmp"):
-            return FileResponse(target, headers=headers)
-        if suffix == ".pdf":
-            return FileResponse(target, media_type="application/pdf", headers=headers)
+        if suffix in MEDIA_TYPES:
+            return FileResponse(target, media_type=MEDIA_TYPES[suffix], headers=headers)
         if suffix in (".html", ".htm", ".svg", ".xml", ".js", ".xhtml"):
             return FileResponse(target, media_type="application/octet-stream", filename=target.name,
                                 headers=headers | {"Content-Disposition": f'attachment; filename="{target.name}"'})
-        return FileResponse(target, filename=target.name, headers=headers)
+        return FileResponse(target, media_type=mimetypes.guess_type(target.name)[0] or "application/octet-stream",
+                            filename=target.name, headers=headers)
 
     @app.get("/sw.js", include_in_schema=False)
     async def sw():

@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.34.1 – 2026-11-18
+
+- **Fehler behoben: Cover/Fotos wurden als Text angezeigt** (z. B. Klick auf ein Cover in der Sammlung). Im Home-Assistant-Container (python:3.11-slim ohne `/etc/mime.types`) kennt Python den Dateityp `.webp` nicht; die Bilder gingen deshalb als `text/plain` raus, und wegen `X-Content-Type-Options: nosniff` zeigte der Browser den Dateiinhalt als Text. `/media/…` setzt den Typ jetzt fest (`.webp`, `.png`, `.jpg`/`.jpeg`, `.gif`, `.bmp`, `.pdf`); unbekannte Dateien kommen als `application/octet-stream` zum Herunterladen. Zusätzlich werden beim Start die Typen für `/static` (`.webp`, `.svg`, `.js`, `.css`, `.wasm`, `.webmanifest` …) und für Backup-Downloads fest eingetragen.
+
 ## v0.34.0 – 2026-11-18
 
 - **Platten scannen** (Sammlung › Tonträger, Knopf neben „＋ Tonträger“): Serien-Erfassung wie „Bücher scannen“ – per Handykamera oder USB-Handscanner (Code + Enter), das Eingabefeld behält nach jedem Scan den Fokus; Scans landen in einer Warteschlange, man kann also ohne Warten weiterscannen.

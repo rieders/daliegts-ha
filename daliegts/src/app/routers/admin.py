@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import mimetypes
 import tempfile
 from pathlib import Path
 
@@ -227,7 +228,7 @@ def backup_download(name: str, ctx=Depends(require("backup", 1))):
     p = (settings.backup_dir / name).resolve()
     if p.parent != settings.backup_dir.resolve() or not p.exists():
         return redirect("/admin/backup")
-    return FileResponse(p, filename=p.name)
+    return FileResponse(p, media_type=mimetypes.guess_type(p.name)[0] or "application/octet-stream", filename=p.name)
 
 
 # ------------------------------------------------------------------ Import
