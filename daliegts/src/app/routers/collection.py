@@ -137,6 +137,40 @@ async def record_market(record_id: int, request: Request, db: Session = Depends(
     return redirect(f"/sammlung/tontraeger/{rec.id}#markt")
 
 
+@router.post("/sammlung/tontraeger/{record_id}/loeschen")
+def record_delete(record_id: int, request: Request, db: Session = Depends(get_db), ctx=Depends(require("items", 2))):
+    from .collection_api import delete_and_commit
+
+    rec = _record(db, record_id)
+    name = col.record_name(rec)
+    delete_and_commit(db, rec.item, ctx.user_id)
+    flash(request, f"„{name}“ gelöscht.")
+    return redirect("/sammlung?art=tontraeger")
+
+
+@router.post("/sammlung/loeschen")
+async def bulk_delete(request: Request, db: Session = Depends(get_db), ctx=Depends(require("items", 2))):
+    """Mehrfachauswahl in der Sammlungsliste: ausgewählte Tonträger bzw. Bücher löschen (Bestätigung im Browser)."""
+    f = await request.form()
+    art = "buecher" if f.get("art") == "buecher" else "tontraeger"
+    back_to = str(f.get("zurueck") or "")
+    back_to = back_to if back_to.startswith("/sammlung") else f"/sammlung?art={art}"
+    ids = list(dict.fromkeys(int(x) for x in f.getlist("ids") if str(x).isdigit()))[:2000]
+    model = BookRecord if art == "buecher" else MediaRecord
+    entries = [e for e in (db.get(model, i) for i in ids) if e is not None]
+    if not entries:
+        flash(request, "Nichts ausgewählt.", "err")
+        return redirect(back_to)
+    files: set[str] = set()
+    for e in entries:
+        files.update(col.delete_entry(db, e.item, ctx.user_id))
+    db.commit()
+    col.remove_files(sorted(files))
+    what = ("Buch" if len(entries) == 1 else "Bücher") if art == "buecher" else "Tonträger"
+    flash(request, f"{len(entries)} {what} gelöscht.")
+    return redirect(back_to)
+
+
 @router.post("/sammlung/tontraeger/marktwerte")
 def records_market_all(request: Request, db: Session = Depends(get_db), ctx=Depends(require("items", 2))):
     ids = market.due_records(db, 10_000)
@@ -185,6 +219,17 @@ def book_edit(book_id: int, request: Request, db: Session = Depends(get_db), ctx
     loc = col.location_of(b.item)
     return render(request, "book_form.html", {"book": b, "data": data, "preset_location": loc.code if loc else "",
                                               "BOOK_BINDINGS": BOOK_BINDINGS, "covers": data["covers"]})
+
+
+@router.post("/sammlung/buecher/{book_id}/loeschen")
+def book_delete(book_id: int, request: Request, db: Session = Depends(get_db), ctx=Depends(require("items", 2))):
+    from .collection_api import delete_and_commit
+
+    b = _book(db, book_id)
+    name = b.title or b.item.name
+    delete_and_commit(db, b.item, ctx.user_id)
+    flash(request, f"„{name}“ gelöscht.")
+    return redirect("/sammlung?art=buecher")
 
 
 @router.post("/sammlung/buecher/{book_id}/gelesen")

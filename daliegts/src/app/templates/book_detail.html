@@ -59,4 +59,9 @@
     {% endif %}
   </div>
 </div>
+{% if me.can('items', 2) %}
+<form method="post" action="/sammlung/buecher/{{ b.id }}/loeschen" class="delete-zone">
+  <button class="btn danger" data-confirm="„{{ [b.authors.split(';')[0], b.title]|select|join(' – ') or 'Buch' }}“ wirklich löschen? Das lässt sich nicht rückgängig machen.">🗑 Löschen</button>
+</form>
+{% endif %}
 {% endblock %}

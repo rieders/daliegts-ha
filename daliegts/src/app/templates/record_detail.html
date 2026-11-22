@@ -83,4 +83,9 @@
     {% if total %}<p class="small muted">Gesamtlaufzeit {{ mins(total) }}</p>{% endif %}
   {% else %}<p class="muted">Keine Titelliste erfasst.</p>{% endif %}
 </div>
+{% if me.can('items', 2) %}
+<form method="post" action="/sammlung/tontraeger/{{ rec.id }}/loeschen" class="delete-zone">
+  <button class="btn danger" data-confirm="„{{ [rec.artist, rec.album]|select|join(' – ') or 'Tonträger' }}“ wirklich löschen? Das lässt sich nicht rückgängig machen.">🗑 Löschen</button>
+</form>
+{% endif %}
 {% endblock %}

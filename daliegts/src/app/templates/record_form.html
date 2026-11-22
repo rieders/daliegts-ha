@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block title %}{{ 'Tonträger bearbeiten' if rec else 'Neuer Tonträger' }}{% endblock %}
-{% block head %}<script src="/static/js/scan.js?v={{ APP_VERSION }}" defer></script><script src="/static/js/collection.js?v={{ APP_VERSION }}" defer></script>{% endblock %}
+{% block head %}<script src="/static/js/scan.js?v={{ APP_VERSION }}" defer></script><script src="/static/js/cover_crop.js?v={{ APP_VERSION }}" defer></script><script src="/static/js/collection.js?v={{ APP_VERSION }}" defer></script>{% endblock %}
 {% block content %}
 {% from "partials/macros.html" import locpicker %}
+{% from "partials/cover_crop.html" import crop_buttons, crop_modal %}
 <div class="breadcrumb"><a href="/sammlung?art=tontraeger">Sammlung</a>{% if rec %} › <a href="/sammlung/tontraeger/{{ rec.id }}">{{ rec.album }}</a>{% endif %}</div>
 <h1>{{ 'Tonträger bearbeiten' if rec else 'Neuer Tonträger' }}</h1>
 
@@ -72,13 +73,13 @@
 
     <div class="card" id="cover">
       <h2 class="mt0">Hüllenbilder</h2>
-      <p class="small muted">Am Handy öffnet „Foto“ direkt die Kamera. Ein eigenes Foto ersetzt das Bild aus der Online-Suche.</p>
+      <p class="small muted">Am Handy öffnet „📷“ direkt die Kamera; danach die Ecken des Covers antippen und ziehen – das Bild wird gerade gerückt. Ein eigenes Foto ersetzt das Bild aus der Online-Suche.</p>
       <div class="cover-pick">
         {% for role, label in COVER_ROLES.items() %}
         <div class="slot">
           <div class="small"><b>{{ label }}</b></div>
           <template x-if="preview.{{ role }}"><img :src="preview.{{ role }}" alt="{{ label }}" referrerpolicy="no-referrer"></template>
-          <label class="btn sm" style="margin-top:6px">📷 Foto<input type="file" name="cover_{{ role }}" accept="image/*" capture="environment" hidden @change="fileChosen('{{ role }}', $event)"></label>
+          {{ crop_buttons(role, label, '📷 Cover fotografieren' if role == 'front' else '📷 Fotografieren') }}
           <template x-if="urls.{{ role }} && !files.{{ role }}"><div class="small muted">aus Online-Suche</div></template>
         </div>
         {% endfor %}
@@ -106,5 +107,6 @@
       <span class="small muted" x-show="d.musicbrainz_id || (d.artist && d.album)">Gibt es den Tonträger schon (gleiche MusicBrainz-ID oder Interpret + Album + Jahr), wird er aktualisiert statt doppelt angelegt.</span>
     </div>
   </form>
+{{ crop_modal() }}
 </div>
 {% endblock %}

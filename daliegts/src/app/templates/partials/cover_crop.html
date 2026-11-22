@@ -1,0 +1,59 @@
+{# Cover mit der Handykamera (v0.34.4): Zuschnitt-Ansicht. Erwartet das Mixin coverCrop() (static/js/cover_crop.js). #}
+{% macro crop_buttons(role, label, take='📷 Fotografieren') -%}
+<span class="crop-buttons">
+  <label class="btn sm">{{ take }}<input type="file" accept="image/*" capture="environment" hidden @change="cropStart('{{ role }}', $event, '{{ label }}')"></label>
+  <label class="btn sm ghost">Bild wählen<input type="file" accept="image/*" hidden @change="cropStart('{{ role }}', $event, '{{ label }}')"></label>
+</span>
+<template x-if="cropped.{{ role }}"><span class="small crop-new">neu – wird beim Speichern übernommen</span></template>
+{%- endmacro %}
+
+{% macro crop_modal() -%}
+<div class="crop-modal" x-show="cr.open" x-cloak @keydown.escape.window="cr.open && cropClose()" @resize.window="cr.open && cropMeasure()"
+     role="dialog" aria-modal="true" aria-label="Cover zuschneiden">
+  <div class="crop-box">
+    <div class="row crop-title">
+      <b class="grow" x-text="(cr.step === 'crop' ? 'Zuschneiden: ' : 'Vorschau: ') + cr.label"></b>
+      <button type="button" class="btn ghost sm" @click="cropClose()" aria-label="Schließen">✕</button>
+    </div>
+    <p class="small crop-err" x-show="cr.error" x-text="cr.error"></p>
+    <p class="small muted" x-show="cr.busy">Bitte warten …</p>
+
+    <div x-show="cr.step === 'crop' && cr.src">
+      <p class="small muted mt0">Die vier Punkte auf die Ecken des Covers ziehen – schräg fotografiert ist kein Problem.</p>
+      <div class="crop-stage">
+        <img :src="cr.src" x-ref="cropImg" alt="Foto" draggable="false" @load="cropMeasure()">
+        <svg x-ref="cropSvg" viewBox="0 0 1 1" preserveAspectRatio="none" @pointerdown="cropDown($event)" @pointermove="cropMove($event)"
+             @pointerup="cropUp()" @pointercancel="cropUp()" @lostpointercapture="cropUp()">
+          <polygon class="crop-poly" :points="cropPolygon()" :style="'stroke-width:' + (2 * cr.k)"></polygon>
+          <circle class="crop-handle" :class="cr.drag === 0 && 'on'" :cx="cr.pts[0] && cr.pts[0].x" :cy="cr.pts[0] && cr.pts[0].y" :r="16 * cr.k" :style="'stroke-width:' + (3 * cr.k)"></circle>
+          <circle class="crop-handle" :class="cr.drag === 1 && 'on'" :cx="cr.pts[1] && cr.pts[1].x" :cy="cr.pts[1] && cr.pts[1].y" :r="16 * cr.k" :style="'stroke-width:' + (3 * cr.k)"></circle>
+          <circle class="crop-handle" :class="cr.drag === 2 && 'on'" :cx="cr.pts[2] && cr.pts[2].x" :cy="cr.pts[2] && cr.pts[2].y" :r="16 * cr.k" :style="'stroke-width:' + (3 * cr.k)"></circle>
+          <circle class="crop-handle" :class="cr.drag === 3 && 'on'" :cx="cr.pts[3] && cr.pts[3].x" :cy="cr.pts[3] && cr.pts[3].y" :r="16 * cr.k" :style="'stroke-width:' + (3 * cr.k)"></circle>
+        </svg>
+        <canvas x-ref="cropLoupe" class="crop-loupe" width="240" height="240" x-show="cr.drag >= 0"></canvas>
+      </div>
+      <div class="row crop-controls">
+        <div class="pill-group" role="group" aria-label="Format">
+          <a href="#" :class="cr.square && 'on'" @click.prevent="cr.square = true">Quadratisch (LP/CD)</a>
+          <a href="#" :class="!cr.square && 'on'" @click.prevent="cr.square = false">Wie fotografiert</a>
+        </div>
+        <button type="button" class="btn sm ghost" @click="cropWhole()" title="Eckpunkte auf die Bildecken setzen">Ganzes Bild</button>
+      </div>
+      <div class="row crop-controls">
+        <button type="button" class="btn primary" @click="cropApply()" :disabled="cr.busy">Übernehmen</button>
+        <button type="button" class="btn ghost" @click="cropClose()">Abbrechen</button>
+      </div>
+    </div>
+
+    <div x-show="cr.step === 'preview' && cr.result">
+      <div class="crop-result"><img :src="cr.result" alt="Entzerrtes Cover"></div>
+      <p class="small muted">Ein vorhandenes Cover wird erst ersetzt, wenn das Formular gespeichert wird.</p>
+      <div class="row crop-controls">
+        <button type="button" class="btn primary" @click="cropSave()">Speichern</button>
+        <button type="button" class="btn" @click="cropRetake()">Neu aufnehmen</button>
+        <button type="button" class="btn ghost" @click="cr.step = 'crop'; $nextTick(() => cropMeasure())">Zuschnitt ändern</button>
+      </div>
+    </div>
+  </div>
+</div>
+{%- endmacro %}

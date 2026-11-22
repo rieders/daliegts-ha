@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block title %}{{ 'Buch bearbeiten' if book else 'Bücher erfassen' }}{% endblock %}
-{% block head %}<script src="/static/js/scan.js?v={{ APP_VERSION }}" defer></script><script src="/static/js/collection.js?v={{ APP_VERSION }}" defer></script>{% endblock %}
+{% block head %}<script src="/static/js/scan.js?v={{ APP_VERSION }}" defer></script><script src="/static/js/cover_crop.js?v={{ APP_VERSION }}" defer></script><script src="/static/js/collection.js?v={{ APP_VERSION }}" defer></script>{% endblock %}
 {% block content %}
+{% from "partials/cover_crop.html" import crop_buttons, crop_modal %}
 {% from "partials/macros.html" import locpicker %}
 <div class="breadcrumb"><a href="/sammlung?art=buecher">Sammlung</a>{% if book %} › <a href="/sammlung/buecher/{{ book.id }}">{{ book.title }}</a>{% endif %}</div>
 <h1>{{ 'Buch bearbeiten' if book else 'Bücher erfassen' }}</h1>
@@ -91,8 +92,8 @@
         <label class="inline"><input type="checkbox" x-model="d.signed"> signiert</label>
       </div>
       <div class="row" style="margin-top:10px">
-        <label class="btn sm">📷 Cover vorn<input type="file" name="cover_front" accept="image/*" capture="environment" hidden @change="fileChosen('front', $event)"></label>
-        <label class="btn sm">📷 Rückseite<input type="file" name="cover_back" accept="image/*" capture="environment" hidden @change="fileChosen('back', $event)"></label>
+        <div><b class="small">Cover vorn</b><br>{{ crop_buttons('front', 'Cover vorn', '📷 Cover fotografieren') }}</div>
+        <div><b class="small">Rückseite</b><br>{{ crop_buttons('back', 'Rückseite') }}</div>
         <template x-if="preview.back"><img :src="preview.back" alt="Rückseite" style="height: 48px; border-radius: 4px" referrerpolicy="no-referrer" @error="imgBroken('back')"></template>
       </div>
     </div>
@@ -109,5 +110,6 @@
     <a class="btn sm" href="/sammlung?art=buecher">Zur Sammlung</a>
   </div>
   {% endif %}
+{{ crop_modal() }}
 </div>
 {% endblock %}

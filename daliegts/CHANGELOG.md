@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.34.4 – 2026-11-22
+
+- **Tonträger und Bücher löschen**:
+  - **Detailseite**: roter Knopf „🗑 Löschen“ unten, mit Rückfrage „„Interpret – Album“ wirklich löschen? Das lässt sich nicht rückgängig machen.“ (bei Büchern „Autor – Titel“).
+  - **Sammlungsliste**: „☑ Auswählen“ blendet in allen Ansichten (Gruppen, Kacheln, Tabelle) je Eintrag ein Häkchen ein. Im Auswahlmodus wählt ein Tipp auf die Zeile aus, statt sie zu öffnen. Dazu gibt es „Alle auswählen“ (alle angezeigten bzw. gefilterten Einträge), „Keine“ und „Ausgewählte löschen“ mit Rückfrage und Anzahl.
+  - **API**: `DELETE /api/v1/collection/records/{id}` und `DELETE /api/v1/collection/books/{id}`. Dafür genügt das Recht „Artikel bearbeiten“, wie beim Bearbeiten.
+  - Gelöscht werden Artikel, Bestand, Barcodes/ISBN (Artikel-Codes), Titelliste und Bild-Anhänge. Die Bilddateien (samt Vorschaubild) werden entfernt, sobald kein anderer Datensatz sie mehr benutzt; gleiche Bilder teilen sich eine Datei. Danach lässt sich dieselbe Platte bzw. dasselbe Buch wieder neu anlegen. Jede Löschung steht im Audit-Log.
+- **Cover mit der Handykamera**, im Formular für Tonträger (alle Hüllenbilder) und Bücher (vorn/hinten):
+  - **„📷 Cover fotografieren“** öffnet die Kamera-App. Das funktioniert ohne HTTPS, also auch über `http://<IP>:8000` und in der Home-Assistant-App. **„Bild wählen“** öffnet die Galerie.
+  - **Zuschnitt**: Auf dem Foto liegen vier große, ziehbare Eckpunkte (mit Finger oder Maus). Beim Ziehen zeigt eine Lupe die Stelle vergrößert. Umschalter „Quadratisch (LP/CD)“ (Standard bei Tonträgern) oder „Wie fotografiert“ (Standard bei Büchern), dazu „Ganzes Bild“.
+  - **„Übernehmen“**: Der Server entzerrt das Foto perspektivisch (Pillow, `Image.transform` PERSPECTIVE aus den vier Punkten), nachdem er die EXIF-Drehung angewendet hat. Ergebnis: 1000×1000 px bei quadratisch, sonst das Seitenverhältnis aus den Kantenlängen (höchstens 1280 px). Große Handyfotos verkleinert schon der Browser auf höchstens 2500 px; der Server begrenzt sie zusätzlich.
+  - **Vorschau** mit „Speichern“, „Neu aufnehmen“ und „Zuschnitt ändern“. „Speichern“ übernimmt das Cover ins Formular. Ein vorhandenes Cover wird erst ersetzt, wenn das Formular gespeichert wird; gespeichert wird als WebP wie bisher. Neuer Endpunkt `POST /api/v1/collection/cover/warp` (Foto + Punkte → WebP); er speichert selbst nichts.
+  - Das alte Bild eines ersetzten Covers wird jetzt weggeräumt, sofern es nirgends sonst benutzt wird.
+
 ## v0.34.3 – 2026-11-22
 
 - **MusicBrainz robuster**: Antwortet MusicBrainz mit 429 (gedrosselt) oder 503 (überlastet), versucht DaLiegt’s es automatisch bis zu 4-mal. Dabei hält es sich an `Retry-After` (höchstens 30 s), sonst wartet es 2, 4 und 8 s. Erst danach kommt eine Meldung. Der Mindestabstand von 1 s zwischen zwei Anfragen gilt jetzt prozessweit, auch wenn mehrere Suchen gleichzeitig laufen (früher hing die Sperre an einer einzelnen Event-Loop). Nach einem 429/503 warten auch gleichzeitig laufende Suchen.

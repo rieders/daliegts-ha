@@ -590,3 +590,35 @@ pre.code { background: var(--surface-2); border: 1px solid var(--border); border
   .track-edit { grid-template-columns: 3em 3em 1fr 2em; }
   .track-edit .tl { display: none; }
 }
+
+/* v0.34.4: Sammlung löschen / Mehrfachauswahl */
+.delete-zone { margin: 18px 0 30px; padding-top: 12px; border-top: 1px solid var(--border); }
+.select-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; position: sticky; top: 0; z-index: 5; padding: 8px 10px; }
+.pick { width: 22px; height: 22px; flex: none; margin: 0; accent-color: var(--err); }
+.coll-row:has(.pick:checked), tr.sel-row:has(.pick:checked) { background: var(--err-bg); }
+.cover-tile { position: relative; }
+.cover-tile .pick { position: absolute; top: 6px; left: 6px; z-index: 1; }
+.cover-tile:has(.pick:checked) .cv { outline: 3px solid var(--err); outline-offset: -3px; }
+tr.sel-row td:first-child { white-space: nowrap; }
+tr.sel-row td:first-child .pick { vertical-align: middle; margin-right: 6px; }
+tr.sel-row td:first-child .thumb { display: inline-flex; vertical-align: middle; }
+
+/* v0.34.4: Cover mit der Handykamera – Zuschnitt */
+.crop-buttons { display: inline-flex; flex-wrap: wrap; gap: 4px; justify-content: center; margin-top: 6px; }
+.crop-new { display: block; color: var(--warn); }
+.crop-modal { position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,.7); display: flex; align-items: flex-start; justify-content: center;
+  overflow: auto; padding: 10px; }
+.crop-box { background: var(--surface); color: var(--text); border-radius: var(--radius); padding: 12px; width: 100%; max-width: 760px; }
+.crop-title { margin-bottom: 4px; }
+.crop-err { color: var(--err); }
+.crop-stage { position: relative; display: block; width: fit-content; max-width: 100%; margin: 0 auto; user-select: none; -webkit-user-select: none; }
+.crop-stage img { display: block; max-width: 100%; max-height: 62vh; -webkit-touch-callout: none; pointer-events: none; }
+.crop-stage svg { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: crosshair; overflow: visible; }
+.crop-poly { fill: rgba(63,182,139,.18); stroke: #3fb68b; }
+.crop-handle { fill: rgba(255,255,255,.35); stroke: #3fb68b; cursor: grab; }
+.crop-handle.on { fill: rgba(63,182,139,.45); stroke: #fff; }
+.crop-loupe { position: absolute; width: 120px; height: 120px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 2px 10px rgba(0,0,0,.5);
+  pointer-events: none; }
+.crop-controls { margin-top: 10px; flex-wrap: wrap; gap: 8px; }
+.crop-result { text-align: center; }
+.crop-result img { max-width: 100%; max-height: 60vh; border-radius: 6px; border: 1px solid var(--border); }

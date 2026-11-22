@@ -1,14 +1,15 @@
 """REST-API der Sammlung (v0.33): /api/v1/collection/records (Tonträger) und /api/v1/collection/books (Bücher).
 
 Authentifizierung wie die übrige API (Sitzung oder „Authorization: Bearer <token>“). Lesen: Artikel lesen;
-Anlegen: Artikel anlegen; Aktualisieren/Marktwert: Artikel bearbeiten.
+Anlegen: Artikel anlegen; Aktualisieren/Marktwert/Löschen: Artikel bearbeiten.
 """
 from __future__ import annotations
 
 import asyncio
+import json
 import re
 
-from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Response, UploadFile
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
@@ -17,6 +18,7 @@ from ..models import BookRecord, Location, MediaRecord
 from ..security import check, require
 from ..services import collection as col
 from ..services import collection_market as market
+from ..services import cover_warp
 from ..services import record_scan as rscan
 from ..services.codes import resolve
 from ..services.locations import TreeCache
@@ -236,6 +238,7 @@ async def record_save(
     except LookupError as e:
         raise HTTPException(404, str(e)) from e
     db.commit()
+    col.cleanup_replaced(db)
     return {"ok": True, "created": created, "record": col.record_json(db, rec, TreeCache(db))}
 
 
@@ -248,6 +251,25 @@ async def record_market(record_id: int, db: Session = Depends(get_db), ctx=Depen
         res = await market.refresh_record(db, rec, client=client)
     db.commit()
     return {**res, "record": col.record_json(db, rec, TreeCache(db))}
+
+
+def delete_and_commit(db: Session, item, user_id: int | None) -> int:
+    """Löschen, committen, danach die nicht mehr benutzten Bilddateien entfernen. Liefert die Zahl gelöschter Dateien."""
+    files = col.delete_entry(db, item, user_id)
+    db.commit()
+    return col.remove_files(files)
+
+
+@router.delete("/records/{record_id}")
+def record_delete(record_id: int, db: Session = Depends(get_db), ctx=Depends(require("items", 2))):
+    """Tonträger löschen – samt Artikel, Bestand, Barcodes, Titelliste und Hüllenbildern (Dateien nur, wenn sie
+    kein anderer Datensatz benutzt)."""
+    rec = db.get(MediaRecord, record_id)
+    if rec is None:
+        raise HTTPException(404, "Tonträger nicht gefunden")
+    name = col.record_name(rec)
+    n = delete_and_commit(db, rec.item, ctx.user_id)
+    return {"ok": True, "deleted": record_id, "name": name, "files_removed": n}
 
 
 # ------------------------------------------------------------------ Bücher
@@ -322,6 +344,7 @@ async def book_save(
     except LookupError as e:
         raise HTTPException(404, str(e)) from e
     db.commit()
+    col.cleanup_replaced(db)
     return {"ok": True, "created": created, "book": col.book_json(db, b, TreeCache(db))}
 
 
@@ -334,3 +357,36 @@ async def book_market(book_id: int, db: Session = Depends(get_db), ctx=Depends(r
         res = await market.refresh_book(db, b, client=client)
     db.commit()
     return {**res, "book": col.book_json(db, b, TreeCache(db))}
+
+
+@router.delete("/books/{book_id}")
+def book_delete(book_id: int, db: Session = Depends(get_db), ctx=Depends(require("items", 2))):
+    """Buch löschen – samt Artikel, Bestand, ISBN-Code und Coverbildern."""
+    b = db.get(BookRecord, book_id)
+    if b is None:
+        raise HTTPException(404, "Buch nicht gefunden")
+    name = b.title or b.item.name
+    n = delete_and_commit(db, b.item, ctx.user_id)
+    return {"ok": True, "deleted": book_id, "name": name, "files_removed": n}
+
+
+# ------------------------------------------------------------------ Cover mit der Handykamera (v0.34.4)
+@router.post("/cover/warp")
+async def cover_warp_preview(image: UploadFile = File(...), points: str = Form(...), mode: str = Form("square"),
+                             width: float | None = Form(None), height: float | None = Form(None),
+                             ctx=Depends(require("items", 2))):
+    """Foto + vier Eckpunkte ([[x, y], …] in Pixeln des Bildes, width/height = angezeigte Bildgröße) -> entzerrtes
+    Cover als WebP. mode: „square“ (1000×1000, LP/CD) oder „free“ (Seitenverhältnis aus den Kantenlängen).
+    Speichert nichts – das Ergebnis wird mit dem Formular hochgeladen und ersetzt erst dann ein vorhandenes Cover."""
+    data = await image.read(cover_warp.MAX_INPUT_BYTES + 1)
+    try:
+        pts = json.loads(points)
+    except ValueError as e:
+        raise HTTPException(400, "Eckpunkte sind kein gültiges JSON.") from e
+    size = (width, height) if width and height else None
+    try:
+        img = await asyncio.to_thread(cover_warp.warp, data, pts, mode != "free", size)
+    except cover_warp.WarpError as e:
+        raise HTTPException(413 if len(data) > cover_warp.MAX_INPUT_BYTES else 400, str(e)) from e
+    out = await asyncio.to_thread(cover_warp.to_webp, img)
+    return Response(out, media_type="image/webp", headers={"Cache-Control": "no-store", "X-Cover-Size": f"{img.width}x{img.height}"})

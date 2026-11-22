@@ -24,11 +24,37 @@ function looksLikeIsbn(code) {
   return (d.length === 13 && (d.startsWith("978") || d.startsWith("979"))) || d.length === 10;
 }
 
+// ------------------------------------------------------------------ Sammlungsliste: Mehrfachauswahl (v0.34.4)
+// „☑ Auswählen“ blendet je Zeile/Kachel ein Häkchen ein; im Auswahlmodus wählt ein Tipp auf die Zeile aus, statt sie zu öffnen.
+function collSelect(records) {
+  return {
+    on: false, ids: [],
+    boxes() { return [...this.$root.querySelectorAll("input.pick")]; },
+    toggle() { this.on = !this.on; if (!this.on) this.ids = []; },
+    all() { this.ids = this.boxes().map((b) => b.value); },
+    rowClick(ev) {
+      if (!this.on || ev.target.closest("input.pick")) return;
+      const row = ev.target.closest("a.coll-row, a.cover-tile, tr.sel-row");
+      const box = row && row.querySelector("input.pick");
+      if (!box) return;
+      ev.preventDefault();
+      const i = this.ids.indexOf(box.value);
+      if (i >= 0) this.ids.splice(i, 1); else this.ids.push(box.value);
+    },
+    question() {
+      const n = this.ids.length;
+      const what = records ? "Tonträger" : (n === 1 ? "Buch" : "Bücher");
+      return n + " " + what + " wirklich löschen? Das lässt sich nicht rückgängig machen.";
+    },
+  };
+}
+
 // ------------------------------------------------------------------ Tonträger
 function recordForm(cfg) {
   const data = cfg.data || {};
   return {
     ...cameraMixin(),
+    ...(typeof coverCrop === "function" ? coverCrop(true) : {}),
     id: cfg.id,
     d: {
       artist: data.artist || "", album: data.album || "", year: data.year || "", medium: data.medium || "LP", genre: data.genre || "",
@@ -92,6 +118,7 @@ function recordForm(cfg) {
       fd.set("tracks", JSON.stringify(this.d.tracks.filter((t) => (t.title || "").trim())));
       for (const role of ["front", "back"]) if (this.urls[role] && !this.files[role]) fd.set("cover_" + role + "_url", this.urls[role]);
       for (const [k, v] of [...fd.entries()]) if (v instanceof File && !v.name) fd.delete(k);
+      if (this.cropAttach) this.cropAttach(fd);  // zugeschnittene Cover (v0.34.4)
       try {
         const r = await api("/api/v1/collection/records", fd);
         toast(r.created ? "Tonträger angelegt." : "Tonträger aktualisiert.");
@@ -113,6 +140,7 @@ function bookForm(cfg) {
   if (data.market && data.market.value !== null && data.market.value !== undefined) d.market_value = String(data.market.value).replace(".", ",");
   return {
     ...cameraMixin(),
+    ...(typeof coverCrop === "function" ? coverCrop(false) : {}),
     id: cfg.id,
     mode: cfg.id ? "form" : "scan",
     d, isbnInput: "", existing: null, sources: [], notes: [], busy: false, saving: false,
@@ -130,7 +158,7 @@ function bookForm(cfg) {
     },
     resetBook() {
       this.d = { ...BOOK_EMPTY }; this.existing = null; this.sources = []; this.notes = [];
-      this.preview = {}; this.urls = {}; this.files = {};
+      this.preview = {}; this.urls = {}; this.files = {}; this.cropped = {};
       this.$refs.form.querySelectorAll("input[type=file]").forEach((i) => { i.value = ""; });
     },
     async lookup(raw) {
@@ -188,6 +216,7 @@ function bookForm(cfg) {
       fd.set("read", this.d.read ? "1" : "0");
       for (const role of ["front", "back"]) if (this.urls[role] && !this.files[role]) fd.set("cover_" + role + "_url", this.urls[role]);
       for (const [k, v] of [...fd.entries()]) if (v instanceof File && !v.name) fd.delete(k);
+      if (this.cropAttach) this.cropAttach(fd);  // zugeschnittene Cover (v0.34.4)
       if (!fd.get("isbn13")) fd.delete("isbn13");
       try {
         const r = await api("/api/v1/collection/books", fd);

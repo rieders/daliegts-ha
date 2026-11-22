@@ -196,6 +196,8 @@ def set_cover(db: Session, item: Item, role: str, path: str) -> None:
     if old is None:
         db.add(Attachment(owner_type="item", owner_id=item.id, kind="cover", title=role, filename=path))
     else:
+        if old.filename and old.filename != path:  # altes Bild nach dem Commit wegräumen (cleanup_replaced)
+            db.info.setdefault("cover_replaced", set()).add(old.filename)
         old.filename = path
     if role == "front":
         item.image = path
@@ -636,3 +638,75 @@ def search_text(db: Session, item: Item) -> list[str]:
         if b:
             return [b.title, b.subtitle, b.authors, b.publisher, b.series, b.genre, b.isbn13 or "", b.isbn10 or "", str(b.year or "")]
     return []
+
+
+# ------------------------------------------------------------------ Löschen (v0.34.4)
+def _local_media(path: str | None) -> bool:
+    """Nur eigene Dateien unter media/ – keine Katalog-Bilder („catalog:…“) oder Web-Adressen."""
+    return bool(path) and ":" not in path and not path.startswith(("/", "\\")) and ".." not in path
+
+
+def _file_in_use(db: Session, path: str) -> bool:
+    """Dateien sind inhaltsadressiert (gleiches Bild = gleicher Name) – erst löschen, wenn nichts mehr darauf zeigt."""
+    return bool(db.scalar(select(func.count()).select_from(Item).where(Item.image == path))
+                or db.scalar(select(func.count()).select_from(Attachment).where(Attachment.filename == path)))
+
+
+def delete_entry(db: Session, item: Item, user_id: int | None) -> list[str]:
+    """Tonträger/Buch samt Artikel, Bestand, Barcodes/ISBN (ItemCode), Titelliste und Bild-Anhängen löschen.
+
+    Liefert die Dateien (Pfade unter media/), die danach von keinem anderen Datensatz mehr benutzt werden; die
+    löscht remove_files() erst nach dem Commit (schlägt der Commit fehl, bleiben die Bilder erhalten).
+    """
+    from .search import remove_from_index
+
+    rec, book = record_of_item(db, item.id), book_of_item(db, item.id)
+    if item.kind == "tontraeger" and rec is not None:
+        entity, oid, label = "media_record", rec.id, f"Tonträger {record_name(rec)}"
+    else:
+        entity, oid, label = "book_record", book.id if book else None, f"Buch {item.name}"
+    atts = list(db.scalars(select(Attachment).where(Attachment.owner_type == "item", Attachment.owner_id == item.id)))
+    files = {p for p in [item.image, *(a.filename for a in atts)] if _local_media(p)}
+    audit.log(db, user_id, "delete", entity, oid, f"{label} gelöscht",
+              {"snapshot": [audit.snapshot(rec or book) if (rec or book) else None, None]})
+    remove_from_index(db, item.id)
+    for v in item.variants:
+        v.variant_of_id = None
+    for a in atts:
+        db.delete(a)
+    if rec is not None:
+        db.delete(rec)  # Titel über cascade
+    if book is not None:
+        db.delete(book)
+    db.delete(item)  # Bestände, Codes (Barcode/ISBN) und Parameter über cascade
+    db.flush()
+    return sorted(p for p in files if not _file_in_use(db, p))
+
+
+def cleanup_replaced(db: Session) -> int:
+    """Nach dem Commit: durch ein neues Cover ersetzte Bilddateien löschen, wenn nichts anderes sie mehr benutzt."""
+    paths = db.info.pop("cover_replaced", set())
+    return remove_files(sorted(p for p in paths if _local_media(p) and not _file_in_use(db, p)))
+
+
+def remove_files(paths: list[str]) -> int:
+    """Bilddateien (und ihr Vorschaubild *.thumb.webp) unter media/ löschen; liefert die Zahl gelöschter Dateien."""
+    from ..config import settings
+
+    root = settings.media_dir.resolve()
+    n = 0
+    for p in paths:
+        if not _local_media(p):
+            continue
+        targets = [root / p]
+        if p.endswith(".webp"):
+            targets.append(root / (p[:-5] + ".thumb.webp"))
+        for t in targets:
+            try:
+                t = t.resolve()
+                if t.is_relative_to(root) and t.is_file():
+                    t.unlink()
+                    n += 1
+            except OSError:
+                pass
+    return n
