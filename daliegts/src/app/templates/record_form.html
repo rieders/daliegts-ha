@@ -21,7 +21,6 @@
     <div class="scanner" x-show="camOn" x-cloak style="margin-top:8px"><video x-ref="video" playsinline muted></video><div class="frame"></div></div>
     <p class="small" x-show="camError" x-text="camError" style="color: var(--err)"></p>
     <p class="small muted" x-show="busy" x-cloak>Suche läuft …</p>
-    <template x-for="n in notes"><p class="small" style="color: var(--warn)" x-text="n"></p></template>
     <div class="hits" x-show="hits.length" x-cloak style="margin-top:8px">
       <template x-for="h in hits" :key="h.source + h.id">
         <button type="button" class="hit" @click="pick(h)">
@@ -29,11 +28,19 @@
           <template x-if="!h.thumb"><span class="noimg"></span></template>
           <span class="grow"><b x-text="h.artist + ' – ' + h.album"></b><br>
             <span class="small muted" x-text="[h.year, h.country, h.format || h.medium, h.label, h.catalog_no].filter(Boolean).join(' · ')"></span></span>
-          <span class="badge" x-text="h.source === 'discogs' ? 'Discogs' : 'MusicBrainz'"></span>
+          <span class="badge" x-text="(h.sources || [h.source]).map(s => ({musicbrainz: 'MusicBrainz', discogs: 'Discogs'}[s] || s)).join(' + ')"></span>
         </button>
       </template>
     </div>
-    <p class="small muted" x-show="searched && !busy && !hits.length" x-cloak>Keine Treffer – Angaben unten von Hand eintragen.</p>
+    <template x-if="searched && !busy && !hits.length">
+      <div>
+        <p class="small" style="margin-bottom: 2px" x-text="message || 'Keine Treffer.'"></p>
+        <p class="small muted" style="margin-top: 0" x-show="variants.length > 1" x-text="'Gesuchte Schreibweisen: ' + variants.join(', ')"></p>
+        <p class="small muted">Sonst die Angaben unten von Hand eintragen.</p>
+      </div>
+    </template>
+    <!-- Hinweise (z. B. eine Quelle ausgefallen) unter den Treffern -->
+    <template x-for="n in notes"><p class="small" style="color: var(--warn)" x-text="n"></p></template>
   </div>
 
   <form x-ref="form" @submit.prevent="save()" enctype="multipart/form-data">

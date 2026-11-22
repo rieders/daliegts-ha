@@ -38,16 +38,22 @@ function recordForm(cfg) {
       tracks: (data.tracks || []).map((t) => ({ ...t })),
     },
     s: { artist: "", album: "", barcode: data.barcode || "", catno: "" },
-    hits: [], notes: [], busy: false, searched: false, saving: false,
+    hits: [], notes: [], message: "", variants: [], busy: false, searched: false, saving: false,
     preview: { ...(cfg.covers || {}) }, urls: {}, files: {},
     fmtLen, parseLen,
     init() { if (!this.id && this.s.barcode) this.search(); },
-    handle(code) { this.stopCamera(); this.s.barcode = code; this.d.barcode = code; this.search(); },
+    handle(code) {
+      this.stopCamera();
+      const c = rsIsBarcode(code) ? rsClean(code) : String(code || "").trim();
+      this.s.barcode = c; this.d.barcode = c; this.search();
+    },
     async search() {
-      this.busy = true; this.notes = []; this.hits = [];
+      this.busy = true; this.notes = []; this.hits = []; this.message = ""; this.variants = [];
       try {
         const r = await api("/api/v1/collection/records/search?" + qs(this.s), undefined, "GET");
-        this.hits = r.hits; this.notes = r.notes || [];
+        this.hits = r.hits || []; this.notes = r.notes || []; this.message = r.message || "";
+        this.variants = (r.query && r.query.variants) || [];
+        if (r.query && r.query.barcode) this.s.barcode = r.query.barcode;  // bereinigte Zahl anzeigen
       } catch (e) { this.notes = [e.message]; }
       this.busy = false; this.searched = true;
     },

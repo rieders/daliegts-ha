@@ -7,6 +7,7 @@ LAGERWERK_DISCOGS_TOKEN, LAGERWERK_GOOGLE_BOOKS_KEY.
 from __future__ import annotations
 
 import os
+import re
 
 from ...config import APP_VERSION
 
@@ -15,7 +16,7 @@ BOOK_SOURCES = {"dnb": "Deutsche Nationalbibliothek", "openlibrary": "Open Libra
 DEFAULTS = {
     "musicbrainz": True,  # Suche/Titellisten über MusicBrainz + Cover Art Archive
     "discogs": True,  # Discogs (Suche nur mit Token; Marktstatistik auch ohne)
-    "contact": "https://daliegts.de",  # Kontakt im User-Agent (MusicBrainz verlangt eine Kontaktmöglichkeit)
+    "contact": "info@daliegts.de",  # Kontakt im User-Agent (MusicBrainz verlangt eine Kontaktmöglichkeit)
     "book_order": ["dnb", "openlibrary", "google"],
     "book_sources": {"dnb": True, "openlibrary": True, "google": True},
     "nightly_market": False,  # Marktwerte nachts aktualisieren (ältester Stand zuerst)
@@ -25,8 +26,14 @@ DEFAULTS = {
 SECRET_FIELDS = ("discogs_token", "google_key")
 
 
+OLD_CONTACTS = {"https://daliegts.de", "http://daliegts.de", "daliegts.de"}  # frühere Vorgabe, oft unverändert gespeichert
+
+
 def user_agent(conf: dict) -> str:
-    contact = (conf.get("contact") or DEFAULTS["contact"]).strip()[:120]
+    """User-Agent nach MusicBrainz-Vorgabe: „Anwendung/Version ( Kontakt )“, z. B. „DaLiegts/0.34.3 ( info@daliegts.de )“."""
+    contact = re.sub(r"[\x00-\x1f()]", "", conf.get("contact") or "").strip()[:120]
+    if not contact or contact.rstrip("/") in OLD_CONTACTS:
+        contact = DEFAULTS["contact"]
     return f"DaLiegts/{APP_VERSION} ( {contact} )"
 
 

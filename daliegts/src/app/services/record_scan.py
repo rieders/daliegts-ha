@@ -152,7 +152,7 @@ def _token(conf: dict) -> bool:
 
 
 async def search(conf: dict, client: httpx.AsyncClient | None, barcode: str = "", catno: str = "", artist: str = "",
-                 album: str = "") -> tuple[list[dict], list[str]]:
+                 album: str = "", fmt: str = "") -> tuple[list[dict], list[str]]:
     """Suche über alle Schreibweisen bei Discogs (mit Token, zuerst – dort sind Vinyl-Barcodes besser gepflegt) und
     MusicBrainz. Rückgabe: (zusammengelegte Treffer, Hinweise)."""
     bcs, cns = search_variants(barcode), catno_variants(catno)
@@ -164,8 +164,9 @@ async def search(conf: dict, client: httpx.AsyncClient | None, barcode: str = ""
             dg = Discogs(conf, client)
             # Discogs kennt kein ODER: je Schreibweise eine Anfrage (Barcode bzw. Kat.-Nr.; sonst Interpret/Album),
             # bis eine etwas findet – schont das Anfragelimit (60/min).
-            queries = [{"barcode": b} for b in bcs] or [{"catno": c, "artist": artist, "album": album} for c in cns] \
-                or [{"artist": artist, "album": album}]
+            # Formatfilter nur ohne Barcode (Discogs.search lässt ihn bei Barcode ohnehin weg)
+            queries = [{"barcode": b} for b in bcs] or [{"catno": c, "artist": artist, "album": album, "fmt": fmt} for c in cns] \
+                or [{"artist": artist, "album": album, "fmt": fmt}]
             for q in queries:
                 try:
                     found = [h.to_dict() for h in await dg.search(**q)]
@@ -197,6 +198,32 @@ def none_message(conf: dict, barcode: str = "", catno: str = "") -> str:
     if conf.get("discogs", True) and not _token(conf):
         msg += " Tipp: Discogs kennt viel mehr Platten-Barcodes – dafür ein Token unter Verwaltung › Sammlung eintragen."
     return msg
+
+
+# ------------------------------------------------------------------ gemeinsamer Weg: Platten scannen + „Online suchen“
+def parse_query(code: str = "", catno: str = "") -> tuple[str, str, str]:
+    """Eingabe säubern. code = Scan-/Barcode-Feld (Barcode oder Katalognummer), catno = Feld Katalognummer.
+    Rückgabe: (roh ohne Steuerzeichen, Barcode in Ziffern oder "", Katalognummer)."""
+    raw = strip_ctrl(code)
+    cleaned = clean_code(raw)
+    barcode = cleaned if is_barcode(cleaned) else ""
+    return raw, barcode, strip_ctrl(catno) or ("" if barcode else raw)
+
+
+async def lookup(conf: dict, client: httpx.AsyncClient | None, barcode: str = "", catno: str = "", artist: str = "",
+                 album: str = "", fmt: str = "") -> dict:
+    """Online-Suche für beide Wege. Fällt eine Quelle aus, kommen die Treffer der anderen trotzdem; der Ausfall steht
+    nur in „notes“. Ohne Treffer: „message“ mit gesuchter Zahl/Ziffernanzahl (und ggf. Token-Hinweis).
+    Rückgabe: {hits, notes, query, message}."""
+    hits, notes = await search(conf, client, barcode=barcode, catno=catno, artist=artist, album=album, fmt=fmt)
+    query = {"barcode": barcode, "digits": len(barcode), "catno": catno,
+             "variants": search_variants(barcode) or catno_variants(catno)}
+    message = ""
+    if not hits:
+        message = none_message(conf, barcode, "" if barcode else catno)
+        if "Token" in message:  # Token-Hinweis steht schon in der Meldung
+            notes = [n for n in notes if "kein Token" not in n]
+    return {"hits": hits, "notes": notes, "query": query, "message": message}
 
 
 async def release(conf: dict, client: httpx.AsyncClient | None, mbid: str = "", discogs_id: str = "") -> tuple[dict, list[str]]:

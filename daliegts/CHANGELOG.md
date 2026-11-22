@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.34.3 – 2026-11-22
+
+- **MusicBrainz robuster**: Antwortet MusicBrainz mit 429 (gedrosselt) oder 503 (überlastet), versucht DaLiegt’s es automatisch bis zu 4-mal. Dabei hält es sich an `Retry-After` (höchstens 30 s), sonst wartet es 2, 4 und 8 s. Erst danach kommt eine Meldung. Der Mindestabstand von 1 s zwischen zwei Anfragen gilt jetzt prozessweit, auch wenn mehrere Suchen gleichzeitig laufen (früher hing die Sperre an einer einzelnen Event-Loop). Nach einem 429/503 warten auch gleichzeitig laufende Suchen.
+- **User-Agent nach MusicBrainz-Vorgabe**: `DaLiegts/<Version> ( info@daliegts.de )`. Ein unverändert gespeicherter alter Kontakt (`https://daliegts.de`) wird automatisch ersetzt; ein eigener Kontakt unter Verwaltung › Sammlung bleibt.
+- **„Online suchen“** (Tonträger von Hand anlegen) nutzt jetzt dieselbe Suche wie „Platten scannen“ (eine gemeinsame Funktion): Barcode säubern, alle Schreibweisen samt Zusatzcode, Discogs zuerst (mit Token), MusicBrainz mit einer ODER-Abfrage, kein Formatfilter bei Barcode. Ohne Treffer dieselbe Meldung mit Zahl, Ziffernanzahl und ggf. Token-Hinweis. Treffer beider Quellen zur selben Pressung werden zusammengelegt (Abzeichen „MusicBrainz + Discogs“).
+- **Fällt eine Quelle aus**, werden die Treffer der anderen trotzdem angezeigt. Der Ausfall steht nur als Hinweis unter den Treffern, nicht mehr als „Keine Treffer“. Beispiel: Deep Purple – Greatest Purple (Barcode 5099926045238) kommt von Discogs, auch wenn MusicBrainz gerade 503 liefert.
+
 ## v0.34.2 – 2026-11-22
 
 - **Platten scannen findet Barcodes zuverlässiger** (Sammlung › Platten scannen, `POST /api/v1/collection/records/scan`):

@@ -1,7 +1,9 @@
 """Tonträger online: MusicBrainz (Suche, Release mit Titelliste), Cover Art Archive (Hüllen) und Discogs
 (Suche, Release, Marktwert). Alle Fehler kommen als ProviderError mit verständlicher Meldung zurück.
 
-* MusicBrainz: höchstens 1 Anfrage pro Sekunde, eigener User-Agent mit Kontakt (Pflicht laut MusicBrainz).
+* MusicBrainz: höchstens 1 Anfrage pro Sekunde (prozessweit), eigener User-Agent „DaLiegts/<Version> ( <Kontakt> )“
+  (Pflicht laut MusicBrainz – generische Agents werden gedrosselt). 429/503 werden bis zu 4-mal versucht
+  (Retry-After, sonst 2/4/8 s).
 * Discogs: Suche und Preisvorschläge nur mit persönlichem Token; Marktstatistik (niedrigstes Angebot) auch ohne.
   Der Header X-Discogs-Ratelimit-Remaining wird ausgewertet – wird es knapp, wartet der Abruf kurz.
 """
@@ -9,12 +11,17 @@ from __future__ import annotations
 
 import asyncio
 import re
+import threading
 import time
 from dataclasses import asdict, dataclass, field
+from datetime import UTC, datetime
+from email.utils import parsedate_to_datetime
 
 import httpx
 
 from . import ProviderError
+
+_sleep = asyncio.sleep  # Tests ersetzen das, um nicht wirklich zu warten
 
 MB_BASE = "https://musicbrainz.org/ws/2"
 CAA_BASE = "https://coverartarchive.org"
@@ -131,29 +138,62 @@ class _Client:
 class MusicBrainz(_Client):
     name = "MusicBrainz"
     min_interval = 1.0  # Sekunden zwischen zwei Anfragen (Vorgabe von MusicBrainz)
-    _lock: asyncio.Lock | None = None
-    _last = 0.0
+    attempts = 4  # Versuche bei 429/503 (gedrosselt bzw. überlastet)
+    backoff = (2.0, 4.0, 8.0)  # Wartezeit vor dem 2./3./4. Versuch, wenn kein Retry-After kommt
+    max_retry_after = 30.0  # längeres Retry-After wird gekappt (die Seite soll nicht minutenlang hängen)
+    # Prozessweit (alle Event-Loops/Threads): nächster freier Zeitpunkt für eine Anfrage
+    _slot_lock = threading.Lock()
+    _next = 0.0
+
+    @classmethod
+    def _reserve(cls, not_before: float = 0.0) -> float:
+        """Nächsten freien Zeitpunkt (≥ 1 s nach dem vorigen) belegen; Rückgabe: Sekunden bis dahin."""
+        with cls._slot_lock:
+            now = time.monotonic()
+            slot = max(now, cls._next, not_before)
+            cls._next = slot + cls.min_interval
+            return slot - now
+
+    @classmethod
+    def _hold_off(cls, seconds: float) -> None:
+        """Nach 429/503: alle weiteren Anfragen des Prozesses frühestens in `seconds` Sekunden."""
+        with cls._slot_lock:
+            cls._next = max(cls._next, time.monotonic() + seconds)
+
+    def _retry_delay(self, r: httpx.Response, attempt: int) -> float:
+        ra = (r.headers.get("Retry-After") or "").strip()
+        delay = None
+        if ra:
+            try:
+                delay = float(ra)
+            except ValueError:
+                try:
+                    delay = (parsedate_to_datetime(ra) - datetime.now(UTC)).total_seconds()
+                except (TypeError, ValueError):
+                    delay = None
+        if delay is None or delay < 0:
+            delay = self.backoff[min(attempt, len(self.backoff) - 1)]
+        return min(delay, self.max_retry_after)
 
     async def _get(self, path: str, params: dict) -> dict:
-        cls = type(self)
-        if cls._lock is None:
-            cls._lock = asyncio.Lock()
         http = await self._http()
-        async with cls._lock:
-            wait = cls._last + self.min_interval - time.monotonic()
+        for attempt in range(self.attempts):
+            wait = self._reserve()
             if wait > 0:
-                await asyncio.sleep(wait)
+                await _sleep(wait)
             try:
                 r = await http.get(f"{MB_BASE}{path}", params={**params, "fmt": "json"},
                                    headers={"User-Agent": self.ua, "Accept": "application/json"})
             except httpx.HTTPError as e:
                 raise ProviderError(f"MusicBrainz nicht erreichbar: {e.__class__.__name__}") from e
-            finally:
-                cls._last = time.monotonic()
+            if r.status_code not in (429, 503) or attempt == self.attempts - 1:
+                break
+            self._hold_off(self._retry_delay(r, attempt))  # gilt auch für gleichzeitig laufende Suchen
         if r.status_code == 404:
             raise ProviderError("MusicBrainz: Eintrag nicht gefunden.")
         if r.status_code in (429, 503):
-            raise ProviderError("MusicBrainz: zu viele Anfragen – bitte kurz warten.")
+            what = "drosselt die Anfragen" if r.status_code == 429 else "ist überlastet"
+            raise ProviderError(f"MusicBrainz {what} (Fehler {r.status_code}, {self.attempts} Versuche) – bitte später noch einmal.")
         if r.status_code >= 400:
             raise ProviderError(f"MusicBrainz: Fehler {r.status_code}.")
         try:
@@ -397,26 +437,7 @@ class Discogs(_Client):
                 "for_sale": int(for_sale) if isinstance(for_sale, (int, float)) else None, "notes": notes}
 
 
-# ------------------------------------------------------------------ gemeinsame Suche
-async def search_all(conf: dict, client: httpx.AsyncClient | None = None, **kw) -> tuple[list[dict], list[str]]:
-    """Suche bei allen eingeschalteten Quellen. Rückgabe: (Treffer als dicts, Hinweise/Fehler)."""
-    hits, notes = [], []
-    if conf.get("musicbrainz", True):
-        try:
-            hits += [h.to_dict() for h in await MusicBrainz(conf, client).search(**{k: v for k, v in kw.items() if k != "fmt"})]
-        except ProviderError as e:
-            notes.append(str(e))
-    if conf.get("discogs", True):
-        if (conf.get("discogs_token") or "").strip():
-            try:
-                hits += [h.to_dict() for h in await Discogs(conf, client).search(**kw)]
-            except ProviderError as e:
-                notes.append(str(e))
-        else:
-            notes.append("Discogs-Suche ist aus: kein Token eingetragen (Verwaltung › Sammlung).")
-    return hits, notes
-
-
+# Gemeinsame Suche über beide Quellen (Barcode-Schreibweisen, Discogs zuerst): record_scan.lookup
 async def release_details(conf: dict, source: str, rid: str, client: httpx.AsyncClient | None = None) -> dict:
     if source == "musicbrainz":
         hit = await MusicBrainz(conf, client).release(rid)

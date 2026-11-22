@@ -76,13 +76,16 @@ def records(q: str = "", artist: str = "", medium: str = "", genre: str = "", ye
 @router.get("/records/search")
 async def records_search(artist: str = "", album: str = "", barcode: str = "", catno: str = "", format: str = "",
                          db: Session = Depends(get_db), ctx=Depends(require("items", 1))):
-    """Online-Suche (MusicBrainz, Discogs) nach Interpret + Album oder Barcode/Katalognummer – speichert nichts."""
-    if not any((artist, album, barcode, catno)):
+    """Online-Suche („Online suchen“ beim Anlegen von Hand) nach Interpret + Album oder Barcode/Katalognummer – speichert
+    nichts. Gleiche Logik wie „Platten scannen“ (record_scan.lookup): Barcode säubern, alle Schreibweisen, Discogs zuerst.
+    Antwort: {hits, notes, query, message}; ein Barcode-Feld, das kein Barcode ist, gilt als Katalognummer."""
+    _raw, code, catno = rscan.parse_query(barcode, catno)
+    artist, album = rscan.strip_ctrl(artist), rscan.strip_ctrl(album)
+    if not any((artist, album, code, catno)):
         raise HTTPException(400, "Interpret/Album, Barcode oder Katalognummer angeben.")
-    conf = cfg.load(db)
     async with market.new_client() as client:
-        hits, notes = await music.search_all(conf, client, artist=artist, album=album, barcode=barcode, catno=catno, fmt=format)
-    return {"hits": hits, "notes": notes}
+        return await rscan.lookup(cfg.load(db), client, barcode=code, catno=catno, artist=artist, album=album,
+                                  fmt=format.strip())
 
 
 @router.get("/records/release")
@@ -148,31 +151,24 @@ async def records_scan(body: RecordScanIn, db: Session = Depends(get_db), ctx=De
     async with market.new_client() as client:
         if body.mbid or body.discogs_id:
             return await _scan_save(db, ctx, body, client, tc)
-        raw = rscan.strip_ctrl(body.code)
-        code = rscan.clean_code(raw)  # fast nur Ziffern -> nur die Ziffern
-        barcode = code if rscan.is_barcode(code) else ""
+        raw, barcode, catno = rscan.parse_query(body.code, body.catno)  # Steuerzeichen weg; fast nur Ziffern -> Ziffern
         scanned = rscan.clean_code(body.scanned) if rscan.is_barcode(body.scanned) else ""
         if raw and (not barcode or re.search(r"[A-Za-z]", raw)):  # „L-00012“ ist ein Lagerort, kein Barcode
             r = resolve(db, raw)
             if r.kind == "location":  # Lagerort-Etikett gescannt -> Lagerort der Serie
                 loc = db.get(Location, r.id)
                 return {"status": "location", "location": loc.code, "path": tc.path(loc.id), "hits": [], "notes": []}
-        catno = rscan.strip_ctrl(body.catno) or ("" if barcode else raw)
         if not (barcode or catno or body.artist.strip() or body.album.strip()):
             raise HTTPException(400, "Barcode, Katalognummer oder Interpret/Album angeben.")
         if barcode or scanned:
             dup = rscan.find_existing(db, [v for b in (barcode, scanned) for v in rscan.storage_codes(b)])
             if dup is not None:
                 return _scan_dup(db, dup, tc, "Diese Platte ist schon in der Sammlung.")
-        hits, notes = await rscan.search(cfg.load(db), client, barcode=barcode, catno=catno, artist=body.artist, album=body.album)
-        query = {"barcode": barcode, "digits": len(barcode), "catno": catno,
-                 "variants": rscan.search_variants(barcode) or rscan.catno_variants(catno)}
+        found = await rscan.lookup(cfg.load(db), client, barcode=barcode, catno=catno, artist=body.artist.strip(),
+                                   album=body.album.strip())
+        hits, notes, query = found["hits"], found["notes"], found["query"]
         if not hits:
-            conf = cfg.load(db)
-            msg = rscan.none_message(conf, barcode, "" if barcode else catno)
-            if "Token" in msg:  # Token-Hinweis steht schon in der Meldung
-                notes = [n for n in notes if "kein Token" not in n]
-            return {"status": "none", "hits": [], "notes": notes, "query": query, "message": msg}
+            return {"status": "none", **found}
         if len(hits) == 1 and body.auto_save:
             h = hits[0]
             pick = body.model_copy(update={"mbid": h.get("musicbrainz_id") or "", "discogs_id": h.get("discogs_id") or "", "code": barcode,
