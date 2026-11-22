@@ -301,7 +301,10 @@ class Discogs(_Client):
     async def search(self, artist: str = "", album: str = "", barcode: str = "", catno: str = "", fmt: str = "",
                      limit: int = 10) -> list[RecordHit]:
         params = {"type": "release", "per_page": limit}
-        for k, v in (("artist", artist), ("release_title", album), ("barcode", re.sub(r"[^0-9]", "", barcode)), ("catno", catno), ("format", fmt)):
+        barcode = re.sub(r"[^0-9]", "", barcode or "")
+        if barcode:
+            fmt = ""  # Barcode ist eindeutig genug; ein Formatfilter würde falsch gepflegte Formate verwerfen
+        for k, v in (("artist", artist), ("release_title", album), ("barcode", barcode), ("catno", catno), ("format", fmt)):
             if v:
                 params[k] = v.strip()
         if len(params) == 2:

@@ -2,7 +2,9 @@
 
 Ablauf je Scan (siehe /api/v1/collection/records/scan):
 1. Schon in der Sammlung (gleicher Barcode in allen Schreibweisen)? -> „duplicate“, ohne Online-Anfrage.
-2. Suche bei MusicBrainz (alle Schreibweisen in einer Anfrage) und – mit Token – Discogs (je Schreibweise).
+   Die Eingabe wird vorher gesäubert (clean_code: Steuerzeichen weg, fast nur Ziffern -> nur die Ziffern).
+2. Suche – mit Token – zuerst bei Discogs (je Schreibweise, bis eine trifft), dann bei MusicBrainz (alle Schreibweisen
+   in einer Anfrage). Schreibweisen: search_variants (UPC-A, EAN-13, GTIN-14, ohne Zusatzcode).
    Treffer beider Quellen zur selben Pressung werden zusammengelegt.
 3. Genau ein Treffer + „automatisch speichern“: Release-Daten holen (Titelliste, Cover, Label, Kat.-Nr.,
    Discogs-ID), noch einmal auf Dublette prüfen (MusicBrainz-/Discogs-ID, Barcode) und mit den Serien-
@@ -21,13 +23,60 @@ from .items import image_url
 from .providers import ProviderError
 from .providers.music import CAA_BASE, Discogs, MusicBrainz
 
-BARCODE_LENGTHS = (8, 12, 13, 14)  # EAN-8, UPC-A, EAN-13, GTIN-14
+BARCODE_LENGTHS = (8, 11, 12, 13, 14, 15, 17, 18)  # EAN-8, UPC-A (ohne/mit führender 0), EAN-13, GTIN-14, mit 2/5er-Zusatz
+ADDON_CORE = {15: 13, 17: 12, 18: 13}  # EAN-13+2, UPC-A+5, EAN-13+5 -> Länge des eigentlichen Codes
+_CTRL = re.compile(r"[\x00-\x1f\x7f-\x9f]")
 
 
-# ------------------------------------------------------------------ Schreibweisen
-def is_barcode(raw: str) -> bool:
-    d = re.sub(r"[\s-]", "", raw or "")
+# ------------------------------------------------------------------ Eingabe säubern
+def clean_code(raw: str | None) -> str:
+    """Steuerzeichen (CR/LF/ESC … vom Handscanner) entfernen. Besteht der Rest fast nur aus Ziffern (≥ 8 Ziffern,
+    höchstens 3 andere Zeichen, keine zwei Buchstaben hintereinander), nur die Ziffern: „ 0 88106-11712 01“ -> „0881061171201“.
+    Alles andere (Katalognummer, Lagerort-Etikett) bleibt wie eingegeben, nur ohne Steuerzeichen."""
+    s = strip_ctrl(raw)
+    digits = re.sub(r"[^0-9]", "", s)
+    if len(digits) >= 8 and len(s) - len(digits) <= 3 and not re.search(r"[^\W\d_]{2}", s):
+        return digits
+    return s
+
+
+def strip_ctrl(raw: str | None) -> str:
+    """Nur Steuerzeichen entfernen – für Katalognummern („7567-81642-1“ behält die Bindestriche)."""
+    return _CTRL.sub("", raw or "").strip()
+
+
+def is_barcode(raw: str | None) -> bool:
+    d = clean_code(raw)
     return d.isdigit() and len(d) in BARCODE_LENGTHS
+
+
+def search_variants(raw: str | None) -> list[str]:
+    """Alle Schreibweisen eines Barcodes für die Suche: wie gescannt, führende Nullen weg und auf 12 (UPC-A), 13 (EAN-13)
+    und 14 Stellen (GTIN-14) aufgefüllt. Mit 2-/5-stelligem Zusatzcode (15, 17, 18 Ziffern) zuerst der eigentliche Code
+    (die ersten 13 bzw. 12 Ziffern). Reihenfolge = Suchreihenfolge bei Discogs (wahrscheinlichste zuerst)."""
+    d = clean_code(raw)
+    if not d.isdigit():
+        return []
+    core = d[:ADDON_CORE[len(d)]] if len(d) in ADDON_CORE else d
+    s = core.lstrip("0") or "0"
+    out = [core] + [s.zfill(n) for n in (13, 12, 14) if len(s) <= n] + [d]  # vollständiger Code mit Zusatz zuletzt
+    return list(dict.fromkeys(out))
+
+
+def storage_codes(raw: str | None) -> list[str]:
+    """Codes, die am Artikel gespeichert werden: wie gescannt plus UPC-A/EAN-13-Paar des eigentlichen Codes
+    (ohne Zusatzcode, ohne GTIN-14-Füllnullen) – der normale Scanner findet die Platte dann mit jeder Schreibweise."""
+    d = clean_code(raw)
+    if not d.isdigit():
+        return []
+    core = d[:ADDON_CORE[len(d)]] if len(d) in ADDON_CORE else d
+    out = [d]
+    if 11 <= len(core) <= 14:
+        g = core.zfill(14)
+        out += col.barcode_variants(g[1:]) if g[0] == "0" else [core]
+    else:
+        out += col.barcode_variants(core)
+    return list(dict.fromkeys(out))
 
 
 barcode_variants = col.barcode_variants
@@ -104,32 +153,50 @@ def _token(conf: dict) -> bool:
 
 async def search(conf: dict, client: httpx.AsyncClient | None, barcode: str = "", catno: str = "", artist: str = "",
                  album: str = "") -> tuple[list[dict], list[str]]:
-    """Suche über alle Schreibweisen bei MusicBrainz und (mit Token) Discogs. Rückgabe: (zusammengelegte Treffer, Hinweise)."""
-    bcs, cns = barcode_variants(barcode), catno_variants(catno)
+    """Suche über alle Schreibweisen bei Discogs (mit Token, zuerst – dort sind Vinyl-Barcodes besser gepflegt) und
+    MusicBrainz. Rückgabe: (zusammengelegte Treffer, Hinweise)."""
+    bcs, cns = search_variants(barcode), catno_variants(catno)
     if not (bcs or cns or artist.strip() or album.strip()):
         return [], []
     hits, notes = [], []
-    if conf.get("musicbrainz", True):
-        try:
-            res = await MusicBrainz(conf, client).search(artist=artist.strip(), album=album.strip(), barcodes=bcs, catnos=cns)
-            hits += [h.to_dict() for h in res]
-        except ProviderError as e:
-            notes.append(str(e))
     if conf.get("discogs", True):
         if _token(conf):
             dg = Discogs(conf, client)
-            # Discogs kennt kein ODER: je Schreibweise eine Anfrage (Barcode bzw. Kat.-Nr.; sonst Interpret/Album)
+            # Discogs kennt kein ODER: je Schreibweise eine Anfrage (Barcode bzw. Kat.-Nr.; sonst Interpret/Album),
+            # bis eine etwas findet – schont das Anfragelimit (60/min).
             queries = [{"barcode": b} for b in bcs] or [{"catno": c, "artist": artist, "album": album} for c in cns] \
                 or [{"artist": artist, "album": album}]
             for q in queries:
                 try:
-                    hits += [h.to_dict() for h in await dg.search(**q)]
+                    found = [h.to_dict() for h in await dg.search(**q)]
                 except ProviderError as e:
                     notes.append(str(e))
                     break
+                if found:
+                    hits += found
+                    break
         else:
             notes.append("Discogs-Suche ist aus: kein Token eingetragen (Verwaltung › Sammlung).")
+    if conf.get("musicbrainz", True):
+        try:  # alle Schreibweisen in einer Anfrage, ohne Formatfilter
+            res = await MusicBrainz(conf, client).search(artist=artist.strip(), album=album.strip(), barcodes=bcs, catnos=cns)
+            hits += [h.to_dict() for h in res]
+        except ProviderError as e:
+            notes.append(str(e))
     return merge_hits(hits), list(dict.fromkeys(notes))
+
+
+def none_message(conf: dict, barcode: str = "", catno: str = "") -> str:
+    """Klare Meldung, wenn nichts gefunden wurde: gesuchte Zahl mit Ziffernanzahl, was man stattdessen versuchen kann."""
+    if barcode:
+        msg = f"Nichts gefunden für Barcode {barcode} ({len(barcode)} Ziffern). Katalognummer oder Interpret/Album versuchen."
+    elif catno:
+        msg = f"Nichts gefunden für Katalognummer „{catno}“. Andere Schreibweise oder Interpret/Album versuchen."
+    else:
+        msg = "Nichts gefunden. Katalognummer oder Interpret/Album versuchen."
+    if conf.get("discogs", True) and not _token(conf):
+        msg += " Tipp: Discogs kennt viel mehr Platten-Barcodes – dafür ein Token unter Verwaltung › Sammlung eintragen."
+    return msg
 
 
 async def release(conf: dict, client: httpx.AsyncClient | None, mbid: str = "", discogs_id: str = "") -> tuple[dict, list[str]]:
@@ -183,7 +250,7 @@ def record_data(details: dict, settings: dict, scanned: list[str]) -> dict:
     data["tracks"] = details.get("tracks") or []
     codes: list[str] = []
     for b in [*scanned, details.get("barcode") or ""]:
-        for v in barcode_variants(b):  # beide Schreibweisen speichern: der Scanner findet die Platte dann mit jeder
+        for v in storage_codes(b):  # wie gescannt + UPC-A/EAN-13: der Scanner findet die Platte dann mit jeder Schreibweise
             if v not in codes:
                 codes.append(v)
     data["barcode"] = codes

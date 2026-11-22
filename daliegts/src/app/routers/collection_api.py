@@ -6,6 +6,7 @@ Anlegen: Artikel anlegen; Aktualisieren/Marktwert: Artikel bearbeiten.
 from __future__ import annotations
 
 import asyncio
+import re
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
 from pydantic import BaseModel
@@ -120,12 +121,13 @@ def _scan_dup(db: Session, rec: MediaRecord, tc: TreeCache, hint: str) -> dict:
 async def _scan_save(db: Session, ctx, body: RecordScanIn, client, tc: TreeCache) -> dict:
     """Release-Daten holen, auf Dublette prüfen, mit den Serien-Einstellungen anlegen."""
     check(ctx, "items", 3)
-    scanned = list(dict.fromkeys(c.strip() for c in (body.code, body.scanned) if rscan.is_barcode(c)))
+    scanned = list(dict.fromkeys(rscan.clean_code(c) for c in (body.code, body.scanned) if rscan.is_barcode(c)))
     try:
         details, notes = await rscan.release(cfg.load(db), client, mbid=body.mbid.strip(), discogs_id=body.discogs_id.strip())
     except ProviderError as e:
         raise HTTPException(502, str(e)) from e
-    dup = col.find_record_duplicate(db, {**details, "barcode": [*scanned, details.get("barcode") or ""]})
+    dup = col.find_record_duplicate(db, {**details, "barcode": [v for b in [*scanned, details.get("barcode") or ""]
+                                                                for v in rscan.storage_codes(b)]})
     if dup is not None:
         return {**_scan_dup(db, dup, tc, "Diese Platte ist schon in der Sammlung."), "notes": notes}
     loc_id = _location_id(db, body.location)
@@ -146,27 +148,35 @@ async def records_scan(body: RecordScanIn, db: Session = Depends(get_db), ctx=De
     async with market.new_client() as client:
         if body.mbid or body.discogs_id:
             return await _scan_save(db, ctx, body, client, tc)
-        code = body.code.strip()
+        raw = rscan.strip_ctrl(body.code)
+        code = rscan.clean_code(raw)  # fast nur Ziffern -> nur die Ziffern
         barcode = code if rscan.is_barcode(code) else ""
-        if code and not barcode:
-            r = resolve(db, code)
+        scanned = rscan.clean_code(body.scanned) if rscan.is_barcode(body.scanned) else ""
+        if raw and (not barcode or re.search(r"[A-Za-z]", raw)):  # „L-00012“ ist ein Lagerort, kein Barcode
+            r = resolve(db, raw)
             if r.kind == "location":  # Lagerort-Etikett gescannt -> Lagerort der Serie
                 loc = db.get(Location, r.id)
                 return {"status": "location", "location": loc.code, "path": tc.path(loc.id), "hits": [], "notes": []}
-        catno = body.catno.strip() or ("" if barcode else code)
+        catno = rscan.strip_ctrl(body.catno) or ("" if barcode else raw)
         if not (barcode or catno or body.artist.strip() or body.album.strip()):
             raise HTTPException(400, "Barcode, Katalognummer oder Interpret/Album angeben.")
-        if barcode or rscan.is_barcode(body.scanned):
-            dup = rscan.find_existing(db, [b for b in (barcode, body.scanned) if rscan.is_barcode(b)])
+        if barcode or scanned:
+            dup = rscan.find_existing(db, [v for b in (barcode, scanned) for v in rscan.storage_codes(b)])
             if dup is not None:
                 return _scan_dup(db, dup, tc, "Diese Platte ist schon in der Sammlung.")
         hits, notes = await rscan.search(cfg.load(db), client, barcode=barcode, catno=catno, artist=body.artist, album=body.album)
-        query = {"barcode": barcode, "catno": catno, "variants": rscan.barcode_variants(barcode) or rscan.catno_variants(catno)}
+        query = {"barcode": barcode, "digits": len(barcode), "catno": catno,
+                 "variants": rscan.search_variants(barcode) or rscan.catno_variants(catno)}
         if not hits:
-            return {"status": "none", "hits": [], "notes": notes, "query": query}
+            conf = cfg.load(db)
+            msg = rscan.none_message(conf, barcode, "" if barcode else catno)
+            if "Token" in msg:  # Token-Hinweis steht schon in der Meldung
+                notes = [n for n in notes if "kein Token" not in n]
+            return {"status": "none", "hits": [], "notes": notes, "query": query, "message": msg}
         if len(hits) == 1 and body.auto_save:
             h = hits[0]
-            pick = body.model_copy(update={"mbid": h.get("musicbrainz_id") or "", "discogs_id": h.get("discogs_id") or "", "code": barcode})
+            pick = body.model_copy(update={"mbid": h.get("musicbrainz_id") or "", "discogs_id": h.get("discogs_id") or "", "code": barcode,
+                                           "scanned": scanned})
             res = await _scan_save(db, ctx, pick, client, tc)
             return {**res, "notes": list(dict.fromkeys(notes + res["notes"])), "query": query}
         return {"status": "choose", "hits": hits, "notes": notes, "query": query}

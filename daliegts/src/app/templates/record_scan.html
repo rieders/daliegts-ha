@@ -61,7 +61,9 @@
 
       <template x-if="p.kind === 'none'">
         <div>
-          <p class="small" x-text="'Nichts gefunden' + (p.variants && p.variants.length > 1 ? ' (gesucht: ' + p.variants.join(', ') + ')' : '') + '. Katalognummer (steht meist auf dem Rücken oder dem Label) oder Interpret/Album eingeben:'"></p>
+          <p class="small" style="margin-bottom: 2px" x-text="p.message || 'Nichts gefunden. Katalognummer oder Interpret/Album versuchen.'"></p>
+          <p class="small muted" style="margin-top: 0" x-show="p.variants && p.variants.length > 1" x-text="'Gesuchte Schreibweisen: ' + (p.variants || []).join(', ')"></p>
+          <p class="small muted">Katalognummer (steht meist auf dem Rücken oder dem Label) oder Interpret/Album eingeben:</p>
           <form class="coll-filters" @submit.prevent="retry(p)">
             <div><label>Katalognummer</label><input x-model="p.catno" autocomplete="off" placeholder="z. B. 8 55 497"></div>
             <div><label>Interpret</label><input x-model="p.artist" autocomplete="off"></div>

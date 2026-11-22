@@ -201,7 +201,14 @@ function bookForm(cfg) {
 // USB-Handscanner ohne Warten weiterscannen kann. Mehrere/keine Treffer bleiben als offene Karte stehen.
 const RS_SETTINGS = "lw-record-scan";
 const RS_DONE = "lw-record-scan-done";
-function rsIsBarcode(code) { const d = String(code || "").replace(/[\s-]/g, ""); return /^\d+$/.test(d) && [8, 12, 13, 14].includes(d.length); }
+// Wie record_scan.clean_code: Steuerzeichen (CR/LF/ESC) weg; fast nur Ziffern (≥ 8 Ziffern, ≤ 3 andere Zeichen,
+// keine zwei Buchstaben hintereinander) -> nur die Ziffern.
+function rsClean(code) {
+  const s = String(code || "").replace(/[\u0000-\u001f\u007f-\u009f]/g, "").trim();
+  const d = s.replace(/\D/g, "");
+  return d.length >= 8 && s.length - d.length <= 3 && !/\p{L}{2}/u.test(s) ? d : s;
+}
+function rsIsBarcode(code) { const d = rsClean(code); return /^\d+$/.test(d) && [8, 11, 12, 13, 14, 15, 17, 18].includes(d.length); }
 
 function recordScan(cfg) {
   return {
@@ -232,7 +239,7 @@ function recordScan(cfg) {
       if (this.$refs.scan) this.$refs.scan.focus();
     },
     label(body) {
-      if (body.code && rsIsBarcode(body.code)) return "Barcode " + body.code;
+      if (body.code && rsIsBarcode(body.code)) { const d = rsClean(body.code); return "Barcode " + d + " (" + d.length + " Ziffern)"; }
       const parts = [body.catno || (body.code && !rsIsBarcode(body.code) ? body.code : ""), body.artist, body.album].filter(Boolean);
       return parts.length ? "Suche: " + parts.join(" · ") : "Scan";
     },
@@ -250,7 +257,7 @@ function recordScan(cfg) {
       this.focusScan();
     },
     async run(body) {
-      const barcode = body.scanned || (rsIsBarcode(body.code) ? body.code.trim() : "");
+      const barcode = body.scanned || (rsIsBarcode(body.code) ? rsClean(body.code) : "");
       const base = { key: ++this.seq, label: this.label(body), barcode, notes: [] };
       try {
         const r = await api("/api/v1/collection/records/scan", { ...this.set, ...body, scanned: barcode });
@@ -269,7 +276,8 @@ function recordScan(cfg) {
         } else if (r.status === "choose") {
           this.pending.unshift({ ...base, kind: "choose", hits: r.hits, notes });
         } else {
-          this.pending.unshift({ ...base, kind: "none", notes, variants: (r.query && r.query.variants) || [], catno: "", artist: "", album: "" });
+          this.pending.unshift({ ...base, kind: "none", notes, message: r.message || "", variants: (r.query && r.query.variants) || [],
+            catno: "", artist: "", album: "" });
         }
       } catch (e) {
         this.pending.unshift({ ...base, kind: "error", message: "Fehler: " + e.message, body });
